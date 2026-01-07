@@ -1,0 +1,123 @@
+## 可测试规则语言 (TRL) 定义
+
+以下是可测试规则语言 (TRL) 的完整定义，基于提供的元模型，并包含符号、语法、语义和可测试性约束四个部分。
+
+### 1. 符号系统 (Symbols)
+
+* **逻辑符号:**
+    * `IF`: 条件判断的起始标志。
+    * `AND`: 逻辑与操作符。
+    * `THEN`: 动作部分起始标志。
+    * `ELSE`:  可选的备选动作部分起始标志 (未在语法中直接体现，但语义上支持)。
+    * `ENDIF`: 条件判断的结束标志。
+* **比较符号:**
+    * `=`, `!=`: 等于、不等于。
+    * `>`, `<`, `>=`, `<=`: 大于、小于、大于等于、小于等于。
+* **领域符号 (基于元模型):**
+    * `Precondition`: 前置条件，例如 `BondType`, `TradingParticipant`, `InvestorType`, `OrderValidity`。
+    * `Operation`: 操作，例如 `TransactionPrice`, `TradingStatus`, `TradingMethod`, `OrderDirection`, `TradingTime`。
+    * `ExpectedOutcome`: 预期结果，例如 `SettlementMethod`, `SettlementCycle`, `Disclosure`, `Cancellation`, `RiskControl`, `TechnicalFault`, `Contract`, `Quantity`, `PriceRange`。
+* **数据类型:**
+    * `string`: 字符串类型，例如 `深圳证券交易所`。
+    * `number`: 数字类型，例如 `1000000`。
+
+### 2. 语法 (Syntax)
+
+使用 BNF 表示：
+
+```
+Rule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+Condition ::= Precondition Operator Value
+Action ::= Operation
+ExpectedOutcome ::= ExpectedOutcome
+Operator ::= "=" | "!=" | ">" | "<" | ">=" | "<="
+Value ::= string | number
+```
+
+**说明:**
+
+* `Condition` 由 `Precondition`、`Operator` 和 `Value` 组成，表示一个条件表达式。
+* `Action`  表示一个操作。
+* `ExpectedOutcome` 表示一个预期结果。
+* `Operator` 定义了比较运算符。
+* `Value` 可以是字符串或数字。
+
+### 3. 语义 (Semantics)
+
+采用操作语义 (Operational Semantics) 表示：
+
+* **Rule:** 一个规则定义了一个条件、一个操作和一个预期结果。如果条件满足，则执行操作，并验证预期结果是否成立。
+* **Condition:**  根据 `Precondition`、`Operator` 和 `Value` 的具体内容，进行数值或字符串比较。比较结果为真或假。
+* **Action:**  执行指定的 `Operation`。例如，`TradingMethod = "现券交易"` 表示执行现券交易操作。
+* **ExpectedOutcome:**  验证 `ExpectedOutcome` 是否与实际结果一致。例如，`SettlementMethod = "银行转账"` 表示预期结算方法为银行转账。
+
+**示例:**
+
+`IF BondType = "债券" AND TradingMethod = "现券交易" THEN SettlementMethod = "银行转账"`
+
+* **条件:** `BondType` 等于 "债券" 且 `TradingMethod` 等于 "现券交易"。
+* **操作:** 执行现券交易。
+* **预期结果:** `SettlementMethod` 等于 "银行转账"。
+
+### 4. 可测试性约束 (Testability Constraints) — 保证可测试性
+
+使用 OCL (Object Constraint Language) 定义：
+
+* **Constraint 1: 前置条件必须可观测**
+   `context Rule inv: Precondition.observable = true`
+   (假设 `Precondition` 类有一个 `observable` 属性，表示该前置条件的值是否可以被观察到。)
+
+* **Constraint 2: 预期结果必须可验证**
+   `context Rule inv: ExpectedOutcome.verifiable = true`
+   (假设 `ExpectedOutcome` 类有一个 `verifiable` 属性，表示该预期结果是否可以被验证。)
+
+* **Constraint 3: 操作必须可执行**
+    `context Rule inv: Operation.executable = true`
+    (假设 `Operation` 类有一个 `executable` 属性，表示该操作是否可以被执行。)
+
+* **Constraint 4: 条件表达式必须包含至少一个可观测的前置条件**
+    `context Rule inv: Condition.preconditions->select(p | p.observable = true)->notEmpty()`
+
+* **Constraint 5: 预期结果必须与操作相关联**
+    `context Rule inv: self.operation->excludes(ExpectedOutcome)`
+
+* **Constraint 6: 避免循环依赖**
+    `context Rule inv: not self.operation.preconditions->includes(self)`
+
+**说明:**
+
+* 这些约束旨在确保规则模型是可测试的。
+* `observable` 属性表示前置条件的值是否可以被观察到，例如可以通过查询数据库或 API 获取。
+* `verifiable` 属性表示预期结果是否可以被验证，例如可以通过断言或检查结果是否符合预期。
+* `executable` 属性表示操作是否可以被执行，例如可以通过调用函数或执行 SQL 语句。
+* Constraint 6 避免规则之间存在循环依赖，防止测试过程中出现无限循环。
+
+### TRL 的完整定义总结
+
+TRL 是一种基于元模型的、形式化的规则语言，用于描述可测试的规则。它使用简单的语法结构，并提供清晰的语义解释。通过可测试性约束，确保规则模型是可测试的，可以自动生成测试用例。
+
+### 示例
+
+**自然语言规则:**  "如果债券类型是债券，并且交易方式是现券交易，那么结算方式必须是银行转账。"
+
+**TRL 实例:**
+
+`Rule ::= "IF" BondType = "债券" "AND" TradingMethod = "现券交易" "THEN" SettlementMethod = "银行转账"`
+
+**可测试性判断:**
+
+* 检查 `BondType` 是否 `observable = true`。
+* 检查 `TradingMethod` 是否 `observable = true`。
+* 检查 `SettlementMethod` 是否 `verifiable = true`。
+* 检查 `Operation` 是否 `executable = true`。
+
+如果所有约束都满足，则该规则是可测试的。可以根据该规则自动生成测试用例，例如：
+
+* **测试用例 1:**
+    * 输入: `BondType = "债券"`，`TradingMethod = "现券交易"`
+    * 预期结果: `SettlementMethod = "银行转账"`
+* **测试用例 2:**
+    * 输入: `BondType = "资产支持证券"`，`TradingMethod = "现券交易"`
+    * 预期结果: `SettlementMethod != "银行转账"` (因为条件不满足，预期结果可以根据实际情况设定)
+
+这个例子展示了如何将自然语言规则转换为 TRL 实例，并判断其是否满足可测试性条件。  如果满足，则可以自动生成测试用例，方便进行自动化测试。

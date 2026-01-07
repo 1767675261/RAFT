@@ -1,0 +1,4380 @@
+[
+    {
+        "rule": "4 Requirements on generating plants",
+        "testcase": []
+    },
+    {
+        "rule": "4.1 General: This clause defines the requirements on generating plants to be operated in parallel with the distribution network. Where settings or a range of configurability is provided and respecting the legal framework the configurations and settings may be provided by the DSO. Where no settings are provided by the DSO, the specified default settings shall be used; if no default settings are provided, the producer shall propose settings and inform the DSO. The requirements of Clause 4 apply during normal operation of the generating units and do not apply in case of maintenance or units out of operation. The provisions apply to EESS in generation mode. In charging mode EESS should have the same characteristics, unless stated otherwise in the clauses of this European Standard. The applicability is independent of the duration the generating unit operates in parallel with the distribution network. It is the responsibility of the DSO to relax, if deemed appropriate, the requirements for an individual generating unit or plant whose operation in parallel only lasts for a short time (temporary operation in parallel). The relaxed requirements shall be agreed between the DSO and the producer, along with the maximum allowable duration of the temporary operation in parallel. For the short-term parallel operation an appropriate device shall automatically disconnect the generating unit or plant as soon as the maximum allowable duration has elapsed. If different requirements on the generating plant interfere with each other, the following hierarchy in descending order shall be applied: 1. Generating unit protection, including regarding the prime mover; 2. Interface protection (see 4.9) and protection against faults within the generating plant; 3. Voltage support during faults and voltage steps (see 4.7.4); 4. The lower value of: remote control command on active power limitation for distribution grid security (see 4.11) and local response to overfrequency (see 4.6.1); 5. Local response to underfrequency if applicable (see 4.6.2); 6. Reactive power (see 4.7.2) and active power (P(U) see 4.7.2) controls; 7. Other control commands on active power set point for e.g. market, economic reasons, self-consumption optimization. The system shall be so designed that under foreseeable conditions no self-protection trips prior to the fulfilment of the requirements of this European Standard and all settings provided by the DSO or responsible party. For cogeneration plants embedded in industrial sites, active power requirements shall be agreed between the responsible party and the producer. In such a case the priority list is adapted accordingly. Besides the requirements of Clause 4, additional requirements apply for connecting a generating plant to the distribution network, e.g. assessment of the point of connection. However, this is excluded from the scope of this European Standard but some guidance is provided in the informative Annex A. EN 50549-10 provides technical guidance for tests on generating units and interface protection to evaluate their electrical characteristics. EN 50549-10 shall be applied to evaluate the characteristics of generating units and interface protection used in generating plants relating to the requirements of this Standard. Electrical characteristics may alternatively be evaluated according to standards other than EN 50549-10, if the following prerequisites are fulfilled: - The alternative verification procedure covers all required technical aspects and characteristic quantities stipulated in EN 50549-1 and EN 50549-2, respectively. - The alternative verification procedure shall not be less stringent or technically less demanding than the correspondent verification procedure in EN 50549-10. - The alternative verification procedure leads to results of at least equivalent confidence level as EN 50549-10. - The equivalent or higher confidence level of the alternative verification procedure shall be confirmed by the entity stating compliance based upon these tests. - The entity stating compliance based upon these tests shall have sufficient expertise in both EN 50549-10 and the applied standard. NOTE: This also applies for a partial application of another standard only for specific functions or operational capabilities.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景描述": "DSO提供配置设置",
+    "操作人": "配电系统运营商",
+    "配置设置来源": "DSO提供",
+    "使用默认设置": "否",
+    "生产者提议设置": "否",
+    "运行状态": "正常运行",
+    "设备模式": "发电模式",
+    "结果": "使用DSO提供的设置"
+  },
+  {
+    "id": 2,
+    "场景描述": "DSO未提供设置且无默认设置",
+    "操作人": "发电厂生产者",
+    "配置设置来源": "生产者提议",
+    "使用默认设置": "否",
+    "生产者提议设置": "是",
+    "通知DSO": "是",
+    "运行状态": "正常运行",
+    "设备模式": "发电模式",
+    "结果": "生产者提议设置并通知DSO"
+  },
+  {
+    "id": 3,
+    "场景描述": "设备处于维护状态",
+    "操作人": "维护人员",
+    "配置设置来源": "DSO提供",
+    "运行状态": "维护状态",
+    "条款4要求适用性": "不适用",
+    "设备模式": "发电模式",
+    "结果": "条款4要求不适用"
+  },
+  {
+    "id": 4,
+    "场景描述": "储能系统充电模式",
+    "操作人": "系统操作员",
+    "运行状态": "正常运行",
+    "设备模式": "充电模式",
+    "特性要求": "与发电模式相同",
+    "结果": "适用相同特性要求"
+  },
+  {
+    "id": 5,
+    "场景描述": "短期并网运行-DSO放宽要求",
+    "操作人": "配电系统运营商",
+    "运行类型": "临时并网运行",
+    "要求放宽": "是",
+    "协议达成": "是",
+    "最大允许持续时间": "已设定",
+    "自动断开装置": "已配置",
+    "运行状态": "临时运行",
+    "结果": "按要求放宽协议执行"
+  },
+  {
+    "id": 6,
+    "场景描述": "保护要求冲突-优先级验证",
+    "操作人": "系统操作员",
+    "冲突类型": "多重要求冲突",
+    "优先级1": "发电机组保护",
+    "优先级2": "接口保护",
+    "优先级3": "故障期间电压支持",
+    "优先级4": "有功功率限制",
+    "优先级5": "低频响应",
+    "优先级6": "无功功率控制",
+    "优先级7": "其他控制命令",
+    "结果": "按优先级顺序执行"
+  },
+  {
+    "id": 7,
+    "场景描述": "自保护跳闸验证",
+    "操作人": "保护系统",
+    "预见条件": "正常工况",
+    "自保护跳闸": "不允许",
+    "标准要求履行": "优先",
+    "DSO设置执行": "优先",
+    "结果": "自保护不先于标准要求跳闸"
+  },
+  {
+    "id": 8,
+    "场景描述": "工业场所热电联产厂",
+    "操作人": "责任方与生产者",
+    "工厂类型": "工业场所热电联产",
+    "有功功率要求": "需协商",
+    "优先级列表": "相应调整",
+    "协议达成": "是",
+    "运行状态": "正常运行",
+    "结果": "按协商要求执行"
+  },
+  {
+    "id": 9,
+    "场景描述": "使用EN 50549-10标准验证",
+    "操作人": "测试工程师",
+    "验证标准": "EN 50549-10",
+    "覆盖技术要求": "完全覆盖",
+    "严格程度": "符合要求",
+    "置信水平": "等效或更高",
+    "专业知识": "具备",
+    "结果": "验证通过"
+  },
+  {
+    "id": 10,
+    "场景描述": "使用替代标准验证-置信水平不足",
+    "操作人": "测试工程师",
+    "验证标准": "替代标准",
+    "覆盖技术要求": "完全覆盖",
+    "严格程度": "符合要求",
+    "置信水平": "不足",
+    "专业知识": "具备",
+    "合规声明": "不能确认",
+    "结果": "验证不通过"
+  }
+]
+    },
+    {
+        "rule": "4.2 Connection scheme: The connection scheme of the generating plant shall be in compliance with the requirements of the DSO. Different requirements may be subject to agreement between the producer and the DSO depending on the power system needs. Inter alia, the generating plant shall ensure the following: synchronization, operation and disconnection under normal network operating conditions, i.e. in the absence of faults or malfunctions; faults and malfunctions within the generating plant shall not impair the normal functioning of the distribution network; coordinated operation of the interface switch with the generating unit switch, the main switch and switches in the distribution network, for faults or malfunctions within the generating plant or the DSO network during operation in parallel with the distribution network; and disconnection of the generating plant from the distribution network by tripping the interface switch according to 4.9. In order to satisfy the above functions, coordinated but independent switches and protection equipment may be applied in the generating plant, as shown in the example in Figure 2.",
+        "testcase": [{"id": 1, "操作人": "发电厂操作员", "操作": "同步操作", "操作目标": "发电厂并网连接", "网络状态": "正常无故障", "接口开关状态": "闭合", "发电机组开关状态": "闭合", "主开关状态": "闭合", "结果状态": "成功同步并网运行", "结果": "成功"}, {"id": 2, "操作人": "发电厂操作员", "操作": "正常断开操作", "操作目标": "发电厂与配电网断开", "网络状态": "正常无故障", "接口开关状态": "断开", "发电机组开关状态": "断开", "主开关状态": "断开", "结果状态": "正常断开连接", "结果": "成功"}, {"id": 3, "操作人": "系统自动保护", "操作": "内部故障处理", "操作目标": "发电厂内部故障隔离", "网络状态": "发电厂内部故障", "接口开关状态": "保持闭合", "发电机组开关状态": "断开", "主开关状态": "保持闭合", "结果状态": "故障被隔离，配电网正常运行不受影响", "结果": "成功"}, {"id": 4, "操作人": "系统自动保护", "操作": "内部故障处理", "操作目标": "发电厂内部故障隔离", "网络状态": "发电厂内部严重故障", "接口开关状态": "误动作断开", "发电机组开关状态": "断开", "主开关状态": "保持闭合", "结果状态": "接口开关误跳导致配电网供电中断", "结果": "失败"}, {"id": 5, "操作人": "系统自动保护", "操作": "协调保护动作", "操作目标": "DSO电网故障处理", "网络状态": "DSO电网故障", "接口开关状态": "根据4.9条款跳闸", "发电机组开关状态": "协调动作", "主开关状态": "协调动作", "结果状态": "各开关协调独立动作，发电厂安全断开", "结果": "成功"}, {"id": 6, "操作人": "系统自动保护", "操作": "协调保护动作", "操作目标": "发电厂与DSO电网故障处理", "网络状态": "发电厂与DSO电网同时故障", "接口开关状态": "未能按4.9条款跳闸", "发电机组开关状态": "动作不协调", "主开关状态": "动作不协调", "结果状态": "保护动作不协调导致故障扩大", "结果": "失败"}]
+    },
+    {
+        "rule": "4.3 Choice of switchgear",
+        "testcase": []
+    },
+    {
+        "rule": "4.3.1 General: Switches shall be chosen based on the characteristics of the power system in which they are intended to be installed. For this purpose, the short circuit current at the installation point shall be assessed, taking into account, inter alia, the short circuit current contribution of the generating plant.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "短路电流评估",
+    "安装点短路电流": "包含发电厂短路电流贡献",
+    "开关选型依据": "电力系统特性",
+    "开关选择结果": "符合要求",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "短路电流评估",
+    "安装点短路电流": "未包含发电厂短路电流贡献",
+    "开关选型依据": "电力系统特性",
+    "开关选择结果": "不符合要求",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "测试场景": "短路电流评估",
+    "安装点短路电流": "发电厂贡献计算错误",
+    "开关选型依据": "电力系统特性",
+    "开关选择结果": "不符合要求",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "测试场景": "开关选型",
+    "安装点短路电流": "超出开关额定短路容量",
+    "开关选型依据": "电力系统特性",
+    "开关选择结果": "不符合要求",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "测试场景": "开关选型",
+    "安装点短路电流": "在开关额定容量范围内",
+    "开关选型依据": "电力系统特性",
+    "开关选择结果": "符合要求",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.3.2 Interface switch: Switches shall be power relays, contactors or mechanical circuit breakers each having a breaking and making capacity corresponding to the rated current of the generating plant and corresponding to the short circuit contribution of the generating plant. The short-time withstand current of the switching devices shall be coordinated with rated short circuit power at the point of connection. In case of loss of auxiliary supply power to the switchgear, a secure disconnection of the switch is required immediately. Where means of isolation (according to HD 60364-5-551) is not required to be accessible to the DSO at all times, automatic disconnection with single fault tolerance according to 4.13 shall be provided. NOTE 1: For PV-inverters, further requirements are stated in EN 62109–1 and EN 62109–2 with respect to the interface switch. The function of the interface switch might be combined with either the main switch or the generating unit switch in a single switching device. In case of a combination, the single switching device shall be compliant to the requirements of both, the interface switch and the combined main switch or generating unit switch. As a consequence, at least two switches in series shall be present between any generating unit and the POC. NOTE 2: This does not refer to the number of series-connected switches in order to ensure single fault tolerance as required in 4.13 but to the number of different switching devices itself.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "接口开关额定容量验证",
+    "开关类型": "电源继电器",
+    "额定电流": "与发电厂额定电流匹配",
+    "短路容量": "与发电厂短路贡献匹配",
+    "短时耐受电流": "与连接点额定短路功率协调",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "接口开关额定容量验证",
+    "开关类型": "接触器",
+    "额定电流": "低于发电厂额定电流",
+    "短路容量": "与发电厂短路贡献不匹配",
+    "短时耐受电流": "与连接点额定短路功率不协调",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "测试场景": "辅助电源失电安全断开",
+    "开关类型": "机械断路器",
+    "辅助电源状态": "失电",
+    "断开要求": "立即安全断开",
+    "断开延迟": "立即执行",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "辅助电源失电安全断开",
+    "开关类型": "电源继电器",
+    "辅助电源状态": "失电",
+    "断开要求": "立即安全断开",
+    "断开延迟": "延迟执行",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "测试场景": "隔离装置可访问性验证",
+    "DSO可访问性": "不要求始终可访问",
+    "自动断开要求": "具备单故障容错",
+    "符合标准": "符合4.13条款",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "开关功能组合验证",
+    "开关配置": "接口开关与主开关组合",
+    "符合性要求": "同时满足接口开关和主开关要求",
+    "串联开关数量": "至少两个串联",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "开关功能组合验证",
+    "开关配置": "单一开关设备",
+    "符合性要求": "仅满足接口开关要求",
+    "串联开关数量": "只有一个开关",
+    "结果": "失败"
+  },
+  {
+    "id": 8,
+    "测试场景": "串联开关配置验证",
+    "发电单元到POC路径": "任意发电单元到连接点",
+    "串联开关数量": "两个以上串联开关",
+    "开关类型组合": "不同开关设备",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "光伏逆变器特殊要求",
+    "设备类型": "光伏逆变器",
+    "符合标准": "EN 62109-1和EN 62109-2",
+    "接口开关功能": "符合特殊要求",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.4 Normal operating range",
+        "testcase": []
+    },
+    {
+        "rule": "4.4.1 General: Generating plants when generating power shall have the capability to operate in the operating ranges specified below regardless of the topology and the settings of the interface protection.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "发电设备功率输出能力测试",
+    "发电设备类型": "火力发电机组",
+    "运行范围": "额定功率的20%-100%",
+    "电网拓扑结构": "单母线分段接线",
+    "接口保护设置": "过流保护启用",
+    "预期结果": "发电设备正常运行在指定范围内",
+    "测试结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "发电设备功率输出能力测试",
+    "发电设备类型": "水力发电机组",
+    "运行范围": "额定功率的30%-110%",
+    "电网拓扑结构": "双母线接线",
+    "接口保护设置": "低周波保护启用",
+    "预期结果": "发电设备正常运行在指定范围内",
+    "测试结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "发电设备功率输出能力测试",
+    "发电设备类型": "风力发电机组",
+    "运行范围": "额定功率的0%-100%",
+    "电网拓扑结构": "环网接线",
+    "接口保护设置": "过压保护启用",
+    "预期结果": "发电设备正常运行在指定范围内",
+    "测试结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "发电设备功率输出能力测试",
+    "发电设备类型": "光伏发电系统",
+    "运行范围": "额定功率的10%-100%",
+    "电网拓扑结构": "辐射状接线",
+    "接口保护设置": "所有保护功能启用",
+    "预期结果": "发电设备正常运行在指定范围内",
+    "测试结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.4.2 Operating frequency range: The generating plant shall be capable of operating continuously when the frequency at the point of connection stays within the range of 49 Hz to 51 Hz. In the frequency range from 47 Hz to 52 Hz the generating plant should be capable of operating until the interface protection trips. Therefore, the generating plant shall at least be capable of operating in the frequency ranges, for the duration and for the minimum requirement as indicated in Table 1. Respecting the legal framework, it is possible that for some synchronous areas more stringent time periods and/or frequency ranges will be required by the DSO and the responsible party. Nevertheless, they are expected to be within the boundaries of the stringent requirement as indicated in Table 1 unless producer, DSO, TSO and responsible party agree on wider frequency ranges and longer durations. NOTE 1: For small isolated distribution networks (typically on islands) even more stringent time periods and frequency ranges may be required. As long as generating modules with linear Sterling engines are recognized as emerging technology according to COMMISSION REGULATION (EU) 2016/631 Title 6, they are permitted to disconnect below 49,5 Hz and above 50,5 Hz. This permission does not affect the requirements for interface protection according to clause 4.9. In this case over and under frequency machine protection might trip prior to interface protection. If an integrated interface protection device is used, the reduction of the configuration range of the interface protection in clause 4.9 is acceptable. NOTE 2: The status of emerging technology in COMMISSION REGULATION (EU) 2016/631 Title 6 depends on the cumulative maximum capacity of this technology. Once the threshold in cumulative maximum capacity is reached the status will be withdrawn.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "正常频率范围内连续运行",
+    "频率": "49.5Hz",
+    "持续时间": "连续运行",
+    "发电厂类型": "常规发电厂",
+    "预期结果": "保持连接运行",
+    "测试结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "正常频率范围下限运行",
+    "频率": "49Hz",
+    "持续时间": "连续运行",
+    "发电厂类型": "常规发电厂",
+    "预期结果": "保持连接运行",
+    "测试结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "正常频率范围上限运行",
+    "频率": "51Hz",
+    "持续时间": "连续运行",
+    "发电厂类型": "常规发电厂",
+    "预期结果": "保持连接运行",
+    "测试结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "超出正常频率范围下限",
+    "频率": "48.5Hz",
+    "持续时间": "保护动作时间",
+    "发电厂类型": "常规发电厂",
+    "预期结果": "接口保护跳闸前保持运行",
+    "测试结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "超出正常频率范围上限",
+    "频率": "51.5Hz",
+    "持续时间": "保护动作时间",
+    "发电厂类型": "常规发电厂",
+    "预期结果": "接口保护跳闸前保持运行",
+    "测试结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "新兴技术低频断开",
+    "频率": "49.3Hz",
+    "持续时间": "瞬时",
+    "发电厂类型": "斯特林发动机新兴技术",
+    "预期结果": "允许断开连接",
+    "测试结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "新兴技术高频断开",
+    "频率": "50.7Hz",
+    "持续时间": "瞬时",
+    "发电厂类型": "斯特林发动机新兴技术",
+    "预期结果": "允许断开连接",
+    "测试结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "极端低频运行",
+    "频率": "47Hz",
+    "持续时间": "保护动作时间",
+    "发电厂类型": "常规发电厂",
+    "预期结果": "接口保护跳闸前保持运行",
+    "测试结果": "成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "极端高频运行",
+    "频率": "52Hz",
+    "持续时间": "保护动作时间",
+    "发电厂类型": "常规发电厂",
+    "预期结果": "接口保护跳闸前保持运行",
+    "测试结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "Table 1 - Minimum time periods for operation in underfrequency and overfrequency situations| Frequency Range | Time period for operation Minimum requirement | Time period for operation stringent requirement || --- | --- | --- || 47,0 Hz – 47,5 Hz | not required | 20 s || 47,5 Hz – 48,5 Hz | 30 min a | 90 min || 48,5 Hz – 49,0 Hz | 30 min a | 90 min a || 49,0 Hz – 51,0 Hz | Unlimited | Unlimited || 51,0 Hz – 51,5 Hz | 30 min a | 90 min || 51,5 Hz – 52,0 Hz | not required | 15 min |",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "低频运行测试-严格要求",
+    "频率范围": "47.0Hz-47.5Hz",
+    "频率值": "47.3Hz",
+    "运行时间": "20秒",
+    "预期结果": "系统应能持续运行20秒",
+    "测试类型": "严格要求正向测试"
+  },
+  {
+    "id": 2,
+    "测试场景": "低频运行测试-最低要求",
+    "频率范围": "47.0Hz-47.5Hz",
+    "频率值": "47.2Hz",
+    "运行时间": "0秒",
+    "预期结果": "系统无运行时间要求",
+    "测试类型": "最低要求正向测试"
+  },
+  {
+    "id": 3,
+    "测试场景": "低频运行边界测试",
+    "频率范围": "47.5Hz-48.5Hz",
+    "频率值": "47.5Hz",
+    "运行时间": "30分钟",
+    "预期结果": "系统应能持续运行30分钟",
+    "测试类型": "最低要求边界测试"
+  },
+  {
+    "id": 4,
+    "测试场景": "低频运行严格测试",
+    "频率范围": "47.5Hz-48.5Hz",
+    "频率值": "48.0Hz",
+    "运行时间": "90分钟",
+    "预期结果": "系统应能持续运行90分钟",
+    "测试类型": "严格要求正向测试"
+  },
+  {
+    "id": 5,
+    "测试场景": "正常频率运行测试",
+    "频率范围": "49.0Hz-51.0Hz",
+    "频率值": "50.0Hz",
+    "运行时间": "无限",
+    "预期结果": "系统应能无限时间运行",
+    "测试类型": "正向测试"
+  },
+  {
+    "id": 6,
+    "测试场景": "高频运行测试",
+    "频率范围": "51.0Hz-51.5Hz",
+    "频率值": "51.2Hz",
+    "运行时间": "30分钟",
+    "预期结果": "系统应能持续运行30分钟",
+    "测试类型": "最低要求正向测试"
+  },
+  {
+    "id": 7,
+    "测试场景": "高频运行严格测试",
+    "频率范围": "51.0Hz-51.5Hz",
+    "频率值": "51.3Hz",
+    "运行时间": "90分钟",
+    "预期结果": "系统应能持续运行90分钟",
+    "测试类型": "严格要求正向测试"
+  },
+  {
+    "id": 8,
+    "测试场景": "高频边界测试",
+    "频率范围": "51.5Hz-52.0Hz",
+    "频率值": "51.8Hz",
+    "运行时间": "15分钟",
+    "预期结果": "系统应能持续运行15分钟",
+    "测试类型": "严格要求正向测试"
+  },
+  {
+    "id": 9,
+    "测试场景": "超范围频率测试",
+    "频率范围": "超出范围",
+    "频率值": "46.5Hz",
+    "运行时间": "立即保护",
+    "预期结果": "系统应立即采取保护动作",
+    "测试类型": "反向测试"
+  },
+  {
+    "id": 10,
+    "测试场景": "运行时间不足测试",
+    "频率范围": "48.5Hz-49.0Hz",
+    "频率值": "48.8Hz",
+    "运行时间": "25分钟",
+    "预期结果": "系统运行时间不足应触发告警",
+    "测试类型": "反向测试"
+  }
+]
+    },
+    {
+        "rule": "Respecting the legal framework, it is possible that longer time periods are required by the responsible party in some synchronous areas.",
+        "testcase": []
+    },
+    {
+        "rule": "4.4.3 Minimal requirement for active power delivery at underfrequency: A generating plant shall be resilient to the reduction of frequency at the point of connection while reducing the maximum active power as little as possible. The admissible active power reduction due to underfrequency is limited by the full line in Figure 5 and is characterized by a maximum allowed reduction rate of 10 % of Pmax per 1 Hz for frequencies below 49,5 Hz. It is possible that a more stringent power reduction characteristic is required by the responsible party. Nevertheless this requirement is expected to be limited to an admissible active power reduction represented by the dotted line in Figure 5 which is characterised by a reduction rate of 2 % of the maximum power Pmax per 1 Hz for frequencies below 49 Hz. If any technologies intrinsic design or ambient conditions have influence on the power reduction behaviour of the system, the manufacturer shall specify at which ambient conditions the requirements can be fulfilled and eventual limitations. The information can be provided in the format of a graph showing the intrinsic behaviour of the generating unit for example at different ambient conditions. The power reduction and the ambient conditions shall comply with the specification given by the responsible party. If the generating unit does not meet the power reduction at the specified ambient conditions, the producer and the responsible party shall agree on acceptable ambient conditions.",
+        "testcase": []
+    },
+    {
+        "rule": "4.4.4 Continuous operating voltage range: When generating power, the generating plant shall be capable of operating continuously when the voltage at the point of connection stays within the range of 85 % Un to 110 % Un. Beyond these values the under and over voltage ride through immunity limits as specified in clause 4.5.3 and 4.5.4 shall apply. In case of voltages below Un, it is allowed to reduce the apparent power to maintain the current limits of the generating plant. The reduction shall be as small as technically feasible. For this requirement all phase to phase voltages and in case a neutral is connected, additionally all phase to neutral voltages shall be evaluated. NOTE: The specified accepted reduction of output power is an absolute minimum requirement. Further power system aspects might require maintained output power in the entire continuous operation voltage range. The producer shall take into account the typical voltage rise and voltage drop within the generating plant.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "正常运行电压范围测试",
+    "操作": "发电运行",
+    "操作目标": "发电厂并网点",
+    "电压范围": "85%Un至110%Un",
+    "电压类型": "相间电压",
+    "持续时间": "连续运行",
+    "输出功率要求": "维持额定输出功率",
+    "结果状态": "持续正常运行",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "边界电压下限测试",
+    "操作": "发电运行",
+    "操作目标": "发电厂并网点",
+    "电压值": "85%Un",
+    "电压类型": "相间电压",
+    "持续时间": "连续运行",
+    "输出功率要求": "维持额定输出功率",
+    "结果状态": "持续正常运行",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "边界电压上限测试",
+    "操作": "发电运行",
+    "操作目标": "发电厂并网点",
+    "电压值": "110%Un",
+    "电压类型": "相间电压",
+    "持续时间": "连续运行",
+    "输出功率要求": "维持额定输出功率",
+    "结果状态": "持续正常运行",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "超下限电压测试",
+    "操作": "发电运行",
+    "操作目标": "发电厂并网点",
+    "电压值": "84%Un",
+    "电压类型": "相间电压",
+    "持续时间": "连续运行",
+    "结果状态": "触发低电压穿越保护",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "测试场景": "超上限电压测试",
+    "操作": "发电运行",
+    "操作目标": "发电厂并网点",
+    "电压值": "111%Un",
+    "电压类型": "相间电压",
+    "持续时间": "连续运行",
+    "结果状态": "触发高电压穿越保护",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "测试场景": "低电压降容运行测试",
+    "操作": "发电运行",
+    "操作目标": "发电厂并网点",
+    "电压值": "80%Un",
+    "电压类型": "相间电压",
+    "持续时间": "连续运行",
+    "输出功率调整": "按技术可行最小程度降低视在功率",
+    "电流限制": "维持发电厂电流限值",
+    "结果状态": "降容运行但保持连接",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "相电压评估测试",
+    "操作": "发电运行",
+    "操作目标": "发电厂并网点",
+    "电压范围": "85%Un至110%Un",
+    "电压类型": "相对中性点电压",
+    "中性点连接状态": "已连接",
+    "持续时间": "连续运行",
+    "结果状态": "持续正常运行",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "电压波动适应性测试",
+    "操作": "发电运行",
+    "操作目标": "发电厂并网点",
+    "电压变化": "从90%Un波动至105%Un",
+    "电压类型": "相间电压和相对中性点电压",
+    "持续时间": "连续运行",
+    "输出功率要求": "维持稳定输出功率",
+    "结果状态": "适应电压波动并稳定运行",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.5 Immunity to disturbances",
+        "testcase": []
+    },
+    {
+        "rule": "4.5.1 General: In general, generating plants should contribute to overall power system stability by providing immunity towards dynamic voltage changes unless safety standards require a disconnection. The following clauses describe the required immunity for generating plants taking into account the connection technology of the generating modules. The following withstand capabilities shall be provided regardless of the settings of the interface protection. NOTE: An event on the HV and EHV transmission network can affect numerous small scale units on MV and LV level. Depending on the penetration of dispersed generation, a significant loss of active power provision can be caused. The described immunity requirements are independent of the interface protection settings. Disconnection settings of the interface protection relay always overrule technical capabilities. So, whether the generating plant will stay connected or not will also depend upon those settings.",
+        "testcase": []
+    },
+    {
+        "rule": "4.5.2 Rate of change of frequency (ROCOF) immunity: ROCOF immunity of a power generating plant means that the generating modules in this plant stay connected with the distribution network and are able to operate when the frequency on the distribution network changes with a specified ROCOF. The generating units and all elements in the generating plant that might cause their disconnection or impact their behaviour shall have the same level of immunity. The generating modules in a generating plant shall have ROCOF immunity to ROCOF equal or exceeding the value specified by the responsible party. If no ROCOF immunity value is specified, at least 2 Hz/s shall apply. The ROCOF immunity is defined with a sliding measurement window of 500 ms. NOTE 1: For control action based on frequency measurement shorter measurement periods are expected to be necessary. NOTE 2: For small isolated distribution networks (typically on islands) higher ROCOF immunity values might be required.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "频率变化率抗扰度测试",
+    "操作目标": "发电厂发电模块",
+    "频率变化率": "2 Hz/s",
+    "测量窗口": "500毫秒",
+    "网络类型": "常规配电网络",
+    "结果状态": "保持连接并正常运行",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "频率变化率抗扰度测试",
+    "操作目标": "发电厂发电模块",
+    "频率变化率": "1.5 Hz/s",
+    "测量窗口": "500毫秒",
+    "网络类型": "常规配电网络",
+    "结果状态": "保持连接并正常运行",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "频率变化率抗扰度测试",
+    "操作目标": "发电厂发电模块",
+    "频率变化率": "2.1 Hz/s",
+    "测量窗口": "500毫秒",
+    "网络类型": "常规配电网络",
+    "结果状态": "断开连接或运行异常",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "测试场景": "频率变化率抗扰度测试",
+    "操作目标": "发电厂发电模块",
+    "频率变化率": "3 Hz/s",
+    "测量窗口": "500毫秒",
+    "网络类型": "常规配电网络",
+    "结果状态": "断开连接或运行异常",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "测试场景": "频率变化率抗扰度测试",
+    "操作目标": "发电厂发电模块",
+    "频率变化率": "2 Hz/s",
+    "测量窗口": "300毫秒",
+    "网络类型": "常规配电网络",
+    "结果状态": "保持连接并正常运行",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "频率变化率抗扰度测试",
+    "操作目标": "发电厂发电模块",
+    "频率变化率": "4 Hz/s",
+    "测量窗口": "500毫秒",
+    "网络类型": "小型孤立电网",
+    "结果状态": "保持连接并正常运行",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "频率变化率抗扰度测试",
+    "操作目标": "发电厂发电模块",
+    "频率变化率": "5 Hz/s",
+    "测量窗口": "500毫秒",
+    "网络类型": "小型孤立电网",
+    "结果状态": "断开连接或运行异常",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "4.5.3 Under-voltage ride through (UVRT)",
+        "testcase": []
+    },
+    {
+        "rule": "4.5.3.1 General: Generating modules shall comply with the requirements of 4.5.3.2 and 4.5.3.3. Exempted from this requirement are small generating units below 50 kW of the following generation technologies: CHP, fuel cell, rotating machinery, hydro. NOTE 1: The power threshold of this exemption is expected to be reduced in future or the exception might be deleted completely especially once the installed capacity becomes relevant for the grid stability. The requirements apply to all kinds of faults (1ph, 2ph and 3ph). NOTE 2: A more distinctive differentiation for 1ph, 2ph and 3ph faults is under consideration. NOTE 3: The FRT curves in Figure 6, Figure 7 and Figure 8 describe the minimum requirements for continued connection of the generating plant to the grid. They are not designed for parameterising the interface protection.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "50kW以下CHP发电单元故障测试",
+    "发电单元类型": "热电联产",
+    "额定功率": "45kW",
+    "故障类型": "三相短路",
+    "电压跌落程度": "标称值的20%",
+    "持续时间": "625毫秒",
+    "适用要求": "4.5.3.2和4.5.3.3",
+    "豁免状态": "是",
+    "预期结果": "不受FRT要求约束",
+    "测试结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "50kW以下燃料电池发电单元故障测试",
+    "发电单元类型": "燃料电池",
+    "额定功率": "30kW",
+    "故障类型": "两相短路",
+    "电压跌落程度": "标称值的15%",
+    "持续时间": "500毫秒",
+    "适用要求": "4.5.3.2和4.5.3.3",
+    "豁免状态": "是",
+    "预期结果": "不受FRT要求约束",
+    "测试结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "50kW以下旋转电机发电单元故障测试",
+    "发电单元类型": "旋转电机",
+    "额定功率": "40kW",
+    "故障类型": "单相短路",
+    "电压跌落程度": "标称值的10%",
+    "持续时间": "300毫秒",
+    "适用要求": "4.5.3.2和4.5.3.3",
+    "豁免状态": "是",
+    "预期结果": "不受FRT要求约束",
+    "测试结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "50kW以下水力发电单元故障测试",
+    "发电单元类型": "水力发电",
+    "额定功率": "25kW",
+    "故障类型": "三相短路",
+    "电压跌落程度": "标称值的5%",
+    "持续时间": "200毫秒",
+    "适用要求": "4.5.3.2和4.5.3.3",
+    "豁免状态": "是",
+    "预期结果": "不受FRT要求约束",
+    "测试结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "50kW以上光伏发电单元三相故障测试",
+    "发电单元类型": "光伏发电",
+    "额定功率": "100kW",
+    "故障类型": "三相短路",
+    "电压跌落程度": "标称值的20%",
+    "持续时间": "625毫秒",
+    "适用要求": "4.5.3.2和4.5.3.3",
+    "豁免状态": "否",
+    "预期结果": "必须满足FRT要求保持连接",
+    "测试结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "50kW以上风力发电单元两相故障测试",
+    "发电单元类型": "风力发电",
+    "额定功率": "80kW",
+    "故障类型": "两相短路",
+    "电压跌落程度": "标称值的15%",
+    "持续时间": "500毫秒",
+    "适用要求": "4.5.3.2和4.5.3.3",
+    "豁免状态": "否",
+    "预期结果": "必须满足FRT要求保持连接",
+    "测试结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "50kW以上光伏发电单元单相故障测试",
+    "发电单元类型": "光伏发电",
+    "额定功率": "60kW",
+    "故障类型": "单相短路",
+    "电压跌落程度": "标称值的10%",
+    "持续时间": "300毫秒",
+    "适用要求": "4.5.3.2和4.5.3.3",
+    "豁免状态": "否",
+    "预期结果": "必须满足FRT要求保持连接",
+    "测试结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "非豁免技术类型50kW以下发电单元测试",
+    "发电单元类型": "光伏发电",
+    "额定功率": "45kW",
+    "故障类型": "三相短路",
+    "电压跌落程度": "标称值的20%",
+    "持续时间": "625毫秒",
+    "适用要求": "4.5.3.2和4.5.3.3",
+    "豁免状态": "否",
+    "预期结果": "必须满足FRT要求保持连接",
+    "测试结果": "成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "豁免技术类型50kW以上发电单元测试",
+    "发电单元类型": "热电联产",
+    "额定功率": "60kW",
+    "故障类型": "三相短路",
+    "电压跌落程度": "标称值的20%",
+    "持续时间": "625毫秒",
+    "适用要求": "4.5.3.2和4.5.3.3",
+    "豁免状态": "否",
+    "预期结果": "必须满足FRT要求保持连接",
+    "测试结果": "成功"
+  },
+  {
+    "id": 10,
+    "测试场景": "边界功率值50kW发电单元测试",
+    "发电单元类型": "旋转电机",
+    "额定功率": "50kW",
+    "故障类型": "三相短路",
+    "电压跌落程度": "标称值的20%",
+    "持续时间": "625毫秒",
+    "适用要求": "4.5.3.2和4.5.3.3",
+    "豁免状态": "否",
+    "预期结果": "必须满足FRT要求保持连接",
+    "测试结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.5.3.2 Generating plant with non-synchronous generating technology: Generating modules shall be capable of remaining connected to the distribution network as long as the voltage at the point of connection remains above the voltage-time curve of Figure 6. The voltage is relative to Un. The smallest phase to neutral voltage, or if no neutral is present, the smallest phase to phase voltage shall be evaluated. The responsible party may define a different UVRT characteristic. Nevertheless, this requirement is expected to be limited to the most stringent curve as indicated in Figure 6. This means that the whole generating module has to comply with the UVRT requirement. This includes all elements in a generating plant: the generating units and all elements that might cause their disconnection. For the generating unit, this requirement is considered to be fulfilled if it stays connected to the distribution grid as long as the voltage at its terminals remains above the defined voltage-time diagram. After the voltage returns to continuous operating voltage range, 90 % of pre-fault power or available power whichever is the smallest shall be resumed as fast as possible, but at the latest within 1 s unless the DSO and the responsible party requires another value.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "正常低电压穿越测试",
+    "操作目标": "非同步发电技术发电单元",
+    "电压跌落程度": "高于图6电压-时间曲线要求",
+    "电压类型": "相电压最小值",
+    "持续时间": "在图6曲线允许范围内",
+    "预期连接状态": "保持并网连接",
+    "功率恢复要求": "电压恢复后1秒内恢复90%故障前功率或可用功率的较小值",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "边界电压跌落测试",
+    "操作目标": "非同步发电技术发电单元",
+    "电压跌落程度": "处于图6电压-时间曲线边界值",
+    "电压类型": "相电压最小值",
+    "持续时间": "图6曲线规定的最大允许时间",
+    "预期连接状态": "保持并网连接",
+    "功率恢复要求": "电压恢复后1秒内恢复90%故障前功率或可用功率的较小值",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "超出UVRT能力测试",
+    "操作目标": "非同步发电技术发电单元",
+    "电压跌落程度": "低于图6电压-时间曲线要求",
+    "电压类型": "相电压最小值",
+    "持续时间": "超出图6曲线允许时间",
+    "预期连接状态": "允许脱网",
+    "功率恢复要求": "不适用",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "测试场景": "最严格曲线合规测试",
+    "操作目标": "整个发电模块",
+    "电压跌落程度": "最严格图6曲线要求",
+    "电压类型": "相电压最小值",
+    "持续时间": "最严格曲线规定时间",
+    "预期连接状态": "发电单元及所有相关元件保持连接",
+    "功率恢复要求": "电压恢复后1秒内恢复90%故障前功率或可用功率的较小值",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "功率恢复能力测试",
+    "操作目标": "非同步发电技术发电单元",
+    "电压跌落程度": "符合图6曲线要求",
+    "电压类型": "相电压最小值",
+    "持续时间": "在规定范围内",
+    "预期连接状态": "保持并网连接",
+    "功率恢复时间": "1秒内",
+    "功率恢复水平": "90%故障前功率",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "功率恢复超时测试",
+    "操作目标": "非同步发电技术发电单元",
+    "电压跌落程度": "符合图6曲线要求",
+    "电压类型": "相电压最小值",
+    "持续时间": "在规定范围内",
+    "预期连接状态": "保持并网连接",
+    "功率恢复时间": "超过1秒",
+    "功率恢复水平": "未达到90%故障前功率",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "测试场景": "无中性线系统测试",
+    "操作目标": "非同步发电技术发电单元",
+    "电压跌落程度": "高于图6电压-时间曲线要求",
+    "电压类型": "相间电压最小值",
+    "持续时间": "在图6曲线允许范围内",
+    "预期连接状态": "保持并网连接",
+    "功率恢复要求": "电压恢复后1秒内恢复90%故障前功率或可用功率的较小值",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "可用功率小于故障前功率测试",
+    "操作目标": "非同步发电技术发电单元",
+    "电压跌落程度": "符合图6曲线要求",
+    "电压类型": "相电压最小值",
+    "持续时间": "在规定范围内",
+    "预期连接状态": "保持并网连接",
+    "功率恢复要求": "电压恢复后1秒内恢复90%可用功率",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.5.3.3 Generating plant with synchronous generating technology: Generating modules shall be capable of staying connected to the distribution network as long as the voltage at the point of connection remains above the voltage-time curve of Figure 7. The voltage is relative to Un. The smallest phase to neutral voltage or if no neutral is present the smallest phase to phase voltage shall be evaluated. The responsible party may define a different UVRT characteristic. Nevertheless, this requirement is expected to be limited to the most stringent curve, indicated in Figure 7. This means that the whole generating module has to comply with the UVRT requirement. This includes all elements in a generating plant: the generating units and all elements that might cause their disconnection. For the generating unit, this requirement is considered to be fulfilled if it stays connected to the distribution grid as long as the voltage at its terminals remains above the defined voltage-time diagram. After the voltage returns to continuous operating voltage range, 90 % of pre-fault power or available power whichever is the smallest shall be resumed as fast as possible, but at the latest within 3 s unless the DSO and the responsible party requires another value.",
+        "testcase": [{
+    "id": 1,
+    "测试场景": "正常电压保持连接",
+    "操作目标": "同步发电机组并网点",
+    "电压条件": "高于图7电压-时间曲线",
+    "持续时间": "符合图7要求",
+    "电压类型": "最小相电压",
+    "预期状态": "保持并网连接",
+    "结果": "成功"
+}, {
+    "id": 2,
+    "测试场景": "电压低于曲线要求",
+    "操作目标": "同步发电机组并网点",
+    "电压条件": "低于图7电压-时间曲线",
+    "持续时间": "超出图7限值",
+    "电压类型": "最小相电压",
+    "预期状态": "允许脱网",
+    "结果": "成功"
+}, {
+    "id": 3,
+    "测试场景": "最严格曲线验证",
+    "操作目标": "整个发电模块",
+    "电压条件": "符合最严格UVRT特性",
+    "持续时间": "边界值测试",
+    "电压类型": "最小相电压",
+    "预期状态": "保持连接",
+    "结果": "成功"
+}, {
+    "id": 4,
+    "测试场景": "故障后功率恢复",
+    "操作目标": "发电机组",
+    "电压条件": "恢复到持续运行电压范围",
+    "恢复时间": "3秒内",
+    "恢复功率": "90%故障前功率或可用功率的较小值",
+    "预期状态": "功率正常恢复",
+    "结果": "成功"
+}, {
+    "id": 5,
+    "测试场景": "功率恢复超时",
+    "操作目标": "发电机组",
+    "电压条件": "恢复到持续运行电压范围",
+    "恢复时间": "超过3秒",
+    "恢复功率": "未达到要求值",
+    "预期状态": "恢复失败",
+    "结果": "失败"
+}, {
+    "id": 6,
+    "测试场景": "相间电压评估",
+    "操作目标": "无中性点系统",
+    "电压条件": "最小相间电压高于曲线",
+    "持续时间": "符合图7要求",
+    "电压类型": "最小相间电压",
+    "预期状态": "保持连接",
+    "结果": "成功"
+}, {
+    "id": 7,
+    "测试场景": "责任方定义特性",
+    "操作目标": "发电机组",
+    "电压条件": "符合责任方定义的UVRT特性",
+    "持续时间": "符合自定义要求",
+    "电压类型": "最小相电压",
+    "预期状态": "保持连接",
+    "结果": "成功"
+}]
+    },
+    {
+        "rule": "4.5.4 Over-voltage ride through (OVRT): Generating modules shall be capable of staying connected to the distribution network as long as the voltage at the point of connection remains below the voltage-time curve of Figure 8. The highest phase to neutral voltage or if no neutral is present the highest phase to phase voltage shall be evaluated. In case of pre-fault voltages below nominal voltage and a voltage step of more than 25 % Un disconnection is allowed. This means that not only the generating units shall comply with this OVRT requirement but also all elements in a generating plant that might cause its disconnection. Exempted from this requirement are small generating units below 50 kW of the following generation technologies: CHP, fuel cell, rotating machinery, hydro. NOTE 1: Exemption is acceptable for CHP, fuel cell, and generating units based on rotating machinery below 50 kW as EN 50465 for gas appliance requests disconnection in case of over voltage. NOTE 2: This is a minimum requirement. Further power system stability aspects might be relevant. The technical discussion is still ongoing. A voltage jump of +10 % of Uc from any stable point of operation is considered. In case of steady-state voltages near the maximum voltage before the event, this will result in an over voltage situation for many seconds. In later editions of this document, more stringent immunity might be required.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "正常过电压穿越测试",
+    "发电单元类型": "光伏发电单元",
+    "额定功率": "100kW",
+    "连接点电压": "低于图8电压-时间曲线",
+    "电压类型": "相电压",
+    "电压跳变幅度": "+8%Uc",
+    "初始电压": "标称电压",
+    "结果状态": "保持并网连接",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "超出电压-时间曲线测试",
+    "发电单元类型": "风力发电单元", 
+    "额定功率": "200kW",
+    "连接点电压": "高于图8电压-时间曲线",
+    "电压类型": "相电压",
+    "电压跳变幅度": "+15%Uc",
+    "初始电压": "标称电压",
+    "结果状态": "允许脱网",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "大电压跳变测试",
+    "发电单元类型": "光伏发电单元",
+    "额定功率": "150kW",
+    "连接点电压": "低于图8电压-时间曲线",
+    "电压类型": "相电压",
+    "电压跳变幅度": "+30%Un",
+    "初始电压": "低于标称电压",
+    "结果状态": "允许脱网",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "小容量发电单元豁免测试",
+    "发电单元类型": "热电联产(CHP)",
+    "额定功率": "40kW",
+    "连接点电压": "过电压情况",
+    "电压类型": "相电压",
+    "电压跳变幅度": "+12%Uc",
+    "初始电压": "标称电压",
+    "结果状态": "允许脱网",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "边界电压跳变测试",
+    "发电单元类型": "燃料电池",
+    "额定功率": "30kW",
+    "连接点电压": "低于图8电压-时间曲线",
+    "电压类型": "相电压",
+    "电压跳变幅度": "+10%Uc",
+    "初始电压": "最大稳态电压",
+    "结果状态": "保持并网连接",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "非豁免发电单元过电压测试",
+    "发电单元类型": "光伏发电单元",
+    "额定功率": "30kW",
+    "连接点电压": "低于图8电压-时间曲线",
+    "电压类型": "相电压",
+    "电压跳变幅度": "+12%Uc",
+    "初始电压": "标称电压",
+    "结果状态": "保持并网连接",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "相间电压测试",
+    "发电单元类型": "风力发电单元",
+    "额定功率": "100kW",
+    "连接点电压": "低于图8电压-时间曲线",
+    "电压类型": "相间电压",
+    "电压跳变幅度": "+9%Uc",
+    "初始电压": "标称电压",
+    "结果状态": "保持并网连接",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.5.5 Phase jump immunity: Phase jump immunity of a power generating plant means that the generating modules in this plant stay connected with the distribution network and are able to operate during and after the occurrence of a phase jump. The generating units and all elements in the generating plant that might cause their disconnection or impact their behaviour shall have the same level of immunity. The generating modules in a generating plant shall have phase jump immunity equal to or exceeding 20° in case of a symmetrical phase jump. After the phase jump, 90 % of pre-fault power or available power whichever is the smallest shall be resumed as fast as possible, but at the latest within 3 s in case of synchronous generating technologies and within 1 s in case of non-synchronous generating technologies. NOTE 1: Asymmetrical phase jumps as present in case of phase to phase faults are included in the requirement of UVRT. NOTE 2: Generating units based on converter connected generation technology are typically immune to phase jumps up to 50°. NOTE 3: The 20° value is considered a state of the art immunity present for all generating technologies. System studies currently in preparation might result in the need for higher immunity levels for the next edition of this standard.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "对称相位跳变免疫测试",
+    "操作目标": "发电厂发电模块",
+    "相位跳变角度": "20°",
+    "发电技术类型": "同步发电技术",
+    "跳变后功率恢复要求": "90%故障前功率或可用功率中的较小值",
+    "功率恢复时间": "3秒内",
+    "连接状态": "保持并网连接",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "对称相位跳变免疫测试",
+    "操作目标": "发电厂发电模块",
+    "相位跳变角度": "20°",
+    "发电技术类型": "非同步发电技术",
+    "跳变后功率恢复要求": "90%故障前功率或可用功率中的较小值",
+    "功率恢复时间": "1秒内",
+    "连接状态": "保持并网连接",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "对称相位跳变免疫测试",
+    "操作目标": "发电厂发电模块",
+    "相位跳变角度": "15°",
+    "发电技术类型": "同步发电技术",
+    "跳变后功率恢复要求": "90%故障前功率或可用功率中的较小值",
+    "功率恢复时间": "3秒内",
+    "连接状态": "保持并网连接",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "对称相位跳变免疫测试",
+    "操作目标": "发电厂发电模块",
+    "相位跳变角度": "25°",
+    "发电技术类型": "同步发电技术",
+    "跳变后功率恢复要求": "90%故障前功率或可用功率中的较小值",
+    "功率恢复时间": "4秒",
+    "连接状态": "断开连接",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "测试场景": "对称相位跳变免疫测试",
+    "操作目标": "发电厂发电模块",
+    "相位跳变角度": "25°",
+    "发电技术类型": "非同步发电技术",
+    "跳变后功率恢复要求": "90%故障前功率或可用功率中的较小值",
+    "功率恢复时间": "2秒",
+    "连接状态": "断开连接",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "测试场景": "对称相位跳变免疫测试",
+    "操作目标": "发电厂发电模块",
+    "相位跳变角度": "20°",
+    "发电技术类型": "同步发电技术",
+    "跳变后功率恢复要求": "85%故障前功率或可用功率中的较小值",
+    "功率恢复时间": "3秒内",
+    "连接状态": "保持并网连接",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "测试场景": "对称相位跳变免疫测试",
+    "操作目标": "发电厂发电模块",
+    "相位跳变角度": "20°",
+    "发电技术类型": "非同步发电技术",
+    "跳变后功率恢复要求": "95%故障前功率或可用功率中的较小值",
+    "功率恢复时间": "1.5秒",
+    "连接状态": "保持并网连接",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "4.6 Active response to frequency deviation",
+        "testcase": []
+    },
+    {
+        "rule": "4.6.1 Power response to overfrequency: Generating plants shall be capable of activating active power response to overfrequency at a programmable frequency threshold f1 at least between and including 50,2 Hz and 52 Hz with a programmable droop in a range of at least s=2 % to s=12 %. The droop reference is Pref. Unless defined differently by the responsible party: Pref=Pmax, in the case of synchronous generating technology and electrical energy storage systems. Pref=PM, the actual AC output power at the instant when the frequency reaches the threshold f1, in the case of all other non-synchronous generating technology. The power value calculated according to the droop is a maximum power limit. If e.g. the available primary power decreases during a high frequency period below the power defined by the droop function, lower power values are permitted. With ΔP=(1/s)·((f1-f)/fn)·Pref, where f is the actual frequency, the maximum power limit is: Pmax-limit=PM+ΔP. NOTE 1: In other documents power response to overfrequency can also be described as frequency control or Limited Frequency Sensitive Mode - Overfrequency (LFSM-O). NOTE 2: The active power droop relative to the reference power might also be defined as an active power gradient relative to the reference power. A droop in the range of 2 % to 12 % represents a gradient of 100 % to 16,7 % Pref /Hz so with g defined by g[P/Pref / Hz]=(1/(s·fn)) we get ΔP=g·Pref·(f1-f). The generating plant shall be capable of activating active power response to overfrequency as fast as technically feasible with an intrinsic dead time that shall be as short as possible with a maximum of 2 s. An intentional delay shall be programmable to adjust the dead time to a value between the intrinsic dead time and 2 s. The response time shall be as fast as technically feasible. EXAMPLE: - The following response times are considered technically feasible for specific generating technologies. - For PV and battery inverters below 1 s for ΔP of 100 % Pmax. - For wind turbines 2 s for ΔP<50 % Pmax. - For combustion engines, gas turbines, fuel cells below 2 MW 66 % /min for a 100 % change. - For combustion engines, gas turbines, fuel cells above 2 MW 20 % /min for a 100 % change. After activation, the active power frequency response shall use the actual frequency at any time, reacting to any frequency increase or decrease according to the programmed droop with an accuracy of ± 10 % of the nominal power (see Figure 9). The resolution of the frequency measurement shall be ± 10 mHz or less. The accuracy is evaluated with a 1 min average value. At POC, loads if present in the producer’s network might interfere with the response of the generating plant. The effect of loads is not considered for the evaluation of the accuracy, only the behaviour of the generating plant is relevant. NOTE 4: With the provision above, the intentional delay is only active for the activation of the function, once the function is operating, the established control loop is not intentionally delayed. NOTE 5: The option of an intentional delay is required since a very fast and undelayed active power frequency response in case of loss of mains would correct any excess of generation leading to a generation-consumption balance. In these circumstances, an unintended islanding situation with stable frequency would take place, in which the correct behaviour of any loss of mains detection based on frequency might be hindered. NOTE 6: The intentional delay is considered relevant for power system stability. For that reason, legal regulations might require a mutual agreement on the setting between DSO, responsible party and TSO. Generating plants reaching their minimum regulating level shall, in the event of further frequency increase, maintain this power level constant unless the DSO and the responsible party requires to disconnect the complete plant or if the plant consists of multiple units by disconnecting individual units. The active power frequency response is only deactivated if the frequency falls below the frequency threshold f1. If required by the DSO and the responsible party an additional deactivation threshold frequency fstop shall be programmable in the range of at least 50 Hz to f1. If fstop is configured to a frequency below f1 there shall be no response according to the droop in case of a frequency decrease (see Figure 10). The output power is kept constant until the frequency falls below fstop for a configurable time tstop. If at the time of deactivation of the active power frequency response the momentary active power PM is below the available active power PA, the active power increase of the generating plant shall not exceed the gradient defined in 4.10.2. Settings for the threshold frequency f1, the droop and the intentional delay are provided by the DSO and the responsible party. If no settings are provided, the default settings in Table 2 should be applied. NOTE 7: When applying active power response to overfrequency, the frequency threshold f1 should be set to a value from 50,2 Hz up to 50,5 Hz. Setting the frequency threshold f1 to 52 Hz is considered as deactivating this function.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "同步发电技术正常过频响应",
+    "发电技术类型": "同步发电",
+    "频率阈值f1": "50.2Hz",
+    "实际频率f": "50.5Hz",
+    "下垂系数s": "5%",
+    "参考功率Pref": "Pmax",
+    "额定频率fn": "50Hz",
+    "死区时间": "1s",
+    "预期最大功率限制": "计算值",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "非同步发电技术正常过频响应",
+    "发电技术类型": "非同步发电",
+    "频率阈值f1": "51.0Hz",
+    "实际频率f": "51.5Hz",
+    "下垂系数s": "8%",
+    "参考功率Pref": "PM",
+    "额定频率fn": "50Hz",
+    "死区时间": "1.5s",
+    "预期最大功率限制": "计算值",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "频率低于阈值不触发响应",
+    "发电技术类型": "同步发电",
+    "频率阈值f1": "50.3Hz",
+    "实际频率f": "50.1Hz",
+    "下垂系数s": "6%",
+    "参考功率Pref": "Pmax",
+    "额定频率fn": "50Hz",
+    "死区时间": "1s",
+    "预期最大功率限制": "无限制",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "下垂系数超出范围设置失败",
+    "发电技术类型": "同步发电",
+    "频率阈值f1": "50.5Hz",
+    "实际频率f": "51.0Hz",
+    "下垂系数s": "1%",
+    "参考功率Pref": "Pmax",
+    "额定频率fn": "50Hz",
+    "死区时间": "1s",
+    "预期最大功率限制": "设置失败",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "测试场景": "频率阈值超出范围设置失败",
+    "发电技术类型": "非同步发电",
+    "频率阈值f1": "52.5Hz",
+    "实际频率f": "52.5Hz",
+    "下垂系数s": "10%",
+    "参考功率Pref": "PM",
+    "额定频率fn": "50Hz",
+    "死区时间": "1s",
+    "预期最大功率限制": "设置失败",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "测试场景": "死区时间超过最大限制",
+    "发电技术类型": "同步发电",
+    "频率阈值f1": "50.4Hz",
+    "实际频率f": "50.8Hz",
+    "下垂系数s": "4%",
+    "参考功率Pref": "Pmax",
+    "额定频率fn": "50Hz",
+    "死区时间": "3s",
+    "预期最大功率限制": "设置失败",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "测试场景": "可用功率低于下垂函数定义功率",
+    "发电技术类型": "光伏发电",
+    "频率阈值f1": "50.6Hz",
+    "实际频率f": "51.2Hz",
+    "下垂系数s": "7%",
+    "参考功率Pref": "PM",
+    "额定频率fn": "50Hz",
+    "死区时间": "0.8s",
+    "可用功率": "低于计算限制",
+    "预期最大功率限制": "允许较低功率值",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "频率测量分辨率测试",
+    "发电技术类型": "同步发电",
+    "频率阈值f1": "50.3Hz",
+    "实际频率f": "50.305Hz",
+    "下垂系数s": "9%",
+    "参考功率Pref": "Pmax",
+    "额定频率fn": "50Hz",
+    "死区时间": "1s",
+    "频率测量分辨率": "±10mHz",
+    "预期最大功率限制": "计算值",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "功率响应精度测试",
+    "发电技术类型": "非同步发电",
+    "频率阈值f1": "50.8Hz",
+    "实际频率f": "51.5Hz",
+    "下垂系数s": "11%",
+    "参考功率Pref": "PM",
+    "额定频率fn": "50Hz",
+    "死区时间": "1.2s",
+    "精度要求": "±10%额定功率",
+    "评估时间": "1分钟平均值",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "测试场景": "使用停用阈值fstop",
+    "发电技术类型": "同步发电",
+    "频率阈值f1": "50.5Hz",
+    "停用阈值fstop": "50.2Hz",
+    "实际频率f": "50.1Hz",
+    "下垂系数s": "6%",
+    "参考功率Pref": "Pmax",
+    "额定频率fn": "50Hz",
+    "停用时间tstop": "可配置",
+    "预期行为": "无下垂响应，功率保持恒定",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "Table 2 - Standard settings for frequency response to overfrequency| Parameter | Range | Default setting || --- | --- | --- || Threshold frequency f1 | 50,2 Hz to 52 Hz | 50,2 Hz || Deactivation threshold fstop | 50,0 Hz to f1 | Deactivated || Deactivation time tstop | 0 to 600 s | 30s || Droop | 2 % to 12 % | 5 % || Intentional delay | 0 s to 2 s | 0 s |",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "正常过频响应",
+    "频率": "50.5 Hz",
+    "阈值频率f1": "50.2 Hz",
+    "停用阈值fstop": "停用",
+    "停用时间tstop": "30秒",
+    "下垂率": "5%",
+    "故意延迟": "0秒",
+    "预期结果": "激活频率响应，按5%下垂率降低功率",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "频率低于阈值",
+    "频率": "50.1 Hz",
+    "阈值频率f1": "50.2 Hz",
+    "停用阈值fstop": "停用",
+    "停用时间tstop": "30秒",
+    "下垂率": "5%",
+    "故意延迟": "0秒",
+    "预期结果": "不激活频率响应",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "频率达到上限边界",
+    "频率": "52.0 Hz",
+    "阈值频率f1": "50.2 Hz",
+    "停用阈值fstop": "停用",
+    "停用时间tstop": "30秒",
+    "下垂率": "5%",
+    "故意延迟": "0秒",
+    "预期结果": "激活频率响应，按5%下垂率降低功率",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "频率超过上限",
+    "频率": "52.1 Hz",
+    "阈值频率f1": "50.2 Hz",
+    "停用阈值fstop": "停用",
+    "停用时间tstop": "30秒",
+    "下垂率": "5%",
+    "故意延迟": "0秒",
+    "预期结果": "系统应提供保护性响应或报警",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "最小下垂率测试",
+    "频率": "50.5 Hz",
+    "阈值频率f1": "50.2 Hz",
+    "停用阈值fstop": "停用",
+    "停用时间tstop": "30秒",
+    "下垂率": "2%",
+    "故意延迟": "0秒",
+    "预期结果": "激活频率响应，按2%下垂率降低功率",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "最大下垂率测试",
+    "频率": "50.5 Hz",
+    "阈值频率f1": "50.2 Hz",
+    "停用阈值fstop": "停用",
+    "停用时间tstop": "30秒",
+    "下垂率": "12%",
+    "故意延迟": "0秒",
+    "预期结果": "激活频率响应，按12%下垂率降低功率",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "最大故意延迟测试",
+    "频率": "50.5 Hz",
+    "阈值频率f1": "50.2 Hz",
+    "停用阈值fstop": "停用",
+    "停用时间tstop": "30秒",
+    "下垂率": "5%",
+    "故意延迟": "2秒",
+    "预期结果": "延迟2秒后激活频率响应",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "停用阈值激活测试",
+    "频率": "50.5 Hz",
+    "阈值频率f1": "50.2 Hz",
+    "停用阈值fstop": "50.3 Hz",
+    "停用时间tstop": "30秒",
+    "下垂率": "5%",
+    "故意延迟": "0秒",
+    "预期结果": "当频率降至50.3Hz时，在30秒内停用频率响应",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "最小停用时间测试",
+    "频率": "50.5 Hz",
+    "阈值频率f1": "50.2 Hz",
+    "停用阈值fstop": "50.3 Hz",
+    "停用时间tstop": "0秒",
+    "下垂率": "5%",
+    "故意延迟": "0秒",
+    "预期结果": "当频率降至停用阈值时立即停用响应",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "测试场景": "最大停用时间测试",
+    "频率": "50.5 Hz",
+    "阈值频率f1": "50.2 Hz",
+    "停用阈值fstop": "50.3 Hz",
+    "停用时间tstop": "600秒",
+    "下垂率": "5%",
+    "故意延迟": "0秒",
+    "预期结果": "当频率降至停用阈值时，600秒后停用响应",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "The enabling and disabling of the function and its settings shall be field adjustable and means shall be provided to protect these from unpermitted interference (e.g. password or seal) if required by the DSO and the responsible party. NOTE 8: PV generating units are considered to have the ability to reduce power over the full droop range. NOTE 9: Protection setting overrules this behaviour. Alternatively for the droop function described above, the following procedure is allowed for generating modules if permitted by the DSO and the responsible party: the generating units shall disconnect at randomized frequencies, ideally uniformly distributed between the frequency threshold f1 and 52 Hz; NOTE 10: The usage of a disconnection limit above 51,5Hz does not necessarily imply the requirement to operate at this frequency. Operating range is defined in clause 4.4.4. If the randomized disconnection value is above the operating range and interface protection setting, the unit is disconnected according to chapter 4.9 at the value set by the interface protection. in case the frequency decreases again, the generating unit shall start its reconnection procedure once the frequency falls below the specific frequency that initiated the disconnection; for this procedure, the connection conditions described in 4.10 do not apply; the randomization shall either be at unit level by changing the threshold over time, or on plant level by choosing different values for each unit within a plant, or on distribution system level if the DSO specifies a specific threshold for each plant or unit connected to its distribution system. NOTE 11: This procedure could be applied for generating modules for which it is technically not feasible to reduce power with the required accuracy in the required time or for reasons within the distribution network for example to prevent unintentional island operation. NOTE 12: The behaviour will, for a part of the network with many such units, result in a similar droop as specified above for controllable generating units and hence will provide for the necessary power system stability. Due to its fast reaction capability it contributes significantly to the avoidance of a frequency overshoot. EES units upon reaching zero power output shall continue to follow the configured droop by switching into charging mode. EES units that are in charging mode shall increase the charging power according to the configured droop. In both cases, the minimum regulating level is considered as the maximum charging power taking the state of charge of the storage into account. In case the maximum charging capacity is reached or to prevent any other risk of injury or damage of equipment, a reduction of charging power is permitted. NOTE 13: In this context charging is regarded as a point of operation with negative active power output. If required by the DSO and the responsible party a mode shall be available where an EES upon reaching zero power will remain at zero power and will not switch into charging mode and an EES unit that is in charging mode shall keep the charging power constant. DC coupled storage integrated into the DC side of a generating unit are exempted from this requirement, if they are not capable of charging from AC. These exempted units upon reaching zero power shall remain at zero power and shall not switch into charging mode.",
+        "testcase": [
+  {
+    "id": 1,
+    "功能": "功能使能与设置",
+    "操作人": "现场工程师",
+    "调整权限": "允许现场调整",
+    "保护措施": "无保护",
+    "DSO要求": "不要求保护",
+    "责任方要求": "不要求保护",
+    "结果": "成功调整"
+  },
+  {
+    "id": 2,
+    "功能": "功能使能与设置",
+    "操作人": "未授权人员",
+    "调整权限": "尝试调整",
+    "保护措施": "密码保护",
+    "DSO要求": "要求保护",
+    "责任方要求": "要求保护",
+    "结果": "调整失败"
+  },
+  {
+    "id": 3,
+    "功能": "下垂控制功能",
+    "操作人": "系统操作员",
+    "频率": "51.0Hz",
+    "功率输出": "按下垂曲线减少",
+    "发电单元类型": "光伏发电单元",
+    "结果": "成功减少功率"
+  },
+  {
+    "id": 4,
+    "功能": "随机断开功能",
+    "操作人": "系统自动",
+    "频率阈值f1": "50.8Hz",
+    "断开频率": "51.2Hz",
+    "随机分布": "均匀分布50.8-52Hz",
+    "DSO许可": "允许",
+    "责任方许可": "允许",
+    "结果": "成功断开"
+  },
+  {
+    "id": 5,
+    "功能": "随机断开功能",
+    "操作人": "系统自动",
+    "频率阈值f1": "50.8Hz",
+    "断开频率": "51.8Hz",
+    "接口保护设定值": "51.5Hz",
+    "实际断开频率": "51.5Hz",
+    "结果": "按接口保护设定断开"
+  },
+  {
+    "id": 6,
+    "功能": "重新连接",
+    "操作人": "系统自动",
+    "断开频率": "51.3Hz",
+    "频率下降值": "51.1Hz",
+    "重新连接条件": "频率低于断开频率",
+    "结果": "启动重新连接程序"
+  },
+  {
+    "id": 7,
+    "功能": "EES充电模式",
+    "操作人": "系统自动",
+    "运行状态": "功率输出为零",
+    "动作": "切换到充电模式",
+    "充电功率": "按下垂曲线增加",
+    "EES类型": "交流耦合储能",
+    "结果": "成功进入充电模式"
+  },
+  {
+    "id": 8,
+    "功能": "EES充电功率限制",
+    "操作人": "系统自动",
+    "运行状态": "充电模式",
+    "充电功率": "达到最大充电容量",
+    "动作": "减少充电功率",
+    "原因": "防止设备损坏",
+    "结果": "允许减少充电功率"
+  },
+  {
+    "id": 9,
+    "功能": "EES零功率模式",
+    "操作人": "系统操作员",
+    "运行状态": "功率输出为零",
+    "模式选择": "保持零功率模式",
+    "DSO要求": "要求此模式",
+    "责任方要求": "要求此模式",
+    "结果": "保持零功率不充电"
+  },
+  {
+    "id": 10,
+    "功能": "直流耦合储能豁免",
+    "操作人": "系统自动",
+    "运行状态": "功率输出为零",
+    "EES类型": "直流耦合储能",
+    "充电能力": "不能从交流充电",
+    "动作": "保持零功率",
+    "结果": "豁免充电要求"
+  }
+]
+    },
+    {
+        "rule": "4.6.2 Power response to underfrequency: EES units shall be capable of activating active power response to underfrequency. Other generating units/plants should be capable of activating active power response to underfrequency. If active power to underfrequency is provided by a generating plant/unit, the function shall comply with the requirements below. NOTE 1: In other documents power response to underfrequency is also described as frequency control or Limited Frequency Sensitive Mode - Underfrequency (LFSM-U). Active power response to underfrequency shall be provided when all of the following conditions are met: when generating, the generating unit is operating at active power below its maximum active power Pmax; when generating, the generating unit is operating at active power below the available active power PA; NOTE 2: In case of EES units, the available power includes the state of charge of the storage. the voltages at the point of connection of the generating plant are within the continuous operating voltage range; and when generating, the generating unit is operating with currents lower than its current limit. NOTE 3: These conditions apply to each generating unit individually since the specified conditions need to be met by each generating unit individually to allow the unit to increase power. In the case of EES units, active power frequency response to underfrequency shall be provided in charging and generating mode. NOTE 4: In the case of EES units, the charging is regarded as a point of operation with negative active power. In charging mode the active power consumption is reduced according to the configured droop. Depending on the depth of the underfrequency event a change to generating mode will happen. In this case the state of charge of the storage is part of the conditions above. NOTE 5: This clause provides additional detail to the network code on emergency and restoration (Regulation (EU) 2017/2196) and more precisely on its Article 15 3 (a). The active power response to underfrequency shall be delivered at a programmable frequency threshold f1 at least between and including 49,8 Hz and 46,0 Hz with a programmable droop in a range of at least 2 % to 12 %. The droop reference Pref is Pmax. If the available primary power or a local set value increases during an underfrequency period above the power defined by the droop function, higher power values are permitted. The power value calculated according to the droop is therefore a minimum limit. The minimum power limit is, Pmin-limit=PM+ΔP, with ΔP=(1/s)×((f1-f)/fn)×Pref where f is the actual frequency. NOTE 6: In the case of active power response to underfrequency, Pmax is used as Pref to allow for system support even in case of low power output in the moment the event begins. NOTE 7: The active power droop relative to the reference power might also be defined as an active power gradient relative to the reference power. A droop in the range of 2 % to 12 % represents a gradient of 100 % to 16,7 % Pref /Hz so with g defined by g[P/Pref / Hz]=(1/(s·fn)) we get ΔP=g·Pref·(f1-f). NOTE 8: In the case of an increase of active power generation, the hierarchy of requirements in clause 4.1 apply. The generating unit shall be capable of activating active power response to underfrequency as fast as technically feasible with an intrinsic dead time that shall be as short as possible with a maximum of 2 s and with a step response time of maximum 30 s unless another value is defined by the relevant party. An intentional initial delay shall be programmable to adjust the dead time to a value between the intrinsic dead time and 2 s. After activation, the active power frequency response shall use the actual frequency at any time, reacting to any frequency increase or decrease according to the programmed droop with an accuracy of ± 10 % of the nominal power. The accuracy is evaluated with a 1 min average value. The resolution of the frequency measurement shall be ± 10 mHz or less. At POC loads, if present in the producer’s network, might interfere with the response of the generating plant. The effect of loads is not considered for the evaluation of the accuracy, only the behaviour of the generating plant is relevant. NOTE 9: With the provision above, the intentional delay is only active for the activation of the function, once the function is operating, the established control loop is not intentionally delayed. NOTE 10: The option of an intentional delay is required since a very fast and undelayed active power frequency response in case of loss of mains would correct any shortage of generation leading to a generation-consumption balance. In these circumstances, an unintended islanding situation with stable frequency would take place, in which the correct behaviour of any loss of mains detection based on frequency might be hindered. NOTE 11: The intentional delay is considered relevant for power system stability. For that reason, legal regulations might require a mutual agreement on the setting between DSO, responsible party and TSO. Generating modules reaching any of the conditions above during the provision of active power frequency response shall, in the event of further frequency decrease, maintain this power level constant. The active power frequency response is only deactivated if the frequency increases above the frequency threshold f1. Settings for the threshold frequency f1, the droop and the intentional delay are defined by the DSO and the responsible party, if no settings are provided, the function shall be disabled. NOTE 12: When applying active power response to underfrequency, the frequency threshold f1 should be set to a value from 49,8 Hz up to 49,5 Hz. Setting the frequency threshold f1 to 46 Hz is considered as deactivating this function. The activation and deactivation of the function and its settings shall be field adjustable and means shall be provided to protect these from unpermitted interference (e.g. password or seal) if required by the DSO and the responsible party.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "正常低频有功功率响应-发电模式",
+    "操作人": "系统操作员",
+    "发电单元类型": "常规发电单元",
+    "运行模式": "发电",
+    "当前有功功率": "低于Pmax和PA",
+    "连接点电压": "在连续运行电压范围内",
+    "运行电流": "低于电流限值",
+    "频率阈值f1": "49.5Hz",
+    "下垂率": "5%",
+    "实际频率": "49.0Hz",
+    "预期最小功率限值": "根据公式计算",
+    "死区时间": "1.5秒",
+    "阶跃响应时间": "25秒",
+    "结果状态": "成功激活低频有功功率响应",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "EES单元充电模式低频响应",
+    "操作人": "系统操作员",
+    "发电单元类型": "EES单元",
+    "运行模式": "充电",
+    "当前有功功率": "负值，低于可用功率",
+    "储能状态": "在允许范围内",
+    "连接点电压": "在连续运行电压范围内",
+    "运行电流": "低于电流限值",
+    "频率阈值f1": "49.3Hz",
+    "下垂率": "8%",
+    "实际频率": "48.8Hz",
+    "预期最小功率限值": "根据公式计算",
+    "死区时间": "1.8秒",
+    "结果状态": "成功减少充电功率",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "有功功率超过Pmax时无法响应",
+    "操作人": "系统操作员",
+    "发电单元类型": "常规发电单元",
+    "运行模式": "发电",
+    "当前有功功率": "等于Pmax",
+    "连接点电压": "在连续运行电压范围内",
+    "运行电流": "低于电流限值",
+    "频率阈值f1": "49.2Hz",
+    "实际频率": "48.9Hz",
+    "结果状态": "无法激活低频有功功率响应",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "测试场景": "电压超出连续运行范围",
+    "操作人": "系统操作员",
+    "发电单元类型": "常规发电单元",
+    "运行模式": "发电",
+    "当前有功功率": "低于Pmax和PA",
+    "连接点电压": "超出连续运行电压范围",
+    "运行电流": "低于电流限值",
+    "频率阈值f1": "49.0Hz",
+    "实际频率": "48.5Hz",
+    "结果状态": "无法激活低频有功功率响应",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "测试场景": "频率测量精度测试",
+    "操作人": "测试工程师",
+    "发电单元类型": "常规发电单元",
+    "运行模式": "发电",
+    "当前有功功率": "低于Pmax和PA",
+    "连接点电压": "在连续运行电压范围内",
+    "频率测量分辨率": "±10mHz",
+    "频率阈值f1": "49.2Hz",
+    "实际频率": "49.195Hz",
+    "功率输出精度": "±10%标称功率",
+    "结果状态": "满足测量精度要求",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "死区时间超限",
+    "操作人": "系统操作员",
+    "发电单元类型": "常规发电单元",
+    "运行模式": "发电",
+    "当前有功功率": "低于Pmax和PA",
+    "连接点电压": "在连续运行电压范围内",
+    "频率阈值f1": "49.1Hz",
+    "实际频率": "48.8Hz",
+    "死区时间": "2.5秒",
+    "结果状态": "死区时间超过2秒限值",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "测试场景": "阶跃响应时间超限",
+    "操作人": "系统操作员",
+    "发电单元类型": "常规发电单元",
+    "运行模式": "发电",
+    "当前有功功率": "低于Pmax和PA",
+    "连接点电压": "在连续运行电压范围内",
+    "频率阈值f1": "49.0Hz",
+    "实际频率": "48.5Hz",
+    "阶跃响应时间": "35秒",
+    "结果状态": "阶跃响应时间超过30秒限值",
+    "结果": "失败"
+  },
+  {
+    "id": 8,
+    "测试场景": "频率回升至阈值以上自动停用",
+    "操作人": "系统操作员",
+    "发电单元类型": "常规发电单元",
+    "运行模式": "发电",
+    "当前有功功率": "低于Pmax和PA",
+    "连接点电压": "在连续运行电压范围内",
+    "频率阈值f1": "49.2Hz",
+    "实际频率": "49.3Hz",
+    "结果状态": "低频有功功率响应自动停用",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "未提供设置参数时功能禁用",
+    "操作人": "系统操作员",
+    "发电单元类型": "常规发电单元",
+    "运行模式": "发电",
+    "频率阈值f1": "未设置",
+    "下垂率": "未设置",
+    "意向延迟": "未设置",
+    "结果状态": "功能自动禁用",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "测试场景": "下垂率边界值测试",
+    "操作人": "测试工程师",
+    "发电单元类型": "常规发电单元",
+    "运行模式": "发电",
+    "当前有功功率": "低于Pmax和PA",
+    "连接点电压": "在连续运行电压范围内",
+    "频率阈值f1": "49.0Hz",
+    "下垂率": "2%",
+    "实际频率": "48.5Hz",
+    "预期功率增量": "根据2%下垂率计算",
+    "结果状态": "满足最小下垂率要求",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.7 Power response to voltage changes",
+        "testcase": []
+    },
+    {
+        "rule": "4.7.1 General: When the contribution to voltage support is required by the DSO and the responsible party, the generating plant shall be designed to have the capability of managing reactive and/or active power generation according to the requirements of this clause.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景描述": "DSO和责任方要求电压支撑贡献",
+    "责任方要求": "是",
+    "DSO要求": "是",
+    "发电厂设计能力": "具备无功和有功功率管理能力",
+    "功率管理类型": "无功和有功功率",
+    "符合条款要求": "是",
+    "预期结果": "发电厂应具备所需功率管理能力",
+    "测试结果": "通过"
+  },
+  {
+    "id": 2,
+    "场景描述": "仅DSO要求电压支撑贡献",
+    "责任方要求": "否",
+    "DSO要求": "是",
+    "发电厂设计能力": "具备无功和有功功率管理能力",
+    "功率管理类型": "无功和有功功率",
+    "符合条款要求": "是",
+    "预期结果": "发电厂应具备所需功率管理能力",
+    "测试结果": "通过"
+  },
+  {
+    "id": 3,
+    "场景描述": "仅责任方要求电压支撑贡献",
+    "责任方要求": "是",
+    "DSO要求": "否",
+    "发电厂设计能力": "具备无功和有功功率管理能力",
+    "功率管理类型": "无功和有功功率",
+    "符合条款要求": "是",
+    "预期结果": "发电厂应具备所需功率管理能力",
+    "测试结果": "通过"
+  },
+  {
+    "id": 4,
+    "场景描述": "双方都未要求电压支撑贡献",
+    "责任方要求": "否",
+    "DSO要求": "否",
+    "发电厂设计能力": "不具备完整功率管理能力",
+    "功率管理类型": "无要求",
+    "符合条款要求": "不适用",
+    "预期结果": "无强制功率管理能力要求",
+    "测试结果": "不适用"
+  },
+  {
+    "id": 5,
+    "场景描述": "要求电压支撑但发电厂设计不符合条款",
+    "责任方要求": "是",
+    "DSO要求": "是",
+    "发电厂设计能力": "仅具备有功功率管理能力",
+    "功率管理类型": "仅有功功率",
+    "符合条款要求": "否",
+    "预期结果": "发电厂应具备但实际不具备所需功率管理能力",
+    "测试结果": "失败"
+  },
+  {
+    "id": 6,
+    "场景描述": "要求电压支撑但发电厂无任何功率管理能力",
+    "责任方要求": "是",
+    "DSO要求": "是",
+    "发电厂设计能力": "无功率管理能力",
+    "功率管理类型": "无",
+    "符合条款要求": "否",
+    "预期结果": "发电厂完全不符合功率管理要求",
+    "测试结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "4.7.2 Voltage support by reactive power",
+        "testcase": []
+    },
+    {
+        "rule": "4.7.2.1 General: Generating plants shall not lead to voltage changes out of acceptable limits. These limits should be defined by national regulation. Generating units and plants shall be able to contribute to meet this requirement during normal network operation. Throughout the continuous operating frequency (see 4.4.2) and voltage (see 4.4.4) range, the generating plant shall be capable to deliver the requirements stipulated below. Outside these ranges, the generating plant shall follow the requirements as good as technically feasible although there is no specified accuracy required.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "正常频率电压范围内运行",
+    "操作": "发电厂并网运行",
+    "频率范围": "在连续运行频率范围内",
+    "电压范围": "在连续运行电压范围内",
+    "电压变化": "在国家标准限值内",
+    "技术要求": "满足所有规定要求",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "电压超出上限运行",
+    "操作": "发电厂并网运行",
+    "频率范围": "在连续运行频率范围内",
+    "电压范围": "超出连续运行电压范围上限",
+    "电压变化": "超出国家标准限值",
+    "技术要求": "技术上尽可能满足要求",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "测试场景": "电压低于下限运行",
+    "操作": "发电厂并网运行",
+    "频率范围": "在连续运行频率范围内",
+    "电压范围": "低于连续运行电压范围下限",
+    "电压变化": "超出国家标准限值",
+    "技术要求": "技术上尽可能满足要求",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "测试场景": "频率超出范围运行",
+    "操作": "发电厂并网运行",
+    "频率范围": "超出连续运行频率范围",
+    "电压范围": "在连续运行电压范围内",
+    "电压变化": "技术上尽可能控制",
+    "技术要求": "技术上尽可能满足要求",
+    "结果": "有条件成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "边界电压值测试",
+    "操作": "发电厂并网运行",
+    "频率范围": "在连续运行频率范围内",
+    "电压范围": "处于电压范围边界值",
+    "电压变化": "恰好在国家标准限值边界",
+    "技术要求": "满足所有规定要求",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.7.2.2 Capabilities: Figure 12 gives a graphical representation of the minimum and optional capabilities at nominal voltage. Unless specified differently below, for specific generating technologies, generating plants shall be able to operate with active factors as defined by the DSO and the responsible party from active factor=0,90 underexcited to active factor=0,90 overexcited. The reactive power capability shall be evaluated at the terminals of the/each generating unit. CHP generating units with a capacity ≤150 kVA shall be able to operate with active factors as defined by the DSO from cos φ=0,95 underexcited to cos φ=0,95 overexcited. Generating units with an induction generator coupled directly to the grid and used in generating plants above micro generating level, shall be able to operate with active factors as defined by the DSO from cos φ=0,95 underexcited to cos φ=1 at the terminals of the unit. Deviating from 4.7.2.3 only the cos φ set point mode is required. Deviating from the accuracy requirements below, the accuracy is only required at active power PD. Generating units with an induction generator coupled directly to the grid and used in micro generating plants shall operate with an active factor above 0,95 at the terminals of the generating unit. A controlled voltage support by reactive power is not required from this technology. Generating units with linear generators, coupled directly and synchronously to the grid shall operate with an active factor above 0,95 at the terminals of the generating unit, and therefore a controlled voltage support by reactive power is not required from this technology. In case of different generating technologies with different requirements in one generating plant, each unit shall provide voltage support by reactive power as required for its specific technology. A compensation of one technology to reach the general plant requirement is not expected. The DSO and the responsible party may relax the above requirements. This relaxation might be general or specific for a certain generating plant or generating technology. NOTE 1: The generating unit manufacturer has a certain freedom in the sizing of the output side of the generating unit in order to respond to the requirements of this document (e.g. due to voltage changes or reactive power exchange). This is indicated by the Design freedom area in Figure 12. On request, the manufacturer shall provide to all involved parties information documenting the actual choices regarding active power capabilities relative to reactive power requirements and related to the power rating in the operating voltage range (see further in this clause). A P-Q Diagram shall be included in the product documentation of a generating unit. NOTE 2: For additional network support an optional extended reactive power capability according to Figure 12 might be provided by the generating plant, if agreed on between the DSO and the producer and is generally required in some countries for some technologies by legal regulations. NOTE 3: Additional requirements (e.g. continuous Var compensation or continuous reactive power operation disregarding the availability of the primary energy) might be provided by the generating plant, if agreed between the DSO and the producer. NOTE 4: In case of overvoltage, additional reactive power might be exchanged up to the rated current (increasing the apparent power as a consequence), if agreed on between the DSO and the producer. When operating above the apparent power threshold Smin equal to 10 % of the maximum apparent power Smax or the minimum regulating level of the generating plant, whichever is the higher value, the reactive power capability shall be provided with an accuracy of ± 2 % Smax. Up to this apparent power threshold Smin, deviations above 2 % are permissible; nevertheless the accuracy shall always be as good as technically feasible and the exchange of uncontrolled reactive power in this low-power operation mode shall not exceed 10 % of the maximum apparent power Smax. At POC loads, if present in the producer’s network might interfere with the response of the generating plant. The effect of loads is not considered for the evaluation of the accuracy, only the behaviour of the generating plant is relevant. For generating units with a reactive power capability according Figure 12 the reactive power capability at active power PD shall be at least according Figure 13. For generating units with a reduced reactive power capability Figure 13 is only applicable up to the maximum reactive power capability. For voltages below Un it is allowed to reduce apparent power according to 4.4.4. NOTE 6: Whether there is a priority given to P or Q or the active factor when reaching the maximum apparent power this is not defined in this European Standard. Risks and benefits of different priority approaches are under consideration.",
+        "testcase": [
+  {
+    "id": 1,
+    "发电单元类型": "常规发电厂",
+    "运行模式": "功率因数控制",
+    "有功功率": "额定值",
+    "无功功率能力": "功率因数0.90欠励至0.90过励",
+    "运行点": "发电单元端子",
+    "评估条件": "标称电压",
+    "预期结果": "满足无功能力要求",
+    "测试结果": "通过"
+  },
+  {
+    "id": 2,
+    "发电单元类型": "容量≤150kVA的热电联产",
+    "运行模式": "功率因数控制",
+    "有功功率": "额定值",
+    "无功功率能力": "功率因数0.95欠励至0.95过励",
+    "运行点": "发电单元端子",
+    "评估条件": "标称电压",
+    "预期结果": "满足无功能力要求",
+    "测试结果": "通过"
+  },
+  {
+    "id": 3,
+    "发电单元类型": "感应发电机(非微发电)",
+    "运行模式": "功率因数控制",
+    "有功功率": "额定值PD",
+    "无功功率能力": "功率因数0.95欠励至1.0",
+    "运行点": "发电单元端子",
+    "评估条件": "标称电压",
+    "预期结果": "仅需功率因数设定点模式",
+    "测试结果": "通过"
+  },
+  {
+    "id": 4,
+    "发电单元类型": "微发电感应发电机",
+    "运行模式": "功率因数控制",
+    "有功功率": "额定值",
+    "无功功率能力": "功率因数>0.95",
+    "运行点": "发电单元端子",
+    "评估条件": "标称电压",
+    "预期结果": "无需可控电压支撑",
+    "测试结果": "通过"
+  },
+  {
+    "id": 5,
+    "发电单元类型": "线性发电机",
+    "运行模式": "功率因数控制",
+    "有功功率": "额定值",
+    "无功功率能力": "功率因数>0.95",
+    "运行点": "发电单元端子",
+    "评估条件": "标称电压",
+    "预期结果": "无需可控电压支撑",
+    "测试结果": "通过"
+  },
+  {
+    "id": 6,
+    "发电单元类型": "混合技术发电厂",
+    "运行模式": "功率因数控制",
+    "有功功率": "额定值",
+    "无功功率能力": "各单元按自身技术要求",
+    "运行点": "各发电单元端子",
+    "评估条件": "标称电压",
+    "预期结果": "各单元独立满足要求，无补偿",
+    "测试结果": "通过"
+  },
+  {
+    "id": 7,
+    "发电单元类型": "常规发电厂",
+    "运行模式": "低功率运行",
+    "有功功率": "低于Smin阈值",
+    "视在功率阈值": "Smin=10%Smax",
+    "无功功率精度": "允许>2%偏差",
+    "评估条件": "标称电压",
+    "预期结果": "不受控无功交换≤10%Smax",
+    "测试结果": "通过"
+  },
+  {
+    "id": 8,
+    "发电单元类型": "常规发电厂",
+    "运行模式": "正常功率运行",
+    "有功功率": "高于Smin阈值",
+    "视在功率阈值": "Smin=10%Smax",
+    "无功功率精度": "±2%Smax",
+    "评估条件": "标称电压",
+    "预期结果": "满足精度要求",
+    "测试结果": "通过"
+  },
+  {
+    "id": 9,
+    "发电单元类型": "常规发电厂",
+    "运行模式": "低电压运行",
+    "有功功率": "额定值",
+    "无功功率能力": "按图13要求",
+    "运行点": "发电单元端子",
+    "评估条件": "电压低于标称值",
+    "预期结果": "允许降低视在功率",
+    "测试结果": "通过"
+  },
+  {
+    "id": 10,
+    "发电单元类型": "无功能力受限单元",
+    "运行模式": "功率因数控制",
+    "有功功率": "额定值PD",
+    "无功功率能力": "受限能力",
+    "运行点": "发电单元端子",
+    "评估条件": "标称电压",
+    "预期结果": "仅适用至最大无功能力",
+    "测试结果": "通过"
+  }
+]
+    },
+    {
+        "rule": "4.7.2.3 Control modes",
+        "testcase": []
+    },
+    {
+        "rule": "4.7.2.3.1 General: Where required, the form of the contribution to voltage control shall be specified by the DSO. The control shall refer to the terminals of the generating units. The generating plant/unit shall be capable of operating in the control modes specified below within the limits specified in 4.7.2.2. The control modes are exclusive; only one mode may be active at a time. Q setpoint mode, Q (U), Cos φ setpoint mode, Cos φ (P). For mass market products, it is recommended to implement all control modes. In case of site specific generating plant design, only the control modes required by the DSO need to be implemented. The configuration, activation and deactivation of the control modes shall be field adjustable. For field adjustable configurations and activation of the active control mode, means shall be provided to protect the settings from unpermitted interference (e.g. password or seal) if required by the DSO. Which control modes are available in a product and how they are configured shall be stated in the product documentation.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景类型": "大众市场产品",
+    "控制模式要求": "全部控制模式",
+    "操作主体": "DSO",
+    "配置操作": "现场可调配置",
+    "保护措施": "密码保护",
+    "文档要求": "产品文档中说明",
+    "预期结果": "成功实现所有控制模式"
+  },
+  {
+    "id": 2,
+    "场景类型": "特定场站设计",
+    "控制模式要求": "仅DSO要求的模式",
+    "操作主体": "DSO",
+    "配置操作": "现场可调配置",
+    "保护措施": "密封保护",
+    "文档要求": "产品文档中说明",
+    "预期结果": "成功实现指定控制模式"
+  },
+  {
+    "id": 3,
+    "场景类型": "控制模式冲突",
+    "控制模式要求": "同时激活多个模式",
+    "操作主体": "操作人员",
+    "配置操作": "尝试同时激活Q设定点模式和Cosφ设定点模式",
+    "保护措施": "无",
+    "文档要求": "无",
+    "预期结果": "失败，控制模式互斥"
+  },
+  {
+    "id": 4,
+    "场景类型": "权限验证",
+    "控制模式要求": "Q(U)控制模式",
+    "操作主体": "未授权人员",
+    "配置操作": "尝试修改保护设置",
+    "保护措施": "密码保护",
+    "文档要求": "产品文档中说明",
+    "预期结果": "失败，设置受到保护"
+  },
+  {
+    "id": 5,
+    "场景类型": "文档完整性检查",
+    "控制模式要求": "所有可用控制模式",
+    "操作主体": "用户",
+    "配置操作": "查阅产品文档",
+    "保护措施": "无",
+    "文档要求": "文档缺少控制模式说明",
+    "预期结果": "失败，文档不完整"
+  },
+  {
+    "id": 6,
+    "场景类型": "现场调整验证",
+    "控制模式要求": "Cosφ(P)控制模式",
+    "操作主体": "现场技术人员",
+    "配置操作": "现场激活控制模式",
+    "保护措施": "无",
+    "文档要求": "产品文档中说明",
+    "预期结果": "成功激活控制模式"
+  }
+]
+    },
+    {
+        "rule": "4.7.2.3.2 Setpoint control modes: Q setpoint mode and cos φ setpoint mode control the reactive power output and the cos φ of the output respectively, according to a set point set in the control of the generating plant/unit. In the case of change of the set point local or by remote control the settling time for the new set point shall be less than one minute.",
+        "testcase": [
+  {
+    "id": 1,
+    "控制模式": "Q设定点模式",
+    "操作类型": "本地设置",
+    "设定点变化": "从0kVar更改为100kVar",
+    "响应时间": "45秒",
+    "结果状态": "新设定点在1分钟内稳定",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "控制模式": "cos φ设定点模式",
+    "操作类型": "远程控制",
+    "设定点变化": "从0.8更改为0.9",
+    "响应时间": "50秒",
+    "结果状态": "新设定点在1分钟内稳定",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "控制模式": "Q设定点模式",
+    "操作类型": "远程控制",
+    "设定点变化": "从50kVar更改为200kVar",
+    "响应时间": "65秒",
+    "结果状态": "新设定点未在1分钟内稳定",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "控制模式": "cos φ设定点模式",
+    "操作类型": "本地设置",
+    "设定点变化": "从0.95更改为0.85",
+    "响应时间": "70秒",
+    "结果状态": "新设定点未在1分钟内稳定",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "控制模式": "Q设定点模式",
+    "操作类型": "本地设置",
+    "设定点变化": "从100kVar更改为150kVar",
+    "响应时间": "30秒",
+    "结果状态": "新设定点在1分钟内稳定",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "控制模式": "cos φ设定点模式",
+    "操作类型": "远程控制",
+    "设定点变化": "从0.7更改为0.8",
+    "响应时间": "55秒",
+    "结果状态": "新设定点未在1分钟内稳定",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "4.7.2.3.3 Voltage related control mode: The voltage related control mode Q (U) controls the reactive power output as a function of the voltage. There is no preferred state of the art for evaluating the voltage. Therefore it is the responsibility of the generating plant designer to choose a method. One of the following methods should be used: • the positive sequence component of the fundamental; • the average of the voltages measured independently for each phase to neutral or phase to phase; phase independently the voltage of every phase to determine the reactive power for every phase. For voltage related control modes, a characteristic with a minimum and maximum value and three connected lines according to Figure 16 shall be configurable. In addition to the characteristic, further parameters shall be configurable: The dynamics of the control shall correspond with a first order filter having a time constant that is configurable in the range of 3 s to 60 s. NOTE 1: The time to perform 95 % of the changed set point due to a change in voltage will be 3 times the time constant. NOTE 2: The dynamic response of the generating units to voltage changes is not considered here. The response to disturbances as in 4.5 and short circuit current requirements as in 4.7.4 is not included in this clause. NOTE 3: An intentional delay is under consideration. To limit the reactive power at low active power two methods shall be configurable: a minimal cos φ shall be configurable in the range of 0-0,95; two active power levels shall be configurable both at least in the range of 0 % to 100 % of PD. The lock-in value turns the Q(U) mode on, the lock-out value turns Q(U) off. If lock-in is larger than lock-out a hysteresis is given. See also Figure 14. The static accuracy shall be in accordance with 4.7.2.2. The dynamic accuracy shall be in accordance with Figure 15 with a maximum tolerance of +/- 5% of PD plus a time delay of up to 3 seconds deviating from an ideal first order filter response.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "电压评估方法选择",
+    "电压评估方法": "基波正序分量",
+    "控制模式": "Q(U)电压相关控制",
+    "配置参数": "特性曲线最小最大值、三连接线",
+    "结果": "配置成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "电压评估方法选择",
+    "电压评估方法": "各相电压独立测量平均值",
+    "控制模式": "Q(U)电压相关控制",
+    "配置参数": "特性曲线最小最大值、三连接线",
+    "结果": "配置成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "时间常数配置边界测试",
+    "时间常数": "3秒",
+    "控制模式": "Q(U)电压相关控制",
+    "预期响应时间": "9秒完成95%设定点变化",
+    "结果": "配置成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "时间常数配置边界测试",
+    "时间常数": "60秒",
+    "控制模式": "Q(U)电压相关控制",
+    "预期响应时间": "180秒完成95%设定点变化",
+    "结果": "配置成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "时间常数配置越界测试",
+    "时间常数": "2秒",
+    "控制模式": "Q(U)电压相关控制",
+    "结果": "配置失败，超出允许范围"
+  },
+  {
+    "id": 6,
+    "测试场景": "低有功功率无功限制方法1",
+    "配置方法": "最小功率因数配置",
+    "最小功率因数": "0.9",
+    "有功功率范围": "0%至100%PD",
+    "结果": "配置成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "低有功功率无功限制方法2",
+    "配置方法": "有功功率水平配置",
+    "锁定开启值": "20%PD",
+    "锁定关闭值": "15%PD",
+    "迟滞效应": "存在",
+    "结果": "配置成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "锁定值边界条件测试",
+    "锁定开启值": "30%PD",
+    "锁定关闭值": "30%PD",
+    "迟滞效应": "无迟滞",
+    "结果": "配置成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "静态精度验证",
+    "测试标准": "符合4.7.2.2条款",
+    "控制模式": "Q(U)电压相关控制",
+    "精度要求": "满足静态精度标准",
+    "结果": "验证通过"
+  },
+  {
+    "id": 10,
+    "测试场景": "动态精度验证",
+    "测试标准": "符合图15要求",
+    "最大容差": "±5%PD",
+    "最大时间延迟": "3秒",
+    "滤波器响应": "一阶滤波器",
+    "结果": "验证通过"
+  },
+  {
+    "id": 11,
+    "测试场景": "动态精度边界测试",
+    "时间延迟": "3.1秒",
+    "容差": "±5%PD",
+    "结果": "超出允许范围，验证失败"
+  },
+  {
+    "id": 12,
+    "测试场景": "最小功率因数边界测试",
+    "最小功率因数": "0.95",
+    "结果": "配置成功"
+  },
+  {
+    "id": 13,
+    "测试场景": "最小功率因数越界测试",
+    "最小功率因数": "0.96",
+    "结果": "配置失败，超出允许范围"
+  }
+]
+    },
+    {
+        "rule": "4.7.2.3.4 Power related control mode: The power related control mode cos (P) controls the cos φ of the output as a function of the active power output. For power related control modes, a characteristic with a minimum and maximum value and three connected lines shall be configurable in accordance with Figure 16. Resulting from a change in active power output a new cos φ set point is defined according to the set characteristic. The response to a new cos φ set value shall be as fast as technically feasible to allow the change in reactive power to be in synchrony with the change in active power. The new reactive power set value shall be reached at the latest within 10 s after the end value of the active power is reached. The static accuracy of each cos φ set point shall be according to 4.7.2.2.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "有功功率变化触发cos φ设定值更新",
+    "有功功率输出": "从最小值增加到最大值",
+    "cos φ特征曲线": "配置完整的三段线性特征",
+    "cos φ设定值响应": "立即响应",
+    "响应时间要求": "有功功率稳定后10秒内",
+    "静态精度要求": "符合4.7.2.2条款",
+    "无功功率同步性": "与有功功率变化同步",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "cos φ设定值响应时间测试",
+    "有功功率输出": "阶跃变化到稳定值",
+    "cos φ设定值响应": "延迟响应",
+    "响应时间要求": "超过10秒",
+    "静态精度要求": "不符合4.7.2.2条款",
+    "无功功率同步性": "不同步",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "测试场景": "特征曲线边界值测试",
+    "有功功率输出": "在特征曲线转折点",
+    "cos φ特征曲线": "最小值和最大值边界",
+    "cos φ设定值响应": "按特征曲线计算",
+    "响应时间要求": "有功功率稳定后5秒内",
+    "静态精度要求": "符合4.7.2.2条款",
+    "无功功率同步性": "同步",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "静态精度验证",
+    "有功功率输出": "多个不同功率水平",
+    "cos φ特征曲线": "标准配置",
+    "cos φ设定值响应": "立即响应",
+    "响应时间要求": "满足要求",
+    "静态精度要求": "超出4.7.2.2允许误差",
+    "无功功率同步性": "同步",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "测试场景": "无功功率同步性测试",
+    "有功功率输出": "快速变化",
+    "cos φ特征曲线": "配置完整",
+    "cos φ设定值响应": "技术可行最快速度",
+    "响应时间要求": "满足要求",
+    "静态精度要求": "符合4.7.2.2条款",
+    "无功功率同步性": "延迟明显",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "测试场景": "特征曲线配置完整性",
+    "有功功率输出": "全范围扫描",
+    "cos φ特征曲线": "缺少最小或最大值配置",
+    "cos φ设定值响应": "无法正确计算",
+    "响应时间要求": "不适用",
+    "静态精度要求": "不适用",
+    "无功功率同步性": "不适用",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "4.7.3 Voltage related active power reduction: In order to avoid disconnection due to overvoltage protection (see 4.9.2.3 and 4.9.2.4), generating plants/units are allowed to reduce active power output as a function of this rising voltage. The final implemented logic can be chosen by the manufacturer. Nevertheless, this logic shall not cause steps or oscillations in the output power. The power reduction caused by such a function shall not be faster than the equivalent of a first order filter with a time constant tau=3 s. The enabling and disabling of the function shall be field adjustable and means have to be provided to protect the setting from unpermitted interference (e.g. password or seal) if required by the DSO.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "电压升高触发有功功率降低功能",
+    "操作": "电压升高至设定阈值",
+    "电压值": "超过设定阈值",
+    "有功功率变化": "平滑降低",
+    "变化速率": "符合时间常数3秒的一阶滤波器要求",
+    "功率输出稳定性": "无阶跃或振荡",
+    "功能状态": "启用",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "有功功率降低速率超限",
+    "操作": "电压快速升高",
+    "电压值": "超过设定阈值",
+    "有功功率变化": "快速降低",
+    "变化速率": "超过时间常数3秒的一阶滤波器要求",
+    "功率输出稳定性": "出现阶跃变化",
+    "功能状态": "启用",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "测试场景": "功率输出出现振荡",
+    "操作": "电压波动在阈值附近",
+    "电压值": "在设定阈值上下波动",
+    "有功功率变化": "反复变化",
+    "变化速率": "符合要求",
+    "功率输出稳定性": "出现振荡",
+    "功能状态": "启用",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "测试场景": "功能禁用状态测试",
+    "操作": "电压升高至设定阈值",
+    "电压值": "超过设定阈值",
+    "有功功率变化": "无变化",
+    "变化速率": "不适用",
+    "功率输出稳定性": "稳定",
+    "功能状态": "禁用",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "设置保护功能测试",
+    "操作": "尝试修改功能参数",
+    "电压值": "不适用",
+    "有功功率变化": "不适用",
+    "变化速率": "不适用",
+    "功率输出稳定性": "不适用",
+    "设置访问权限": "需要密码或密封保护",
+    "参数修改结果": "未授权访问被拒绝",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "设置保护功能失效测试",
+    "操作": "无授权尝试修改参数",
+    "电压值": "不适用",
+    "有功功率变化": "不适用",
+    "变化速率": "不适用",
+    "功率输出稳定性": "不适用",
+    "设置访问权限": "无保护",
+    "参数修改结果": "参数被随意修改",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "测试场景": "边界电压值测试",
+    "操作": "电压处于设定阈值边界",
+    "电压值": "等于设定阈值",
+    "有功功率变化": "开始平滑降低",
+    "变化速率": "符合时间常数3秒要求",
+    "功率输出稳定性": "无阶跃或振荡",
+    "功能状态": "启用",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.7.4 Short circuit current requirements on generating plants",
+        "testcase": []
+    },
+    {
+        "rule": "4.7.4.1 General: The following clauses describe the required short circuit current contribution for generating plants taking into account the connection technology of the generating modules. Generating modules classified as type B modules according to COMMISSION REGULATION 2016/631 shall comply with the requirements of 4.7.4.2 and 4.7.4.3. Generating modules classified as type A according to COMMISSION REGULATION 2016/631 should comply with these requirements. The actual behaviour of type A modules shall be specified in the connection agreement. NOTE: Based on the chosen banding threshold it is considered necessary to include generating modules classified as type A if connected to medium voltage distribution grids. Exemption is only acceptable for CHP and generating units based on rotating machinery below 50 kW as EN 50465 for gas appliance requests disconnection in case of under voltage.",
+        "testcase": []
+    },
+    {
+        "rule": "4.7.4.2 Generating plant with non-synchronous generating technology",
+        "testcase": []
+    },
+    {
+        "rule": "4.7.4.2.1 Voltage support during faults and voltage steps: In general no voltage support during faults and voltage steps is required from generating plants connected in LV distribution networks as the additional reactive current is expected to interfere with grid protection equipment. If the responsible party requires voltage support during faults and voltage steps for generating plants of type B connected to LV distribution grids, the clause 4.7.4 of EN 50549-2 applies.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "低压配电网B类发电厂默认无电压支撑要求",
+    "发电厂类型": "B类",
+    "接入网络": "低压配电网",
+    "故障类型": "电压暂降",
+    "是否要求电压支撑": "否",
+    "预期结果": "不提供电压支撑，不干扰电网保护设备",
+    "测试结果": "符合要求"
+  },
+  {
+    "id": 2,
+    "测试场景": "低压配电网B类发电厂有电压支撑要求",
+    "发电厂类型": "B类",
+    "接入网络": "低压配电网",
+    "故障类型": "电压暂降",
+    "是否要求电压支撑": "是",
+    "适用标准": "EN 50549-2条款4.7.4",
+    "预期结果": "按照EN 50549-2条款4.7.4提供电压支撑",
+    "测试结果": "符合要求"
+  },
+  {
+    "id": 3,
+    "测试场景": "非低压配电网B类发电厂电压支撑",
+    "发电厂类型": "B类",
+    "接入网络": "中压配电网",
+    "故障类型": "电压暂降",
+    "是否要求电压支撑": "是",
+    "预期结果": "不受此规则限制，按其他相关规定执行",
+    "测试结果": "不适用此规则"
+  },
+  {
+    "id": 4,
+    "测试场景": "非B类发电厂在低压配电网",
+    "发电厂类型": "A类",
+    "接入网络": "低压配电网",
+    "故障类型": "电压暂降",
+    "是否要求电压支撑": "是",
+    "预期结果": "不受此规则限制，按其他相关规定执行",
+    "测试结果": "不适用此规则"
+  },
+  {
+    "id": 5,
+    "测试场景": "电压阶跃故障情况",
+    "发电厂类型": "B类",
+    "接入网络": "低压配电网",
+    "故障类型": "电压阶跃",
+    "是否要求电压支撑": "否",
+    "预期结果": "不提供电压支撑，不干扰电网保护设备",
+    "测试结果": "符合要求"
+  }
+]
+    },
+    {
+        "rule": "4.7.4.2.2 Zero current mode for converter connected generating technology: If UVRT capability (see 4.5.3) is provided additional to the requirements of 4.5, generating units connected to the grid by a converter shall have the capability to reduce their current as fast as technically feasible down to or below 10 % of the rated current when the voltage is outside of a static voltage range. Generating units based on a doubly fed induction machine can only reduce the positive sequence current below 10 % of the rated current. Negative sequence current shall be tolerated during unbalanced faults. In case this current reduction is not sufficient, the DSO should choose suitable interface protection settings. The static voltage range shall be adjustable from 20 % to 100 % of Un for the undervoltage boundary and from 100 % to 130 % of Un for the overvoltage boundary. The default setting shall be 50% of Un for the undervoltage boundary and 120% of Un for the overvoltage boundary. Each phase to neutral voltage or if no neutral is present each phase to phase voltage shall be evaluated. At voltage re-entry into the voltage range, 90% of pre-fault power or available power, whichever is the smallest, shall be resumed as fast as possible, but at the latest according to 4.5.3 and 4.5.4. All described settings are defined by the DSO and the responsible party. If no settings are provided, the function shall be disabled. The enabling and disabling and the settings shall be field adjustable and means have to be provided to protect these from unpermitted interference (e.g. password or seal) if required by the DSO.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "零电流模式正常触发-欠电压",
+    "操作": "电压跌落测试",
+    "电压类型": "相电压",
+    "电压值": "19%标称电压",
+    "静态电压范围设置": "欠压边界50%，过压边界120%",
+    "电流响应": "快速降至额定电流10%以下",
+    "结果状态": "成功触发零电流模式",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "零电流模式正常触发-过电压",
+    "操作": "电压升高测试",
+    "电压类型": "相电压",
+    "电压值": "125%标称电压",
+    "静态电压范围设置": "欠压边界50%，过压边界120%",
+    "电流响应": "快速降至额定电流10%以下",
+    "结果状态": "成功触发零电流模式",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "零电流模式不触发-电压正常范围",
+    "操作": "电压正常测试",
+    "电压类型": "相电压",
+    "电压值": "80%标称电压",
+    "静态电压范围设置": "欠压边界50%，过压边界120%",
+    "电流响应": "保持正常电流输出",
+    "结果状态": "未触发零电流模式",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "双馈感应电机正序电流限制",
+    "操作": "不平衡故障测试",
+    "电压类型": "相电压",
+    "电压值": "15%标称电压",
+    "静态电压范围设置": "欠压边界50%，过压边界120%",
+    "正序电流响应": "降至额定电流10%以下",
+    "负序电流响应": "允许存在",
+    "结果状态": "符合双馈电机特殊要求",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "电压恢复后功率恢复",
+    "操作": "电压恢复测试",
+    "电压变化": "从故障电压恢复到正常范围",
+    "功率恢复目标": "故障前功率90%或可用功率较小值",
+    "恢复时间": "符合4.5.3和4.5.4要求",
+    "结果状态": "功率按规范恢复",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "静态电压范围边界调整",
+    "操作": "参数设置测试",
+    "欠压边界设置": "20%标称电压",
+    "过压边界设置": "130%标称电压",
+    "设置权限": "配电系统运营商和负责方",
+    "结果状态": "参数设置成功",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "默认参数设置验证",
+    "操作": "默认设置测试",
+    "欠压边界默认值": "50%标称电压",
+    "过压边界默认值": "120%标称电压",
+    "结果状态": "默认参数正确",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "功能禁用测试",
+    "操作": "无参数设置测试",
+    "参数配置": "未提供设置参数",
+    "功能状态": "零电流模式禁用",
+    "结果状态": "功能按要求禁用",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "安全保护测试",
+    "操作": "参数修改权限测试",
+    "设置调整": "现场可调",
+    "保护措施": "密码或密封保护",
+    "未授权访问尝试": "被阻止",
+    "结果状态": "安全保护有效",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "测试场景": "相间电压评估",
+    "操作": "无中性线系统测试",
+    "电压类型": "相间电压",
+    "电压值": "18%标称电压",
+    "静态电压范围设置": "欠压边界50%，过压边界120%",
+    "评估方式": "相间电压评估",
+    "结果状态": "正确触发零电流模式",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.7.4.2.3 Induction generator based units: In general no voltage support during faults and voltage steps is required from generating plants connected in LV distribution networks as the additional reactive current is expected to interfere with grid protection equipment. If the responsible party requires voltage support during faults and voltage steps for generating plants of type B connected to LV distribution grids, the clause 4.7.4 of EN50549-2 applies.",
+        "testcase": [
+  {
+    "id": 1,
+    "发电机类型": "感应发电机",
+    "并网电压等级": "低压配电网",
+    "故障类型": "电压故障",
+    "电压支撑要求": "不要求提供电压支撑",
+    "预期结果": "不产生额外无功电流",
+    "测试结果": "通过"
+  },
+  {
+    "id": 2,
+    "发电机类型": "感应发电机",
+    "并网电压等级": "低压配电网",
+    "故障类型": "电压阶跃",
+    "电压支撑要求": "不要求提供电压支撑",
+    "预期结果": "不产生额外无功电流",
+    "测试结果": "通过"
+  },
+  {
+    "id": 3,
+    "发电机类型": "B类发电机",
+    "并网电压等级": "低压配电网",
+    "故障类型": "电压故障",
+    "电压支撑要求": "要求提供电压支撑",
+    "适用标准": "EN50549-2条款4.7.4",
+    "预期结果": "按照标准要求提供电压支撑",
+    "测试结果": "通过"
+  },
+  {
+    "id": 4,
+    "发电机类型": "B类发电机",
+    "并网电压等级": "低压配电网",
+    "故障类型": "电压阶跃",
+    "电压支撑要求": "要求提供电压支撑",
+    "适用标准": "EN50549-2条款4.7.4",
+    "预期结果": "按照标准要求提供电压支撑",
+    "测试结果": "通过"
+  },
+  {
+    "id": 5,
+    "发电机类型": "非B类发电机",
+    "并网电压等级": "低压配电网",
+    "故障类型": "电压故障",
+    "电压支撑要求": "要求提供电压支撑",
+    "预期结果": "不适用电压支撑要求",
+    "测试结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "4.7.4.3 Generating plant with synchronous generating technology - Synchronous generator based units: In general no voltage support during faults and voltage steps is required from generating plants connected in LV distribution networks as the additional reactive current is expected to interfere with grid protection equipment. If the responsible party requires voltage support during faults and voltage steps for generating plants of type B connected to LV distribution grids, the clause 4.7.4 of EN50549-2 applies.",
+        "testcase": [{"id": 1, "连接网络": "低压配电网", "发电厂类型": "B型", "技术类型": "同步发电机", "电压支持要求": "无", "适用条款": "无", "预期结果": "正常运行，无额外无功电流干扰电网保护设备", "测试结果": "符合要求"}, {"id": 2, "连接网络": "低压配电网", "发电厂类型": "B型", "技术类型": "同步发电机", "电压支持要求": "有", "责任方要求": "需要故障期间电压支持", "适用条款": "EN50549-2第4.7.4条", "预期结果": "按标准条款要求提供电压支持", "测试结果": "符合要求"}, {"id": 3, "连接网络": "低压配电网", "发电厂类型": "非B型", "技术类型": "同步发电机", "电压支持要求": "有", "责任方要求": "需要故障期间电压支持", "适用条款": "不适用EN50549-2第4.7.4条", "预期结果": "不要求提供电压支持", "测试结果": "符合要求"}, {"id": 4, "连接网络": "中压配电网", "发电厂类型": "B型", "技术类型": "同步发电机", "电压支持要求": "有", "责任方要求": "需要故障期间电压支持", "适用条款": "不适用EN50549-2第4.7.4条", "预期结果": "按相应标准要求执行", "测试结果": "需另行验证"}]
+    },
+    {
+        "rule": "4.8 EMC and power quality: Similar to any other apparatus or fixed installation, generating units shall comply with the requirements on electromagnetic compatibility established in Directive 2014/30/EU or 2014/53/EU, whichever applies. EMC limits and tests, described in EN 61000 series, have been traditionally developed for loads, without taking into account the particularities of generating units, such as their capability to create overvoltages or high frequency disturbances due to the presence of power converters, which were either impossible or less frequent in case of loads. NOTE 1: Currently, IEC SC 77A are reviewing all their existing standards to include, where necessary, specific requirements for generating units/plants. For dispersed generating units in LV networks, the Technical Report IEC/TR 61000–3-15 is addressing gaps in the existing EMC standards making recommendations on the following aspects: Harmonic emissions; Flicker and voltage fluctuations; DC injection; Short and long duration overvoltages emission; Switching frequency emission; Immunity to voltage dips and short interruptions; Immunity to frequency variation; Immunity to harmonics and inter-harmonics; Unbalance. As long as specific tests for generating units are not available for immunity and/or emission, generic EMC standards and/or any relevant EU harmonized EMC standard should be applied. NOTE 2: Besides the compliance with EN61000 Series, in most countries power quality characteristic according to standards such as for example EN 61400–21 or VDE V 0124–100 are required as part of the connection agreement. Additional phenomena need to be addressed specifically to generating plants and their integration in the power system. ROCOF: See 4.5.2; UVRT: See 4.5.3; OVRT: See 4.5.4; DC injection: Generating plants shall not inject direct currents. NOTE 3: The DC injection clause is considered to be passed when for all generating units within the generating plant the measured DC injection of a type-tested unit is below the testing threshold. Generating plants can also disturb mains signalling (ripple control or power line carrier systems). EMC requirements on inter-harmonics and on conducted disturbances in the frequency range between 2 kHz and 150 kHz are under development. In case of electromagnetic interferences to mains signalling systems due to the connection of a generating plant, mitigation measures should be taken and national requirements may apply. Generating units are also expected to be compatible with voltage characteristics at the point of connection, as described in EN 50160 or in national regulations; however no compliance test is required due to the scope of EN 50160.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试类型": "直流注入测试",
+    "操作目标": "发电厂内发电单元",
+    "直流注入电流": "低于测试阈值",
+    "测试标准": "类型测试单元测量值",
+    "结果状态": "直流注入符合要求",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试类型": "直流注入测试",
+    "操作目标": "发电厂内发电单元",
+    "直流注入电流": "高于测试阈值",
+    "测试标准": "类型测试单元测量值",
+    "结果状态": "直流注入超出限值",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "测试类型": "电磁兼容性测试",
+    "操作目标": "发电单元",
+    "测试标准": "EN 61000系列通用标准",
+    "适用场景": "特定发电单元测试不可用时",
+    "结果状态": "符合通用EMC标准要求",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试类型": "电能质量测试",
+    "操作目标": "发电单元",
+    "测试标准": "EN 61400-21或VDE V 0124-100",
+    "测试要求": "并网协议要求",
+    "结果状态": "符合电能质量特性要求",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试类型": "谐波发射测试",
+    "操作目标": "低压网络分散发电单元",
+    "测试依据": "IEC/TR 61000-3-15",
+    "谐波发射水平": "符合限值要求",
+    "结果状态": "谐波发射在允许范围内",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试类型": "谐波发射测试",
+    "操作目标": "低压网络分散发电单元",
+    "测试依据": "IEC/TR 61000-3-15",
+    "谐波发射水平": "超出限值要求",
+    "结果状态": "谐波发射超标",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "测试类型": "闪变和电压波动测试",
+    "操作目标": "低压网络分散发电单元",
+    "测试依据": "IEC/TR 61000-3-15",
+    "闪变水平": "符合限值要求",
+    "电压波动": "在允许范围内",
+    "结果状态": "闪变和电压波动符合要求",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试类型": "电压暂降免疫力测试",
+    "操作目标": "低压网络分散发电单元",
+    "测试依据": "IEC/TR 61000-3-15",
+    "免疫力等级": "符合要求",
+    "结果状态": "电压暂降免疫力达标",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.9 Interface protection",
+        "testcase": []
+    },
+    {
+        "rule": "4.9.1 General: According to HD 60364-5-551:2010, 551.7.4, means of automatic switching shall be provided to disconnect the generating plant from the distribution network in the event of loss of that supply or deviation of the voltage or frequency at the supply terminals from values declared for normal supply. This automatic means of disconnection has following main objectives: prevent the power production of the generating plant to cause an overvoltage situation in the distribution network it is connected to. Such overvoltages could result in damages to the equipment connected to the distribution network as well as the distribution network itself; detect unintentional island situations and disconnect the generating plant in this case. This is contributing to prevent damage to other equipment, both in the producers’ installations and the distribution network due to out of phase re-closing and to allow for maintenance work after an intentional disconnection of a section of the distribution network; NOTE 1: It is pointed out that checking the absence of voltage on all the live conductors is anyway mandatory before accessing a site for (maintenance) work. assist in bringing the distribution network to a controlled state in case of voltage or frequency deviations beyond corresponding regulation values. It is not the purpose of the interface protection system to: disconnect the generating plant from the distribution network in case of faults internal to the power generating plant. Protection against internal faults (short-circuits) shall be coordinated with network protection, according to DSO protection criteria. Protection against e.g. overload, electric shock and against fire hazards shall be implemented additionally according to HD 60364-1 and local requirements; prevent damages to the generating unit due to incidents (e.g. short circuits) on the distribution network. Interface protections may contribute to preventing damage to the generating units due to out-of-phase reclosing of automatic reclosing which may happen after some hundreds of ms. However, in some countries some technologies of generating units are explicitly required to have an appropriate immunity level against the consequences of out-of-phase reclosing. The type of protection and the sensitivity and operating times depend upon the protection and the characteristics of the distribution network. A wide variety of approaches to achieve the above mentioned objectives is used throughout Europe. Besides the passive observation of voltage and frequency other active and passive methods are available and used to detect island situations. The requirements given in this clause are intended to provide the necessary functions for all known approaches as well as to give guidance in their use. Which functions are available in a product shall be stated in the product documentation. The interface protection system shall comply with the requirements of this European Standard, the available functions and configured settings shall comply with the requirements of the DSO and the responsible party. In any case, the settings defined shall be understood as the values for the interface protection system, i.e. where there is a wider technical capability of the generation module, it shall not be withheld by the settings of the protections (other than the interface protection). For micro generating plants, the interface protection system and the point of measurement might be integrated into the generating units. For generating plants with nominal current above 16 A the DSO may define a threshold above which the interface protection system shall be realized as a dedicated device and not integrated into the generating units. NOTE 2: Example thresholds are 11,08 kW per generating plant (Italy), 30 kVA per generating plant (Germany, Austria) and 50 kW per generating unit (GB). NOTE 3: Integrated interface protection systems might not be possible for two different reasons: to place the protection system as close to the point of connection as possible, to avoid tripping due to overvoltages resulting from the voltage rise within the producer’s network; to allow for periodic field tests. In some countries periodic field tests are not required if the protection system meets the requirements of single fault safety. The interface protection relay acts on the interface switch. The DSO may require that the interface protection relay acts additionally on another switch with a proper delay in case the interface switch fails to operate. In case of failure of the power supply of the interface protection, the interface protection shall trigger the interface switch without delay. An uninterruptible power supply may be required by the DSO, for instance in case of UVRT capability, delay in protection etc. In case of field adjustable settings of threshold and operation time, means shall be provided to protect the settings from unpermitted interference (e.g. password or seal) if required by the DSO.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "电网供电中断保护",
+    "操作目标": "发电厂接口保护系统",
+    "电网状态": "供电完全中断",
+    "电压": "0%标称值",
+    "频率": "0Hz",
+    "持续时间": "立即",
+    "预期动作": "自动断开发电厂与配电网连接",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "电压偏差超出正常范围",
+    "操作目标": "发电厂接口保护系统",
+    "电网状态": "电压异常",
+    "电压": "超出申报正常供电值的允许偏差",
+    "频率": "正常范围",
+    "持续时间": "超过设定延时",
+    "预期动作": "自动断开发电厂与配电网连接",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "频率偏差超出正常范围",
+    "操作目标": "发电厂接口保护系统",
+    "电网状态": "频率异常",
+    "电压": "正常范围",
+    "频率": "超出申报正常供电值的允许偏差",
+    "持续时间": "超过设定延时",
+    "预期动作": "自动断开发电厂与配电网连接",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "非故意孤岛检测",
+    "操作目标": "发电厂接口保护系统",
+    "电网状态": "孤岛运行",
+    "电压": "正常范围",
+    "频率": "正常范围",
+    "持续时间": "孤岛检测时间",
+    "预期动作": "检测到孤岛并断开发电厂连接",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "接口保护系统电源故障",
+    "操作目标": "发电厂接口保护系统",
+    "电网状态": "保护系统电源故障",
+    "电压": "不适用",
+    "频率": "不适用",
+    "持续时间": "立即",
+    "预期动作": "无延时触发接口开关断开",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "接口开关故障备用保护",
+    "操作目标": "备用保护系统",
+    "电网状态": "接口开关故障",
+    "电压": "异常值",
+    "频率": "异常值",
+    "持续时间": "适当延时后",
+    "预期动作": "作用于另一个开关断开连接",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "正常电网条件下不动作",
+    "操作目标": "发电厂接口保护系统",
+    "电网状态": "正常供电",
+    "电压": "申报正常值范围内",
+    "频率": "申报正常值范围内",
+    "持续时间": "持续运行",
+    "预期动作": "保持连接状态",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "设置参数保护",
+    "操作目标": "接口保护系统设置",
+    "电网状态": "未授权访问尝试",
+    "电压": "不适用",
+    "频率": "不适用",
+    "操作": "尝试修改阈值和操作时间设置",
+    "预期动作": "防止未授权干扰（密码或密封保护）",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "瞬时电压波动不触发",
+    "操作目标": "发电厂接口保护系统",
+    "电网状态": "瞬时电压波动",
+    "电压": "轻微超出正常范围",
+    "频率": "正常范围",
+    "持续时间": "短于设定延时时间",
+    "预期动作": "不触发断开动作",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.9.2 Void",
+        "testcase": []
+    },
+    {
+        "rule": "4.9.3 Requirements on voltage and frequency protection",
+        "testcase": []
+    },
+    {
+        "rule": "4.9.3.1 General: Part or all of the following described functions may be required by the DSO and the responsible party. NOTE 1: In the following the headings of the clause sections contain ANSI device numbers according to IEEE/ANSI C37.2 in square brackets e.g. [27]. The protection functions shall evaluate at least all phases where generating units, covered by this protection system, are connected to. In case of three phase generating units/plants and in all cases when the protection system is implemented as an external protection system in a three phase power supply system, all phase to phase voltages and, if a neutral conductor is present, all phase to neutral voltages shall be evaluated. NOTE 2: It is possible to calculate the phase to phase voltages based on phase-neutral measurements. The frequency shall be evaluated on at least one of the voltages. If multiple signals (e.g. 3 phase to phase voltages) are to be evaluated by one protection function, this function shall evaluate all of the signals separately. The output of each evaluation shall be OR connected, so that if one signal passes the threshold of a function, the function shall trip the protection in the specified time. The minimum required accuracy for protection is: • for frequency measurement ± 0,05 Hz; • for voltage measurement ± 1 % of Un; The reset time shall be ≤50 ms. The interface protection relay shall not conduct continuous starting and disengaging operations of the interface protection relay. Therefore a reasonable reset ratio shall be implemented which shall not be zero but be below 2% of nominal value for voltage and below 0,2Hz for frequency. NOTE 3: If the interface protection system is external to the generating unit, it is preferably located as close as possible to the point of connection. The voltage rise between the point of connection and the measurement input of the interface protection system is then kept as small as possible to avoid nuisance tripping of the overvoltage protection.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "频率测量精度验证-正向",
+    "测量类型": "频率",
+    "标称频率": 50,
+    "测试频率": 50.04,
+    "允许误差": "±0.05Hz",
+    "预期结果": "测量值在允许范围内，不触发保护",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "频率测量精度验证-反向",
+    "测量类型": "频率",
+    "标称频率": 50,
+    "测试频率": 50.06,
+    "允许误差": "±0.05Hz",
+    "预期结果": "测量值超出允许范围，应记录精度偏差",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "测试场景": "电压测量精度验证-正向",
+    "测量类型": "电压",
+    "标称电压": 100,
+    "测试电压": 100.5,
+    "允许误差": "±1%Un",
+    "预期结果": "测量值在允许范围内，不触发保护",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "电压测量精度验证-反向",
+    "测量类型": "电压",
+    "标称电压": 100,
+    "测试电压": 101.5,
+    "允许误差": "±1%Un",
+    "预期结果": "测量值超出允许范围，应记录精度偏差",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "测试场景": "复位时间验证",
+    "测试类型": "复位时间",
+    "触发条件": "保护动作后恢复正常",
+    "最大复位时间": "50毫秒",
+    "实际复位时间": "45毫秒",
+    "预期结果": "复位时间符合要求",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "复位比电压验证-正向",
+    "测试类型": "电压复位比",
+    "标称电压": 100,
+    "复位比阈值": "2%标称值",
+    "测试复位比": "1.5%",
+    "预期结果": "复位比在允许范围内",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "复位比电压验证-反向",
+    "测试类型": "电压复位比",
+    "标称电压": 100,
+    "复位比阈值": "2%标称值",
+    "测试复位比": "2.5%",
+    "预期结果": "复位比超出允许范围",
+    "结果": "失败"
+  },
+  {
+    "id": 8,
+    "测试场景": "复位比频率验证-正向",
+    "测试类型": "频率复位比",
+    "标称频率": 50,
+    "复位比阈值": "0.2Hz",
+    "测试复位比": "0.15Hz",
+    "预期结果": "复位比在允许范围内",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "多相信号OR逻辑验证",
+    "测试类型": "保护逻辑",
+    "相数": "三相",
+    "测试条件": "仅一相电压超过阈值",
+    "预期结果": "保护系统应触发动作",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "测试场景": "连续启停抑制验证",
+    "测试类型": "系统稳定性",
+    "测试条件": "边界条件波动",
+    "预期结果": "不应出现连续启停操作",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.9.3.2 Undervoltage protection [27]: The evaluation of the r.m.s. or the fundamental value is allowed. Undervoltage protection may be implemented with two completely independent protection thresholds, each one able to be activated or not. The standard adjustment ranges are as follows. Undervoltage threshold stage 1 [27 < ]: • Threshold (0,2 – 1) Un adjustable by steps of 0,01 Un; • Operate time (0,1 – 100) s adjustable in steps of 0,1 s. Undervoltage threshold stage 2 [27<<]: Threshold (0,2 – 1) Un adjustable by steps of 0,01 Un; Operate time (0,1 – 5) s adjustable in steps of 0,05 s. The undervoltage threshold stage 2 is not applicable for micro-generating plants.",
+        "testcase": [{"id": 1, "保护类型": "低压保护阶段1", "阈值设置": "0.5Un", "动作时间": "5.0s", "适用对象": "常规发电厂", "评估方式": "有效值评估", "激活状态": "已激活", "预期结果": "保护正常动作", "结果": "成功"}, {"id": 2, "保护类型": "低压保护阶段1", "阈值设置": "0.15Un", "动作时间": "5.0s", "适用对象": "常规发电厂", "评估方式": "基波值评估", "激活状态": "已激活", "预期结果": "阈值超出可调范围，设置失败", "结果": "失败"}, {"id": 3, "保护类型": "低压保护阶段1", "阈值设置": "0.8Un", "动作时间": "0.05s", "适用对象": "常规发电厂", "评估方式": "有效值评估", "激活状态": "已激活", "预期结果": "动作时间超出可调范围，设置失败", "结果": "失败"}, {"id": 4, "保护类型": "低压保护阶段1", "阈值设置": "0.3Un", "动作时间": "50.0s", "适用对象": "常规发电厂", "评估方式": "基波值评估", "激活状态": "未激活", "预期结果": "保护未激活，不执行保护动作", "结果": "成功"}, {"id": 5, "保护类型": "低压保护阶段2", "阈值设置": "0.4Un", "动作时间": "2.5s", "适用对象": "常规发电厂", "评估方式": "有效值评估", "激活状态": "已激活", "预期结果": "保护正常动作", "结果": "成功"}, {"id": 6, "保护类型": "低压保护阶段2", "阈值设置": "0.25Un", "动作时间": "0.08s", "适用对象": "常规发电厂", "评估方式": "基波值评估", "激活状态": "已激活", "预期结果": "动作时间超出可调范围，设置失败", "结果": "失败"}, {"id": 7, "保护类型": "低压保护阶段2", "阈值设置": "0.35Un", "动作时间": "3.0s", "适用对象": "微型发电厂", "评估方式": "有效值评估", "激活状态": "已激活", "预期结果": "阶段2保护不适用于微型发电厂，配置失败", "结果": "失败"}, {"id": 8, "保护类型": "低压保护阶段2", "阈值设置": "1.05Un", "动作时间": "2.0s", "适用对象": "常规发电厂", "评估方式": "基波值评估", "激活状态": "已激活", "预期结果": "阈值超出可调范围，设置失败", "结果": "失败"}]
+    },
+    {
+        "rule": "4.9.3.3 Overvoltage protection [59]: The evaluation of the r.m.s. or the fundamental value is allowed. Overvoltage protection may be implemented with two completely independent protection thresholds, each one able to be activated or not. The standard adjustment ranges are as follows. Overvoltage threshold stage 1 [59 > ]: Threshold (1,0 – 1,2) Un adjustable by steps of 0,01 Un; Operate time (0,1 – 100) s adjustable in steps of 0,1 s. Overvoltage threshold stage 2 [59>>]: • Threshold (1,0 – 1,30) Un adjustable by steps of 0,01 Un; • Operate time (0,1 – 5) s adjustable in steps of 0,05 s.",
+        "testcase": [
+  {
+    "id": 1,
+    "保护功能": "过电压保护阶段1",
+    "评估方式": "有效值评估",
+    "阈值设置": "1.15Un",
+    "动作时间": "5.0s",
+    "保护状态": "激活",
+    "测试电压": "1.16Un",
+    "持续时间": "5.0s",
+    "预期动作": "动作",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "保护功能": "过电压保护阶段1",
+    "评估方式": "基波值评估",
+    "阈值设置": "1.15Un",
+    "动作时间": "5.0s",
+    "保护状态": "激活",
+    "测试电压": "1.14Un",
+    "持续时间": "5.0s",
+    "预期动作": "不动作",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "保护功能": "过电压保护阶段1",
+    "评估方式": "有效值评估",
+    "阈值设置": "1.10Un",
+    "动作时间": "0.5s",
+    "保护状态": "激活",
+    "测试电压": "1.11Un",
+    "持续时间": "0.5s",
+    "预期动作": "动作",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "保护功能": "过电压保护阶段1",
+    "评估方式": "有效值评估",
+    "阈值设置": "1.10Un",
+    "动作时间": "0.5s",
+    "保护状态": "激活",
+    "测试电压": "1.11Un",
+    "持续时间": "0.4s",
+    "预期动作": "不动作",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "保护功能": "过电压保护阶段1",
+    "评估方式": "有效值评估",
+    "阈值设置": "1.20Un",
+    "动作时间": "100.0s",
+    "保护状态": "激活",
+    "测试电压": "1.21Un",
+    "持续时间": "100.0s",
+    "预期动作": "动作",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "保护功能": "过电压保护阶段2",
+    "评估方式": "基波值评估",
+    "阈值设置": "1.25Un",
+    "动作时间": "2.5s",
+    "保护状态": "激活",
+    "测试电压": "1.26Un",
+    "持续时间": "2.5s",
+    "预期动作": "动作",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "保护功能": "过电压保护阶段2",
+    "评估方式": "有效值评估",
+    "阈值设置": "1.25Un",
+    "动作时间": "2.5s",
+    "保护状态": "激活",
+    "测试电压": "1.24Un",
+    "持续时间": "2.5s",
+    "预期动作": "不动作",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "保护功能": "过电压保护阶段2",
+    "评估方式": "基波值评估",
+    "阈值设置": "1.30Un",
+    "动作时间": "0.1s",
+    "保护状态": "激活",
+    "测试电压": "1.31Un",
+    "持续时间": "0.1s",
+    "预期动作": "动作",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "保护功能": "过电压保护阶段2",
+    "评估方式": "基波值评估",
+    "阈值设置": "1.30Un",
+    "动作时间": "0.1s",
+    "保护状态": "激活",
+    "测试电压": "1.31Un",
+    "持续时间": "0.05s",
+    "预期动作": "不动作",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "保护功能": "过电压保护阶段1",
+    "评估方式": "有效值评估",
+    "阈值设置": "1.15Un",
+    "动作时间": "5.0s",
+    "保护状态": "未激活",
+    "测试电压": "1.16Un",
+    "持续时间": "5.0s",
+    "预期动作": "不动作",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.9.3.4 Overvoltage 10 min mean protection: The calculation of the 10 min value shall comply with the 10 min aggregation of EN 61000-4-30 Class S, but deviating from EN 61000-4-30 as a moving window is used. Therefore the function shall be based on the calculation of the square root of the arithmetic mean of the squared input values over 10 min. The calculation of a new 10 min value at least every 3 s is sufficient, which is then to be compared with the threshold value. Threshold (1,0 – 1,15) Un adjustable by steps of 0,01 Un; • Start time ≤ 3s not adjustable; Time delay setting=0 ms. NOTE 1: This function evaluates the r.m.s value. NOTE 2: More information can be found in EN 50160.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "10分钟过压保护功能验证",
+    "操作": "计算10分钟均方根值",
+    "计算方式": "移动窗口法",
+    "输入电压": "1.14倍标称电压",
+    "持续时间": "10分钟",
+    "采样间隔": "3秒",
+    "阈值设置": "1.15Un",
+    "预期结果": "不触发保护",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "10分钟过压保护功能验证",
+    "操作": "计算10分钟均方根值",
+    "计算方式": "移动窗口法",
+    "输入电压": "1.16倍标称电压",
+    "持续时间": "10分钟",
+    "采样间隔": "3秒",
+    "阈值设置": "1.15Un",
+    "预期结果": "触发过压保护",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "10分钟过压保护边界测试",
+    "操作": "计算10分钟均方根值",
+    "计算方式": "移动窗口法",
+    "输入电压": "1.15倍标称电压",
+    "持续时间": "10分钟",
+    "采样间隔": "3秒",
+    "阈值设置": "1.15Un",
+    "预期结果": "触发过压保护",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "阈值可调性测试",
+    "操作": "设置保护阈值",
+    "计算方式": "移动窗口法",
+    "阈值设置": "1.01Un",
+    "设置步长": "0.01Un",
+    "预期结果": "成功设置阈值",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "响应时间测试",
+    "操作": "计算10分钟均方根值",
+    "计算方式": "移动窗口法",
+    "输入电压": "1.16倍标称电压",
+    "持续时间": "3秒",
+    "采样间隔": "3秒",
+    "阈值设置": "1.15Un",
+    "预期结果": "在3秒内开始计算新值并与阈值比较",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "时间延迟测试",
+    "操作": "过压保护时间延迟",
+    "计算方式": "移动窗口法",
+    "输入电压": "1.16倍标称电压",
+    "持续时间": "10分钟",
+    "时间延迟": "0毫秒",
+    "阈值设置": "1.15Un",
+    "预期结果": "立即触发保护，无延迟",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "无效阈值设置测试",
+    "操作": "设置保护阈值",
+    "计算方式": "移动窗口法",
+    "阈值设置": "0.99Un",
+    "设置步长": "0.01Un",
+    "预期结果": "设置失败，阈值超出可调范围(1.0-1.15Un)",
+    "结果": "失败"
+  },
+  {
+    "id": 8,
+    "测试场景": "均方根计算验证",
+    "操作": "计算10分钟均方根值",
+    "计算方式": "移动窗口法",
+    "输入电压": "波动电压信号",
+    "持续时间": "10分钟",
+    "采样间隔": "3秒",
+    "阈值设置": "1.10Un",
+    "预期结果": "正确计算平方根的算术平均值",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.9.3.5 Underfrequency protection [81 < ]: Underfrequency protection may be implemented with two completely independent protection thresholds, each one able to be activated or not. The standard adjustment ranges are as follows. Underfrequency threshold stage 1 [81 < ]: • Threshold (47,0 – 50,0) Hz adjustment by steps of 0,1 Hz; Operate time (0,1 – 100) s adjustable in steps of 0,1 s. Underfrequency threshold stage 2 [81<<]: • Threshold (47,0 – 50,0) Hz adjustment by steps of 0,1 Hz; • Operate time (0,1 – 5) s adjustable in steps of 0,05 s. In order to use narrow frequency thresholds for islanding detection (see 4.9.3.3) it may be required to have the ability to activate and deactivate a stage by an external signal. The frequency protection shall function correctly in the input voltage range between 20 % Un and 120 % Un and shall be inhibited for input voltages of less than 20 % Un. Under 0,2 Un the frequency protection is inhibited. Disconnection may only happen based on undervoltage protection.",
+        "testcase": [
+  {
+    "id": 1,
+    "保护类型": "低频保护第一阶段[81<]",
+    "激活状态": "已激活",
+    "频率阈值": "49.0 Hz",
+    "动作时间": "5.0 s",
+    "输入电压": "100% Un",
+    "外部信号": "无",
+    "预期动作": "正常动作",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "保护类型": "低频保护第一阶段[81<]",
+    "激活状态": "已激活",
+    "频率阈值": "47.5 Hz",
+    "动作时间": "0.1 s",
+    "输入电压": "50% Un",
+    "外部信号": "无",
+    "预期动作": "正常动作",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "保护类型": "低频保护第一阶段[81<]",
+    "激活状态": "已激活",
+    "频率阈值": "49.0 Hz",
+    "动作时间": "5.0 s",
+    "输入电压": "15% Un",
+    "外部信号": "无",
+    "预期动作": "保护被抑制",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "保护类型": "低频保护第一阶段[81<]",
+    "激活状态": "未激活",
+    "频率阈值": "48.0 Hz",
+    "动作时间": "10.0 s",
+    "输入电压": "80% Un",
+    "外部信号": "无",
+    "预期动作": "不动作",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "保护类型": "低频保护第二阶段[81<<]",
+    "激活状态": "已激活",
+    "频率阈值": "48.5 Hz",
+    "动作时间": "1.0 s",
+    "输入电压": "100% Un",
+    "外部信号": "无",
+    "预期动作": "正常动作",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "保护类型": "低频保护第二阶段[81<<]",
+    "激活状态": "已激活",
+    "频率阈值": "49.5 Hz",
+    "动作时间": "0.1 s",
+    "输入电压": "30% Un",
+    "外部信号": "无",
+    "预期动作": "正常动作",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "保护类型": "低频保护第二阶段[81<<]",
+    "激活状态": "已激活",
+    "频率阈值": "48.0 Hz",
+    "动作时间": "5.0 s",
+    "输入电压": "10% Un",
+    "外部信号": "无",
+    "预期动作": "保护被抑制",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "保护类型": "低频保护第二阶段[81<<]",
+    "激活状态": "未激活",
+    "频率阈值": "47.5 Hz",
+    "动作时间": "2.5 s",
+    "输入电压": "80% Un",
+    "外部信号": "无",
+    "预期动作": "不动作",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "保护类型": "低频保护第一阶段[81<]",
+    "激活状态": "已激活",
+    "频率阈值": "50.0 Hz",
+    "动作时间": "100.0 s",
+    "输入电压": "120% Un",
+    "外部信号": "无",
+    "预期动作": "正常动作",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "保护类型": "低频保护第二阶段[81<<]",
+    "激活状态": "已激活",
+    "频率阈值": "47.0 Hz",
+    "动作时间": "0.05 s",
+    "输入电压": "20% Un",
+    "外部信号": "无",
+    "预期动作": "正常动作",
+    "结果": "成功"
+  },
+  {
+    "id": 11,
+    "保护类型": "低频保护第一阶段[81<]",
+    "激活状态": "已激活",
+    "频率阈值": "49.0 Hz",
+    "动作时间": "5.0 s",
+    "输入电压": "100% Un",
+    "外部信号": "停用信号",
+    "预期动作": "不动作",
+    "结果": "成功"
+  },
+  {
+    "id": 12,
+    "保护类型": "低频保护第二阶段[81<<]",
+    "激活状态": "未激活",
+    "频率阈值": "48.0 Hz",
+    "动作时间": "2.0 s",
+    "输入电压": "100% Un",
+    "外部信号": "激活信号",
+    "预期动作": "正常动作",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.9.3.6 Overfrequency protection [81 > ]: Overfrequency protection may be implemented with two completely independent protection thresholds, each one able to be activated or not. The standard adjustment ranges are as follows. Overfrequency threshold stage 1 [81 > ]: • Threshold (50,0 - 52,0) Hz adjustment by steps of 0,1 Hz; Operate time (0,1 – 100) s adjustable in steps of 0,1 s. Overfrequency threshold stage 2 [81 >> ]: Threshold (50,0 - 52,0) Hz adjustment by steps of 0,1 Hz; Operate time (0,1 - 5) s adjustable in steps of 0,05 s. In order to use narrow frequency thresholds for islanding detection (see4.9.3.3) it may be required to have the ability to activate and deactivate a stage by an external signal. The frequency protection shall function correctly in the input voltage range between 20 % Un and 120 % Un and shall be inhibited for input voltages of less than 20 % Un.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "过频保护阶段1正常动作",
+    "操作人": "保护测试工程师",
+    "频率值": "51.5Hz",
+    "电压值": "100%Un",
+    "持续时间": "5.0s",
+    "保护阶段": "阶段1",
+    "阈值设置": "51.0Hz",
+    "时间设置": "3.0s",
+    "预期动作": "保护动作",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "过频保护阶段1不动作-频率低于阈值",
+    "操作人": "保护测试工程师",
+    "频率值": "50.5Hz",
+    "电压值": "100%Un",
+    "持续时间": "10.0s",
+    "保护阶段": "阶段1",
+    "阈值设置": "51.0Hz",
+    "时间设置": "3.0s",
+    "预期动作": "保护不动作",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "过频保护阶段1不动作-时间不足",
+    "操作人": "保护测试工程师",
+    "频率值": "51.5Hz",
+    "电压值": "100%Un",
+    "持续时间": "2.0s",
+    "保护阶段": "阶段1",
+    "阈值设置": "51.0Hz",
+    "时间设置": "3.0s",
+    "预期动作": "保护不动作",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "过频保护阶段2正常动作",
+    "操作人": "保护测试工程师",
+    "频率值": "51.8Hz",
+    "电压值": "80%Un",
+    "持续时间": "3.0s",
+    "保护阶段": "阶段2",
+    "阈值设置": "51.5Hz",
+    "时间设置": "2.0s",
+    "预期动作": "保护动作",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "电压低于20%Un时保护被闭锁",
+    "操作人": "保护测试工程师",
+    "频率值": "52.0Hz",
+    "电压值": "15%Un",
+    "持续时间": "10.0s",
+    "保护阶段": "阶段1",
+    "阈值设置": "51.0Hz",
+    "时间设置": "1.0s",
+    "预期动作": "保护被闭锁不动作",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "电压在20%Un时保护正常工作",
+    "操作人": "保护测试工程师",
+    "频率值": "51.5Hz",
+    "电压值": "20%Un",
+    "持续时间": "5.0s",
+    "保护阶段": "阶段1",
+    "阈值设置": "51.0Hz",
+    "时间设置": "3.0s",
+    "预期动作": "保护动作",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "电压超过120%Un时保护正常工作",
+    "操作人": "保护测试工程师",
+    "频率值": "51.5Hz",
+    "电压值": "120%Un",
+    "持续时间": "5.0s",
+    "保护阶段": "阶段1",
+    "阈值设置": "51.0Hz",
+    "时间设置": "3.0s",
+    "预期动作": "保护动作",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "阶段1阈值边界测试-50.0Hz",
+    "操作人": "保护测试工程师",
+    "频率值": "50.1Hz",
+    "电压值": "100%Un",
+    "持续时间": "5.0s",
+    "保护阶段": "阶段1",
+    "阈值设置": "50.0Hz",
+    "时间设置": "1.0s",
+    "预期动作": "保护动作",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "测试场景": "阶段2时间精度测试-0.05s步长",
+    "操作人": "保护测试工程师",
+    "频率值": "51.5Hz",
+    "电压值": "100%Un",
+    "持续时间": "1.55s",
+    "保护阶段": "阶段2",
+    "阈值设置": "51.0Hz",
+    "时间设置": "1.55s",
+    "预期动作": "保护动作",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "测试场景": "外部信号激活保护阶段",
+    "操作人": "保护测试工程师",
+    "频率值": "51.2Hz",
+    "电压值": "100%Un",
+    "持续时间": "4.0s",
+    "保护阶段": "阶段1",
+    "阈值设置": "51.0Hz",
+    "时间设置": "3.0s",
+    "外部激活信号": "有效",
+    "预期动作": "保护动作",
+    "结果": "成功"
+  },
+  {
+    "id": 11,
+    "测试场景": "外部信号闭锁保护阶段",
+    "操作人": "保护测试工程师",
+    "频率值": "51.5Hz",
+    "电压值": "100%Un",
+    "持续时间": "10.0s",
+    "保护阶段": "阶段1",
+    "阈值设置": "51.0Hz",
+    "时间设置": "3.0s",
+    "外部激活信号": "无效",
+    "预期动作": "保护不动作",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.9.4 Means to detect island situation",
+        "testcase": []
+    },
+    {
+        "rule": "4.9.4.1 General: Besides the passive observation of voltage and frequency further means to detect an island may be required by the DSO. Detecting islanding situations shall not be contradictory to the immunity requirements of 4.5. Commonly used functions include: • Active methods tested with a resonant circuit; • ROCOF tripping; • Switch to narrow frequency band; • Vector shift; • Transfer trip. Only some of the methods above rely on standards. Namely for ROCOF tripping and for the detection of a vector shift, also called a vector jump, currently no European Standard is available.",
+        "testcase": []
+    },
+    {
+        "rule": "4.9.4.2 Active methods tested with a resonant circuit: These are methods which pass the resonant circuit test for PV inverters according to EN 62116.",
+        "testcase": []
+    },
+    {
+        "rule": "4.9.4.3 Switch to narrow frequency band (see Annex E and Annex F): In case of local phenomena (e.g. a fault or the opening of circuit breaker along the line) the DSO in coordination with the responsible party may require a switch to a narrow frequency band to increase the interface protection relay sensitivity. In the event of a local fault it is possible to enable activation of the restrictive frequency window (using the two underfrequency/overfrequency thresholds described in 4.9.2.5 and 4.9.2.6) correlating its activation with another additional protection function. If required by the DSO, a digital input according to 4.9.4 shall be available to allow the DSO the activation of a restrictive frequency window by communication. NOTE: An additional gateway to ensure communication with the DSO communication system might be required.",
+        "testcase": [
+  {
+    "id": 1,
+    "操作主体": "配电系统运营商",
+    "操作": "切换至窄频率带",
+    "触发条件": "本地故障发生",
+    "协调对象": "责任方",
+    "频率保护类型": "限制性频率窗口",
+    "低频阈值": "启用",
+    "高频阈值": "启用",
+    "数字输入信号": "激活",
+    "通信方式": "直接通信",
+    "结果状态": "成功切换至窄频率带，保护继电器灵敏度提高",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "操作主体": "配电系统运营商",
+    "操作": "切换至窄频率带",
+    "触发条件": "线路断路器开断",
+    "协调对象": "责任方",
+    "频率保护类型": "限制性频率窗口",
+    "低频阈值": "启用",
+    "高频阈值": "启用",
+    "数字输入信号": "激活",
+    "通信方式": "直接通信",
+    "结果状态": "成功切换至窄频率带，保护继电器灵敏度提高",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "操作主体": "配电系统运营商",
+    "操作": "切换至窄频率带",
+    "触发条件": "本地故障发生",
+    "协调对象": "无协调",
+    "频率保护类型": "限制性频率窗口",
+    "低频阈值": "启用",
+    "高频阈值": "启用",
+    "数字输入信号": "未激活",
+    "通信方式": "无通信",
+    "结果状态": "切换失败，未获得责任方协调",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "操作主体": "配电系统运营商",
+    "操作": "切换至窄频率带",
+    "触发条件": "本地故障发生",
+    "协调对象": "责任方",
+    "频率保护类型": "限制性频率窗口",
+    "低频阈值": "未启用",
+    "高频阈值": "启用",
+    "数字输入信号": "激活",
+    "通信方式": "直接通信",
+    "结果状态": "切换失败，低频保护功能缺失",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "操作主体": "配电系统运营商",
+    "操作": "切换至窄频率带",
+    "触发条件": "本地故障发生",
+    "协调对象": "责任方",
+    "频率保护类型": "限制性频率窗口",
+    "低频阈值": "启用",
+    "高频阈值": "未启用",
+    "数字输入信号": "激活",
+    "通信方式": "直接通信",
+    "结果状态": "切换失败，高频保护功能缺失",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "操作主体": "配电系统运营商",
+    "操作": "切换至窄频率带",
+    "触发条件": "正常运行状态",
+    "协调对象": "责任方",
+    "频率保护类型": "限制性频率窗口",
+    "低频阈值": "启用",
+    "高频阈值": "启用",
+    "数字输入信号": "激活",
+    "通信方式": "直接通信",
+    "结果状态": "切换失败，无触发条件",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "操作主体": "配电系统运营商",
+    "操作": "切换至窄频率带",
+    "触发条件": "本地故障发生",
+    "协调对象": "责任方",
+    "频率保护类型": "限制性频率窗口",
+    "低频阈值": "启用",
+    "高频阈值": "启用",
+    "数字输入信号": "未激活",
+    "通信方式": "网关通信",
+    "结果状态": "成功切换至窄频率带，通过网关通信实现",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.9.5 Digital input to the interface protection: If required by the DSO, the interface protection shall have at least two configurable digital inputs. These inputs can for example be used to allow transfer trip or the switching to the narrow frequency band.",
+        "testcase": [{"id": 1, "配置角色": "电网运营商", "数字输入数量": 2, "数字输入配置": "可配置", "功能用途": "传输跳闸", "接口保护响应": "正确执行传输跳闸功能", "结果": "成功"}, {"id": 2, "配置角色": "电网运营商", "数字输入数量": 2, "数字输入配置": "可配置", "功能用途": "切换到窄频率带", "接口保护响应": "正确执行频率带切换", "结果": "成功"}, {"id": 3, "配置角色": "电网运营商", "数字输入数量": 1, "数字输入配置": "可配置", "功能用途": "传输跳闸", "接口保护响应": "不满足最低两个数字输入要求", "结果": "失败"}, {"id": 4, "配置角色": "电网运营商", "数字输入数量": 2, "数字输入配置": "固定不可配置", "功能用途": "传输跳闸", "接口保护响应": "无法配置所需功能", "结果": "失败"}, {"id": 5, "配置角色": "电网运营商", "数字输入数量": 3, "数字输入配置": "可配置", "功能用途": "传输跳闸和频率带切换", "接口保护响应": "正确执行所有配置功能", "结果": "成功"}]
+    },
+    {
+        "rule": "4.10 Connection and starting to generate electrical power",
+        "testcase": []
+    },
+    {
+        "rule": "4.10.1 General: Connection and starting to generate electrical power is only allowed after voltage and frequency are within the allowed voltage and frequency ranges for at least the specified observation time. It shall not be possible to overrule these conditions. Within these voltage and frequency ranges, the generating plant shall be capable of connecting and starting to generate electrical power. The setting of the conditions depends on whether the connection is due to a normal operational startup or an automatic reconnection after tripping of the interface protection. In case the settings for automatic reconnection after tripping and starting to generate power are not distinct in a generating plant, the tighter range and the start-up gradient shall be used. The frequency range, the voltage range, the observation time and the power gradient shall be field adjustable. For field adjustable settings, means shall be provided to protect the settings from unpermitted interference (e.g. password or seal) if required by the DSO.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景类型": "正常操作启动",
+    "电压状态": "在允许电压范围内",
+    "频率状态": "在允许频率范围内",
+    "观察时间": "满足规定观察时间",
+    "功率梯度": "符合启动梯度要求",
+    "保护设置": "密码保护已启用",
+    "预期结果": "允许连接并开始发电",
+    "测试结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景类型": "正常操作启动",
+    "电压状态": "低于允许电压范围下限",
+    "频率状态": "在允许频率范围内",
+    "观察时间": "满足规定观察时间",
+    "功率梯度": "符合启动梯度要求",
+    "保护设置": "密码保护已启用",
+    "预期结果": "禁止连接和发电",
+    "测试结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景类型": "正常操作启动",
+    "电压状态": "在允许电压范围内",
+    "频率状态": "高于允许频率范围上限",
+    "观察时间": "满足规定观察时间",
+    "功率梯度": "符合启动梯度要求",
+    "保护设置": "密码保护已启用",
+    "预期结果": "禁止连接和发电",
+    "测试结果": "失败"
+  },
+  {
+    "id": 4,
+    "场景类型": "正常操作启动",
+    "电压状态": "在允许电压范围内",
+    "频率状态": "在允许频率范围内",
+    "观察时间": "未达到规定观察时间",
+    "功率梯度": "符合启动梯度要求",
+    "保护设置": "密码保护已启用",
+    "预期结果": "禁止连接和发电",
+    "测试结果": "失败"
+  },
+  {
+    "id": 5,
+    "场景类型": "保护跳闸后自动重连",
+    "电压状态": "在更严格的电压范围内",
+    "频率状态": "在更严格的频率范围内",
+    "观察时间": "满足规定观察时间",
+    "功率梯度": "符合更严格的启动梯度",
+    "保护设置": "密码保护已启用",
+    "预期结果": "允许自动重连并发电",
+    "测试结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景类型": "保护跳闸后自动重连",
+    "电压状态": "在正常电压范围内但超出严格范围",
+    "频率状态": "在更严格的频率范围内",
+    "观察时间": "满足规定观察时间",
+    "功率梯度": "符合更严格的启动梯度",
+    "保护设置": "密码保护已启用",
+    "预期结果": "禁止自动重连",
+    "测试结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景类型": "设置调整测试",
+    "操作类型": "调整频率范围设置",
+    "权限状态": "无密码保护",
+    "调整操作": "尝试修改设置",
+    "预期结果": "设置无法修改，防止未授权干扰",
+    "测试结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景类型": "设置调整测试",
+    "操作类型": "调整电压范围设置",
+    "权限状态": "有密码保护",
+    "调整操作": "正确密码验证后修改",
+    "预期结果": "允许修改设置",
+    "测试结果": "成功"
+  },
+  {
+    "id": 9,
+    "场景类型": "边界条件测试",
+    "电压状态": "处于电压范围上限边界值",
+    "频率状态": "处于频率范围下限边界值",
+    "观察时间": "刚好达到规定观察时间",
+    "功率梯度": "符合启动梯度要求",
+    "保护设置": "密码保护已启用",
+    "预期结果": "允许连接并开始发电",
+    "测试结果": "成功"
+  },
+  {
+    "id": 10,
+    "场景类型": "无区分设置情况",
+    "设置状态": "自动重连和启动发电设置未区分",
+    "电压状态": "在更严格的电压范围内",
+    "频率状态": "在更严格的频率范围内",
+    "观察时间": "满足规定观察时间",
+    "功率梯度": "符合更严格的启动梯度",
+    "保护设置": "密码保护已启用",
+    "预期结果": "使用更严格范围和梯度，允许连接",
+    "测试结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.10.2 Automatic reconnection after tripping: The frequency range, the voltage range, the observation time shall be adjustable in the range according to Table 3 column 2. If no settings are specified by the DSO and the responsible party, the default settings for the reconnection after tripping of the interface protection are according to Table 3 column 3.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "自动重合闸参数设置",
+    "操作人": "系统操作员",
+    "频率范围设置": "49.5-50.2Hz",
+    "电压范围设置": "0.85-1.1标幺值",
+    "观察时间设置": "300秒",
+    "设置来源": "手动设置",
+    "预期结果": "参数设置成功，符合表3第2列范围要求",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "自动重合闸默认参数",
+    "操作人": "系统操作员",
+    "频率范围设置": "未设置",
+    "电压范围设置": "未设置",
+    "观察时间设置": "未设置",
+    "设置来源": "默认设置",
+    "预期结果": "系统自动采用表3第3列的默认参数",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "DSO指定参数设置",
+    "操作人": "DSO工作人员",
+    "频率范围设置": "49.8-50.5Hz",
+    "电压范围设置": "0.9-1.05标幺值",
+    "观察时间设置": "180秒",
+    "设置来源": "DSO指定",
+    "预期结果": "采用DSO指定的参数设置",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "责任方指定参数设置",
+    "操作人": "责任方技术人员",
+    "频率范围设置": "49.6-50.3Hz",
+    "电压范围设置": "0.88-1.08标幺值",
+    "观察时间设置": "240秒",
+    "设置来源": "责任方指定",
+    "预期结果": "采用责任方指定的参数设置",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "超出可调范围设置",
+    "操作人": "系统操作员",
+    "频率范围设置": "48.0-52.0Hz",
+    "电压范围设置": "0.5-1.5标幺值",
+    "观察时间设置": "600秒",
+    "设置来源": "手动设置",
+    "预期结果": "参数设置失败，超出表3第2列允许范围",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "测试场景": "部分参数使用默认值",
+    "操作人": "系统操作员",
+    "频率范围设置": "未设置",
+    "电压范围设置": "0.9-1.1标幺值",
+    "观察时间设置": "未设置",
+    "设置来源": "混合设置",
+    "预期结果": "已设置参数使用指定值，未设置参数使用默认值",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "Table 3 - Automatic reconnection after tripping| Parameter | Range | Default setting || --- | --- | --- || Lower frequency | 47,0Hz – 50,0Hz | 49,5Hz || Upper frequency | 50,0Hz – 52,0Hz | 50,2Hz || Lower voltage | 50% – 100% Un | 85 % Un || Upper voltage | 100% – 120% Un | 110 % Un || Observation time | 10s – 600s | 60s || Active power increase gradient | 6% – 3000%/min | 10%/min |",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "频率低于下限自动重合闸",
+    "频率": "46.9Hz",
+    "电压": "100% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "10%/min",
+    "预期结果": "不重合闸",
+    "结果": "失败"
+  },
+  {
+    "id": 2,
+    "测试场景": "频率在正常范围内自动重合闸",
+    "频率": "49.5Hz",
+    "电压": "100% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "10%/min",
+    "预期结果": "自动重合闸成功",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "频率高于上限自动重合闸",
+    "频率": "52.1Hz",
+    "电压": "100% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "10%/min",
+    "预期结果": "不重合闸",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "测试场景": "电压低于下限自动重合闸",
+    "频率": "50.0Hz",
+    "电压": "49% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "10%/min",
+    "预期结果": "不重合闸",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "测试场景": "电压在正常范围内自动重合闸",
+    "频率": "50.0Hz",
+    "电压": "85% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "10%/min",
+    "预期结果": "自动重合闸成功",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "电压高于上限自动重合闸",
+    "频率": "50.0Hz",
+    "电压": "121% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "10%/min",
+    "预期结果": "不重合闸",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "测试场景": "观测时间不足自动重合闸",
+    "频率": "49.5Hz",
+    "电压": "85% Un",
+    "观测时间": "9s",
+    "有功功率增加梯度": "10%/min",
+    "预期结果": "不重合闸",
+    "结果": "失败"
+  },
+  {
+    "id": 8,
+    "测试场景": "有功功率梯度低于下限自动重合闸",
+    "频率": "49.5Hz",
+    "电压": "85% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "5%/min",
+    "预期结果": "不重合闸",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "测试场景": "有功功率梯度在正常范围内自动重合闸",
+    "频率": "49.5Hz",
+    "电压": "85% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "10%/min",
+    "预期结果": "自动重合闸成功",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "测试场景": "有功功率梯度高于上限自动重合闸",
+    "频率": "49.5Hz",
+    "电压": "85% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "3100%/min",
+    "预期结果": "不重合闸",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "After reconnection, the active power generated by the generating plant shall not exceed a specified gradient expressed as a percentage of the active nominal power of the unit per minute. If no gradient is specified by the DSO and the responsible party, the default setting is 10 % Pn/min. Generating modules for which it is technically not feasible to increase the power respecting the specified gradient over the full power range may connect after 1 min to 10 min (randomized value, uniformly distributed) or later.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景描述": "并网后有功功率正常恢复，满足指定梯度",
+    "操作目标": "发电厂",
+    "指定梯度": "8% Pn/min",
+    "实际功率梯度": "7% Pn/min",
+    "随机延迟时间": "不适用",
+    "技术可行性": "满足全功率范围梯度要求",
+    "结果状态": "功率正常恢复，符合梯度要求",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景描述": "并网后有功功率超出指定梯度",
+    "操作目标": "发电厂",
+    "指定梯度": "8% Pn/min",
+    "实际功率梯度": "12% Pn/min",
+    "随机延迟时间": "不适用",
+    "技术可行性": "满足全功率范围梯度要求",
+    "结果状态": "功率恢复过快，违反梯度要求",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景描述": "未指定梯度时使用默认值",
+    "操作目标": "发电厂",
+    "指定梯度": "未指定",
+    "实际功率梯度": "9% Pn/min",
+    "随机延迟时间": "不适用",
+    "技术可行性": "满足全功率范围梯度要求",
+    "结果状态": "功率正常恢复，符合默认梯度10% Pn/min",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景描述": "技术不可行时允许随机延迟并网",
+    "操作目标": "发电模块",
+    "指定梯度": "8% Pn/min",
+    "实际功率梯度": "技术不可行",
+    "随机延迟时间": "5分钟",
+    "技术可行性": "无法在全功率范围满足梯度要求",
+    "结果状态": "允许延迟并网，符合规则",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景描述": "技术不可行但延迟时间过短",
+    "操作目标": "发电模块",
+    "指定梯度": "8% Pn/min",
+    "实际功率梯度": "技术不可行",
+    "随机延迟时间": "30秒",
+    "技术可行性": "无法在全功率范围满足梯度要求",
+    "结果状态": "延迟时间不足1分钟，不符合要求",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "场景描述": "边界测试-最小延迟时间",
+    "操作目标": "发电模块",
+    "指定梯度": "8% Pn/min",
+    "实际功率梯度": "技术不可行",
+    "随机延迟时间": "1分钟",
+    "技术可行性": "无法在全功率范围满足梯度要求",
+    "结果状态": "允许延迟并网，符合规则",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "场景描述": "边界测试-最大延迟时间",
+    "操作目标": "发电模块",
+    "指定梯度": "8% Pn/min",
+    "实际功率梯度": "技术不可行",
+    "随机延迟时间": "10分钟",
+    "技术可行性": "无法在全功率范围满足梯度要求",
+    "结果状态": "允许延迟并网，符合规则",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景描述": "超出最大延迟时间",
+    "操作目标": "发电模块",
+    "指定梯度": "8% Pn/min",
+    "实际功率梯度": "技术不可行",
+    "随机延迟时间": "15分钟",
+    "技术可行性": "无法在全功率范围满足梯度要求",
+    "结果状态": "延迟时间超过10分钟，不符合要求",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "4.10.3 Starting to generate electrical power: The frequency range, the voltage range, the observation time shall be adjustable in the range according to Table 4 column 2. If no settings are specified by the DSO and the responsible party, the default settings for connection or starting to generate electrical power due to normal operational startup or activity are according to Table 4 column 3.",
+        "testcase": [{"id": 1, "操作类型": "开始发电", "频率范围设置": "表4第2列范围内值", "电压范围设置": "表4第2列范围内值", "观察时间设置": "表4第2列范围内值", "设置指定方": "DSO和责任方", "结果": "成功接受设置"}, {"id": 2, "操作类型": "开始发电", "频率范围设置": "表4第2列范围外值", "电压范围设置": "表4第2列范围内值", "观察时间设置": "表4第2列范围内值", "设置指定方": "DSO和责任方", "结果": "拒绝设置"}, {"id": 3, "操作类型": "开始发电", "频率范围设置": "表4第3列默认值", "电压范围设置": "表4第3列默认值", "观察时间设置": "表4第3列默认值", "设置指定方": "无指定", "结果": "使用默认值成功"}, {"id": 4, "操作类型": "开始发电", "频率范围设置": "表4第2列边界最小值", "电压范围设置": "表4第2列边界最小值", "观察时间设置": "表4第2列边界最小值", "设置指定方": "DSO和责任方", "结果": "成功接受设置"}, {"id": 5, "操作类型": "开始发电", "频率范围设置": "表4第2列边界最大值", "电压范围设置": "表4第2列边界最大值", "观察时间设置": "表4第2列边界最大值", "设置指定方": "DSO和责任方", "结果": "成功接受设置"}]
+    },
+    {
+        "rule": "Table 4 - Starting to generate electrical power| Parameter | Range | Default setting || --- | --- | --- || Lower frequency | 47,0Hz – 50,0Hz | 49,5Hz || Upper frequency | 50,0Hz – 52,0Hz | 50,1Hz || Lower voltage | 50% – 100% Un | 85 % Un || Upper voltage | 100% – 120% Un | 110 % Un || Observation time | 10s – 600s | 60s || Active power increase gradient | 6% – 3000%/min | disabled |",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "频率下限保护测试",
+    "频率": "47.0Hz",
+    "电压": "100% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "禁用",
+    "预期结果": "启动发电",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "频率上限保护测试",
+    "频率": "52.0Hz",
+    "电压": "100% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "禁用",
+    "预期结果": "停止发电或降低功率",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "测试场景": "电压下限保护测试",
+    "频率": "50.0Hz",
+    "电压": "50% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "禁用",
+    "预期结果": "启动发电",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "电压上限保护测试",
+    "频率": "50.0Hz",
+    "电压": "120% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "禁用",
+    "预期结果": "停止发电或降低功率",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "默认设置测试",
+    "频率": "49.5Hz",
+    "电压": "85% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "禁用",
+    "预期结果": "正常启动发电",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "观测时间边界测试",
+    "频率": "49.5Hz",
+    "电压": "85% Un",
+    "观测时间": "10s",
+    "有功功率增加梯度": "禁用",
+    "预期结果": "正常启动发电",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "有功功率梯度测试",
+    "频率": "49.5Hz",
+    "电压": "85% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "6%/min",
+    "预期结果": "按梯度缓慢增加功率",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "超出频率下限测试",
+    "频率": "46.9Hz",
+    "电压": "100% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "禁用",
+    "预期结果": "不启动发电或保护动作",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "测试场景": "超出频率上限测试",
+    "频率": "52.1Hz",
+    "电压": "100% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "禁用",
+    "预期结果": "不启动发电或保护动作",
+    "结果": "失败"
+  },
+  {
+    "id": 10,
+    "测试场景": "超出电压下限测试",
+    "频率": "50.0Hz",
+    "电压": "49% Un",
+    "观测时间": "60s",
+    "有功功率增加梯度": "禁用",
+    "预期结果": "不启动发电或保护动作",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "If applicable, the power gradient shall not exceed the maximum gradient specified by the DSO and the responsible party. Heat driven CHP generating units do not need to keep a maximum gradient, since the start up is randomized by the nature of the heat demand. For manual operations performed on site (e.g. for the purpose of initial start-up or maintenance) it is permitted to deviate from the observation time and ramp rate.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "常规发电机组功率梯度控制",
+    "操作类型": "自动运行",
+    "机组类型": "常规发电机组",
+    "功率梯度": "等于DSO规定最大梯度",
+    "热驱动标志": "否",
+    "现场手动操作": "否",
+    "预期结果": "符合要求，运行正常",
+    "测试结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "常规发电机组超限功率梯度",
+    "操作类型": "自动运行",
+    "机组类型": "常规发电机组",
+    "功率梯度": "超过DSO规定最大梯度",
+    "热驱动标志": "否",
+    "现场手动操作": "否",
+    "预期结果": "违反梯度限制，应告警或限制",
+    "测试结果": "失败"
+  },
+  {
+    "id": 3,
+    "测试场景": "热驱动CHP机组梯度豁免",
+    "操作类型": "自动运行",
+    "机组类型": "热电联产机组",
+    "功率梯度": "超过DSO规定最大梯度",
+    "热驱动标志": "是",
+    "现场手动操作": "否",
+    "预期结果": "豁免梯度限制，运行正常",
+    "测试结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "现场手动启动操作豁免",
+    "操作类型": "现场手动操作",
+    "机组类型": "常规发电机组",
+    "功率梯度": "超过DSO规定最大梯度",
+    "热驱动标志": "否",
+    "现场手动操作": "是",
+    "操作目的": "初始启动",
+    "预期结果": "豁免梯度限制，运行正常",
+    "测试结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "现场维护操作豁免",
+    "操作类型": "现场手动操作",
+    "机组类型": "常规发电机组",
+    "功率梯度": "超过DSO规定最大梯度",
+    "热驱动标志": "否",
+    "现场手动操作": "是",
+    "操作目的": "维护测试",
+    "预期结果": "豁免梯度限制，运行正常",
+    "测试结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "非热驱动CHP机组梯度控制",
+    "操作类型": "自动运行",
+    "机组类型": "热电联产机组",
+    "功率梯度": "超过DSO规定最大梯度",
+    "热驱动标志": "否",
+    "现场手动操作": "否",
+    "预期结果": "违反梯度限制，应告警或限制",
+    "测试结果": "失败"
+  },
+  {
+    "id": 7,
+    "测试场景": "边界值梯度测试",
+    "操作类型": "自动运行",
+    "机组类型": "常规发电机组",
+    "功率梯度": "略低于DSO规定最大梯度",
+    "热驱动标志": "否",
+    "现场手动操作": "否",
+    "预期结果": "符合要求，运行正常",
+    "测试结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.10.4 Synchronization: Synchronizing a generating plant/unit with the distribution network shall be fully automatic i.e. it shall not be possible to manually close the switch between the two systems to carry out synchronization.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "发电厂/机组与配电网同步",
+    "操作类型": "自动同步",
+    "开关操作": "自动闭合",
+    "同步方式": "全自动",
+    "手动操作": "不允许",
+    "预期结果": "同步成功",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "发电厂/机组与配电网同步",
+    "操作类型": "手动同步尝试",
+    "开关操作": "手动闭合",
+    "同步方式": "手动干预",
+    "手动操作": "尝试执行",
+    "预期结果": "系统阻止手动闭合开关，同步失败",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "测试场景": "发电厂/机组与配电网同步",
+    "操作类型": "自动同步系统故障",
+    "开关操作": "自动系统失效",
+    "同步方式": "自动系统故障",
+    "手动操作": "不允许",
+    "预期结果": "系统不允许手动干预，同步失败",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "测试场景": "发电厂/机组与配电网同步",
+    "操作类型": "边界条件测试",
+    "开关操作": "自动闭合",
+    "同步方式": "全自动",
+    "手动操作": "系统锁定手动操作功能",
+    "预期结果": "手动操作接口被禁用，只能自动同步",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.11 Ceasing and reduction of active power on set point",
+        "testcase": []
+    },
+    {
+        "rule": "4.11.1 Ceasing active power: Generating plants with a maximum capacity of 0,8 kW or more shall be equipped with a logic interface (input port) in order to cease active power output within five seconds following an instruction being received at the input port. If required by the DSO and the responsible party, this includes remote operation.",
+        "testcase": [
+  {
+    "id": 1,
+    "发电类型": "发电厂",
+    "装机容量": "0.8kW",
+    "设备要求": "配备逻辑接口",
+    "触发指令": "输入端口接收指令",
+    "响应时间": "5秒内",
+    "响应动作": "停止有功功率输出",
+    "远程操作": "是",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "发电类型": "发电厂",
+    "装机容量": "1.0kW",
+    "设备要求": "配备逻辑接口",
+    "触发指令": "输入端口接收指令",
+    "响应时间": "5秒内",
+    "响应动作": "停止有功功率输出",
+    "远程操作": "是",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "发电类型": "发电厂",
+    "装机容量": "0.79kW",
+    "设备要求": "无逻辑接口要求",
+    "触发指令": "无",
+    "响应时间": "无要求",
+    "响应动作": "无需停止有功功率",
+    "远程操作": "否",
+    "结果": "不适用"
+  },
+  {
+    "id": 4,
+    "发电类型": "发电厂",
+    "装机容量": "0.8kW",
+    "设备要求": "配备逻辑接口",
+    "触发指令": "输入端口接收指令",
+    "响应时间": "6秒",
+    "响应动作": "未在规定时间内停止输出",
+    "远程操作": "是",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "发电类型": "发电厂",
+    "装机容量": "0.8kW",
+    "设备要求": "未配备逻辑接口",
+    "触发指令": "无法接收指令",
+    "响应时间": "无响应",
+    "响应动作": "未停止有功功率输出",
+    "远程操作": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "发电类型": "发电厂",
+    "装机容量": "2.0kW",
+    "设备要求": "配备逻辑接口",
+    "触发指令": "输入端口接收指令",
+    "响应时间": "3秒",
+    "响应动作": "停止有功功率输出",
+    "远程操作": "是",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "4.11.2 Reduction of active power on set point: Generating plants with a maximum capacity of 0,8 kW or more shall be capable of reducing their active power to a limit value provided remotely by the DSO. The limit value shall be adjustable in the complete operating range from the maximum active power to minimum regulating level. The adjustment of the limit value shall be possible with a maximum increment of 10 % of nominal power. A generation unit/plant shall be capable of carrying out the power output reduction to the respective limit within an envelope of not faster than 0,66 % Pn/ s and not slower than 0,33 % Pn/ s with an accuracy of 5 % of nominal power. Generating plants are permitted to disconnect from the network at a limit value below their minimum regulating level. If required by the DSO, this includes remote operation. NOTE 1: Besides the requirements of this subclause there might be other systems in place to control active power for reasons of market participation or local optimization. Exempted from this requirement are small generating units below 50 kW of the following generation technologies: CHP, fuel cell, rotating machinery, hydro. NOTE 2: The power threshold of this exemption is expected to be reduced in future or the exception might be deleted completely especially once the installed capacity becomes relevant for the grid stability.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "有功功率设定点降低能力",
+    "发电设备容量": "0.8kW",
+    "有功功率上限": "最大有功功率",
+    "有功功率下限": "最小调节水平",
+    "限值调整增量": "10%额定功率",
+    "功率降低速度": "0.66%Pn/s",
+    "功率降低精度": "5%额定功率",
+    "远程操作": "支持",
+    "预期结果": "成功降低有功功率至限值"
+  },
+  {
+    "id": 2,
+    "测试场景": "有功功率设定点降低能力",
+    "发电设备容量": "0.8kW",
+    "有功功率上限": "最大有功功率",
+    "有功功率下限": "最小调节水平",
+    "限值调整增量": "15%额定功率",
+    "功率降低速度": "0.66%Pn/s",
+    "功率降低精度": "5%额定功率",
+    "远程操作": "支持",
+    "预期结果": "限值调整失败，增量超过10%限制"
+  },
+  {
+    "id": 3,
+    "测试场景": "有功功率设定点降低能力",
+    "发电设备容量": "0.8kW",
+    "有功功率上限": "最大有功功率",
+    "有功功率下限": "最小调节水平",
+    "限值调整增量": "10%额定功率",
+    "功率降低速度": "0.7%Pn/s",
+    "功率降低精度": "5%额定功率",
+    "远程操作": "支持",
+    "预期结果": "功率降低失败，速度超过0.66%Pn/s上限"
+  },
+  {
+    "id": 4,
+    "测试场景": "有功功率设定点降低能力",
+    "发电设备容量": "0.8kW",
+    "有功功率上限": "最大有功功率",
+    "有功功率下限": "最小调节水平",
+    "限值调整增量": "10%额定功率",
+    "功率降低速度": "0.3%Pn/s",
+    "功率降低精度": "5%额定功率",
+    "远程操作": "支持",
+    "预期结果": "功率降低失败，速度低于0.33%Pn/s下限"
+  },
+  {
+    "id": 5,
+    "测试场景": "有功功率设定点降低能力",
+    "发电设备容量": "0.8kW",
+    "有功功率上限": "最大有功功率",
+    "有功功率下限": "最小调节水平",
+    "限值调整增量": "10%额定功率",
+    "功率降低速度": "0.5%Pn/s",
+    "功率降低精度": "6%额定功率",
+    "远程操作": "支持",
+    "预期结果": "功率降低失败，精度超出5%允许误差"
+  },
+  {
+    "id": 6,
+    "测试场景": "低于最小调节水平的断开",
+    "发电设备容量": "0.8kW",
+    "有功功率上限": "最大有功功率",
+    "有功功率下限": "最小调节水平",
+    "限值设定值": "低于最小调节水平",
+    "远程操作": "支持",
+    "预期结果": "允许从电网断开"
+  },
+  {
+    "id": 7,
+    "测试场景": "容量豁免测试",
+    "发电设备容量": "49kW",
+    "发电技术": "热电联产",
+    "有功功率降低要求": "不适用",
+    "预期结果": "豁免有功功率降低要求"
+  },
+  {
+    "id": 8,
+    "测试场景": "容量豁免测试",
+    "发电设备容量": "49kW",
+    "发电技术": "燃料电池",
+    "有功功率降低要求": "不适用",
+    "预期结果": "豁免有功功率降低要求"
+  },
+  {
+    "id": 9,
+    "测试场景": "容量豁免测试边界",
+    "发电设备容量": "50kW",
+    "发电技术": "热电联产",
+    "有功功率降低要求": "适用",
+    "预期结果": "不豁免，需满足有功功率降低要求"
+  },
+  {
+    "id": 10,
+    "测试场景": "远程操作能力",
+    "发电设备容量": "0.8kW",
+    "远程操作请求": "配电系统运营商发起",
+    "限值调整": "全范围可调",
+    "功率降低": "按指定速度执行",
+    "预期结果": "成功执行远程功率控制"
+  }
+]
+    },
+    {
+        "rule": "4.12 Remote information exchange: Generating plants whose power is above a threshold to be determined by the DSO and the responsible party shall have the capacity to be monitored by the DSO or TSO control centre or control centres as well as receive operation parameter settings for the functions specified in this European Standard from the DSO or TSO control centre or control centres. This information exchange is aimed at allowing the DSO and/or the TSO to improve, optimize and make safer the operation of their respective networks. The remote monitoring and operation parameter settings system that may be used by the DSO is not aimed at replacing the manual and automatic control means implemented by the generating plant operator to control the operation of the generating plant. It should not interact directly with the power generation equipment and the switching devices of the generating plant. It should interact with the operation and control system of the generating plant. In principle, standardized communication should be used. It is recommended that in case of using protocols for signal transmission used between the DSO or TSO control centre or control centres and the generating plant, relevant technical standards (e.g. EN 60870-5-101, EN 60870-5-104, EN 61850 and in particular EN 61850-7-4, EN 61850-7-420, IEC/TR 61850-90-7, as well as EN 61400-25 for wind turbines and relevant parts of IEC 62351 for relevant security measures) are recognized. Alternative protocols can be agreed between the DSO and the producer. These protocols include hardwired digital input/output and analogue input/output provided locally by DSO. The information needed for remote monitoring and the setting of configurable parameters are specific to each distribution network and to the way it is operated. Signal transmission times between the DSO and/or the TSO control centre and the generating plant will depend on the means of transmission used between the DSO and/or TSO control centre and the generating plant. Informative Annex B of EN50549-2 can be used as guidance regarding the monitoring information and the remote operation parameter setting.",
+        "testcase": [{"id": 1, "操作人": "DSO", "操作": "远程监测", "操作目标": "发电厂", "发电功率": "高于阈值", "监测能力": "具备", "通信协议": "EN 60870-5-104", "控制交互": "与运行控制系统交互", "直接控制设备": "否", "结果": "成功"}, {"id": 2, "操作人": "TSO", "操作": "参数设置", "操作目标": "发电厂", "发电功率": "高于阈值", "参数设置能力": "具备", "通信协议": "EN 61850", "控制交互": "与运行控制系统交互", "直接控制设备": "否", "结果": "成功"}, {"id": 3, "操作人": "DSO", "操作": "远程监测", "操作目标": "发电厂", "发电功率": "低于阈值", "监测能力": "可选", "通信协议": "自定义协议", "控制交互": "不要求", "直接控制设备": "否", "结果": "成功"}, {"id": 4, "操作人": "DSO", "操作": "远程控制", "操作目标": "发电厂", "发电功率": "高于阈值", "控制类型": "直接控制发电设备", "控制交互": "直接与发电设备交互", "通信协议": "EN 60870-5-104", "结果状态": "违反规定", "结果": "失败"}, {"id": 5, "操作人": "TSO", "操作": "参数设置", "操作目标": "发电厂", "发电功率": "高于阈值", "通信协议": "非标准协议", "协议协商": "与生产商达成一致", "控制交互": "与运行控制系统交互", "直接控制设备": "否", "结果": "成功"}, {"id": 6, "操作人": "DSO", "操作": "远程监测", "操作目标": "发电厂", "发电功率": "高于阈值", "通信协议": "硬接线数字输入输出", "控制交互": "与运行控制系统交互", "直接控制设备": "否", "信号传输时间": "符合要求", "结果": "成功"}]
+    },
+    {
+        "rule": "4.13 Requirements regarding single fault tolerance of interface protection system and interface switch: If required in 4.3.2, the interface protection system and the interface switch shall meet the requirements of single fault tolerance. A single fault shall not lead to a loss of the safety functions. Faults of common cause shall be taken into account if the probability for the occurrence of such a fault is significant. Whenever reasonably practical, the individual fault shall be displayed and lead to the disconnection of the power generating unit or system. NOTE: This requirement for the detection of individual faults does not mean that all faults are detected. Accumulation of undetected faults can therefore lead to an unintentional output signal and result in a hazardous condition. Series-connected switches shall each have a independent breaking capacity corresponding to the rated current of the generating unit and corresponding to the short circuit contribution of the generating unit. The short-time withstand current of the switching devices shall be coordinated with maximum short circuit power at the connection point. At least one of the switches shall be a switch-disconnector suitable for overvoltage category 2. For single-phase generating units, the switch shall have one contact of this overvoltage category for both the neutral conductor and the line conductor. For poly-phase generating units, it is required to have one contact of this overvoltage category for all active conductors. The second switch may be formed of electronic switching components from an inverter bridge or another circuit provided that the electronic switching components can be switched off by control signals and that it is ensured that a failure is detected and leads to prevention of the operation at the latest at the next reconnection. For PV-inverters without simple separation between the network and the PV generating unit (e.g. PV-Inverter without transformer) both switches mentioned in the paragraph above shall be switch-disconnectors with the requirements described therein, although one switching device is permitted to be located between PV array and PV inverter.",
+        "testcase": [
+  {
+    "id": 1,
+    "测试场景": "接口保护系统单故障测试",
+    "操作人": "保护系统测试工程师",
+    "故障类型": "单一随机故障",
+    "故障显示": "正确显示故障",
+    "系统响应": "断开发电单元",
+    "安全功能状态": "保持安全功能",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "测试场景": "接口保护系统共因故障测试",
+    "操作人": "保护系统测试工程师",
+    "故障类型": "共因故障（概率显著）",
+    "故障显示": "未要求显示",
+    "系统响应": "可能丧失安全功能",
+    "安全功能状态": "安全功能可能失效",
+    "结果": "验证共因故障考虑"
+  },
+  {
+    "id": 3,
+    "测试场景": "串联开关独立分断能力测试",
+    "操作人": "开关设备测试工程师",
+    "开关类型": "串联开关",
+    "分断能力": "独立分断额定电流和短路电流",
+    "协调要求": "与连接点最大短路功率协调",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "测试场景": "过电压类别2开关要求测试",
+    "操作人": "开关设备测试工程师",
+    "发电单元类型": "单相发电单元",
+    "开关要求": "中性线和相线均需过电压类别2接触器",
+    "开关数量": "至少一个开关隔离器",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "测试场景": "多相发电单元开关要求测试",
+    "操作人": "开关设备测试工程师",
+    "发电单元类型": "多相发电单元",
+    "开关要求": "所有相线需过电压类别2接触器",
+    "开关数量": "至少一个开关隔离器",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "测试场景": "电子开关组件故障检测测试",
+    "操作人": "逆变器测试工程师",
+    "开关类型": "电子开关组件",
+    "控制信号": "可通过控制信号关断",
+    "故障检测": "故障被检测到",
+    "系统响应": "下次重连接前阻止运行",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "测试场景": "无变压器PV逆变器开关要求测试",
+    "操作人": "光伏逆变器测试工程师",
+    "逆变器类型": "无变压器PV逆变器",
+    "开关要求": "两个开关均为开关隔离器",
+    "开关位置": "一个开关允许在PV阵列与逆变器之间",
+    "过电压类别": "满足过电压类别2要求",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "测试场景": "未检测故障累积风险测试",
+    "操作人": "系统安全测试工程师",
+    "故障类型": "多个未检测故障累积",
+    "系统响应": "可能导致无意输出信号",
+    "安全状态": "可能产生危险状态",
+    "结果": "验证风险存在"
+  },
+  {
+    "id": 9,
+    "测试场景": "开关短时耐受电流协调测试",
+    "操作人": "开关设备测试工程师",
+    "测试参数": "最大短路功率",
+    "协调要求": "开关设备短时耐受电流与连接点协调",
+    "验证方法": "耐受电流测试",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "测试场景": "电子开关故障未及时检测测试",
+    "操作人": "逆变器测试工程师",
+    "开关类型": "电子开关组件",
+    "故障检测": "故障未被立即检测",
+    "系统响应": "下次重连接时阻止运行",
+    "结果": "验证延迟检测机制"
+  }
+]
+    }
+]

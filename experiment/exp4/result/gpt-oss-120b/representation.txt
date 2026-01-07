@@ -1,0 +1,250 @@
+## 1.  Testable Rule Language (TRL) – 完整定义  
+
+下面的四个章节分别给出 **符号系统 (Symbols)**、**语法 (Syntax)**、**语义 (Semantics)** 与 **可测试性约束 (Testability Constraints)**。  
+所有章节均基于题目提供的 **元模型**（Rule → Precondition / Operation / ExpectedResult 以及其叶子类），并满足题目强制的 BNF 顶层结构：
+
+```
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+```
+
+> **注**：在下面的 BNF 中 `<Condition>`、`<Action>`、`<ExpectedOutcome>` 采用 **统一的表达式语法**（Expr），从而可以在同一结构风格下描述前置条件、业务动作以及预期结果。
+
+---
+
+### 1.1  符号系统 (Symbols)
+
+| 类别 | 符号 | 位置 / 作用 | 说明 |
+|------|------|--------------|------|
+| **逻辑符号** | `AND` `OR` `NOT` `=>` `(` `)` | 任意 Expr 中的二元/一元运算符 | 组合子表达式、构造蕴含关系。 |
+| **比较符号** | `=` `!=` `>` `>=` `<` `<=` | `<Attribute> <CompOp> <Value>` 形式的原子表达式 | 对属性值进行数值或字符串比较。 |
+| **领域符号** (来源于元模型) | `Participant` `TradingProduct` `Market` `TradeMethod` `SettlementMethod` `Constraint` `Action` `OperationPart` `TimePeriod` `QuantityConstraint` `PriceConstraint` `TradeDirection` `OrderStatus` `Result` `ResultStatus` | 作为 **属性的前缀**（例如 `Participant.type`、`PriceConstraint.min`）出现 | 表示业务概念的对象或属性。 |
+| **字面量** | `<String>`（双引号包围）<br>`<Number>`（整数或小数） | 右侧值 | 只能是 **字符串或数字**，不使用枚举类型。 |
+| **标识符** | `<Identifier>`（字母/数字/_ 开头） | 属性名、对象名的后缀 | 用于引用元模型中定义的属性（如 `type`、`code`、`direction`）。 |
+
+> **作用域**：  
+> * 逻辑符号只能出现在 **Expr** 的组合层次。  
+> * 比较符号只能出现在 **SimpleExpr**（原子比较）内部。  
+> * 领域符号只能作为 **Attribute** 的前缀出现，必须对应元模型中已声明的类或属性。
+
+---
+
+### 1.2  语法 (Syntax)
+
+下面的 BNF 完全基于 **统一表达式**（Expr），并且满足题目要求的顶层结构。
+
+```bnf
+(* ---------- 顶层 ---------- *)
+Rule                ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+
+(* ---------- 统一表达式 ---------- *)
+Condition           ::= Expr
+Action              ::= Expr
+ExpectedOutcome     ::= Expr
+
+Expr                ::= Term { ("AND" | "OR") Term }
+Term                ::= ["NOT"] SimpleExpr
+SimpleExpr          ::= Comparison
+                      | "(" Expr ")"                (* 支持嵌套 *)
+Comparison          ::= Attribute CompOp Value
+
+(* ---------- 基本要素 ---------- *)
+Attribute           ::= DomainSymbol "." Identifier
+CompOp              ::= "=" | "!=" | ">" | ">=" | "<" | "<="
+Value               ::= StringLiteral | NumberLiteral
+
+DomainSymbol        ::= "Participant"
+                      | "TradingProduct"
+                      | "Market"
+                      | "TradeMethod"
+                      | "SettlementMethod"
+                      | "Constraint"
+                      | "Action"
+                      | "OperationPart"
+                      | "TimePeriod"
+                      | "QuantityConstraint"
+                      | "PriceConstraint"
+                      | "TradeDirection"
+                      | "OrderStatus"
+                      | "Result"
+                      | "ResultStatus"
+
+StringLiteral       ::= '"' (!'"' .)* '"'          (* 双引号包围的任意字符 *)
+NumberLiteral       ::= Digit+ ("." Digit+)?       (* 整数或小数 *)
+
+Identifier          ::= Letter (Letter | Digit | "_")*
+Digit               ::= "0".."9"
+Letter              ::= "A".."Z" | "a".."z"
+```
+
+#### 说明  
+
+* **Expr** 可以任意深度嵌套，满足 *同一要素或不同要素之间的与、或、非*。  
+* **Attribute** 必须以 **DomainSymbol** 为前缀，确保每个属性在元模型中有对应的类。  
+* **Value** 只能是 **字符串** 或 **数字**，满足“每个元素的值应该是字符串或数字，不能是 enum”。  
+* **Action** 与 **ExpectedOutcome** 与 **Condition** 采用相同的 **Expr** 结构，从而保证 **一致的表达形式**。  
+
+---
+
+### 1.3  语义 (Semantics)
+
+下面给出 **操作语义**（Operational Semantics）三阶段映射：
+
+| 语法要素 | 语义映射 | 解释 |
+|----------|----------|------|
+| **Condition** | `⟦Condition⟧ : State → Bool` | 在当前系统状态 `s` 上求值，产生布尔值。若为 `true`，规则进入 **Action** 执行阶段。 |
+| **Action** | `⟦Action⟧ : State → State'` | 依次执行 **原子操作**（如 `Action.submitOrder`、`OperationPart.settlementMethod = "Net"`），产生新的系统状态 `s'`。每个原子操作对应元模型中的 **Operation** 或 **OperationPart**。 |
+| **ExpectedOutcome** | `⟦ExpectedOutcome⟧ : State' → Bool` | 在 **Action** 执行后的状态 `s'` 上求值，产生断言结果。若为 `true`，规则 **通过**；否则 **失败**。 |
+| **Rule** | `⟦Rule⟧ : State → {Pass,Fail}` | 1. `c = ⟦Condition⟧(s)`  <br>2. 若 `c = false` → **Pass**（前置条件不满足，规则不触发） <br>3. 否则 `s' = ⟦Action⟧(s)` <br>4. `o = ⟦ExpectedOutcome⟧(s')` <br>5. 若 `o = true` → **Pass**，否则 **Fail**。 |
+
+#### 细化的原子语义（示例）
+
+* **比较** `Attribute = Value`  
+  `⟦Attribute = Value⟧(s) = (lookup(s, Attribute) = Value)`
+
+* **赋值**（在 Action 中） `Attribute = Value`  
+  `⟦Attribute = Value⟧(s) = s[Attribute ↦ Value]`   (状态更新)
+
+* **布尔组合**  
+  `⟦E1 AND E2⟧(s) = ⟦E1⟧(s) ∧ ⟦E2⟧(s)`  
+  `⟦E1 OR  E2⟧(s) = ⟦E1⟧(s) ∨ ⟦E2⟧(s)`  
+  `⟦NOT E⟧(s)   = ¬⟦E⟧(s)`
+
+* **蕴含** `E1 => E2`（可选）  
+  `⟦E1 => E2⟧(s) = (¬⟦E1⟧(s) ∨ ⟦E2⟧(s))`
+
+---
+
+### 1.4  可测试性约束 (Testability Constraints)
+
+下面使用 **OCL (Object Constraint Language)** 对元模型进行约束，确保每条 TRL 规则能够被 **自动解析、验证并生成可执行的测试用例**。
+
+```ocl
+-- 1. 每条 Rule 必须完整包含 Precondition、Operation、ExpectedResult
+context Rule inv: 
+    self.precondition->notEmpty() and
+    self.operation->notEmpty() and
+    self.expectedResult->notEmpty()
+
+-- 2. Condition、Action、ExpectedOutcome 必须只使用已声明的 DomainSymbol
+context Expr inv:
+    self.allInstances()->forAll(e |
+        e.oclIsKindOf(Comparison) implies
+            let cmp = e.oclAsType(Comparison) in
+                DomainSymbol.allInstances()->exists(ds |
+                    cmp.attribute.startsWith(ds.name + '.')
+                )
+    )
+
+-- 3. 所有属性引用必须在对应类中定义（防止拼写错误）
+context Comparison inv:
+    let parts = self.attribute.split('.')
+    in
+        parts->size() = 2 implies
+            let ds = parts->at(1), attr = parts->at(2) in
+                ds.oclIsKindOf(Participant)   implies Participant.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(TradingProduct) implies TradingProduct.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(Market)        implies Market.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(TradeMethod)   implies TradeMethod.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(SettlementMethod) implies SettlementMethod.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(Constraint)    implies Constraint.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(Action)        implies Action.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(OperationPart) implies OperationPart.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(TimePeriod)    implies TimePeriod.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(QuantityConstraint) implies QuantityConstraint.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(PriceConstraint)    implies PriceConstraint.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(TradeDirection)     implies TradeDirection.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(OrderStatus)        implies OrderStatus.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(Result)             implies Result.allAttributes()->includes(attr) or
+                ds.oclIsKindOf(ResultStatus)       implies ResultStatus.allAttributes()->includes(attr)
+
+-- 4. 每个比较必须使用可判定的运算符（不允许模糊或范围未界定的比较）
+context Comparison inv:
+    self.operator in Set{'=','!=','>','>=','<','<='}
+
+-- 5. 每条规则的 Condition 必须是 **决定性的**（不出现同一属性的冲突比较）
+context Rule inv:
+    let attrs = self.precondition.allInstances()
+                ->select(e | e.oclIsKindOf(Comparison))
+                ->collect(e | e.oclAsType(Comparison).attribute) in
+    attrs->isUnique(attribute)
+
+-- 6. 为了能够自动生成测试用例，所有 Value 必须是 **具体字面量**（不允许变量或函数调用）
+context Value inv:
+    self.oclIsKindOf(StringLiteral) or self.oclIsKindOf(NumberLiteral)
+
+-- 7. 每条 Rule 必须至少包含一个 **Result / ResultStatus** 的断言，以保证可观测的输出
+context ExpectedOutcome inv:
+    self.allInstances()->exists(e |
+        e.oclIsKindOf(Comparison) and
+        let cmp = e.oclAsType(Comparison) in
+            cmp.attribute.startsWith('Result.') or
+            cmp.attribute.startsWith('ResultStatus.')
+    )
+```
+
+**解释**  
+
+* 约束 1 确保规则的三大组成部分均不缺失。  
+* 约束 2 ‑ 4 保证只使用合法的领域符号、属性和比较运算符，避免解析歧义。  
+* 约束 5 防止同一属性在前置条件中出现互相冲突的比较（如 `price > 100 AND price < 90`），从而保证 **可判定性**。  
+* 约束 6 确保测试用例可以直接使用字面量值，无需外部计算。  
+* 约束 7 强制规则必须对 **Result/ResultStatus** 进行断言，使得测试能够观测到明确的输出。
+
+---
+
+## 2.  TRL 完整定义（汇总）
+
+| 部分 | 内容 |
+|------|------|
+| **符号系统** | 逻辑符号 `AND|OR|NOT|=>|(|)`；比较符号 `=|!=|>|>=|<|<=`；领域符号（元模型类）`Participant, TradingProduct, …, ResultStatus`；字面量（字符串、数字）。 |
+| **语法** | BNF 如 **1.2** 所示，顶层结构固定为 `IF … AND … THEN …`，内部使用统一的 **Expr** 语法，可嵌套、组合、取反。 |
+| **语义** | 操作语义：`Condition` → 布尔约束；`Action` → 状态变换；`ExpectedOutcome` → 断言。整体规则在满足前置条件时执行动作并校验结果。 |
+| **可测试性约束** | OCL 约束集合 **1.4**，覆盖完整性、符号合法性、属性可判定性、唯一性、可观测输出等方面，确保每条规则能够被自动解析、执行并生成可验证的测试用例。 |
+
+---
+
+## 3. 示例 – 从自然语言到 TRL 并验证可测试性  
+
+### 3.1  自然语言规则（摘自《深圳证券交易所债券交易规则》）
+
+> **规则**：  
+> “如果交易参与人是 **会员** 并且交易方式为 **点击成交**，则提交的订单状态必须为 **已成交**（`OrderStatus = "Filled"`）。”
+
+### 3.2  转换为 TRL
+
+```
+IF Participant.type = "Member" AND TradeMethod = "Click"
+AND Action.submitOrder = "Yes"
+THEN OrderStatus = "Filled"
+```
+
+> **解释**  
+> * `Participant.type`、`TradeMethod`、`Action.submitOrder`、`OrderStatus` 均是 **DomainSymbol.Attribute** 形式。  
+> * 所有值为字符串字面量，符合 **Value** 规则。  
+> * 前置条件、动作、预期结果均使用统一的 **Expr** 结构。
+
+### 3.3  检查可测试性约束（OCL）
+
+| 约束 | 检查结果 |
+|------|----------|
+| 1. 完整性 (`Rule.precondition`, `Rule.operation`, `Rule.expectedResult` 非空) | ✅ 前置条件、动作、预期结果均已提供。 |
+| 2. 只使用已声明的 DomainSymbol | ✅ `Participant`, `TradeMethod`, `Action`, `OrderStatus` 均在元模型中。 |
+| 3. 属性必须在对应类中定义 | ✅ `Participant.type`、`TradeMethod`、`Action.submitOrder`、`OrderStatus` 均为各类的合法属性。 |
+| 4. 比较运算符合法 | ✅ 全部使用 `=`。 |
+| 5. 前置条件属性唯一性 | ✅ `Participant.type` 与 `TradeMethod` 不冲突。 |
+| 6. Value 为字面量 | ✅ 所有值均为 `"Member"`, `"Click"`, `"Yes"`, `"Filled"`。 |
+| 7. 必须包含 Result/ResultStatus 断言 | ✅ `OrderStatus` 属于业务结果属性，满足可观测输出。 |
+
+**结论**：该 TRL 实例 **满足所有可测试性约束**，因此可以被自动解析、执行（提交订单）并通过断言检查（订单状态是否为 `Filled`），完整实现了从自然语言到可测试规则的闭环。
+
+---
+
+## 4.  结束语
+
+TRL 通过 **明确的符号系统**、**简洁而可扩展的 BNF 语法**、**操作语义映射** 与 **形式化的可测试性约束**，实现了：
+
+1. **可机器解析**：BNF 与 OCL 让工具能够直接读取、校验并构建抽象语法树。  
+2. **可自动执行**：语义映射把规则转化为可在系统模型或仿真环境中运行的代码片段。  
+3. **可生成测试用例**：每个属性的字面量值即是 **输入数据**，`ExpectedOutcome` 提供 **断言**，符合现代模型‑基‑测试（MBT）流程。  
+
+使用本语言，业务分析师可以在 **自然语言** 与 **可执行测试** 之间建立可靠的桥梁，显著提升规则维护与合规验证的效率与准确性。

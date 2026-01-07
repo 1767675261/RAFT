@@ -1,0 +1,137 @@
+### **Testable Rule Language (TRL) 定义**
+
+---
+
+### **1. 符号系统 (Symbols)**
+
+**逻辑符号**  
+- `AND`：逻辑与（`∧`）  
+- `OR`：逻辑或（`∨`）  
+- `NOT`：逻辑非（`¬`）  
+- `IF...THEN`：条件语句（`→`）  
+- `EQUALS`：等于（`=`）  
+- `GREATER_THAN`：大于（`>`）  
+- `LESS_THAN`：小于（`<`）  
+
+**比较符号**  
+- `EQUALS`：等于（`=`）  
+- `GREATER_THAN`：大于（`>`）  
+- `LESS_THAN`：小于（`<`）  
+- `NOT_EQUALS`：不等于（`≠`）  
+
+**领域符号**  
+- `TransactionDirection`：交易方向（买入/卖出）  
+- `TradingMarket`：交易市场（深圳证券交易所）  
+- `TradingInstrument`：交易品种（债券）  
+- `TradingTime`：交易时间（9:15-15:30）  
+- `MarketCondition`：市场状态（正常/停牌）  
+- `SettlementMethod`：结算方式（多边净额/逐笔全额）  
+- `SettlementCycle`：结算周期（T+1）  
+- `SettlementDate`：结算日（T+3）  
+- `OrderStatus`：订单状态（已成交/未成交）  
+- `TradingVenue`：交易场所（深圳证券交易所）  
+
+---
+
+### **2. 语法 (Syntax)**
+
+**BNF定义**  
+```
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+Condition ::= <SimpleCondition> ( "AND" <SimpleCondition> )*
+SimpleCondition ::= <LogicalSymbol> <DomainSymbol> <ComparisonSymbol> <DomainSymbol>
+Action ::= <ActionSymbol> <DomainSymbol> <QuantitySymbol> <TimeSymbol>
+ExpectedOutcome ::= <OutcomeSymbol> <DomainSymbol> <QuantitySymbol> <TimeSymbol>
+```
+
+**示例**  
+```
+IF TransactionDirection = "BUY" AND TradingMarket = "Shenzhen Stock Exchange" AND TradingTime = "9:15-15:30" THEN OrderStatus = "COMPLETED" AND SettlementMethod = "FULL_SETTLEMENT"
+```
+
+---
+
+### **3. 语义 (Semantics)**
+
+**条件部分**  
+- `TransactionDirection = "BUY"`：交易方向为买入  
+- `TradingMarket = "Shenzhen Stock Exchange"`：交易市场为深圳证券交易所  
+- `TradingTime = "9:15-15:30"`：交易时间为9:15-15:30  
+- **语义**：条件必须满足，否则规则不生效。
+
+**动作部分**  
+- `OrderStatus = "COMPLETED"`：订单状态为完成  
+- `SettlementMethod = "FULL_SETTLEMENT"`：结算方式为逐笔全额结算  
+- **语义**：动作必须按顺序执行，且需满足条件。
+
+**预期结果**  
+- `OrderStatus = "COMPLETED"`：订单完成  
+- `SettlementMethod = "FULL_SETTLEMENT"`：结算方式为逐笔全额结算  
+- **语义**：结果需与动作和条件一致，且可验证。
+
+---
+
+### **4. 可测试性约束 (Testability Constraints)**
+
+**OCL形式化约束**  
+```
+// 条件必须可验证
+self.Condition.oclIsKindOf(Sequence<LogicalSymbol, DomainSymbol, ComparisonSymbol>)
+AND self.Condition.oclIsKindOf(Sequence<DomainSymbol, ComparisonSymbol, DomainSymbol>)
+
+// 动作必须可执行
+self.Action.oclIsKindOf(Sequence<ActionSymbol, DomainSymbol, QuantitySymbol, TimeSymbol>)
+
+// 预期结果必须可断言
+self.ExpectedOutcome.oclIsKindOf(Sequence<OutcomeSymbol, DomainSymbol, QuantitySymbol, TimeSymbol>)
+```
+
+**约束说明**  
+- **条件可验证性**：条件必须由逻辑符号、领域符号和比较符号组成，且顺序正确。  
+- **动作可执行性**：动作必须包含操作符、领域符号、数量和时间。  
+- **结果可断言性**：结果必须明确可验证，如订单状态、结算方式等。  
+
+---
+
+### **5. 示例**
+
+**自然语言规则**  
+> 深圳证券交易所债券交易规则：  
+> 交易时间为9:15-15:30，交易方向为买入，交易市场为深圳证券交易所，订单完成则结算方式为逐笔全额结算。
+
+**TRL实例**  
+```
+IF TransactionDirection = "BUY" AND TradingMarket = "Shenzhen Stock Exchange" AND TradingTime = "9:15-15:30" THEN OrderStatus = "COMPLETED" AND SettlementMethod = "FULL_SETTLEMENT"
+```
+
+**可测试性验证**  
+- **条件**：`TransactionDirection = "BUY"`（交易方向为买入）  
+- **动作**：`OrderStatus = "COMPLETED"`（订单完成）  
+- **结果**：`SettlementMethod = "FULL_SETTLEMENT"`（结算方式为逐笔全额结算）  
+- **约束满足**：所有符号均符合OCL约束，规则可测试。
+
+---
+
+### **6. TRL完整定义**
+
+**符号系统**  
+- 逻辑符号：`AND`, `OR`, `NOT`, `IF...THEN`  
+- 比较符号：`=`, `>`, `<`, `≠`  
+- 领域符号：`TransactionDirection`, `TradingMarket`, `TradingTime`, `SettlementMethod`, `OrderStatus`  
+
+**语法结构**  
+```
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+Condition ::= <SimpleCondition> ( "AND" <SimpleCondition> )*
+SimpleCondition ::= <LogicalSymbol> <DomainSymbol> <ComparisonSymbol> <DomainSymbol>
+Action ::= <ActionSymbol> <DomainSymbol> <QuantitySymbol> <TimeSymbol>
+ExpectedOutcome ::= <OutcomeSymbol> <DomainSymbol> <QuantitySymbol> <TimeSymbol>
+```
+
+**语义映射**  
+- **条件** → 输入约束  
+- **动作** → 操作序列  
+- **结果** → 断言  
+
+**可测试性约束**  
+- 所有条件、动作、结果必须符合OCL形式化约束，确保可验证、可执行、可断言。

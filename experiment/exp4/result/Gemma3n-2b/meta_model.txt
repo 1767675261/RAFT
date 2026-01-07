@@ -1,0 +1,100 @@
+好的，我将根据您提供的规则文档和测试用例，构建领域元模型。
+
+**首先，我将分析测试用例，提取规则要素。**
+
+从提供的测试用例中，我提取了以下规则要素：
+
+1.  **委托指令撤销失效**：规则描述了委托指令被撤销或失效的情况。
+2.  **资金返还（买入）**：规则描述了在委托指令被撤销或失效后，会员需要返还相应的资金。
+3.  **资金返还（卖出）**：规则描述了在委托指令被撤销或失效后，会员需要返还相应的资金。
+4.  **订单连续性操作**：规则描述了订单连续性操作相关的流程。
+5.  **交易方向：买入**：规则描述了买入交易方向。
+6.  **交易方向：卖出**：规则描述了卖出交易方向。
+7.  **交易品种：债券**：规则描述了债券交易品种。
+8.  **交易市场：深圳证券交易所**：规则描述了深圳证券交易所交易市场。
+9.  **交易方式：匹配成交**：规则描述了匹配成交交易方式。
+10. **交易方式：点击成交**：规则描述了点击成交交易方式。
+11. **操作人：会员**：规则描述了会员的操作。
+12. **操作人：经纪客户**：规则描述了经纪客户的操作。
+13. **状态：部分成交**：规则描述了部分成交状态。
+14. **结果状态：部分撤销**：规则描述了部分撤销状态。
+15. **时间：确认后**：规则描述了确认后的时间。
+16. **时间：非确认后**：规则描述了非确认后的时间。
+17. **操作部分：相应的资金**：规则描述了操作部分是相应的资金。
+18. **结果：成功**：规则描述了结果是成功。
+19. **结果：不成功**：规则描述了结果是不成功。
+
+**接下来，我将构建领域元模型。**
+
+**第一步：提取并确认规则要素 (15-20个叶子要素)**
+
+基于上述分析，我确认了19个规则要素。这些要素覆盖了订单连续性操作、资金处理、交易方向、交易品种、交易市场、交易方式、操作人、状态、时间、操作部分、结果等核心领域概念。
+
+**第二步：构建三层元模型**
+
+```plantuml
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+class Rule {
+}
+
+class Precondition {
+    + Constraint : Constraint
+}
+
+class Operation {
+    + Constraint : Constraint
+}
+
+class ExpectedResult {
+    + Constraint : Constraint
+}
+
+Rule -- Precondition : contains
+Rule -- Operation : contains
+Rule -- ExpectedResult : contains
+
+Precondition -- Constraint : constrains
+Operation -- Constraint : constrains
+ExpectedResult -- Constraint : constrains
+
+Operation -- ExpectedResult : triggers
+
+Precondition -- Operation : dependsOn
+Operation -- ExpectedResult : triggers
+
+' 关系说明:
+' Rule: 规则
+' Precondition: 前置条件
+' Operation: 操作步骤
+' ExpectedResult: 预期结果
+' Constraint: 约束条件
+' dependsOn: 依赖关系
+' triggers: 触发关系
+@enduml
+```
+
+**元模型解释：**
+
+*   **Rule (规则)**：顶层节点，代表一个规则。
+*   **Precondition (前置条件)**：中间层节点，代表规则的条件。
+*   **Operation (操作步骤)**：中间层节点，代表规则执行的步骤。
+*   **ExpectedResult (预期结果)**：中间层节点，代表规则执行后的结果。
+*   **Constraint (约束)**：底层节点，代表规则中的具体约束条件。
+
+**关系解释：**
+
+*   **contains:**  表明前置条件、操作步骤和预期结果是规则的组成部分。
+*   **constrains:**  表明约束条件限制了前置条件、操作步骤或预期结果。
+*   **dependsOn:**  表明操作步骤依赖于前置条件。
+*   **triggers:**  表明操作步骤触发了预期结果。
+
+**总结：**
+
+这个元模型清晰地描述了规则的语法结构，并与测试用例中的规则要素建立了关系。它允许我们对领域规则进行更深入的建模和分析，并为测试设计提供有力的支持。
+
+**输出格式：**
+
+按照您要求的格式，元模型以类图风格的树结构描述，并包含了关系标注。

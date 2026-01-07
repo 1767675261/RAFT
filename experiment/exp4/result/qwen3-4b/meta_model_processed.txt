@@ -1,0 +1,47 @@
+@startuml
+class Rule {
+  - Precondition : Precondition
+  - Operation : Operation
+  - ExpectedResult : ExpectedResult
+}
+
+class Precondition {
+  - contains TransactionDirection
+  - contains TradingMarket
+  - contains TradingInstrument
+  - contains TradingTime
+  - contains MarketCondition
+  - constrains SettlementMethod
+  - dependsOn Constraint
+}
+
+class Operation {
+  - contains TradingMethod
+  - contains TradingVolume
+  - contains TradingPrice
+  - contains OrderStatus
+  - contains OrderCancellation
+  - triggers ExpectedResult
+  - dependsOn Constraint
+}
+
+class ExpectedResult {
+  - contains SettlementMethod
+  - contains SettlementCycle
+  - contains SettlementDate
+  - contains OrderStatus
+  - contains TradingVenue
+  - constrains Constraint
+  - triggers Constraint
+}
+
+Rule "contains" 1..* (Precondition, Operation, ExpectedResult)
+Precondition "contains" 1..* (TransactionDirection, TradingMarket, TradingInstrument, TradingTime, MarketCondition)
+Operation "contains" 1..* (TradingMethod, TradingVolume, TradingPrice, OrderStatus, OrderCancellation)
+ExpectedResult "contains" 1..* (SettlementMethod, SettlementCycle, SettlementDate, OrderStatus, TradingVenue)
+Precondition "constrains" 1..* (SettlementMethod)
+Operation "triggers" 1..* (ExpectedResult)
+Operation "dependsOn" 1..* (Constraint)
+ExpectedResult "constrains" 1..* (Constraint)
+ExpectedResult "triggers" 1..* (Constraint)
+@enduml

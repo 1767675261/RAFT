@@ -1,0 +1,105 @@
+{
+    "individual": [
+        {
+            "name": "Gemma3n-2b",
+            "metamodel_complete": 26.3,
+            "representation_complete": 52.8,
+            "params": "2b"
+        },
+        {
+            "name": "Gemma3-4b",
+            "metamodel_complete": 36.8,
+            "representation_complete": 57.7,
+            "params": "4b"
+        },
+        {
+            "name": "qwen3-4b",
+            "metamodel_complete": 35.6,
+            "representation_complete": 53.7,
+            "params": "4b"
+        },
+
+        {
+            "name": "Gemma3-12b",
+            "metamodel_complete": 48.1,
+            "representation_complete": 63.4,
+            "params": "12b"
+        },
+        {
+            "name": "gpt-oss-20b",
+            "metamodel_complete": 59.3,
+            "representation_complete": 64.6,
+            "params": "20b"
+        },
+        {
+            "name": "Gemma3-27b",
+            "metamodel_complete": 59.3,
+            "representation_complete": 64.0,
+            "params": "27b"
+        },
+
+        {
+            "name": "Llama3.3-70B",
+            "metamodel_complete": 51.9,
+            "representation_complete": 50.6,
+            "params": "70b"
+        },
+        {
+            "name": "gpt-oss-120b",
+            "metamodel_complete": 61.4,
+            "representation_complete": 69.9,
+            "params": "120b"
+        },
+        {
+            "name": "devstral-2",
+            "metamodel_complete": 59.3,
+            "representation_complete": 68.3,
+            "params": "123B"
+        },
+
+        {
+            "name": "GLM4.5-air",
+            "metamodel_complete": 78.5,
+            "representation_complete": 84.1,
+            "params": "355b"
+        },
+        {
+            "name": "Llama3.1-405B",
+            "metamodel_complete": 66.7,
+            "representation_complete": 62.8,
+            "params": "405b"
+        },
+        {
+            "name": "KimiK2",
+            "metamodel_complete": 82.6,
+            "representation_complete": 92.7,
+            "params": "1000b"
+        }
+    ],
+    "aggregated": [
+        {
+            "name": "Group1",
+            "metamodel_complete": 36.8,
+            "representation_complete": 59.8,
+            "params": "3.3b"
+        },
+        {
+            "name": "Group2",
+            "metamodel_complete": 67.4,
+            "representation_complete": 65.8,
+            "params": "19.7b"
+        },
+        {
+            "name": "Group3",
+            "metamodel_complete": 84.2,
+            "representation_complete": 91.5,
+            "params": "104.3b"
+        },
+        {
+            "name": "Group4",
+            "metamodel_complete": 89.5,
+            "representation_complete": 97.6,
+            "params": "586.7b"
+        }
+    ]
+}

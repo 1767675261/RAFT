@@ -1,0 +1,71 @@
+根据给定的输入，包括规则/需求文档、测试用例和元模型语法结构，我将定义一种用于描述可测试规则的形式化语言（Testable Rule Language, TRL）。
+
+### 号系统 (Symbols)
+
+基于元模型，TRL 使用以下符号类型：
+
+*   **辑符号**：`AND`、`OR`、`NOT`
+*   **比较符号**：`=`、`!=`、`>`、`<`、`>=`、`<=`
+*   **领域符号**：根据元模型中的类和属性，例如`Participant`、`TradingProduct`、`Market`、`TradeMethod`、`TradingDirection`、`OrderQuantity`、`OrderPrice`、`TradingTime`、`SettlementMethod`、`SettlementCycle`、`OrderStatus`、`Result`、`ResultStatus`、`Constraint`
+
+每类符号的语法位置与语义角色如下：
+
+*   辑符号用于连接条件和操作。
+*   比较符号用于比较属性值。
+*   域符号用于表示特定领域的概念和属性。
+
+### 语法 (Syntax)
+
+TRL 的核心组成单元是 `Rule`，其结构如下：
+
+```
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+```
+
+*   `Condition` 表示规则的前置条件，使用辑符号和比较符号组合领域符号。
+*   `Action` 表示规则触发的动作，使用领域符号表示动作的类型和参数。
+*   `ExpectedOutcome` 表示规则执行后的预期结果，使用领域符号表示结果的状态和值。
+
+为了支持复杂规则，TRL 许套条件和复合动作。条件和动作可以使用辑符号连接，形成更复杂的表达式。
+
+### 语义 (Semantics)
+
+TRL 的语义解释如下：
+
+*   `Condition` 部分映射为输入约束，用于选满足规则的输入数据。
+*   `Action` 部分映射为操作序列，用于执行规则触发的动作。
+*   `ExpectedOutcome` 部分映射为断言，用于验证规则执行后的结果是否符合预期。
+
+TRL 使用操作语义（Operational Semantics）来定义规则的执行过程。
+
+### 可测试性约束 (Testability Constraints)
+
+为了保证可测试性，TRL 定义了一组形式化约束：
+
+*   每个规则必须有明确的输入约束和预期结果。
+*   每个规则必须能够被执行和验证。
+*   每个规则必须有明确的触发条件和执行动作。
+
+这些约束使用 OCL（Object Constraint Language）表示：
+
+```ocl
+context Rule
+inv: self.condition -> notEmpty()
+inv: self.action -> notEmpty()
+inv: self.expectedOutcome -> notEmpty()
+```
+
+### 输出要求
+
+TRL 的完整定义包括符号、语法、语义和可测试性约束。
+
+示例：将自然语言规则“如果交易金额大于 100 万元，则执行快速结算”转化为 TRL 实例：
+
+```
+Rule: 
+  IF TradingAmount > 1000000 
+  AND TradeMethod = "快速结算" 
+  THEN SettlementMethod = "快速结算"
+```
+
+该规则满足可测试性约束，因为它有明确的输入约束（交易金额大于 100 万元）、预期结果（执行快速结算）和触发条件（交易方法为快速结算）。

@@ -1,0 +1,458 @@
+[
+    {
+        "rule": "停止接受买入申报的，当日不再恢复，本所另有规定的除外。",
+        "trl": "rule 1\nif 操作 is 停止接受 and 操作部分 is 买入申报\nthen 时间 is 当日 and 操作 is 不再恢复 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "证券采用竞价交易方式的，每个交易日的9:15至9:25为开盘集合竞价时间，9:30至11:30、13:00至14:57为连续竞价时间，14:57至15:00为收盘集合竞价时间。",
+        "trl": "rule 1\nif 交易品种 is 证券 and 交易方式 is 竞价交易\nthen 开盘集合竞价时间 is 每个交易日的9:15至9:25 and 连续竞价时间 is 9:30至11:30、13:00至14:57 and 收盘集合竞价时间 is 14:57至15:00 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "投资者买入的证券，在交收前不得卖出，但实行回转交易的除外。",
+        "trl": "rule 1\nif 操作主体 is 投资者 and 操作 is 买入 and 操作部分 is 证券\nthen 时间 is 交收前 and 操作 is 不得卖出 and 结果 is 成功\nrule 2\nif 操作主体 is 投资者 and 操作 is 买入 and 交易品种 is 证券 and 交易类型 is 回转交易\nthen 时间 is 交收前 and 操作 is 卖出 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "下列证券品种实行当日回转交易:（一）债券交易型开放式基金；（二）上市交易的货币市场基金；（三）黄金交易型开放式基金；（四）跨境交易型开放式基金和跨境上市开放式基金；（五）商品期货交易型开放式基金。",
+        "trl": "rule 1\nif 基金品种 is 债券交易型开放式基金\nthen 交易类型 is 当日回转交易 and 结果 is 成功\nrule 2\nif 基金品种 is 上市交易的货币市场基金\nthen 交易类型 is 当日回转交易 and 结果 is 成功\nrule 3\nif 基金品种 is 黄金交易型开放式基金\nthen 交易类型 is 当日回转交易 and 结果 is 成功\nrule 4\nif 基金品种 is 跨境交易型开放式基金和跨境上市开放式基金\nthen 交易类型 is 当日回转交易 and 结果 is 成功\nrule 5\nif 基金品种 is 商品期货交易型开放式基金\nthen 交易类型 is 当日回转交易 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "B股实行次交易日起回转交易。",
+        "trl": "rule 1\nif 股票品种 is B股\nthen 交易类型 is 次交易日起回转交易 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "投资者可以采用限价委托或市价委托的方式委托会员买卖证券。",
+        "trl": "rule 1\nif 操作主体 is 投资者\nthen 约束 is 限价委托 and 操作 is 委托 and 操作主体 is 会员 and 操作 is 买卖 and 操作部分 is 证券 and 结果 is 成功\nrule 2\nif 操作主体 is 投资者\nthen 约束 is 市价委托 and 操作 is 委托 and 操作主体 is 会员 and 操作 is 买卖 and 操作部分 is 证券 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "投资者可以撤销委托的未成交部分。",
+        "trl": "rule 1\nif 操作主体 is 投资者\nthen 操作 is 撤销 and 操作部分 is 委托的未成交部分 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "被撤销或失效的委托，会员应当在确认后及时向投资者返还相应的资金或证券。",
+        "trl": "rule 1\nif 操作 is 撤销 and 操作部分 is 委托 and 操作主体 is 会员\nthen 操作 is 确认 and 操作对象 is 投资者 and 操作 is 返还 and 操作部分 is 相应的资金 and 结果 is 成功\nrule 2\nif 操作 is 撤销 and 操作部分 is 委托 and 操作主体 is 会员\nthen 操作 is 确认 and 操作对象 is 投资者 and 操作 is 返还 and 操作部分 is 相应的证券 and 结果 is 成功\nrule 3\nif 状态 is 失效 and 操作部分 is 委托 and 操作主体 is 会员\nthen 操作 is 确认 and 操作对象 is 投资者 and 操作 is 返还 and 操作部分 is 相应的资金 and 结果 is 成功\nrule 4\nif 状态 is 失效 and 操作部分 is 委托 and 操作主体 is 会员\nthen 操作 is 确认 and 操作对象 is 投资者 and 操作 is 返还 and 操作部分 is 相应的证券 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "本所接受交易参与人竞价交易申报的时间为每个交易日9:15至9:25、9:30至11:30、13:00至15:00。",
+        "trl": "rule 1\nif 操作主体 is 本所 and 操作 is 接受 and 操作主体 is 交易参与人 and 交易方式 is 竞价交易 and 操作 is 申报\nthen 时间 is 每个交易日9:15至9:25、9:30至11:30、13:00至15:00 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "每个交易日9:20至9:25、14:57至15:00，本所交易主机不接受参与竞价交易的撤销申报；在其他接受申报的时间内，未成交申报可以撤销。",
+        "trl": "rule 1\nif 时间 is 每个交易日9:20至9:25、14:57至15:00 and 操作主体 is 本所\nthen 操作 is 不接受 and 交易方式 is 竞价交易 and 操作 is 撤销申报 and 结果 is 成功\nrule 2\nif 时间 is 其他接受申报的时间内 and 操作部分 is 未成交申报\nthen 操作 is 撤销 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "对手方最优价格申报，以申报进入交易主机时集中申报簿中对手方队列的最优价格为其申报价格。",
+        "trl": "rule 1\nif 申报类型 is 对手方最优价格申报\nthen 价格 is 申报进入交易主机时集中申报簿中对手方队列的最优价格 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "本方最优价格申报，以申报进入交易主机时集中申报簿中本方队列的最优价格为其申报价格。",
+        "trl": "rule 1\nif 申报类型 is 本方最优价格申报\nthen 价格 is 申报进入交易主机时集中申报簿中本方队列的最优价格 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "最优五档即时成交剩余撤销申报，以对手方价格为成交价，与申报进入交易主机时集中申报簿中对手方最优五个价位的申报队列依次成交，未成交部分自动撤销。",
+        "trl": "rule 1\nif 申报类型 is 最优五档即时成交剩余撤销申报\nthen 成交价 is 对手方价格 and 关联操作主体 is 申报进入交易主机时集中申报簿中对手方最优五个价位的申报队列 and 操作 is 依次成交 and 操作部分 is 未成交部分 and 操作 is 自动撤销 and 结果 is 成功",
+        "label": "true",
+        "predict": "false"
+    },
+    {
+        "rule": "即时成交剩余撤销申报，以对手方价格为成交价，与申报进入交易主机时集中申报簿中对手方所有申报队列依次成交，未成交部分自动撤销。",
+        "trl": "rule 1\nif 申报类型 is 即时成交剩余撤销申报\nthen 成交价 is 对手方价格 and 关联操作主体 is 申报进入交易主机时集中申报簿中对手方所有申报队列 and 操作 is 依次成交 and 操作部分 is 未成交部分 and 操作 is 自动撤销 and 结果 is 成功",
+        "label": "true",
+        "predict": "false"
+    },
+    {
+        "rule": "全额成交或撤销申报，以对手方价格为成交价，如与申报进入交易主机时集中申报簿中对手方所有申报队列依次成交能够使其完全成交的，则依次成交，否则申报全部自动撤销。",
+        "trl": "rule 1\nif 申报类型 is 全额成交或撤销申报 and 成交价 is 对手方价格 and 关联操作主体 is 申报进入交易主机时集中申报簿中对手方所有申报队列 and 操作 is 依次成交 and 事件 is 能够使其完全成交\nthen 操作 is 依次成交 and 结果 is 成功\nrule 2\nif 申报类型 is 全额成交或撤销申报 and 成交价 is 对手方价格 and 关联操作主体 is 申报进入交易主机时集中申报簿中对手方所有申报队列 and 操作 is 依次成交 and 事件 is 不能够使其完全成交 and 操作部分 is 申报\nthen 操作 is 全部自动撤销 and 结果 is 成功",
+        "label": "true",
+        "predict": "false"
+    },
+    {
+        "rule": "市价申报只适用于有价格涨跌幅限制证券连续竞价期间的交易。",
+        "trl": "rule 1\nif 申报方式 is 市价申报\nthen 操作 is 适用于 and 证券品种 is 有价格涨跌幅限制证券 and 时间 is 连续竞价期间 and 操作部分 is 交易 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "其他交易时间，交易主机不接受市价申报。",
+        "trl": "rule 1\nif 时间 is 其他交易时间 and 操作主体 is 交易主机\nthen 操作 is 不接受 and 申报方式 is 市价申报 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "本方最优价格申报进入交易主机时，集中申报簿中本方无申报的，申报自动撤销。",
+        "trl": "rule 1\nif 申报类型 is 本方最优价格申报 and 时间 is 进入交易主机时 and 事件 is 集中申报簿中本方无申报 and 操作部分 is 申报\nthen 操作 is 自动撤销 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "其他市价申报类型进入交易主机时，集中申报簿中对手方无申报的，申报自动撤销。",
+        "trl": "rule 1\nif 市价申报类型 is 其他市价申报类型 and 时间 is 进入交易主机时 and 事件 is 集中申报簿中对手方无申报 and 操作部分 is 申报\nthen 操作 is 自动撤销 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "通过竞价交易买入证券的，申报数量应当为100股（份）或其整数倍。",
+        "trl": "rule 1\nif 交易方式 is 竞价交易 and 操作 is 买入 and 交易品种 is 证券\nthen 申报数量 is 100股（份）或其整数倍 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "卖出证券时，余额不足100股（份）部分，应当一次性申报卖出。",
+        "trl": "rule 1\nif 操作 is 卖出 and 交易品种 is 证券 and 余额 不足 100股（份）部分\nthen 操作 is 一次性申报卖出 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "证券竞价交易单笔申报数量不得超过100万股（份）。",
+        "trl": "rule 1\nif 交易品种 is 证券 and 交易方式 is 竞价交易\nthen 单笔申报数量 不得超过 100万股（份） and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "创业板股票限价申报的单笔申报数量不得超过30万股，市价申报的单笔申报数量不得超过15万股。",
+        "trl": "rule 1\nif 股票品种 is 创业板股票 and 申报方式 is 限价申报\nthen 单笔申报数量 不得超过 30万股 and 结果 is 成功\nrule 2\nif 股票品种 is 创业板股票 and 申报方式 is 市价申报\nthen 单笔申报数量 不得超过 15万股 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "A股交易的申报价格最小变动单位为0.01元人民币；基金的申报价格最小变动单位为0.001元人民币；B股的申报价格最小变动单位为0.01港元。",
+        "trl": "rule 1\nif 股票品种 is A股\nthen 申报价格最小变动单位 is 0.01元人民币 and 结果 is 成功\nrule 2\nif 交易品种 is 基金\nthen 申报价格最小变动单位 is 0.001元人民币 and 结果 is 成功\nrule 3\nif 股票品种 is B股\nthen 申报价格最小变动单位 is 0.01港元 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "主板股票的价格涨跌幅限制比例为10%，创业板股票的价格涨跌幅限制比例为20%。",
+        "trl": "rule 1\nif 股票品种 is 主板股票\nthen 价格涨跌幅限制比例 is 10% and 结果 is 成功\nrule 2\nif 股票品种 is 创业板股票\nthen 价格涨跌幅限制比例 is 20% and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "基金的价格涨跌幅限制比例为10%。",
+        "trl": "rule 1\nif 交易品种 is 基金\nthen 价格涨跌幅限制比例 is 10% and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "跟踪指数成份股仅为创业板股票或其他实行20%涨跌幅限制股票的指数型ETF和LOF，以及基金合同约定投资于创业板股票或其他实行20%涨跌幅限制股票的资产占非现金基金资产比例不低于80%的LOF，价格涨跌幅限制比例为20%。",
+        "trl": "rule 1\nif 交易品种 is 跟踪指数成份股仅为创业板股票或其他实行20%涨跌幅限制股票的指数型ETF和LOF\nthen 价格涨跌幅限制比例 is 20% and 结果 is 成功\nrule 2\nif 交易品种 is 基金合同约定投资于创业板股票或其他实行20%涨跌幅限制股票的资产占非现金基金资产比例不低于80%的LOF\nthen 价格涨跌幅限制比例 is 20% and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "属于下列情形之一的，股票不实行价格涨跌幅限制:（一）首次公开发行上市后的前五个交易日；（二）重新上市首日；（三）进入退市整理期的首日；（四）本所认定的其他情形。",
+        "trl": "rule 1\nif 交易品种 is 股票 and 时间 is 首次公开发行上市后的前五个交易日\nthen 操作 is 不实行 and 操作部分 is 价格涨跌幅限制 and 结果 is 成功\nrule 2\nif 交易品种 is 股票 and 时间 is 重新上市首日\nthen 操作 is 不实行 and 操作部分 is 价格涨跌幅限制 and 结果 is 成功\nrule 3\nif 交易品种 is 股票 and 时间 is 进入退市整理期的首日\nthen 操作 is 不实行 and 操作部分 is 价格涨跌幅限制 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "股票连续竞价阶段限价申报的有效申报价格，应当符合下列规定:（一）买入申报价格不得高于买入基准价格的102%和买入基准价格以上十个申报价格最小变动单位的孰高值；（二）卖出申报价格不得低于卖出基准价格的98%和卖出基准价格以下十个申报价格最小变动单位的孰低值。",
+        "trl": "rule 1\nif 交易品种 is 股票 and 时间 is 连续竞价阶段 and 申报方式 is 限价申报\nthen 买入申报价格 不得高于 买入基准价格的102%和买入基准价格以上十个申报价格最小变动单位的孰高值 and 结果 is 成功\nrule 2\nif 交易品种 is 股票 and 时间 is 连续竞价阶段 and 申报方式 is 限价申报\nthen 卖出申报价格 不得低于 卖出基准价格的98%和卖出基准价格以下十个申报价格最小变动单位的孰低值 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "买入（卖出）基准价格，为即时揭示的最低卖出（最高买入）申报价格；无即时揭示的最低卖出（最高买入）申报价格的，为即时揭示的最高买入（最低卖出）申报价格；无即时揭示的最高买入（最低卖出）申报价格的，为最近成交价；当日无成交的，为前收盘价。",
+        "trl": "rule 1\nif\nthen 买入（卖出）基准价格 is 即时揭示的最低卖出（最高买入）申报价格 and 结果 is 成功\nrule 2\nif 事件 is 无即时揭示的最低卖出（最高买入）申报价格\nthen 买入（卖出）基准价格 is 即时揭示的最高买入（最低卖出）申报价格 and 结果 is 成功\nrule 3\nif 事件 is 无即时揭示的最高买入（最低卖出）申报价格\nthen 买入（卖出）基准价格 is 最近成交价 and 结果 is 成功\nrule 4\nif 时间 is 当日 and 事件 is 无成交\nthen 买入（卖出）基准价格 is 前收盘价 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "开市期间临时停牌阶段的限价申报，不适用前两款规定。",
+        "trl": "rule 1\nif 时间 is 开市期间 and 时间 is 临时停牌阶段 and 申报方式 is 限价申报\nthen 操作 is 不适用 and 操作部分 is 前两款规定 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "买卖无价格涨跌幅限制的股票，开盘集合竞价期间的有效申报价格范围为即时行情显示的前收盘价的900%以内，盘中临时停牌期间、收盘集合竞价期间的有效申报价格范围为最近成交价的上下10%，收盘集合竞价在有效申报价格范围内进行撮合。",
+        "trl": "rule 1\nif 操作 is 买卖 and 股票品种 is 无价格涨跌幅限制的股票 and 时间 is 开盘集合竞价期间\nthen 有效申报价格范围 is 即时行情显示的前收盘价的900%以内 and 结果 is 成功\nrule 2\nif 操作 is 买卖 and 股票品种 is 无价格涨跌幅限制的股票 and 时间 is 盘中临时停牌期间\nthen 有效申报价格范围 is 最近成交价的上下10% and 结果 is 成功\nrule 3\nif 操作 is 买卖 and 股票品种 is 无价格涨跌幅限制的股票 and 时间 is 收盘集合竞价期间\nthen 有效申报价格范围 is 最近成交价的上下10% and 价格 is 有效申报价格范围内 and 操作 is 撮合 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "申报时超过涨跌幅限制价格或有效申报价格范围的申报为无效申报。",
+        "trl": "rule 1\nif 操作 is 申报 and 申报价格 超过 涨跌幅限制价格 and 操作部分 is 申报\nthen 状态 is 无效 and 结果 is 成功\nrule 2\nif 操作 is 申报 and 申报价格 超过 有效申报价格范围 and 操作部分 is 申报\nthen 状态 is 无效 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "涨跌幅限制价格与前收盘价之差、有效申报价格范围上限或下限与基准价格之差的绝对值低于申报价格最小变动单位的，以前收盘价、基准价格增减一个申报价格最小变动单位计算相应价格。",
+        "trl": "rule 1\nif 涨跌幅限制价格与前收盘价之差 低于 申报价格最小变动单位\nthen 相应价格 is 前收盘价增减一个申报价格最小变动单位 and 结果 is 成功\nrule 2\nif 有效申报价格范围上限或下限与基准价格之差的绝对值 低于 申报价格最小变动单位\nthen 相应价格 is 基准价格增减一个申报价格最小变动单位 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "涨跌幅限制价格、有效申报价格范围上限或下限低于申报价格最小变动单位的，以申报价格最小变动单位作为相应价格。",
+        "trl": "rule 1\nif 涨跌幅限制价格 低于 申报价格最小变动单位\nthen 相应价格 is 申报价格最小变动单位 and 结果 is 成功\nrule 2\nif 有效申报价格范围上限或下限 低于 申报价格最小变动单位\nthen 相应价格 is 申报价格最小变动单位 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "申报当日有效。",
+        "trl": "rule 1\nif 操作部分 is 申报\nthen 时间 is 当日 and 状态 is 有效 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "每笔竞价交易的申报不能一次全部成交时，未成交部分继续参加当日竞价，但第3.3.4条第三项至第五项市价申报类型除外。",
+        "trl": "rule 1\nif 交易方式 is 竞价交易 and 操作部分 is 申报 and 事件 is 不能一次全部成交 and 引用 is 非第3.3.4条第三项至第五项市价申报类型 and 操作部分 is 未成交部分\nthen 操作 is 继续参加 and 时间 is 当日 and 操作部分 is 竞价 and 结果 is 成功\nrule 2\nif 交易方式 is 竞价交易 and 操作部分 is 申报 and 事件 is 不能一次全部成交 and 引用 is 第3.3.4条第三项至第五项市价申报类型 and 操作部分 is 未成交部分\nthen 操作 is 不继续参加 and 时间 is 当日 and 操作部分 is 竞价 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "集合竞价时，成交价的确定原则为:（一）可实现最大成交量；（二）高于该价格的买入申报与低于该价格的卖出申报全部成交；（三）与该价格相同的买方或卖方至少有一方全部成交。",
+        "trl": "rule 1\nif 交易方式 is 集合竞价\nthen 成交价 is 可实现最大成交量 and 价格 高于 成交价 and 操作部分 is 买入申报 and 价格 低于 成交价 and 操作部分 is 卖出申报 and 操作 is 全部成交 and 价格 相同 成交价 and 操作主体 is 买方或卖方 and 约束 is 至少有一方 and 操作 is 全部成交 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "两个以上价格符合上述事件的，取在该价格以上的买入申报累计数量与在该价格以下的卖出申报累计数量之差最小的价格为成交价；买卖申报累计数量之差仍存在相等情况的，开盘集合竞价时取最接近即时行情显示的前收盘价的价格为成交价，盘中、收盘集合竞价时取最接近最近成交价的价格为成交价。",
+        "trl": "rule 1\nif 事件 is 两个以上价格符合上述事件\nthen 成交价 is 在该价格以上的买入申报累计数量与在该价格以下的卖出申报累计数量之差最小的价格 and 结果 is 成功\nrule 2\nif 事件 is 买卖申报累计数量之差仍存在相等情况 and 时间 is 开盘集合竞价时\nthen 成交价 is 最接近即时行情显示的前收盘价的价格 and 结果 is 成功\nrule 3\nif 事件 is 买卖申报累计数量之差仍存在相等情况 and 时间 is 盘中、收盘集合竞价时\nthen 成交价 is 最接近最近成交价的价格 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "集合竞价的所有交易以同一价格成交。",
+        "trl": "rule 1\nif 交易方式 is 集合竞价 and 操作部分 is 所有交易\nthen 价格 is 同一价格 and 操作 is 成交 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "连续竞价时，成交价的确定原则为:（一）最高买入申报与最低卖出申报价格相同，以该价格为成交价；（二）买入申报价格高于集中申报簿当时最低卖出申报价格时，以集中申报簿当时的最低卖出申报价格为成交价；（三）卖出申报价格低于集中申报簿当时最高买入申报价格时，以集中申报簿当时的最高买入申报价格为成交价。",
+        "trl": "rule 1\nif 操作 is 连续竞价 and 最高买入申报价格 相同 最低卖出申报价格\nthen 成交价 is 最高买入申报价格 and 结果 is 成功\nrule 2\nif 操作 is 连续竞价 and 买入申报价格 高于 集中申报簿当时最低卖出申报价格\nthen 成交价 is 集中申报簿当时的最低卖出申报价格 and 结果 is 成功\nrule 3\nif 操作 is 连续竞价 and 卖出申报价格 低于 集中申报簿当时最高买入申报价格\nthen 成交价 is 集中申报簿当时的最高买入申报价格 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "在本所进行的证券交易符合以下事件的，可以采用大宗交易方式:（一）A股单笔交易数量不低于30万股，或者交易金额不低于200万元人民币；（二）B股单笔交易数量不低于3万股，或者交易金额不低于20万元港币；（三）基金单笔交易数量不低于200万份，或者交易金额不低于200万元人民币。",
+        "trl": "rule 1\nif 操作主体 is 本所 and 交易品种 is 证券 and 股票品种 is A股 and 单笔交易数量 不低于 30万股\nthen 交易方式 is 大宗交易 and 结果 is 成功\nrule 2\nif 操作主体 is 本所 and 交易品种 is 证券 and 股票品种 is A股 and 交易金额 不低于 200万元人民币\nthen 交易方式 is 大宗交易 and 结果 is 成功\nrule 3\nif 操作主体 is 本所 and 交易品种 is 证券 and 股票品种 is B股 and 单笔交易数量 不低于 3万股\nthen 交易方式 is 大宗交易 and 结果 is 成功\nrule 4\nif 操作主体 is 本所 and 交易品种 is 证券 and 股票品种 is B股 and 交易金额 不低于 20万元港币\nthen 交易方式 is 大宗交易 and 结果 is 成功\nrule 5\nif 操作主体 is 本所 and 交易品种 is 证券 and 交易品种 is 基金 and 单笔交易数量 不低于 200万份\nthen 交易方式 is 大宗交易 and 结果 is 成功\nrule 6\nif 操作主体 is 本所 and 交易品种 is 证券 and 交易品种 is 基金 and 交易金额 不低于 200万元人民币\nthen 交易方式 is 大宗交易 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "采用协议大宗交易方式的，本所接受申报的时间为每个交易日9:15至11:30、13:00至15:30。",
+        "trl": "rule 1\nif 交易方式 is 协议大宗交易 and 操作主体 is 本所\nthen 操作 is 接受 and 操作 is 申报 and 时间 is 每个交易日9:15至11:30、13:00至15:30 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "采用盘后定价大宗交易方式的，本所接受申报的时间为每个交易日15:05至15:30。",
+        "trl": "rule 1\nif 交易方式 is 盘后定价大宗交易 and 操作主体 is 本所\nthen 操作 is 接受 and 操作 is 申报 and 时间 is 每个交易日15:05至15:30 and 结果 is 成功",
+        "label": "true",
+        "predict": "false"
+    },
+    {
+        "rule": "当天全天停牌、处于临时停牌期间或停牌至收市的证券，本所不接受其协议大宗交易申报。",
+        "trl": "rule 1\nif 事件 is 当天全天停牌 and 交易品种 is 证券 and 操作主体 is 本所\nthen 操作 is 不接受 and 交易方式 is 协议大宗交易 and 操作部分 is 申报 and 结果 is 成功\nrule 2\nif 事件 is 处于临时停牌期间 and 交易品种 is 证券 and 操作主体 is 本所\nthen 操作 is 不接受 and 交易方式 is 协议大宗交易 and 操作部分 is 申报 and 结果 is 成功\nrule 3\nif 事件 is 停牌至收市 and 交易品种 is 证券 and 操作主体 is 本所\nthen 操作 is 不接受 and 交易方式 is 协议大宗交易 and 操作部分 is 申报 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "当天全天停牌或停牌至收市的证券，本所不接受其盘后定价大宗交易申报。",
+        "trl": "rule 1\nif 事件 is 当天全天停牌 and 交易品种 is 证券 and 操作主体 is 本所\nthen 操作 is 不接受 and 交易方式 is 盘后定价大宗交易 and 操作部分 is 申报 and 结果 is 成功\nrule 2\nif 事件 is 停牌至收市 and 交易品种 is 证券 and 操作主体 is 本所\nthen 操作 is 不接受 and 交易方式 is 盘后定价大宗交易 and 操作部分 is 申报 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "无价格涨跌幅限制证券协议大宗交易的申报价格，不得高于该证券当日竞价交易实时成交均价的120%和已成交最高价的孰低值，且不得低于该证券当日竞价交易实时成交均价的80%和已成交最低价的孰高值。",
+        "trl": "rule 1\nif 交易品种 is 无价格涨跌幅限制证券 and 交易方式 is 协议大宗交易\nthen 申报价格 不得高于 该证券当日竞价交易实时成交均价的120%和已成交最高价的孰低值 and 申报价格 不得低于 该证券当日竞价交易实时成交均价的80%和已成交最低价的孰高值 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "意向申报不承担成交义务，意向申报指令可以撤销。",
+        "trl": "rule 1\nif 申报类型 is 意向申报\nthen 操作 is 不承担 and 操作部分 is 成交义务 and 结果 is 成功\nrule 2\nif 操作部分 is 意向申报指令\nthen 操作 is 撤销 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "本所对约定号、证券代码、买卖方向、价格、数量等各项要素均匹配的成交申报进行成交确认，成交确认前申报可以撤销。",
+        "trl": "rule 1\nif 操作主体 is 本所\nthen 操作部分 is 约定号、证券代码、买卖方向、价格、数量等各项要素均匹配的成交申报 and 操作 is 成交确认 and 结果 is 成功\nrule 2\nif 操作部分 is 申报\nthen 时间 is 成交确认前 and 操作 is 撤销 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "市场所有参与者可以提交成交申报，按指定的价格与定价申报全部或部分成交，本所按时间优先顺序进行成交确认。",
+        "trl": "rule 1\nif 操作主体 is 市场所有参与者\nthen 操作 is 提交 and 操作部分 is 成交申报 and 价格 is 指定的价格 and 操作部分 is 定价申报 and 操作 is 全部成交 and 结果 is 成功\nrule 2\nif 操作主体 is 市场所有参与者\nthen 操作 is 提交 and 操作部分 is 成交申报 and 价格 is 指定的价格 and 操作部分 is 定价申报 and 操作 is 部分成交 and 结果 is 成功\nrule 3\nif 操作主体 is 本所\nthen 约束 is 时间优先顺序 and 操作 is 成交确认 and 结果 is 成功",
+        "label": "true",
+        "predict": "false"
+    },
+    {
+        "rule": "定价申报的未成交部分可以撤销。",
+        "trl": "rule 1\nif 申报类型 is 定价申报 and 操作部分 is 未成交部分\nthen 操作 is 撤销 and 结果 is 成功",
+        "label": "true",
+        "predict": "false"
+    },
+    {
+        "rule": "证券协议大宗交易的成交确认时间为每个交易日15:00至15:30。",
+        "trl": "rule 1\nif 交易品种 is 证券 and 交易方式 is 协议大宗交易\nthen 成交确认时间 is 每个交易日15:00至15:30 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "在接受申报的时间内，未成交申报可以撤销。",
+        "trl": "rule 1\nif 时间 is 接受申报的时间内 and 状态 is 未成交 and 操作部分 is 未成交申报\nthen 操作 is 撤销 and 结果 is 成功",
+        "label": "false",
+        "predict": "true"
+    },
+    {
+        "rule": "每个交易日的15:05至15:30为盘后固定价格交易时间。",
+        "trl": "rule 1\nif 交易方式 is 盘后固定价格交易\nthen 交易时间 is 每个交易日的15:05至15:30 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "盘后固定价格交易申报的时间为每个交易日9:15至11:30、13:00至15:30。",
+        "trl": "rule 1\nif 交易方式 is 盘后固定价格交易\nthen 申报时间 is 每个交易日9:15至11:30、13:00至15:30 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "开市期间停牌的，停牌期间可以继续申报。",
+        "trl": "rule 1\nif 时间 is 开市期间 and 事件 is 停牌\nthen 时间 is 停牌期间 and 操作 is 继续申报 and 结果 is 成功",
+        "label": "true",
+        "predict": "false"
+    },
+    {
+        "rule": "当日15:00仍处于停牌状态的，不进行盘后固定价格交易。",
+        "trl": "rule 1\nif 时间 is 当日15:00 and 事件 is 仍处于停牌状态\nthen 操作 is 不进行 and 交易方式 is 盘后固定价格交易 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "接受申报的时间内，未成交的申报可以撤销。",
+        "trl": "rule 1\nif 时间 is 接受申报的时间内 and 状态 is 未成交 and 操作部分 is 未成交的申报\nthen 操作 is 撤销 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "盘后固定价格申报当日有效。",
+        "trl": "rule 1\nif 交易方式 is 盘后固定价格交易 and 操作部分 is 申报\nthen 时间 is 当日 and 状态 is 有效 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "投资者通过盘后固定价格交易买卖创业板股票的，应当向会员提交盘后固定价格委托指令。",
+        "trl": "rule 1\nif 操作主体 is 投资者 and 交易方式 is 盘后固定价格交易 and 操作 is 买卖 and 股票品种 is 创业板股票\nthen 操作对象 is 会员 and 操作 is 提交 and 操作部分 is 盘后固定价格委托指令 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "买入限价低于收盘价或卖出限价高于收盘价的盘后固定价格申报无效。",
+        "trl": "rule 1\nif 买入限价 低于 收盘价 and 交易方式 is 盘后固定价格交易 and 操作部分 is 申报\nthen 状态 is 无效 and 结果 is 成功\nrule 2\nif 卖出限价 高于 收盘价 and 交易方式 is 盘后固定价格交易 and 操作部分 is 申报\nthen 状态 is 无效 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "通过盘后固定价格交易买入创业板股票的，申报数量应当为100股或其整数倍。",
+        "trl": "rule 1\nif 交易方式 is 盘后固定价格交易 and 操作 is 买入 and 股票品种 is 创业板股票\nthen 申报数量 is 100股或其整数倍 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "卖出股票时，余额不足100股部分，应当一次性申报卖出。",
+        "trl": "rule 1\nif 操作 is 卖出 and 交易品种 is 股票 and 余额 不足 100股部分\nthen 操作 is 一次性申报卖出 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "盘后固定价格申报的单笔申报数量不得超过100万股。",
+        "trl": "rule 1\nif 交易方式 is 盘后固定价格交易 and 操作 is 申报\nthen 单笔申报数量 不得超过 100万股 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "盘后固定价格交易纳入深股通额度控制，当日额度在本所盘后固定价格交易阶段使用完毕的，联交所证券交易服务公司停止接受当日后续的买入申报，但仍接受卖出申报。",
+        "trl": "rule 1\nif 交易方式 is 盘后固定价格交易 and 操作 is 纳入 and 操作部分 is 深股通额度控制 and 操作部分 is 当日额度 and 时间 is 盘后固定价格交易阶段 and 事件 is 使用完毕 and 操作主体 is 联交所证券交易服务公司\nthen 操作 is 停止接受 and 时间 is 当日 and 操作部分 is 后续的买入申报 and 结果 is 成功\nrule 2\nif 交易方式 is 盘后固定价格交易 and 操作 is 纳入 and 操作部分 is 深股通额度控制 and 操作部分 is 当日额度 and 时间 is 盘后固定价格交易阶段 and 事件 is 使用完毕 and 操作主体 is 联交所证券交易服务公司\nthen 操作 is 接受 and 操作部分 is 卖出申报 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "证券的开盘价为当日该证券的第一笔成交价。",
+        "trl": "rule 1\nif 交易品种 is 证券\nthen 开盘价 is 当日该证券的第一笔成交价 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "证券的开盘价通过集合竞价方式产生，不能通过集合竞价产生的，以连续竞价方式产生。",
+        "trl": "rule 1\nif 交易品种 is 证券\nthen 价格 is 开盘价 and 交易方式 is 集合竞价 and 操作 is 产生 and 结果 is 成功\nrule 2\nif 交易品种 is 证券 and 价格 is 开盘价 and 事件 is 不能通过集合竞价产生\nthen 交易方式 is 连续竞价 and 操作 is 产生 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "除本规则另有规定外，证券的收盘价通过集合竞价的方式产生。",
+        "trl": "rule 1\nif 交易品种 is 证券\nthen 价格 is 收盘价 and 交易方式 is 集合竞价 and 操作 is 产生 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "收盘集合竞价不能产生收盘价或未进行收盘集合竞价的，以当日该证券最后一笔交易前一分钟所有交易的成交量加权平均价（含最后一笔交易）为收盘价。",
+        "trl": "rule 1\nif 交易方式 is 收盘集合竞价 and 事件 is 不能产生收盘价\nthen 收盘价 is 当日该证券最后一笔交易前一分钟所有交易的成交量加权平均价（含最后一笔交易） and 结果 is 成功\nrule 2\nif 事件 is 未进行 and 交易方式 is 收盘集合竞价\nthen 收盘价 is 当日该证券最后一笔交易前一分钟所有交易的成交量加权平均价（含最后一笔交易） and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "当日无成交的，以前收盘价为当日收盘价。",
+        "trl": "rule 1\nif 时间 is 当日 and 事件 is 无成交\nthen 当日收盘价 is 前收盘价 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "停牌期间，可以申报，也可以撤销申报。",
+        "trl": "rule 1\nif 时间 is 停牌期间\nthen 操作 is 申报 and 结果 is 成功\nrule 2\nif 时间 is 停牌期间\nthen 操作 is 撤销申报 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    },
+    {
+        "rule": "除权（息）日证券买卖，按除权（息）参考价作为计算涨跌幅度的基准，本所另有规定的除外。",
+        "trl": "rule 1\nif 时间 is 除权（息）日 and 交易品种 is 证券 and 操作 is 买卖\nthen 计算涨跌幅度的基准 is 除权（息）参考价 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "投资者当日通过竞价交易、大宗交易和盘后固定价格交易累计买入的单只风险警示股票，数量不得超过50万股，本所另有规定的除外。",
+        "trl": "rule 1\nif 操作主体 is 投资者 and 时间 is 当日 and 交易方式 is 竞价交易 and 操作 is 买入 and 交易品种 is 单只风险警示股票\nthen 数量 不得超过 50万股 and 结果 is 成功\nrule 2\nif 操作主体 is 投资者 and 时间 is 当日 and 交易方式 is 大宗交易 and 操作 is 买入 and 交易品种 is 单只风险警示股票\nthen 数量 不得超过 50万股 and 结果 is 成功\nrule 3\nif 操作主体 is 投资者 and 时间 is 当日 and 交易方式 is 盘后固定价格交易 and 操作 is 买入 and 交易品种 is 单只风险警示股票\nthen 数量 不得超过 50万股 and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "主板风险警示股票价格涨跌幅限制比例为5%，退市整理股票价格涨跌幅限制比例为10%。",
+        "trl": "rule 1\nif 交易品种 is 主板风险警示股票\nthen 价格涨跌幅限制比例 is 5% and 结果 is 成功\nrule 2\nif 交易品种 is 退市整理股票\nthen 价格涨跌幅限制比例 is 10% and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "创业板风险警示股票、退市整理股票价格涨跌幅限制比例为20%。",
+        "trl": "rule 1\nif 交易品种 is 创业板风险警示股票\nthen 价格涨跌幅限制比例 is 20% and 结果 is 成功\nrule 2\nif 交易品种 is 退市整理股票\nthen 价格涨跌幅限制比例 is 20% and 结果 is 成功",
+        "label": "false",
+        "predict": "false"
+    },
+    {
+        "rule": "进入退市整理期的首日不实行价格涨跌幅限制。",
+        "trl": "rule 1\nif 时间 is 进入退市整理期的首日\nthen 操作 is 不实行 and 操作部分 is 价格涨跌幅限制 and 结果 is 成功",
+        "label": "true",
+        "predict": "true"
+    }
+]

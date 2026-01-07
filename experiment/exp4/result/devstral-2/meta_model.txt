@@ -1,0 +1,63 @@
+### Step1 — 规则要素清单
+
+1. **MarketParticipant** - 债券交易参与人
+2. **BondType** - 债券类型
+3. **TradingMethod** - 交易方式
+4. **OrderDirection** - 交易方向
+5. **OrderPrice** - 申报价格
+6. **OrderQuantity** - 申报数量
+7. **AccountStatus** - 账户状态
+8. **TradingTime** - 交易时间
+9. **SettlementMethod** - 结算方式
+10. **SettlementCycle** - 结算周期
+11. **MarketMaker** - 做市商
+12. **MarketMakingType** - 做市类型
+13. **MarketMakingPeriod** - 做市期间
+14. **Constraint** - 约束条件
+15. **TradingResult** - 交易结果
+
+---
+
+### Step2 — 元模型
+
+```plantuml
+@startuml
+
+class Rule {
+}
+
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+Rule "1" *-- "1" Precondition : contains
+Rule "1" *-- "1" Operation : contains
+Rule "1" *-- "1" ExpectedResult : contains
+
+Precondition "1" *-- "1..*" MarketParticipant : constrains
+Precondition "1" *-- "1..*" BondType : constrains
+Precondition "1" *-- "1..*" TradingMethod : constrains
+Precondition "1" *-- "1..*" OrderDirection : constrains
+Precondition "1" *-- "1..*" AccountStatus : constrains
+Precondition "1" *-- "1..*" Constraint : constrains
+
+Operation "1" *-- "1..*" OrderPrice : triggers
+Operation "1" *-- "1..*" OrderQuantity : triggers
+Operation "1" *-- "1..*" TradingTime : triggers
+Operation "1" *-- "1..*" SettlementMethod : triggers
+Operation "1" *-- "1..*" SettlementCycle : triggers
+Operation "1" *-- "1..*" Constraint : constrains
+
+ExpectedResult "1" *-- "1..*" MarketMaker : dependsOn
+ExpectedResult "1" *-- "1..*" MarketMakingType : dependsOn
+ExpectedResult "1" *-- "1..*" MarketMakingPeriod : dependsOn
+ExpectedResult "1" *-- "1..*" TradingResult : dependsOn
+ExpectedResult "1" *-- "1..*" Constraint : constrains
+
+@enduml
+```

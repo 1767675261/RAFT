@@ -1,0 +1,310 @@
+# ✅ 最终合并版：Testable Rule Language（TRL）
+
+---
+
+## 一、符号系统（Symbols）
+
+### 1.1 逻辑符号（Logical Symbols）
+
+| 符号        | 语义            |
+| --------- | ------------- |
+| `AND`     | 逻辑与 / 顺序执行    |
+| `OR`      | 逻辑或（需满足确定性约束） |
+| `NOT`     | 逻辑非           |
+| `IMPLIES` | 蕴含关系          |
+| `FORALL`  | 全称量词          |
+| `EXISTS`  | 存在量词          |
+
+📌 来源
+
+* L1：AND / OR / NOT
+* L3：IMPLIES / FORALL / EXISTS
+  → **全部保留**
+
+---
+
+### 1.2 比较符号（Comparison Symbols）
+
+| 符号          | 语义   |
+| ----------- | ---- |
+| `=` / `EQ`  | 相等   |
+| `!=` / `NE` | 不等   |
+| `<` / `LT`  | 小于   |
+| `<=` / `LE` | 小于等于 |
+| `>` / `GT`  | 大于   |
+| `>=` / `GE` | 大于等于 |
+| `IN`        | 集合成员 |
+| `BETWEEN`   | 区间   |
+
+📌 说明
+
+* **符号别名等价**：`EQ` ≡ `=`，`GT` ≡ `>`
+* 解析阶段统一为内部标准表示
+
+---
+
+### 1.3 领域符号（Domain Symbols）
+
+> 领域符号既支持 **结构化属性访问（L1）**，也支持 **谓词/字面值形式（L3）**
+
+#### 1️⃣ 核心领域对象（可作为 DomainSymbol 或 DomainPredicate）
+
+| 领域                  | 示例            |
+| ------------------- | ------------- |
+| Actor               | 投资者 / 主做市商    |
+| Bond / BondType     | 债券现券 / 基准做市品种 |
+| Market              | 深交所 / 上交所     |
+| Account             | 投资账户          |
+| TimeCondition       | 当日 / T+1      |
+| Constraint          | 业务约束          |
+| TradingDirection    | 买入 / 卖出       |
+| TradingMethod       | 询价成交 / 点击成交   |
+| Price               | 数值            |
+| Quantity            | 数值            |
+| OrderStatus / State | 未成交 / 部分成交    |
+| ResultStatus        | 成功 / 失败       |
+| ExecutionResult     | 成功 / 不成功      |
+
+---
+
+## 二、语法定义（Syntax）
+
+### 2.1 顶层规则结构（统一）
+
+```bnf
+Rule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+```
+
+📌 三个语言完全一致 → **直接统一**
+
+---
+
+### 2.2 表达式统一模型（核心合并点）
+
+```bnf
+Expression ::= 
+      ComparisonExpression
+    | LogicalExpression
+    | PredicateExpression
+    | ActionExpression
+    | "(" Expression ")"
+```
+
+---
+
+### 2.3 条件（Condition）
+
+```bnf
+Condition ::= Expression
+```
+
+支持三种写法（并存）：
+
+#### ✅ 属性约束式（L1 / L2）
+
+```bnf
+ComparisonExpression ::= Value ComparisonOperator Value
+Value ::= DomainProperty | Literal
+DomainProperty ::= DomainSymbol "." AttributeName
+```
+
+例：
+
+```
+Bond.price > 100
+Actor.balance >= 1000
+```
+
+#### ✅ 谓词式（L3）
+
+```bnf
+PredicateExpression ::= DomainConcept "(" Parameters ")"
+```
+
+例：
+
+```
+Actor("投资者")
+BondType("债券现券")
+TimeCondition("当日")
+```
+
+#### ✅ 逻辑组合
+
+```bnf
+LogicalExpression ::= Expression LogicOperator Expression
+```
+
+---
+
+### 2.4 动作（Action）
+
+```bnf
+Action ::= Expression
+```
+
+支持三种动作模型并存：
+
+#### 1️⃣ 操作型（L2 / L3）
+
+```bnf
+Operation ::= "Buy" | "Sell" | "Cancel" | "ACTION" "(" String ")"
+```
+
+#### 2️⃣ 状态迁移型（L3）
+
+```bnf
+StateTransition ::= "TRANSITION" "(" FromState "," ToState ")"
+```
+
+#### 3️⃣ 属性赋值型（L1）
+
+```bnf
+DomainProperty EQ Literal
+```
+
+---
+
+### 2.5 预期结果（ExpectedOutcome）
+
+```bnf
+ExpectedOutcome ::= Expression
+```
+
+支持：
+
+* `RESULT("成功")`
+* `ResultStatus = "SUCCESS"`
+* `OrderStatus = "未成交"`
+* 逻辑组合断言（AND / OR / NOT）
+
+---
+
+## 三、统一语义模型（Semantics）
+
+### 3.1 执行语义（统一三元组模型）
+
+```
+σ ⊢ Rule ⇓ σ'
+```
+
+| 阶段                    | 说明     |
+| --------------------- | ------ |
+| σ ⊨ Condition         | 前置条件成立 |
+| σ ⊢ Action ⇒ σ''      | 执行动作   |
+| σ'' ⊨ ExpectedOutcome | 验证结果   |
+| σ' = σ''              | 最终状态   |
+
+📌 完整吸收 L1 / L3 的操作语义
+
+---
+
+### 3.2 表达式求值（统一）
+
+```python
+evaluate(expr, state):
+  if literal → value
+  if DomainProperty → state[property]
+  if Predicate → predicate(state)
+  if Comparison → compare(left, op, right)
+  if Logical → logic(left, op, right)
+```
+
+---
+
+## 四、可测试性约束（Testability Constraints, OCL）
+
+> 所有约束 **取并集**，按语义合并去重
+
+---
+
+### 4.1 基础可测试性（L1 + L2 + L3）
+
+```ocl
+context Rule
+inv HasUniqueId:
+    self.id->notEmpty() and Rule.allInstances()->isUnique(id)
+
+inv ConditionObservable:
+    self.condition.allDomainProperties()->forAll(p | p.isObservable())
+
+inv ActionExecutable:
+    self.action.containsExecutableOperation()
+
+inv OutcomeVerifiable:
+    self.expectedOutcome.containsAssertion()
+```
+
+---
+
+### 4.2 观测性 & 可控性（L3）
+
+```ocl
+context TimeCondition
+inv Measurable:
+    value in {"当日","确认后"} or value.startsWith("在一定时期内")
+
+context Action
+inv PriceQuantityControllable:
+    self.price.isEmpty() or self.price.isNumber()
+```
+
+---
+
+### 4.3 确定性（L3）
+
+```ocl
+context Rule
+inv DeterministicCondition:
+    no OR unless mutually exclusive
+
+inv OrderedActions:
+    AND implies sequential execution
+
+inv OutcomeConsistent:
+    no contradictory assertions
+```
+
+---
+
+### 4.4 覆盖性与原子性（L1 + L3）
+
+```ocl
+context Rule
+inv RuleCoverable:
+    exists TestCase covering condition, action, outcome
+
+inv RuleAtomic:
+    self.testFocus->size() = 1
+```
+
+---
+
+## 五、最终 TRL 语言特性总结（合并后）
+
+### ✅ 表达能力
+
+* 属性级规则（L1）
+* 操作级规则（L2）
+* 状态/谓词级规则（L3）
+
+### ✅ 可测试性
+
+* 输入可构造
+* 动作可执行
+* 结果可验证
+* 路径可覆盖
+
+### ✅ 工程可落地
+
+* 可生成 AST
+* 可映射状态机
+* 可自动生成测试用例
+* 可作为 **规则引擎 / 合规引擎 / 测试生成 DSL**
+
+---
+
+## 📌 一句话总结
+
+> **最终 TRL 是一个：
+> 统一了属性约束、谓词建模、操作语义、状态迁移，并内置可测试性约束的“可执行规则语言”。**

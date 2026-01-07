@@ -1,0 +1,59 @@
+### 一：规则要素清单
+
+1. **AccountType** - 户类型
+2. **Actor** - 作人（如主做市商、一般做市商、经纪客户）
+3. **BondType** - 券类型（如基准做市品种、债券现券）
+4. **BusinessOperation** - 业务操作（如申报、撤销、返还）
+5. **Constraint** - 束（如数量、价格、时间）
+6. **Direction** - 交易方向（如买入、卖出）
+7. **Market** - 交易市场（如深圳证券交易所）
+8. **OrderStatus** - 单状态（如未申报、部分成交、委托已撤销）
+9. **OrderType** - 单类型（如限价申报、点击成交）
+10. **Price** - 价格
+11. **Quantity** - 数量
+12. **Result** - 结果（如成功、不成功）
+13. **ResultStatus** - 结果状态（如未成交、部分成交）
+14. **Time** - 时间
+15. **TransactionMethod** - 交易方式（如匹配成交、竞买成交、协商成交）
+
+### 二：元模型构建
+
+```plantuml
+@startuml
+class Rule {
+}
+
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+Rule --* Precondition : contains
+Rule --* Operation : contains
+Rule --* ExpectedResult : contains
+
+Precondition --* AccountType : contains
+Precondition --* Actor : contains
+Precondition --* BondType : contains
+Precondition --* Constraint : contains
+Precondition --* Market : contains
+
+Operation --* BusinessOperation : contains
+Operation --* Direction : contains
+Operation --* OrderType : contains
+Operation --* Price : contains
+Operation --* Quantity : contains
+Operation --* Time : contains
+Operation --* TransactionMethod : contains
+
+ExpectedResult --* OrderStatus : contains
+ExpectedResult --* Result : contains
+ExpectedResult --* ResultStatus : contains
+ExpectedResult --* Constraint : contains
+
+@enduml
+```

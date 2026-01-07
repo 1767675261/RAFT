@@ -1,0 +1,39 @@
+@startuml
+
+class Rule {
+}
+
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+Rule "1" *-- "1" Precondition : contains
+Rule "1" *-- "1" Operation : contains
+Rule "1" *-- "1" ExpectedResult : contains
+
+Precondition "1" *-- "1..*" MarketParticipant : constrains
+Precondition "1" *-- "1..*" BondType : constrains
+Precondition "1" *-- "1..*" TradingMethod : constrains
+Precondition "1" *-- "1..*" OrderDirection : constrains
+Precondition "1" *-- "1..*" AccountStatus : constrains
+Precondition "1" *-- "1..*" Constraint : constrains
+
+Operation "1" *-- "1..*" OrderPrice : triggers
+Operation "1" *-- "1..*" OrderQuantity : triggers
+Operation "1" *-- "1..*" TradingTime : triggers
+Operation "1" *-- "1..*" SettlementMethod : triggers
+Operation "1" *-- "1..*" SettlementCycle : triggers
+Operation "1" *-- "1..*" Constraint : constrains
+
+ExpectedResult "1" *-- "1..*" MarketMaker : dependsOn
+ExpectedResult "1" *-- "1..*" MarketMakingType : dependsOn
+ExpectedResult "1" *-- "1..*" MarketMakingPeriod : dependsOn
+ExpectedResult "1" *-- "1..*" TradingResult : dependsOn
+ExpectedResult "1" *-- "1..*" Constraint : constrains
+
+@enduml

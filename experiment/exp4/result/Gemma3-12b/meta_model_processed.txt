@@ -1,0 +1,39 @@
+@startuml
+class Rule {
+}
+
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+Rule "contains" Precondition : P1
+Rule "contains" Operation : O1
+Rule "contains" ExpectedResult : E1
+
+Precondition "constrains" BondType : T1
+Precondition "constrains" TradingParticipant : TP1
+Precondition "constrains" InvestorType : IT1
+Precondition "dependsOn" OrderValidity : OV1
+
+Operation "triggers" TransactionPrice : TP1
+Operation "triggers" TradingStatus : TS1
+Operation "contains" TradingMethod : TM1
+Operation "contains" OrderDirection : OD1
+Operation "contains" TradingTime : TT1
+
+ExpectedResult "constrains" SettlementMethod : SM1
+ExpectedResult "constrains" SettlementCycle : SC1
+ExpectedResult "constrains" Disclosure : D1
+ExpectedResult "constrains" Cancellation : C1
+ExpectedResult "constrains" RiskControl : RC1
+ExpectedResult "constrains" TechnicalFault : TF1
+ExpectedResult "constrains" Contract : CT1
+ExpectedResult "constrains" Quantity : Q1
+ExpectedResult "constrains" PriceRange : PR1
+
+@enduml

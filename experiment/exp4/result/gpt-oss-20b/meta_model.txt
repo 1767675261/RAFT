@@ -1,0 +1,92 @@
+**Step1 – 规则要素清单**  
+1. **ParticipantRole** – 交易主体的角色（如做市商、投资者）。  
+2. **TransactionType** – 债券交易的类别（如基准做市、竞买）。  
+3. **TradingVenue** – 交易发生的地点（如深圳证券交易所）。  
+4. **TransactionDirection** – 交易方向（买入或卖出）。  
+5. **OrderStatus** – 订单当前状态（未申报、未成交、成交）。  
+6. **TradeResult** – 交易结果（成功、失败）。  
+7. **TradeTime** – 交易时间上下文（当日、非当日）。  
+8. **SettlementMethod** – 结算方式（全价、净价、逐笔、净额）。  
+9. **AnonymityOption** – 是否匿名交易（匿名、显名）。  
+10. **OrderType** – 订单类型（限价、询价、竞买、匹配、点击、协商）。  
+11. **OperationAction** – 具体操作动作（申报、撤销、交付、达成、返还）。  
+12. **ComplianceStatus** – 合规状态（合规、违规）。  
+13. **RiskControlMeasure** – 风险控制措施（监测、评估、缓释）。  
+14. **MarketCondition** – 市场环境（波动、流动性、异常）。  
+15. **TradingHours** – 交易时段（开盘、收盘、盘中）。  
+16. **TradeException** – 异常事件（技术故障、停牌、暂停）。  
+
+---
+
+**Step2 – 元模型（PlantUML）**  
+
+```plantuml
+@startuml
+'------------------  顶层 ------------------
+class Rule
+
+'------------------  中间层 ------------------
+class Precondition
+class Operation
+class ExpectedResult
+
+'------------------  叶子层 ------------------
+class ParticipantRole
+class TransactionType
+class TradingVenue
+class TransactionDirection
+class OrderStatus
+class TradeResult
+class TradeTime
+class SettlementMethod
+class AnonymityOption
+class OrderType
+class OperationAction
+class ComplianceStatus
+class RiskControlMeasure
+class MarketCondition
+class TradingHours
+class TradeException
+
+'------------------  关系 ------------------
+Rule contains Precondition
+Rule contains Operation
+Rule contains ExpectedResult
+
+Precondition contains ParticipantRole
+Precondition contains TradingVenue
+Precondition contains TransactionType
+Precondition contains TransactionDirection
+Precondition contains TradeTime
+Precondition contains SettlementMethod
+Precondition contains AnonymityOption
+Precondition contains OrderType
+Precondition contains ComplianceStatus
+Precondition contains RiskControlMeasure
+Precondition contains MarketCondition
+Precondition contains TradingHours
+Precondition contains TradeException
+
+Operation contains OperationAction
+
+ExpectedResult contains OrderStatus
+ExpectedResult contains TradeResult
+ExpectedResult contains TradeTime
+ExpectedResult contains SettlementMethod
+ExpectedResult contains AnonymityOption
+ExpectedResult contains MarketCondition
+ExpectedResult contains TradeException
+
+Operation triggers ExpectedResult
+Precondition dependsOn Operation
+ExpectedResult dependsOn Operation
+@enduml
+```
+
+This PlantUML code defines a strict three‑layer metamodel:
+
+1. **Rule** – the root node.  
+2. **Precondition / Operation / ExpectedResult** – the three fixed middle‑layer classes.  
+3. **Leaf elements** – 16 domain‑specific rule components that can be reused across multiple rules.  
+
+All relationships are explicitly labeled (`contains`, `dependsOn`, `triggers`) and each leaf belongs to exactly one middle‑layer node, satisfying the tree‑structure requirement.

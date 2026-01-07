@@ -1,0 +1,80 @@
+@startuml
+'====================
+' 顶层
+'====================
+class Rule {
+}
+
+'====================
+' 中层
+'====================
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+'====================
+' 底层（合并后保留）
+'====================
+class Participant
+class TradingProduct
+class Market
+class TradeMethod
+class TradingDirection
+class OrderQuantity
+class OrderPrice
+class TradingTime
+class SettlementMethod
+class SettlementCycle
+class OrderStatus
+class Result
+class ResultStatus
+class Constraint
+
+'====================
+' 结构关系
+'====================
+Rule --* Precondition : contains
+Rule --* Operation : contains
+Rule --* ExpectedResult : contains
+
+'====================
+' Precondition
+'====================
+Precondition --* Participant : contains
+Precondition --* TradingProduct : contains
+Precondition --* Market : contains
+Precondition --* TradeMethod : contains
+Precondition --* TradingDirection : contains
+Precondition --* SettlementMethod : contains
+Precondition --* Constraint : constrains
+
+'====================
+' Operation
+'====================
+Operation --* OrderQuantity : contains
+Operation --* OrderPrice : contains
+Operation --* TradingTime : contains
+Operation --* SettlementMethod : contains
+Operation --* SettlementCycle : contains
+Operation --* TradingDirection : contains
+Operation --* Constraint : constrains
+
+'====================
+' ExpectedResult
+'====================
+ExpectedResult --* Result : contains
+ExpectedResult --* ResultStatus : contains
+ExpectedResult --* OrderStatus : contains
+ExpectedResult --* Constraint : constrains
+
+'====================
+' 行为触发关系
+'====================
+Operation --> ExpectedResult : triggers
+
+@enduml

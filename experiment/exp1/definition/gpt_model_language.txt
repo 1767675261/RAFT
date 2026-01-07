@@ -1,0 +1,101 @@
+你说得对 👍
+我刚才给的版本里，叶子节点用了**具体值**（比如“主做市商”“申报”“成功”），这违背了你的要求。叶子层应该是**最小的规则要素维度**，而不是具体值或仍然可分的抽象类别。
+
+我们来重新整理：
+
+---
+
+## 重新定义元模型的层次
+
+### 顶层
+
+* **Rule (规则)**
+
+### 中层
+
+1. **主体 (Actor)**
+   → 谁执行规则，叶子层是**身份角色维度**。
+2. **行为 (Action)**
+   → 做什么操作，叶子层是**行为类型维度**。
+3. **条件 (Condition)**
+   → 在什么条件下执行，叶子层是**条件因子维度**。
+4. **结果 (Outcome)**
+   → 执行结果，叶子层是**结果状态维度**。
+
+### 叶子层（统一是维度，而不是值）
+
+* **Actor**: {身份类型}
+* **Action**: {行为类型}
+* **Condition**: {时间, 交易方式, 交易方向, 数量, 价格, 状态, 市场, 品种, 约束}
+* **Outcome**: {成功性, 成交状态, 衍生效果}
+
+也就是说：
+
+* “主做市商”“一般做市商” 是 **Actor→身份类型** 的值，不是叶子节点；
+* “申报”“撤销” 是 **Action→行为类型** 的值，不是叶子节点；
+* “成功”“不成功”“返还资金” 是 **Outcome→成功性/衍生效果** 的值，不是叶子节点。
+
+这样叶子节点保持了抽象的**维度定义**，而具体值要在语言使用时再填充。
+
+---
+
+## 修正后的 PlantUML 元模型
+
+```plantuml
+@startuml
+title Metamodel for Testable Rules (修正版：维度化叶子层)
+
+class Rule
+
+class Actor
+class Action
+class Condition
+class Outcome
+
+' 关系
+Rule --> Actor : 包含
+Rule --> Action : 包含
+Rule --> Condition : 包含
+Rule --> Outcome : 包含
+
+Actor --> Action : 执行
+Action --> Condition : 受制于
+Action --> Outcome : 导致
+
+' ---- Actor 叶子节点 ----
+Actor <|-- 身份类型
+
+' ---- Action 叶子节点 ----
+Action <|-- 行为类型
+
+' ---- Condition 子类 ----
+Condition <|-- 时间
+Condition <|-- 交易方式
+Condition <|-- 交易方向
+Condition <|-- 数量
+Condition <|-- 价格
+Condition <|-- 状态
+Condition <|-- 市场
+Condition <|-- 品种
+Condition <|-- 约束
+
+' ---- Outcome 叶子节点 ----
+Outcome <|-- 成功性
+Outcome <|-- 成交状态
+Outcome <|-- 衍生效果
+
+@enduml
+```
+
+---
+
+这样设计后：
+
+* **叶子节点统一是维度**，而不是具体值；
+* **值的填充**留到描述规则时使用语言来完成；
+* 避免了叶子节点既有具体值，又有抽象概念的混乱。
+
+---
+
+要不要我接下来把这个**维度化的元模型**，应用到你给的 `testcase_part.json` 的某条规则上，示例一下“值是怎么填充进这些维度”的？
+

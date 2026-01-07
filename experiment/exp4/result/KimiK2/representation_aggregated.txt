@@ -1,0 +1,434 @@
+# Testable Rule Language (TRL) - 完整定义
+
+---
+
+## 一、符号系统 (Symbols)
+
+### 1.1 逻辑符号 (Logical Symbols)
+| 符号 | 语法位置 | 语义角色 |
+|------|----------|----------|
+| `AND` | 条件/动作/结果组合 | 逻辑与，所有子表达式必须为真 |
+| `OR` | 条件/动作/结果组合 | 逻辑或，至少一个子表达式为真 |
+| `NOT` | 单表达式前缀 | 逻辑非，取反子表达式的真值 |
+| `IMPLIES` | 条件间关系 | 蕴含关系，前件为真则后件必须为真 |
+| `FORALL` | 约束前缀 | 全称量词，约束对所有实例成立 |
+| `EXISTS` | 约束前缀 | 存在量词，约束至少对一个实例成立 |
+
+### 1.2 比较符号 (Comparison Symbols)
+| 符号 | 语法位置 | 语义角色 |
+|------|----------|----------|
+| `=` | 属性-值对 | 精确相等比较 |
+| `!=` | 属性-值对 | 不等比较 |
+| `>` `<` `>=` `<=` | 数值约束 | 大小关系比较 |
+| `IN` | 集合约束 | 成员归属判断 |
+| `BETWEEN` | 范围约束 | 区间包含判断 |
+
+### 1.3 领域符号 (Domain Symbols)
+所有领域符号在语法中作为**字符串字面值**出现，禁止定义为枚举类型。
+
+**核心领域符号表**：
+| 符号类别 | 符号示例 | 语义角色 |
+|----------|----------|----------|
+| **Actor** | `"主做市商"` `"一般做市商"` `"投资者"` `"经纪客户"` `"会员"` | 操作主体标识 |
+| **BondType** | `"基准做市品种"` `"债券现券"` `"债券通用质押式回购"` `"其自行选定的做市品种"` | 交易品种类型 |
+| **Market** | `"深圳证券交易所"` | 交易市场限定 |
+| **TradingMethod** | `"询价成交"` `"点击成交"` `"竞买成交"` `"协商成交"` `"匹配成交"` | 交易方式标识 |
+| **TradingDirection** | `"买入"` `"卖出"` | 交易方向 |
+| **Action** | `"申报"` `"撤销"` `"交付"` `"返还"` `"开展"` `"达成"` | 操作动作 |
+| **State** | `"未申报"` `"部分成交"` `"未成交"` `"委托已撤销"` `"部分撤销"` | 订单状态 |
+| **TimeCondition** | `"当日"` `"确认后"` `"在一定时期内"` | 时间约束条件 |
+| **ResultStatus** | `"成功"` `"不成功"` | 执行结果 |
+
+---
+
+## 二、语法定义 (Syntax)
+
+### 2.1 顶层结构
+```bnf
+Rule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+```
+
+### 2.2 核心表达式
+```bnf
+Condition      ::= SimpleCondition | CompoundCondition
+SimpleCondition ::= DomainPredicate | AttributeConstraint
+CompoundCondition ::= Condition LogicalOperator Condition 
+                    | "(" Condition ")"
+                    | "NOT" Condition
+
+Action         ::= SimpleAction | CompoundAction
+SimpleAction   ::= OperationLiteral | StateTransition
+CompoundAction ::= Action LogicalOperator Action
+                    | "(" Action ")"
+                    | "NOT" Action
+
+ExpectedOutcome ::= SimpleOutcome | CompoundOutcome
+SimpleOutcome  ::= StatusPredicate | ResultPredicate
+CompoundOutcome ::= ExpectedOutcome LogicalOperator ExpectedOutcome
+                    | "(" ExpectedOutcome ")"
+                    | "NOT" ExpectedOutcome
+
+LogicalOperator ::= "AND" | "OR"
+```
+
+### 2.3 基础单元
+```bnf
+DomainPredicate ::= DomainConcept "(" Parameters ")"
+AttributeConstraint ::= Identifier "=" Value | Identifier ComparisonOp Value
+OperationLiteral ::= "ACTION" "(" ActionName ")"
+StateTransition ::= "TRANSITION" "(" FromState "," ToState ")"
+StatusPredicate ::= "STATUS" "(" StatusValue ")"
+ResultPredicate ::= "RESULT" "(" ResultValue ")"
+
+DomainConcept ::= "Actor" | "BondType" | "Market" | "TimeCondition" | "Account"
+Identifier ::= "tradingDirection" | "tradingMethod" | "price" | "quantity" |
+               "orderId" | "timestamp" | "constraint"
+ActionName ::= StringLiteral
+FromState ::= StringLiteral
+ToState ::= StringLiteral
+StatusValue ::= StringLiteral
+ResultValue ::= StringLiteral
+
+ComparisonOp ::= "=" | "!=" | ">" | "<" | ">=" | "<=" | "IN" | "BETWEEN"
+
+Parameters ::= Parameter | Parameter "," Parameters
+Parameter ::= StringLiteral | NumberLiteral | Variable
+Variable ::= "$" Identifier
+```
+
+### 2.4 字面值定义
+```bnf
+StringLiteral ::= '"' [^"]* '"'
+NumberLiteral ::= Digit+ ('.' Digit+)?
+Digit ::= [0-9]
+```
+
+---
+
+## 三、语义定义 (Semantics)
+
+### 3.1 整体语义
+采用**操作语义 (Operational Semantics)** 定义：
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ 规则执行三元组: (σ, R, σ')                                 │
+│ σ  : 执行前系统状态 (State)                                 │
+│ R  : TRL规则实例                                           │
+│ σ' : 执行后系统状态 (Expected State)                       │
+└─────────────────────────────────────────────────────────────┘
+
+执行规则 σ ⊢ R ⇓ σ' 当且仅当:
+1. 预条件求值: σ ⊨ Precondition(R) 为真
+2. 动作执行: σ ⊢ Action(R) ⇒ σ'' 
+3. 结果验证: σ'' ⊨ ExpectedOutcome(R) 为真
+4. 最终状态: σ' = σ''
+```
+
+### 3.2 条件部分语义
+- **Actor(X)**: 在状态σ中，当前操作主体标识等于X
+- **BondType(Y)**: 在状态σ中，当前交易品种类型属性包含Y
+- **Market(Z)**: 在状态σ中，当前交易市场属性等于Z
+- **TimeCondition(T)**: 在状态σ中，当前时间戳满足T定义的约束
+- **AttributeConstraint**: 在状态σ中，指定属性的值满足比较关系
+
+**复合条件求值**:
+- `C1 AND C2`: σ ⊨ C1 且 σ ⊨ C2
+- `C1 OR C2`: σ ⊨ C1 或 σ ⊨ C2
+- `NOT C`: not (σ ⊨ C)
+
+### 3.3 动作部分语义
+动作映射为**可执行操作序列**：
+
+- **ACTION("申报")**: 触发交易申报操作，生成新订单对象
+- **ACTION("撤销")**: 触发订单撤销操作，修改订单状态为"已撤销"
+- **TRANSITION(S₁, S₂)**: 将订单状态从S₁迁移到S₂
+- **tradingDirection="买入"**: 设置交易方向属性
+- **tradingMethod="询价成交"**: 设置交易方式属性
+
+**复合动作执行**:
+- `A1 AND A2`: 顺序执行A1和A2，A2在A1的终态上执行
+- `A1 OR A2`: 根据条件选择执行A1或A2（需配合约束保证确定性）
+- `NOT A`: 禁止执行动作A（用于负面测试）
+
+### 3.4 预期结果语义
+预期结果映射为**断言语句集**：
+
+- **STATUS("未成交")**: 断言订单状态等于"未成交"
+- **RESULT("成功")**: 断言执行结果为成功
+- **ExecutionResult(X)**: 断言执行结果码等于X
+- **ResultStatus(Y)**: 断言结果状态属性等于Y
+
+**复合结果验证**:
+- `O1 AND O2`: 所有断言必须同时成立
+- `O1 OR O2`: 至少一个断言成立
+- `NOT O`: 断言O必须不成立
+
+---
+
+## 四、可测试性约束 (Testability Constraints - OCL)
+
+### 4.1 基础可测试性约束
+```ocl
+context Rule
+-- 约束1: 规则必须包含至少一个可观测前提
+inv RuleHasObservablePrecondition:
+    self.precondition->notEmpty() and
+    self.precondition->exists(p | p.isObservable())
+
+-- 约束2: 动作部分必须包含可执行操作
+inv ActionIsExecutable:
+    self.operation->notEmpty() and
+    self.operation.action->notEmpty()
+
+-- 约束3: 预期结果必须包含可验证断言
+inv OutcomeIsVerifiable:
+    self.expectedResult->notEmpty() and
+    (self.expectedResult.executionResult->notEmpty() or
+     self.expectedResult.resultStatus->notEmpty())
+
+-- 约束4: 规则标识必须唯一且可追踪
+inv RuleHasUniqueId:
+    self.id->notEmpty() and
+    Rule.allInstances()->isUnique(id)
+
+-- 约束5: 所有字符串字面值必须符合领域符号规范
+inv DomainSymbolsAreValid:
+    self.precondition.actor->forAll(a | a.value.in(DomainSymbols.actors)) and
+    self.operation.tradingMethod->forAll(m | m.value.in(DomainSymbols.tradingMethods))
+```
+
+### 4.2 观测性与可控性约束
+```ocl
+context Precondition
+-- 约束6: 时间约束必须精确可测量
+inv TimeConditionIsMeasurable:
+    self.timeCondition->forAll(t |
+        t.value = '当日' or
+        t.value = '确认后' or
+        t.value.startsWith('在一定时期内('))
+
+-- 约束7: 约束表达式不能包含不可计算函数
+inv ConstraintIsComputable:
+    self.constraint->forAll(c | not c.contains('random()') and not c.contains('now()'))
+
+context Operation
+-- 约束8: 价格数量必须可控制或可枚举
+inv PriceQuantityIsControllable:
+    self.price->isEmpty() or
+    self.price.value.isNumber() or
+    self.price.value.matches('\\d+(\\.\\d+)?')
+
+-- 约束9: 动作必须在当前状态下合法
+inv ActionIsStateLegal:
+    self.action->forAll(a | a.isLegalInState(self.precondition.state))
+```
+
+### 4.3 确定性约束
+```ocl
+context Rule
+-- 约束10: 条件部分禁止使用非确定性的OR组合
+inv ConditionIsDeterministic:
+    self.precondition->collect(c | c.oclAsType(CompoundCondition))
+        ->forAll(cc | cc.operator = 'OR' implies cc.hasMutuallyExclusiveOperands())
+
+-- 约束11: 动作序列必须显式有序（通过AND连接表示顺序）
+inv ActionSequenceIsExplicit:
+    self.operation->collect(o | o.oclAsType(CompoundAction))
+        ->forAll(ca | ca.operator = 'AND' implies ca.isSequential())
+
+-- 约束12: 预期结果不能同时包含矛盾断言
+inv OutcomeIsConsistent:
+    self.expectedResult->collect(e | e.oclAsType(CompoundOutcome))
+        ->forAll(co | not co.hasContradictoryPredicates())
+```
+
+### 4.4 原子性与覆盖性约束
+```ocl
+context Rule
+-- 约束13: 规则应保持原子性，测试关注点单一
+inv RuleIsAtomic:
+    self.testFocus->size() = 1
+
+-- 约束14: 每个领域规则至少对应一个TRL规则实例
+inv CompleteCoverage:
+    let domainRules = DomainRule.allInstances() in
+    domainRules->forAll(dr | Rule.allInstances()->exists(r | r.covers(dr)))
+
+-- 约束15: 约束表达式必须使用可测试的边界值
+inv BoundaryValuesAreTestable:
+    self.precondition.constraint->forAll(c |
+        c.contains('>') or c.contains('<') implies
+        c.hasExplicitBoundaryValue())
+```
+
+---
+
+## 五、TRL完整定义
+
+### 5.1 语言元模型实例
+```plantuml
+@startuml
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+class "TRLRule" {
+  id: String
+  testFocus: String
+}
+
+class "Precondition" {
+  isObservable(): Boolean
+}
+
+class "Operation" {
+  isExecutable(): Boolean
+}
+
+class "ExpectedResult" {
+  isVerifiable(): Boolean
+}
+
+class "Constraint" {
+  expression: String
+  isDeterministic(): Boolean
+  hasExplicitBoundary(): Boolean
+}
+
+TRLRule *-- Precondition : contains
+TRLRule *-- Operation : contains
+TRLRule *-- ExpectedResult : contains
+Precondition *-- Constraint : contains
+ExpectedResult *-- Constraint : contains
+
+note right of TRLRule
+  BNF: Rule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+end note
+@enduml
+```
+
+### 5.2 解析与执行流程
+```plantuml
+@startuml
+!theme plain
+skinparam linetype ortho
+
+start
+:解析TRL规则文本;
+:构建抽象语法树(AST);
+:执行OCL可测试性验证;
+if (验证通过?) then (yes)
+  :加载初始状态σ;
+  :求值Precondition(σ);
+  if (条件满足?) then (yes)
+    :执行Operation(σ→σ');
+    :验证ExpectedOutcome(σ');
+    if (结果匹配?) then (yes)
+      :测试用例通过;
+    else (no)
+      :测试用例失败;
+    endif
+  else (no)
+    :前提不满足，跳过执行;
+  endif
+else (no)
+  :规则不可测试，拒绝执行;
+endif
+stop
+@enduml
+```
+
+---
+
+## 六、示例：自然语言规则转化与可测试性判断
+
+### 6.1 自然语言来源
+**原始规则**: `《深圳证券交易所债券交易规则》3.1.8 - 债券现券交易实行当日回转交易，投资者当日买入的债券可以在当日卖出。`
+
+**测试用例**: 
+- **正向场景**: 投资者在9:30买入10万元面额债券，于14:00通过询价成交方式卖出 → 应成功
+- **反向场景**: 投资者在T日买入债券，在T+1日卖出 → 应不成功
+
+### 6.2 TRL规则实例化
+
+```trl
+// 规则ID: TRL-BOND-3.1.8-001
+// 测试关注点: 订单连续性操作_当日回转交易
+
+IF 
+  Actor("投资者") AND 
+  BondType("债券现券") AND 
+  Market("深圳证券交易所") AND 
+  Constraint("买入时间 = 当日") AND 
+  TimeCondition("当日")
+AND 
+  ACTION("申报") AND 
+  TradingDirection("卖出") AND 
+  TradingMethod("询价成交") AND 
+  TimeCondition("当日")
+THEN 
+  RESULT("成功") AND 
+  ExecutionResult("成功") AND 
+  OrderStatus("未成交")
+```
+
+### 6.3 可测试性验证
+
+**验证过程**:
+
+| 约束编号 | 验证内容 | 检查项 | 结果 |
+|----------|----------|--------|------|
+| #1 | 前提完整性 | 包含Actor, BondType, Market等要素 | ✅ 通过 |
+| #6 | 时间可测量性 | `TimeCondition("当日")` 精确可测 | ✅ 通过 |
+| #8 | 价格可控性 | 未指定价格（使用默认逻辑） | ✅ 通过 |
+| #10 | 条件确定性 | 无OR组合，逻辑单一 | ✅ 通过 |
+| #12 | 断言一致性 | RESULT与ExecutionResult指向同一结果 | ✅ 通过 |
+| #13 | 规则原子性 | 仅测试"当日回转"单一特性 | ✅ 通过 |
+
+**最终判定**: ✅ **该TRL规则满足所有可测试性约束，可自动生成测试用例**
+
+### 6.4 生成的测试用例模板
+```json
+{
+  "ruleId": "TRL-BOND-3.1.8-001",
+  "testCases": [
+    {
+      "id": "TC-001-P",
+      "description": "当日回转交易正向场景",
+      "preconditions": {
+        "actor": "投资者",
+        "bondType": "债券现券",
+        "market": "深圳证券交易所",
+        "buyTime": "当日9:30",
+        "sellTime": "当日14:00"
+      },
+      "operations": {
+        "action": "申报",
+        "direction": "卖出",
+        "method": "询价成交"
+      },
+      "expected": {
+        "result": "成功",
+        "orderStatus": "未成交"
+      },
+      "executionSteps": [
+        "setupBondPosition(balance=100000, buyTime='09:30')",
+        "submitOrder(direction='卖出', method='询价成交', time='14:00')",
+        "verifyOrderStatus(status='未成交')",
+        "verifyExecutionResult(result='成功')"
+      ]
+    }
+  ]
+}
+```
+
+---
+
+## 七、TRL语言特性总结
+
+1. **简洁性**: 核心仅3个非终结符，符合元模型层级
+2. **一致性**: Condition/Action/ExpectedOutcome采用统一的谓词表达式结构
+3. **可扩展性**: 通过DomainPredicate机制支持领域符号动态扩展
+4. **可测试性**: 内置15条OCL约束确保每条规则可观测、可控、可验证
+5. **可执行性**: 操作语义明确定义状态转换过程，支持自动化测试执行

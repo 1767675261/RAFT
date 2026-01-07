@@ -1,0 +1,303 @@
+根据您的需求，我将按照两步法构建光伏发电站接入电力系统技术规定的领域元模型。
+
+### 步骤一：规则要素清单（基于测试用例提取）
+
+1. **VoltageValue** - 电压值
+2. **FrequencyValue** - 频率值
+3. **Operator** - 操作人员
+4. **TestAction** - 测试动作
+5. **TestTarget** - 测试对象
+6. **TestDuration** - 测试时长
+7. **OperationStatus** - 运行状态
+8. **FaultType** - 故障类型
+9. **PowerFactor** - 功率因数
+10. **ProtectionAction** - 保护动作
+11. **HarmonicContent** - 谐波含量
+12. **FlickerValue** - 闪变值
+13. **PredictionAccuracy** - 预测准确率
+14. **ModelError** - 模型误差
+15. **ResponseCharacteristic** - 响应特性
+
+### 步骤二：元模型
+
+```plantuml
+@startuml
+class Rule
+
+class Precondition
+class Operation
+class ExpectedResult
+
+Rule --> Precondition : contains
+Rule --> Operation : contains
+Rule --> ExpectedResult : contains
+
+Precondition --> VoltageValue : contains
+Precondition --> FrequencyValue : contains
+Precondition --> Operator : contains
+Precondition --> TestTarget : contains
+
+Operation --> TestAction : contains
+Operation --> FaultType : contains
+Operation --> PowerFactor : contains
+Operation --> ProtectionAction : contains
+Operation --> HarmonicContent : contains
+Operation --> FlickerValue : contains
+Operation --> TestDuration : contains
+
+ExpectedResult --> OperationStatus : contains
+ExpectedResult --> PredictionAccuracy : contains
+ExpectedResult --> ModelError : contains
+ExpectedResult --> ResponseCharacteristic : contains
+
+Operation ..> ExpectedResult : triggers
+Precondition ..> Operation : enables
+
+class VoltageValue
+class FrequencyValue
+class Operator
+class TestTarget
+class TestAction
+class FaultType
+class PowerFactor
+class ProtectionAction
+class HarmonicContent
+class FlickerValue
+class TestDuration
+class OperationStatus
+class PredictionAccuracy
+class ModelError
+class ResponseCharacteristic
+@enduml
+```
+
+### 要素与测试用例对应关系
+
+- **Operator**：对应测试用例中的"operator"（测试工程师A/B/C等）
+- **TestAction**：对应"action"（调节电压、模拟故障等）
+- **TestTarget**：对应"target"（光伏电站并网点、保护装置等）
+- **TestDuration**：对应"time"（30分钟、625ms等）
+- **OperationStatus**：对应"result"中的运行状态描述
+- **VoltageValue/FrequencyValue**：对应具体的电压频率数值
+- **FaultType**：对应故障类型（电压跌落、升高等）
+
+这样更准确地反映了测试用例中的实际要素。
+
+
+评估自然语言到形式化语言(TRL)生成结果的质量需要一个**多维度评估框架**。以下是详细的评估方法和指标体系：
+
+## 1. 语法正确性评估
+
+### 自动语法验证
+```python
+def evaluate_syntax_correctness(trl_output):
+    metrics = {
+        'valid_structure': check_bnf_compliance(trl_output),
+        'symbol_usage': validate_domain_symbols(trl_output),
+        'operator_validity': check_operator_syntax(trl_output),
+        'value_format': validate_value_formats(trl_output)
+    }
+    return metrics
+```
+
+**评估指标**：
+- ✅ BNF语法合规率
+- ✅ 领域符号识别准确率  
+- ✅ 操作符使用正确率
+- ✅ 值格式规范率
+
+## 2. 语义准确性评估
+
+### 语义一致性检查
+```python
+def evaluate_semantic_accuracy(original_text, trl_output):
+    return {
+        'concept_coverage': calculate_concept_overlap(original_text, trl_output),
+        'logical_consistency': check_logical_relationships(original_text, trl_output),
+        'temporal_accuracy': validate_temporal_constraints(original_text, trl_output),
+        'quantitative_precision': verify_numerical_values(original_text, trl_output)
+    }
+```
+
+**评估维度**：
+| 维度 | 评估方法 | 目标分数 |
+|------|----------|----------|
+| **概念覆盖度** | 计算原始文本与TRL输出的概念匹配率 | >90% |
+| **逻辑一致性** | 验证条件-动作-结果的逻辑关系保持 | 100% |
+| **时序准确性** | 检查持续时间、顺序关系是否正确 | >95% |
+| **数值精确性** | 验证数值、百分比、范围的准确性 | 100% |
+
+## 3. 可测试性评估
+
+### OCL约束验证
+```python
+def evaluate_testability(trl_output):
+    constraints = load_ocl_constraints()
+    violations = []
+    
+    for constraint in constraints:
+        if not constraint.evaluate(trl_output):
+            violations.append(constraint)
+    
+    return {
+        'testability_score': 1 - len(violations)/len(constraints),
+        'critical_violations': [v for v in violations if v.is_critical],
+        'warnings': [v for v in violations if not v.is_critical]
+    }
+```
+
+**关键可测试性指标**：
+1. **可观测性**：所有条件是否可设置和测量
+2. **可执行性**：动作序列是否可自动化执行  
+3. **可验证性**：预期结果是否包含明确的断言点
+4. **确定性**：是否避免模糊词汇（"快速"、"大约"等）
+
+## 4. 完整性评估
+
+### 结构完整性检查
+```python
+def evaluate_completeness(original_text, trl_output):
+    required_elements = extract_required_elements(original_text)
+    trl_elements = extract_trl_elements(trl_output)
+    
+    return {
+        'element_coverage': len(trl_elements.intersection(required_elements)) / len(required_elements),
+        'missing_critical': required_elements - trl_elements,
+        'extra_elements': trl_elements - required_elements
+    }
+```
+
+**完整性检查清单**：
+- [ ] 所有输入条件都被识别
+- [ ] 所有操作步骤都被包含
+- [ ] 所有预期结果都被明确
+- [ ] 所有约束条件都被表达
+- [ ] 所有时间参数都被指定
+
+## 5. 实用性评估
+
+### 测试生成可行性
+```python
+def evaluate_practical_utility(trl_output):
+    try:
+        test_case = generate_test_case(trl_output)
+        executable_code = compile_to_executable(test_case)
+        
+        return {
+            'test_generation_success': True,
+            'code_compilation_success': True,
+            'estimated_execution_time': estimate_execution_time(test_case),
+            'required_test_equipment': identify_required_equipment(test_case)
+        }
+    except Exception as e:
+        return {
+            'test_generation_success': False,
+            'error_type': type(e).__name__,
+            'error_message': str(e)
+        }
+```
+
+## 6. 综合评分体系
+
+### 加权评分模型
+```python
+def comprehensive_evaluation(original_text, trl_output):
+    scores = {
+        'syntax': evaluate_syntax_correctness(trl_output),
+        'semantics': evaluate_semantic_accuracy(original_text, trl_output),
+        'testability': evaluate_testability(trl_output),
+        'completeness': evaluate_completeness(original_text, trl_output),
+        'utility': evaluate_practical_utility(trl_output)
+    }
+    
+    weights = {
+        'syntax': 0.15,
+        'semantics': 0.30, 
+        'testability': 0.25,
+        'completeness': 0.20,
+        'utility': 0.10
+    }
+    
+    overall_score = sum(scores[category]['score'] * weights[category] 
+                      for category in weights)
+    
+    return {
+        'overall_score': overall_score,
+        'category_scores': scores,
+        'quality_level': classify_quality_level(overall_score),
+        'improvement_suggestions': generate_improvement_suggestions(scores)
+    }
+```
+
+### 质量等级分类
+| 分数范围 | 质量等级 | 说明 |
+|----------|----------|------|
+| 90-100 | 优秀 | 可直接用于测试生成，无需修改 |
+| 80-89 | 良好 | 少量优化后可用于测试生成 |
+| 70-79 | 合格 | 需要中等程度修改 |
+| 60-69 | 基本合格 | 需要大量修改和验证 |
+| <60 | 不合格 | 需要重新生成 |
+
+## 7. 具体评估示例
+
+### 测试用例评估
+**原始文本**："调节并网点电压至97%标称值，持续30分钟，光伏电站连续运行无脱网"
+
+**生成的TRL**：
+```
+IF Voltage = "97%" AND Duration = "30分钟" AND Operator = "测试工程师A"
+AND Action = "调节并网点电压至97%标称值" AND Target = "光伏电站并网点"
+THEN Status = "连续运行" AND Protection = "无脱网"
+```
+
+**评估结果**：
+```json
+{
+  "overall_score": 92,
+  "category_scores": {
+    "syntax": 95,
+    "semantics": 90, 
+    "testability": 95,
+    "completeness": 88,
+    "utility": 90
+  },
+  "quality_level": "优秀",
+  "improvement_suggestions": [
+    "建议明确电压单位(标称值的97%)",
+    "建议添加具体的测量点说明"
+  ]
+}
+```
+
+## 8. 自动化评估工具设计
+
+### 评估流水线
+```
+自然语言输入 → TRL生成器 → 评估引擎 → 质量报告
+                      ↓
+                改进建议生成器
+```
+
+### 关键评估函数
+```python
+class TRLEvaluator:
+    def __init__(self, domain_knowledge):
+        self.domain = domain_knowledge
+        self.ocl_constraints = load_ocl_constraints()
+    
+    def evaluate(self, original_text, trl_output):
+        # 执行所有评估维度
+        syntax_metrics = self.evaluate_syntax(trl_output)
+        semantic_metrics = self.evaluate_semantics(original_text, trl_output)
+        testability_metrics = self.evaluate_testability(trl_output)
+        
+        return self.aggregate_scores(
+            syntax_metrics, semantic_metrics, testability_metrics
+        )
+    
+    def generate_feedback(self, evaluation_result):
+        # 生成具体的改进建议
+        return self.feedback_generator.generate(evaluation_result)
+```
+
+通过这个综合评估框架，你可以系统性地评估TRL生成质量，识别改进方向，并确保生成的形式化规则真正具备可测试性。

@@ -1,0 +1,79 @@
+### Step1 — 规则要素清单
+
+1. **Actor** - 交易操作主体
+2. **Instrument** - 交易品种标的
+3. **Market** - 交易市场标识
+4. **Account** - 账户信息要素
+5. **TradingMethod** - 交易方式选择
+6. **TradingDirection** - 买卖方向设定
+7. **Action** - 具体操作行为
+8. **OrderStatus** - 订单当前状态
+9. **ResultStatus** - 结果状态描述
+10. **ExecutionResult** - 执行最终结果
+11. **TimeCondition** - 时间限制条件
+12. **SpecialConstraint** - 特殊业务约束
+13. **Price** - 价格相关要素
+14. **Quantity** - 数量相关要素
+15. **Settlement** - 结算方式要素
+16. **Constraint** - 通用约束条件
+
+### Step2 — 元模型
+
+```plantuml
+@startuml
+class Rule
+
+class Precondition
+class Operation
+class ExpectedResult
+
+class Actor
+class Instrument
+class Market
+class Account
+class TradingMethod
+class TradingDirection
+class Action
+class OrderStatus
+class ResultStatus
+class ExecutionResult
+class TimeCondition
+class SpecialConstraint
+class Price
+class Quantity
+class Settlement
+class Constraint
+
+Rule --contains--> Precondition
+Rule --contains--> Operation
+Rule --contains--> ExpectedResult
+
+Precondition --contains--> Actor
+Precondition --contains--> Instrument
+Precondition --contains--> Market
+Precondition --contains--> Account
+Precondition --contains--> TimeCondition
+Precondition --contains--> SpecialConstraint
+Precondition --contains--> Constraint
+
+Operation --contains--> TradingMethod
+Operation --contains--> TradingDirection
+Operation --contains--> Action
+Operation --contains--> OrderStatus
+Operation --contains--> Price
+Operation --contains--> Quantity
+Operation --contains--> Settlement
+Operation --contains--> Constraint
+
+ExpectedResult --contains--> ExecutionResult
+ExpectedResult --contains--> ResultStatus
+ExpectedResult --contains--> Constraint
+
+Action --dependsOn--> Actor
+Action --triggers--> ExecutionResult
+Price --constrains--> ExecutionResult
+Quantity --constrains--> ExecutionResult
+TimeCondition --constrains--> Action
+SpecialConstraint --constrains--> Action
+@enduml
+```

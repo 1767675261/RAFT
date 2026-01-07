@@ -1,0 +1,126 @@
+
+
+## 可测试规则语言 (TRL) 定义
+
+### 1. 符号系统 (Symbols)
+
+* **逻辑符号:**
+    * `AND`: 逻辑与，表示条件之间的连接。
+    * `OR`: 逻辑或，表示条件之间的选择。
+    * `NOT`: 逻辑非，表示条件的否定。
+    * `=`: 等于，用于比较。
+    * `!=`: 不等于，用于比较。
+    * `>`: 大于，用于比较。
+    * `<`: 小于，用于比较。
+    * `>=`: 大于等于，用于比较。
+    * `<=`: 小于等于，用于比较。
+* **比较符号:**  同逻辑符号中的比较运算符。
+* **领域符号:**  基于提供的元模型，所有类名和类属性名都属于领域符号。
+    *  类名：`BondType`, `TradingParticipant`, `OrderDirection`, `TradingTime`, `TransactionPrice`, `Quantity`, `TradingMethod`, `TradingStatus`, `SettlementMethod`, `SettlementCycle`, `Cancellation`, `RiskControl`, `TechnicalFault`, `MarketCondition`, `ComplianceStatus`, `TradeResult`
+    *  属性名： 每个类中的属性都为领域符号。例如：`BondType.name`, `TradingParticipant.id`, `OrderDirection.value` 等。
+* **字符串常量:** 使用双引号括起来的字符串，例如 `"买入"`, `"深圳"`.
+* **数字常量:**  表示数值，例如 `1000`, `10.5`.
+
+### 2. 语法 (Syntax)
+
+```bnf
+<Rule> ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+<Condition> ::= <Term> | <Condition> "OR" <Condition>
+<Term> ::= <Factor> | <Term> "AND" <Factor>
+<Factor> ::= <Property> <ComparisonOperator> <Value> | "(" <Condition> ")"
+<Property> ::= <DomainSymbol>
+<ComparisonOperator> ::= "=", "!=", ">", "<", ">=", "<="
+<Value> ::= <StringConstant> | <NumberConstant>
+<Action> ::= <Operation>
+<Operation> ::= <DomainSymbol> "(" [<Value> "," ... ] ")"
+<ExpectedOutcome> ::= <Result>
+<Result> ::= <Property> <ComparisonOperator> <Value> | <DomainSymbol> “=” <Value>
+<DomainSymbol> ::= <ClassName> | <ClassName> "." <AttributeName>
+<ClassName> ::= "BondType" | "TradingParticipant" | "OrderDirection" | "TradingTime" | "TransactionPrice" | "Quantity" | "TradingMethod" | "TradingStatus" | "SettlementMethod" | "SettlementCycle" | "Cancellation" | "RiskControl" | "TechnicalFault" | "MarketCondition" | "ComplianceStatus" | "TradeResult"
+<AttributeName> ::= 字符串，代表类属性
+<StringConstant> ::= "\"" <Characters> "\""
+<NumberConstant> ::= <Digit>+
+<Characters> ::= 字符序列
+<Digit> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+```
+
+### 3. 语义 (Semantics)
+
+TRL 的语义基于操作语义，将规则分解为输入约束、操作序列和断言。
+
+* **Condition:** 描述输入数据的约束条件。在测试执行前，测试用例的输入数据需要满足这些条件。
+* **Action:** 描述在满足条件的情况下，系统需要执行的操作。这些操作通常对应于系统功能的调用或状态的改变。
+* **ExpectedOutcome:** 描述在执行操作后，系统应该达到的预期结果。这些结果通常通过断言来验证。
+
+例如，规则：
+
+```
+IF BondType.name = "国债" AND TradingTime.hour > 9 AND TradingTime.hour < 11 THEN TradingStatus.value = "交易中"
+```
+
+* **输入约束:** `BondType.name = "国债"` and  `TradingTime.hour > 9 AND TradingTime.hour < 11`
+* **操作序列:**  系统自动更新 `TradingStatus.value`
+* **断言:**  `TradingStatus.value = "交易中"`
+
+### 4. 可测试性约束 (Testability Constraints)
+
+为了确保 TRL 规则的可测试性，定义以下 OCL 约束：
+
+1. **条件可评估性 (Condition Evaluatability):**  条件中的所有属性必须是可观察的或者可以通过操作序列获得。
+   ```ocl
+   context Rule
+   inv: self.Condition.Property->forAll(p | p.isObservable() or (self.Action.Operation.Property = p))
+   ```
+
+2. **操作可执行性 (Action Executability):** 操作必须是可执行的，并且其影响是可观察的。
+   ```ocl
+    context Rule
+    inv: self.Action.Operation.isExecutable() and self.ExpectedOutcome.Property->forAll(p | p.isObservable())
+   ```
+
+3. **预期结果可验证性 (Outcome Verifiability):** 预期结果必须是可验证的，并且验证条件是明确的。
+   ```ocl
+   context Rule
+   inv: self.ExpectedOutcome.ComparisonOperator->notEmpty() and self.ExpectedOutcome.Value->notEmpty()
+   ```
+
+4. **属性数据类型一致性 (Property Type Consistency):** 条件、动作和预期结果中，相同属性的数据类型必须一致。
+   ```ocl
+    context Rule
+    inv: self.Condition.Property.type = self.ExpectedOutcome.Property.type
+   ```
+
+5. **避免死规则 (Avoid Dead Rules):** 规则不能总是为真或总是为假，否则无法进行有效测试。
+    ```ocl
+    context Rule
+    inv: not (self.Condition.Property->isEmpty() and self.Action.Operation->isEmpty() and self.ExpectedOutcome.Property->isEmpty())
+    ```
+
+### TRL 完整定义
+
+TRL 是一种形式化语言，用于描述基于元模型的领域规则。它由以下四个部分组成：
+
+* **符号系统:**  定义了语言中使用的逻辑符号、比较符号和领域符号。
+* **语法:**  定义了语言的核心组成单元及其组合规则。
+* **语义:**  定义了每个语法要素和符号的语义解释，以及如何将规则映射到系统行为。
+* **可测试性约束:**  定义了一组形式化约束，确保规则模型满足可测试性条件。
+
+### 示例
+
+**自然语言规则:** 如果债券类型是国债并且交易时间在上午 9 点到 11 点之间，那么交易状态应该是“交易中”。
+
+**TRL 实例:**
+
+```trl
+IF BondType.name = "国债" AND TradingTime.hour > 9 AND TradingTime.hour < 11 THEN TradingStatus.value = "交易中"
+```
+
+**可测试性验证:**
+
+* **条件可评估性:** `BondType.name` 和 `TradingTime.hour` 都是可观察的属性。
+* **操作可执行性:**  假设系统可以执行更新 `TradingStatus.value` 的操作，并且该更新是可观察的。
+* **预期结果可验证性:**  `TradingStatus.value` 的期望值是明确的 ("交易中")，并且可以使用等式进行验证。
+* **属性数据类型一致性:** `BondType.name`、`TradingTime.hour`和`TradingStatus.value`的数据类型都一致。
+* **避免死规则:** 规则不总是为真或总是为假，有效性取决于输入数据。
+
+**结论:**  该 TRL 实例满足所有可测试性约束，因此可以被自动解析、验证和生成测试用例。

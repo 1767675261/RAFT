@@ -1,0 +1,58 @@
+@startuml
+' Top-level
+class Rule {}
+
+' Middle layer
+class Precondition {}
+class Operation {}
+class ExpectedResult {}
+
+' Bottom layer (15 leaf classes)
+class Actor {}
+class ParticipantEligibility {}
+class Instrument {}
+class Market {}
+class TimeWindow {}
+class TradeMethod {}
+class TradeDirection {}
+class OrderQuantity {}
+class OrderPrice {}
+class OrderStatus {}
+class Constraint {}
+class Action {}
+class ResultOutcome {}
+class SettlementMethod {}
+class ActionPart {}
+
+' Rule contains the three main components
+Rule --> Precondition : contains
+Rule --> Operation : contains
+Rule --> ExpectedResult : contains
+
+' --- Precondition elements ---
+Precondition --> ParticipantEligibility : contains
+Precondition --> Instrument : contains
+Precondition --> Market : contains
+Precondition --> TimeWindow : contains
+Precondition --> Constraint : contains
+
+' --- Operation elements ---
+Operation --> Actor : contains
+Operation --> Action : contains
+Operation --> TradeMethod : contains
+Operation --> TradeDirection : contains
+Operation --> OrderQuantity : contains
+Operation --> OrderPrice : contains
+Operation --> OrderStatus : contains
+Operation --> ActionPart : contains
+
+' --- ExpectedResult elements ---
+ExpectedResult --> ResultOutcome : contains
+ExpectedResult --> SettlementMethod : contains
+
+' --- Semantic relations between middle layers ---
+Operation --> Precondition : dependsOn
+Precondition --> Operation : constrains
+Operation --> ExpectedResult : triggers
+
+@enduml

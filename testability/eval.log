@@ -1,0 +1,9 @@
+RAW deepseek => Accuracy: 0.7294
+RAW grok => Accuracy: 0.7431
+RAW gpt => Accuracy: 0.6697
+5STEP deepseek => Accuracy: 0.8211
+5STEP grok => Accuracy: 0.8945
+5STEP gpt => Accuracy: 0.9128
+NOTRL deepseek => Accuracy: 0.5963
+NOTRL grok => Accuracy: 0.6376
+NOTRL gpt => Accuracy: 0.5550

@@ -1,0 +1,104 @@
+### Step1: 则要素清单
+
+根据提供的规则文档和测试用例，提取并确认以下15个叶子要素：
+
+1. **TransactionType**（交易类型）- 交易的类型，如匹配成交、点击成交等。
+2. **SecurityAccount**（证券账户）- 投资者的证券账户信息。
+3. **TradingDirection**（交易方向）- 买入或卖出。
+4. **OrderQuantity**（委托数量）- 托的数量。
+5. **OrderPrice**（委托价格）- 托的价格。
+6. **TradingMarket**（交易市场）- 交易发生的市场，如深圳证券交易所。
+7. **SecurityCode**（证券代码）- 证券的代码。
+8. **TransactionTime**（交易时间）- 交易的时间。
+9. **SettlementMethod**（结算方式）- 结算的方式，如多边净额结算或逐笔全额结算。
+10. **SettlementCycle**（结算周期）- 结算的周期。
+11. **InvestorType**（投资者类型）- 投资者的类型，如个人或机构。
+12. **OrderStatus**（委托状态）- 托的状态，如已申报、部分成交等。
+13. **ResultStatus**（结果状态）- 交易的结果状态，如成功或失败。
+14. **Constraint**（约束条件）- 交易的约束条件，如价格涨跌幅限制。
+15. **OperationResult**（操作结果）- 作的结果，如成功或失败。
+
+### Step2: 元模型
+
+```plantuml
+@startuml
+class Rule {
+}
+
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+class TransactionType {
+}
+
+class SecurityAccount {
+}
+
+class TradingDirection {
+}
+
+class OrderQuantity {
+}
+
+class OrderPrice {
+}
+
+class TradingMarket {
+}
+
+class SecurityCode {
+}
+
+class TransactionTime {
+}
+
+class SettlementMethod {
+}
+
+class SettlementCycle {
+}
+
+class InvestorType {
+}
+
+class OrderStatus {
+}
+
+class ResultStatus {
+}
+
+class Constraint {
+}
+
+class OperationResult {
+}
+
+Rule --* Precondition : contains
+Rule --* Operation : contains
+Rule --* ExpectedResult : contains
+Precondition --* TransactionType : contains
+Precondition --* SecurityAccount : contains
+Precondition --* TradingDirection : contains
+Precondition --* OrderQuantity : contains
+Precondition --* OrderPrice : contains
+Precondition --* TradingMarket : contains
+Precondition --* SecurityCode : contains
+Precondition --* TransactionTime : contains
+Precondition --* SettlementMethod : contains
+Precondition --* SettlementCycle : contains
+Precondition --* InvestorType : contains
+Operation --* OrderStatus : contains
+Operation --* ResultStatus : contains
+Operation --* Constraint : constrains
+ExpectedResult --* OperationResult : contains
+ExpectedResult --* Constraint : constrains
+@enduml
+```
+
+该元模型包括三个中间层类：`Precondition`、`Operation`、`ExpectedResult`，以及15个叶子要素类。`Precondition`包含了与交易前置条件相关的要素，如`TransactionType`、`SecurityAccount`等。`Operation`包含了与交易操作相关的要素，如`OrderStatus`、`ResultStatus`等。`ExpectedResult`包含了与交易预期结果相关的要素，如`OperationResult`。`Constraint`作为约束条件要素，对`Operation`和`ExpectedResult`均有约束关系。

@@ -1,0 +1,60 @@
+@startuml
+class Rule {
+}
+
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+Rule "1" -- "1..*" Precondition : contains
+Rule "1" -- "1..*" Operation : contains
+Rule "1" -- "1..*" ExpectedResult : contains
+
+class AccountStatus
+class BondType
+class TradingDirection
+class OrderQuantity
+class OrderPrice
+class TransactionTime
+class MarketStatus
+class SettlementType
+class SettlementCycle
+class EntrustmentStatus
+class TransactionStatus
+class TradingMode
+class Counterparty
+class RiskControl
+class RegulatoryCompliance
+class Constraint
+class OrderCancellation
+class TransactionConfirmation
+
+Precondition "1" -- "1" AccountStatus : contains
+Precondition "1" -- "1" BondType : contains
+Precondition "1" -- "1" RiskControl : contains
+Precondition "1" -- "1" Constraint : contains
+
+Operation "1" -- "1" TradingDirection : contains
+Operation "1" -- "1" OrderQuantity : contains
+Operation "1" -- "1" OrderPrice : contains
+Operation "1" -- "1" TransactionTime : contains
+Operation "1" -- "1" TradingMode : contains
+Operation "1" -- "1" OrderCancellation : contains
+Operation "1" -- "1" Constraint : contains
+
+ExpectedResult "1" -- "1" TransactionStatus : contains
+ExpectedResult "1" -- "1" SettlementType : contains
+ExpectedResult "1" -- "1" SettlementCycle : contains
+ExpectedResult "1" -- "1" EntrustmentStatus : contains
+ExpectedResult "1" -- "1" MarketStatus : contains
+ExpectedResult "1" -- "1" Counterparty : contains
+ExpectedResult "1" -- "1" RegulatoryCompliance : contains
+ExpectedResult "1" -- "1" TransactionConfirmation : contains
+ExpectedResult "1" -- "1" Constraint : contains
+
+@enduml

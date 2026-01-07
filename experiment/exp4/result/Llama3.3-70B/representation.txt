@@ -1,0 +1,65 @@
+根据给定的输入，包括规则/需求文档、测试用例和元模型语法结构，下面是对可测试规则语言（TRL）的定义：
+
+### 符号系统（Symbols）
+
+* 逻辑符号：AND（∧）、OR（∨）、NOT（¬）
+* 比较符号：=、≠、>、<、≥、≤
+* 域符号：代表不同领域的变量和常量，如交易品种、交易方向、交易市场等
+
+每类符号的语法位置与语义角色如下：
+
+- 逻辑符号用于连接条件和动作，表示逻辑关系。
+- 比较符号用于比较变量或常量的值。
+- 域符号代表具体的业务概念，如交易品种、方向等。
+
+### 语法（Syntax）
+
+TRL的核心组成单元定义如下：
+
+```bnf
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+Condition ::= <DomainSymbol> <ComparisonOperator> <Value>
+Action ::= <DomainSymbol> <LogicalOperator> <Value>
+ExpectedOutcome ::= <DomainSymbol> <ComparisonOperator> <Value>
+```
+
+这里，`Condition`、`Action`和`ExpectedOutcome`都使用一致的表达形式，支持复杂规则，如同一要素或不同要素间的与或非、嵌套条件、复合动作。
+
+### 语义（Semantics）
+
+每个语法要素和符号的语义解释如下：
+
+- 条件部分映射为输入约束。
+- 动作部分映射为操作序列。
+- 预期结果映射为断言。
+
+使用操作语义（Operational Semantics）表示，TRL的语义可以通过一组转换规则来定义，这些规则描述了系统如何根据规则执行动作并检查预期结果。
+
+### 可测试性约束（Testability Constraints）
+
+为了保证可测试性，定义了一组形式化约束，以OCL（Object Constraint Language）表示。这些约束确保规则模型满足可测试性条件，包括：
+
+- 每个条件和动作都应明确定义且可测量。
+- 预期结果应清晰且可验证。
+- 规则应避免模糊性和不确定性。
+
+示例约束如下：
+
+```ocl
+context Rule
+inv: self.condition.isDefined() and self.action.isDefined() and self.expectedOutcome.isDefined()
+```
+
+### 示例
+
+将自然语言规则“如果交易品种为债券并且交易方向为买入，则预期结果为交易成功”转化为TRL语言实例：
+
+```trl
+IF 交易品种 = 债券 AND 交易方向 = 买入 THEN 预期结果 = 交易成功
+```
+
+判断是否满足可测试性约束，需要检查条件、动作和预期结果是否明确定义且可测量。在这个例子中，交易品种、交易方向和预期结果都清晰定义，因此满足可测试性约束。
+
+### TRL的完整定义
+
+TRL的完整定义包括符号、语法、语义和可测试性约束四个部分。符号定义了语言中使用的逻辑符号、比较符号和域符号。语法定义了语言的核心组成单元和层次结构。语义定义了每个语法要素和符号的语义解释。可测试性约束定义了一组形式化约束，以确保规则模型满足可测试性条件。

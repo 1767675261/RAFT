@@ -1,0 +1,60 @@
+@startuml
+'------------------  顶层 ------------------
+class Rule
+
+'------------------  中间层 ------------------
+class Precondition
+class Operation
+class ExpectedResult
+
+'------------------  叶子层 ------------------
+class ParticipantRole
+class TransactionType
+class TradingVenue
+class TransactionDirection
+class OrderStatus
+class TradeResult
+class TradeTime
+class SettlementMethod
+class AnonymityOption
+class OrderType
+class OperationAction
+class ComplianceStatus
+class RiskControlMeasure
+class MarketCondition
+class TradingHours
+class TradeException
+
+'------------------  关系 ------------------
+Rule contains Precondition
+Rule contains Operation
+Rule contains ExpectedResult
+
+Precondition contains ParticipantRole
+Precondition contains TradingVenue
+Precondition contains TransactionType
+Precondition contains TransactionDirection
+Precondition contains TradeTime
+Precondition contains SettlementMethod
+Precondition contains AnonymityOption
+Precondition contains OrderType
+Precondition contains ComplianceStatus
+Precondition contains RiskControlMeasure
+Precondition contains MarketCondition
+Precondition contains TradingHours
+Precondition contains TradeException
+
+Operation contains OperationAction
+
+ExpectedResult contains OrderStatus
+ExpectedResult contains TradeResult
+ExpectedResult contains TradeTime
+ExpectedResult contains SettlementMethod
+ExpectedResult contains AnonymityOption
+ExpectedResult contains MarketCondition
+ExpectedResult contains TradeException
+
+Operation triggers ExpectedResult
+Precondition dependsOn Operation
+ExpectedResult dependsOn Operation
+@enduml

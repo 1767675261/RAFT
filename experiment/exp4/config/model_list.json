@@ -1,0 +1,65 @@
+[
+    {
+        "name": "Gemma3n-2b",
+        "api_name": "google/gemma-3n-e2b-it:free",
+        "params": "2b"
+    },
+    {
+        "name": "Gemma3-4b",
+        "api_name": "google/gemma-3-4b-it:free",
+        "params": "4b"
+    },
+    {
+        "name": "qwen3-4b",
+        "api_name": "qwen/qwen3-4b:free",
+        "params": "4b"
+    },
+
+    {
+        "name": "Gemma3-12b",
+        "api_name": "google/gemma-3-12b-it",
+        "params": "12b"
+    },
+    {
+        "name": "gpt-oss-20b",
+        "api_name": "openai/gpt-oss-20b:free",
+        "params": "20b"
+    },
+    {
+        "name": "Gemma3-27b",
+        "api_name": "google/gemma-3-27b-it:free",
+        "params": "27b"
+    },
+
+    {
+        "name": "Llama3.3-70B",
+        "api_name": "meta-llama/llama-3.3-70b-instruct:free",
+        "params": "70b"
+    },
+    {
+        "name": "gpt-oss-120b",
+        "api_name": "openai/gpt-oss-120b",
+        "params": "120b"
+    },
+    {
+        "name": "devstral-2",
+        "api_name": "mistralai/devstral-2512:free",
+        "params": "123B"
+    },
+
+    {
+        "name": "GLM4.5-air",
+        "api_name": "z-ai/glm-4.5-air:free",
+        "params": "355b"
+    },
+    {
+        "name": "Llama3.1-405B",
+        "api_name": "meta-llama/llama-3.1-405b-instruct:free",
+        "params": "405b"
+    },
+    {
+        "name": "KimiK2",
+        "api_name": "moonshotai/kimi-k2",
+        "params": "1000b"
+    }
+]

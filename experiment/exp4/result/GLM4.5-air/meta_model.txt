@@ -1,0 +1,63 @@
+### 步骤一（Step1 — 规则要素清单）
+以下是15个规则要素的清单，每个要素均使用UpperCamelCase命名，并附加10字以内的语义说明。要素基于测试用例提取（如“操作人”、“交易品种”等键），结合规则文档补充高频要素（如“结算方式”、“价格范围”），语义重叠的要素已合并（如“操作人”和“操作人2”合并为`Actor`），零散要素合并为通用叶子`Constraint`。要素总数严格控制在15个，确保可测试、可量化、具体且领域复用性高。
+
+1. `Actor` - 交易参与主体  
+2. `BondType` - 债券种类  
+3. `OperationType` - 业务操作类别  
+4. `TradeDirection` - 买卖方向  
+5. `TradeMethod` - 成交方式  
+6. `Action` - 执行动作  
+7. `Status` - 交易状态  
+8. `Outcome` - 操作结果  
+9. `TimeCondition` - 时间约束  
+10. `Market` - 交易场所  
+11. `Constraint` - 通用约束  
+12. `Event` - 触发事件  
+13. `SettlementMethod` - 结算类型  
+14. `PriceRange` - 价格区间  
+15. `Quantity` - 交易数量  
+
+### 步骤二（Step2 — 元模型）
+以下是基于上述规则要素构建的三层元模型PlantUML代码。元模型结构严格遵循规范：顶层为`Rule`，中间层为`Precondition`、`Operation`、`ExpectedResult`，底层为Step1中的15个叶子类。底层要素仅与中层节点之一建立关系（使用`contains`关系），关系类型匹配要素语义：
+- `Precondition` 包含前置条件要素（如`Actor`、`BondType`等），这些要素是操作前必须满足的条件。
+- `Operation` 包含操作步骤要素（如`Action`），这些要素是执行的动作。
+- `ExpectedResult` 包含预期结果要素（如`Status`、`Outcome`），这些要素是操作后的预期状态。
+
+关系逻辑自洽：顶层`Rule`通过`contains`关系连接中层节点；中层节点通过`contains`关系连接底层叶子要素。所有类名与Step1完全一致（含大小写），类体保持空白，关系名使用小写动词。
+
+```plantuml
+@startuml
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+class Rule
+
+class Precondition
+class Operation
+class ExpectedResult
+
+Rule -u- Precondition : contains
+Rule -u- Operation : contains
+Rule -u- ExpectedResult : contains
+
+Precondition -u- Actor : contains
+Precondition -u- BondType : contains
+Precondition -u- OperationType : contains
+Precondition -u- TradeDirection : contains
+Precondition -u- TradeMethod : contains
+Precondition -u- TimeCondition : contains
+Precondition -u- Market : contains
+Precondition -u- Constraint : contains
+Precondition -u- SettlementMethod : contains
+Precondition -u- PriceRange : contains
+Precondition -u- Quantity : contains
+Precondition -u- Event : contains
+
+Operation -u- Action : contains
+
+ExpectedResult -u- Status : contains
+ExpectedResult -u- Outcome : contains
+
+@enduml
+```

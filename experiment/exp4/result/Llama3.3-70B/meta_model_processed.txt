@@ -1,0 +1,78 @@
+@startuml
+class Rule {
+}
+
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+class TransactionType {
+}
+
+class SecurityAccount {
+}
+
+class TradingDirection {
+}
+
+class OrderQuantity {
+}
+
+class OrderPrice {
+}
+
+class TradingMarket {
+}
+
+class SecurityCode {
+}
+
+class TransactionTime {
+}
+
+class SettlementMethod {
+}
+
+class SettlementCycle {
+}
+
+class InvestorType {
+}
+
+class OrderStatus {
+}
+
+class ResultStatus {
+}
+
+class Constraint {
+}
+
+class OperationResult {
+}
+
+Rule --* Precondition : contains
+Rule --* Operation : contains
+Rule --* ExpectedResult : contains
+Precondition --* TransactionType : contains
+Precondition --* SecurityAccount : contains
+Precondition --* TradingDirection : contains
+Precondition --* OrderQuantity : contains
+Precondition --* OrderPrice : contains
+Precondition --* TradingMarket : contains
+Precondition --* SecurityCode : contains
+Precondition --* TransactionTime : contains
+Precondition --* SettlementMethod : contains
+Precondition --* SettlementCycle : contains
+Precondition --* InvestorType : contains
+Operation --* OrderStatus : contains
+Operation --* ResultStatus : contains
+Operation --* Constraint : constrains
+ExpectedResult --* OperationResult : contains
+ExpectedResult --* Constraint : constrains
+@enduml

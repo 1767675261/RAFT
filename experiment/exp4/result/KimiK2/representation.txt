@@ -1,0 +1,423 @@
+# 可测试规则语言（TRL）完整定义
+
+## 第一部分：符号系统（Symbols）
+
+### 1.1 符号分类与定义
+
+TRL符号系统分为三类，均基于元模型实体及通用逻辑/比较操作符构建：
+
+#### **1.1.1 逻辑符号**
+| 符号 | 语法位置 | 语义角色 |
+|------|----------|----------|
+| `AND` | 条件/动作/结果组合 | 合取运算，所有子表达式必须为真 |
+| `OR` | 条件/动作/结果组合 | 析取运算，至少一个子表达式为真 |
+| `NOT` | 条件前置否定 | 否定运算，反转真值 |
+| `IMPLIES` | 条件间蕴含关系 | 逻辑蕴含，前件真则后件必须真 |
+| `IFF` | 条件间等价关系 | 双向蕴含，两侧真值相同 |
+| `ALL` | 量词前置 | 全称量词，集合所有元素满足条件 |
+| `EXISTS` | 量词前置 | 存在量词，集合至少一个元素满足条件 |
+
+#### **1.1.2 比较符号**
+| 符号 | 语法位置 | 语义角色 |
+|------|----------|----------|
+| `EQ` | 属性值比较 | 等于（=） |
+| `NE` | 属性值比较 | 不等于（≠） |
+| `GT` | 属性值比较 | 大于（>） |
+| `LT` | 属性值比较 | 小于（<） |
+| `GTE` | 属性值比较 | 大于等于（≥） |
+| `LTE` | 属性值比较 | 小于等于（≤） |
+| `BETWEEN` | 数值范围 | 值在闭区间[min, max]内 |
+| `IN` | 集合成员 | 值属于指定集合 |
+| `MATCHES` | 字符串匹配 | 正则表达式匹配 |
+
+#### **1.1.3 领域符号**
+基于元模型实体及其属性路径，采用`实体.属性`形式：
+
+| 实体符号 | 可用属性路径 | 数据类型 |
+|----------|--------------|----------|
+| `Actor` | `type`, `id`, `role`, `status` | 字符串 |
+| `Instrument` | `code`, `name`, `category`, `faceValue` | 字符串/数值 |
+| `Market` | `name`, `session`, `tradingPhase` | 字符串 |
+| `Account` | `number`, `type`, `status` | 字符串 |
+| `TradingMethod` | `name`, `mode` | 字符串 |
+| `TradingDirection` | `direction` | 字符串 |
+| `Action` | `operation`, `timestamp`, `status` | 字符串 |
+| `OrderStatus` | `state`, `fillRate` | 字符串/数值 |
+| `Price` | `value`, `type`, `unit` | 数值/字符串 |
+| `Quantity` | `amount`, `unit` | 数值/字符串 |
+| `TimeCondition` | `startTime`, `endTime`, `duration` | 字符串 |
+| `Settlement` | `method`, `cycle`, `date` | 字符串 |
+| `ExecutionResult` | `tradeId`, `executionTime` | 字符串 |
+| `ResultStatus` | `status`, `reason` | 字符串 |
+| `Constraint` | `expression`, `severity` | 字符串 |
+
+---
+
+## 第二部分：语法（Syntax）
+
+### 2.1 顶层结构
+
+```bnf
+Rule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+
+Condition ::= SimpleCondition | CompoundCondition
+Action ::= SimpleAction | CompoundAction
+ExpectedOutcome ::= SimpleOutcome | CompoundOutcome
+```
+
+### 2.2 条件表达式语法
+
+```bnf
+SimpleCondition ::= "(" EntityPath Comparator Value ")"
+CompoundCondition ::= "(" LogicalOp Condition+ ")"
+
+EntityPath ::= EntityType ("." AttributeName)*
+EntityType ::= "Actor" | "Instrument" | "Market" | "Account" | "TimeCondition" | "SpecialConstraint" | "Constraint"
+Comparator ::= "EQ" | "NE" | "GT" | "LT" | "GTE" | "LTE" | "BETWEEN" | "IN" | "MATCHES"
+Value ::= StringLiteral | NumberLiteral | SetLiteral | RangeLiteral
+LogicalOp ::= "AND" | "OR" | "NOT" | "IMPLIES" | "IFF" | "ALL" | "EXISTS"
+```
+
+### 2.3 动作表达式语法
+
+```bnf
+SimpleAction ::= "(" "Action" OperationName EntityRef+ ")"
+CompoundAction ::= "(" "AND" Action+ ")" | "(" "OR" Action+ ")" | "(" "SEQUENCE" Action+ ")"
+
+OperationName ::= "申报" | "撤销" | "修改" | "执行" | "交付" | "返还"
+EntityRef ::= EntityType "." Identifier
+```
+
+### 2.4 结果表达式语法
+
+```bnf
+SimpleOutcome ::= "(" "Result" StatusType Constraint* ")"
+CompoundOutcome ::= "(" LogicalOp Outcome+ ")"
+
+StatusType ::= "成功" | "失败" | "部分成功" | "被拒绝"
+```
+
+### 2.5 完整BNF定义
+
+```bnf
+<TRL> ::= <Rule>
+
+<Rule> ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+
+<Condition> ::= <AtomicCondition> | <CompositeCondition>
+<AtomicCondition> ::= "(" <EntityPath> <Comparator> <Value> ")"
+<CompositeCondition> ::= "(" <LogicalOperator> <Condition>+ ")"
+
+<Action> ::= <AtomicAction> | <CompositeAction>
+<AtomicAction> ::= "(" "Action" <Operation> <EntityReference>+ ")"
+<CompositeAction> ::= "(" "AND" <Action>+ ")" | "(" "OR" <Action>+ ")" | "(" "SEQUENCE" <Action>+ ")"
+
+<ExpectedOutcome> ::= <AtomicOutcome> | <CompositeOutcome>
+<AtomicOutcome> ::= "(" "Result" <Status> <Constraint>* ")"
+<CompositeOutcome> ::= "(" <LogicalOperator> <ExpectedOutcome>+ ")"
+
+<EntityPath> ::= <EntityType> ("." <Attribute>)*
+<EntityType> ::= "Actor" | "Instrument" | "Market" | "Account" | "TradingMethod" | "TradingDirection" | "Action" | "OrderStatus" | "Price" | "Quantity" | "Settlement" | "TimeCondition" | "SpecialConstraint" | "ExecutionResult" | "ResultStatus" | "Constraint"
+<Comparator> ::= "EQ" | "NE" | "GT" | "LT" | "GTE" | "LTE" | "BETWEEN" | "IN" | "MATCHES"
+<LogicalOperator> ::= "AND" | "OR" | "NOT" | "IMPLIES" | "IFF" | "ALL" | "EXISTS"
+<Operation> ::= StringLiteral
+<Status> ::= "成功" | "失败" | "部分成功" | "被拒绝"
+<Value> ::= StringLiteral | NumberLiteral | <SetLiteral> | <RangeLiteral>
+<SetLiteral> ::= "[" StringLiteral* "]"
+<RangeLiteral> ::= "[" NumberLiteral "," NumberLiteral "]"
+```
+
+---
+
+## 第三部分：语义（Semantics）
+
+### 3.1 操作语义定义
+
+采用**结构化操作语义**，定义评估函数 `eval(e, σ) → (σ', v)`，其中 `σ` 为系统状态，`v` 为真值。
+
+#### **3.1.1 条件语义**
+```
+eval((EntityPath COMPARATOR Value), σ) =
+  let entity = resolve(EntityPath, σ)
+  let value = eval(Value, σ)
+  in (σ, applyComparator(COMPARATOR, entity, value))
+
+eval((AND c1 c2 ... cn), σ) =
+  let (σ1, v1) = eval(c1, σ)
+  let (σ2, v2) = eval(c2, σ1)
+  ...
+  let (σn, vn) = eval(cn, σn-1)
+  in (σn, v1 ∧ v2 ∧ ... ∧ vn)
+
+eval((OR c1 c2 ... cn), σ) =
+  let (σ1, v1) = eval(c1, σ)
+  let (σ2, v2) = eval(c2, σ1)
+  ...
+  let (σn, vn) = eval(cn, σn-1)
+  in (σn, v1 ∨ v2 ∨ ... ∨ vn)
+
+eval((NOT c), σ) =
+  let (σ', v) = eval(c, σ)
+  in (σ', ¬v)
+```
+
+#### **3.1.2 动作语义**
+```
+eval((Action OPERATION EntityRef*), σ) =
+  let entities = map(ref -> resolve(ref, σ), EntityRef*)
+  let (σ', result) = executeOperation(OPERATION, entities, σ)
+  in (σ', result)
+
+eval((SEQUENCE a1 a2 ... an), σ) =
+  let (σ1, r1) = eval(a1, σ)
+  let (σ2, r2) = eval(a2, σ1)
+  ...
+  let (σn, rn) = eval(an, σn-1)
+  in (σn, (r1, r2, ..., rn))
+```
+
+#### **3.1.3 结果语义**
+```
+eval((Result STATUS CONSTRAINT*), σ) =
+  let constraintsSatisfied = all(eval(c, σ) = true for c in CONSTRAINT*)
+  in (σ, STATUS ∧ constraintsSatisfied)
+```
+
+### 3.2 系统映射规则
+
+| TRL要素 | 运行时映射 | 可执行语义 |
+|---------|------------|------------|
+| **Condition** | 输入约束检查 | 生成预置条件验证函数 `preconditionCheck()` |
+| **Action** | 操作序列编排 | 生成动作执行函数 `executeActionSequence()` |
+| **ExpectedOutcome** | 断言与验证 | 生成后置断言函数 `postconditionAssert()` |
+| **EntityPath** | 对象导航 | 映射为对象属性访问链 `object.property.nested` |
+| **COMPARATOR** | 关系运算 | 映射为标准比较操作符 `==`, `>`, `in`, etc. |
+
+---
+
+## 第四部分：可测试性约束（Testability Constraints）
+
+### 4.1 OCL形式化约束
+
+**约束1：原子性规则**
+每个TRL规则必须具有独立测试性，前置条件不得依赖其他规则执行结果。
+```ocl
+context Rule
+inv: self.Precondition->forAll(c |
+  c.oclIsTypeOf(SpecialConstraint) implies
+  not c.expression.contains('ResultStatus')
+)
+```
+
+**约束2：确定性评估**
+条件表达式不得包含非确定性函数（如随机数、当前时间）。
+```ocl
+context Condition
+inv: self.Constraint->forAll(c |
+  c.expression->reject(e | e.oclIsKindOf(TimeCondition))
+  ->size() = 0 or self.Market.session = '连续交易时段'
+)
+```
+
+**约束3：可观测性保证**
+预期结果必须包含至少一个可验证的状态属性。
+```ocl
+context ExpectedResult
+inv: self.ExecutionResult->notEmpty() or self.ResultStatus->notEmpty()
+inv: self.Constraint->size() >= 1
+```
+
+**约束4：可控性要求**
+所有前置条件中的实体属性必须在测试环境中可构造或模拟。
+```ocl
+context Precondition
+inv: self.Actor->notEmpty() and self.Instrument->notEmpty()
+inv: self.TimeCondition->forAll(t | t.startTime.matches('[0-9]{2}:[0-9]{2}'))
+```
+
+**约束5：值域完备性**
+枚举类型属性必须显式列出所有有效值范围，禁止使用"其他"等模糊表述。
+```ocl
+context TradingMethod
+inv: self.name.in(['匹配成交', '点击成交', '询价成交', '竞买成交', '协商成交'])
+```
+
+**约束6：动作可达性**
+动作部分引用的实体必须在同一规则的前置条件中声明或通过关联可达。
+```ocl
+context Action
+inv: self.TradingDirection->notEmpty()
+inv: self.Action.dependsOn->includesAll(self.Precondition.Actor)
+```
+
+**约束7：结果一致性**
+预期结果的状态必须与动作操作类型匹配（如申报动作对应"未成交"或"已成交"）。
+```ocl
+context Rule
+inv: self.Operation.Action.operation = '申报' implies
+  self.ExpectedResult.ResultStatus.status.in(['未成交', '部分成交', '已成交', '被拒绝'])
+```
+
+---
+
+## 第五部分：TRL完整定义
+
+### 5.1 语言配置文件（TRL-Manifest）
+
+```yaml
+language: TRL
+version: 1.0
+domain: SecuritiesTrading.Bond
+metaModel:
+  entities: [Actor, Instrument, Market, Account, TradingMethod, TradingDirection, Action, OrderStatus, Price, Quantity, Settlement, TimeCondition, SpecialConstraint, ExecutionResult, ResultStatus, Constraint]
+  
+grammar:
+  top: Rule
+  pattern: "IF-AND-THEN"
+  
+testability:
+  atomicity: true
+  determinism: required
+  observability: mandatory
+  controllability: full
+  
+execution:
+  semantics: operational
+  mapping: objectNavigation
+  runtime: testHarness
+```
+
+### 5.2 完整BNF合并版
+
+```bnf
+<TRL> ::= <Rule>
+
+<Rule> ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+
+<Condition> ::= <AtomicCondition> | <CompositeCondition>
+<AtomicCondition> ::= "(" <EntityPath> <Comparator> <Value> ")"
+<CompositeCondition> ::= "(" <LogicalOp> <Condition>+ ")"
+
+<Action> ::= <AtomicAction> | <CompositeAction>
+<AtomicAction> ::= "(" "Action" <Operation> <EntityRef>+ ")"
+<CompositeAction> ::= "(" "AND" <Action>+ ")" | "(" "OR" <Action>+ ")" | "(" "SEQUENCE" <Action>+ ")"
+
+<ExpectedOutcome> ::= <AtomicOutcome> | <CompositeOutcome>
+<AtomicOutcome> ::= "(" "Result" <Status> <Constraint>* ")"
+<CompositeOutcome> ::= "(" <LogicalOp> <ExpectedOutcome>+ ")"
+
+<EntityPath> ::= <EntityType> ("." <Attribute>)*
+<EntityType> ::= "Actor" | "Instrument" | "Market" | "Account" | "TradingMethod" | "TradingDirection" | "Action" | "OrderStatus" | "Price" | "Quantity" | "Settlement" | "TimeCondition" | "SpecialConstraint" | "ExecutionResult" | "ResultStatus" | "Constraint"
+<Attribute> ::= Identifier
+<Comparator> ::= "EQ" | "NE" | "GT" | "LT" | "GTE" | "LTE" | "BETWEEN" | "IN" | "MATCHES"
+<LogicalOp> ::= "AND" | "OR" | "NOT" | "IMPLIES" | "IFF" | "ALL" | "EXISTS"
+<Operation> ::= StringLiteral
+<Status> ::= "成功" | "失败" | "部分成功" | "被拒绝"
+<Value> ::= StringLiteral | NumberLiteral | <SetLiteral> | <RangeLiteral>
+<SetLiteral> ::= "[" StringLiteral* "]"
+<RangeLiteral> ::= "[" NumberLiteral "," NumberLiteral "]"
+<Identifier> ::= [a-zA-Z_][a-zA-Z0-9_]*
+<StringLiteral> ::= '"' [^"]* '"'
+<NumberLiteral> ::= [0-9]+ ("." [0-9]+)?
+```
+
+---
+
+## 第六部分：转化示例与可测试性判定
+
+### 6.1 自然语言规则
+
+**规则原文**（来源于测试用例3.1.8.1.1.3.1）：
+> "投资者当日买入的债券，可以在当日通过询价成交方式卖出，实现当日回转交易。非当日买入的债券当日卖出操作应被拒绝。"
+
+### 6.2 TRL形式化表达
+
+```trl
+IF (
+  AND
+  (Actor.role EQ "投资者")
+  (Instrument.category EQ "债券现券")
+  (Action.operation EQ "买入")
+  (TimeCondition.duration EQ "当日")
+  (Market.name EQ "深圳证券交易所")
+) AND (
+  SEQUENCE
+  (Action "申报" Actor.id Instrument.code)
+  (Action "确认" OrderStatus.state)
+  (Action "卖出" Actor.id Instrument.code TradingDirection.direction)
+) THEN (
+  AND
+  (Result "成功" 
+    (Constraint "交易方向" EQ "卖出")
+    (Constraint "交易方式" EQ "询价成交")
+    (Constraint "结果状态" EQ "未成交")
+  )
+  (IMPLIES
+    (TimeCondition.duration NE "当日")
+    (Result "被拒绝")
+  )
+)
+```
+
+### 6.3 可测试性判定
+
+**约束检查表**：
+
+| 约束编号 | 检查项 | 验证结果 | 说明 |
+|----------|--------|----------|------|
+| **约束1** | 原子性 | ✅ 通过 | 规则不依赖其他规则执行结果 |
+| **约束2** | 确定性 | ✅ 通过 | 无随机函数，时间条件明确 |
+| **约束3** | 可观测性 | ✅ 通过 | 包含ResultStatus和ExecutionResult |
+| **约束4** | 可控性 | ✅ 通过 | Actor、Instrument、TimeCondition均可构造 |
+| **约束5** | 值域完备性 | ✅ 通过 | TradingMethod明确列出"询价成交" |
+| **约束6** | 动作可达性 | ✅ 通过 | 动作引用的Actor在前置条件中声明 |
+| **约束7** | 结果一致性 | ✅ 通过 | 申报动作对应"未成交"状态 |
+
+**测试用例生成**：
+
+```json
+[
+  {
+    "testId": "TRL.3.1.8.1.1.3.1.T1",
+    "description": "当日买入债券当日卖出-询价成交",
+    "preconditions": {
+      "Actor.role": "投资者",
+      "Instrument.category": "债券现券",
+      "Action.operation": "买入",
+      "TimeCondition.duration": "当日"
+    },
+    "actions": [
+      {"op": "申报", "params": ["投资者001", "债券代码A"]},
+      {"op": "确认", "params": ["未成交"]},
+      {"op": "卖出", "params": ["投资者001", "债券代码A", "卖出"]}
+    ],
+    "expected": {
+      "status": "成功",
+      "constraints": {
+        "交易方向": "卖出",
+        "交易方式": "询价成交",
+        "结果状态": "未成交"
+      }
+    }
+  },
+  {
+    "testId": "TRL.3.1.8.1.1.3.1.T2",
+    "description": "非当日买入债券当日卖出-应被拒绝",
+    "preconditions": {
+      "Actor.role": "投资者",
+      "Instrument.category": "债券现券",
+      "Action.operation": "买入",
+      "TimeCondition.duration": "T-1日"
+    },
+    "actions": [
+      {"op": "申报", "params": ["投资者001", "债券代码A"]},
+      {"op": "卖出", "params": ["投资者001", "债券代码A", "卖出"]}
+    ],
+    "expected": {
+      "status": "被拒绝"
+    }
+  }
+]
+```
+
+**判定结论**：该规则满足全部7项可测试性约束，TRL表达正确，可生成2个核心测试用例，覆盖正向场景和异常场景，具备完整可测试性。

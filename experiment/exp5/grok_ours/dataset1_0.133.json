@@ -1,0 +1,1704 @@
+[
+    {
+        "rule": "Rule 63. “When Issued”— “When Distributed” Bids and offers in securities admitted to dealings on a \"when issued\" basis shall be made only \"when issued,\" i.e., for delivery when issued as determined by the Exchange.",
+        "rule_cn": "第63条 “发行时”——“发行时”报价与要约 证券以“发行时”方式进行交易的，其报价与要约仅能在“发行时”进行，即在交易所确定的“发行时”交割。",
+        "testable": true,
+        "trl": "rule 1\nif TradingInstrument = 证券 and TradingMethod = “发行时” and (Action = 报价 or Action = 要约) and Time = “发行时” and Constraint = 交易所确定的“发行时”交割\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 交易品种 = 证券 and 时间 = “发行时” and 约束 = 交易所确定的“发行时”交割 and 操作 = 报价 and 交易方式 = “发行时”\nthen 结果 = 成功\nrule 2\nif 交易品种 = 证券 and 时间 = “发行时” and 约束 = 交易所确定的“发行时”交割 and 操作 = 要约 and 交易方式 = “发行时”\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "证券"
+            },
+            {
+                "交易品种": "证券"
+            },
+            {
+                "交易品种": "证券"
+            },
+            {
+                "交易品种": "证券"
+            },
+            {
+                "交易品种": "证券"
+            },
+            {
+                "交易品种": "证券"
+            },
+            {
+                "交易品种": "证券"
+            },
+            {
+                "交易品种": "证券"
+            }
+        ]
+    },
+    {
+        "rule": "Bids and offers in securities admitted to dealings on a \"when distributed\" basis shall be made only \"when distributed,\" i.e., for delivery when distributed as determined by the Exchange.",
+        "rule_cn": "在证券以“分配时”方式进行交易的情况下，买卖申报仅可在“分配时”进行，即按照交易所确定的分配时点进行交割。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "SupplementaryMaterial: • • • .10 \"When issued\" and \"when distributed\" orders.—When dealings in a stock on a \"when issued\" or \"when distributed\" basis are suspended, and dealings of the same stock are continued on a \"regular way\" basis, all orders for the purchase or sale of the stock on a \"when issued\" or \"when distributed\" basis will expire at the close of business on the day before such dealings on a \"when issued\" or \"when distributed\" basis are suspended, unless otherwise directed by the Exchange.",
+        "rule_cn": "补充材料：• • • .10 “发行时”和“派发时”交易指令。——当某股票以“发行时”或“派发时”方式交易暂停时，若该股票以“常规方式”继续交易，则所有以“发行时”或“派发时”方式进行买卖的指令将在该股票以“发行时”或“派发时”方式交易暂停的前一交易日收盘时失效，除非交易所另有指示。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 64. Bonds, Rights and 100-Share-Unit Stocks Bids and offers in securities admitted to dealings on an \"issued\" basis, shall be made as \"regular way.\" In addition, the Exchange may allow for any such additional settlement instructions and periods as the Exchange may from time to time determine.",
+        "rule_cn": "规则64. 债券、权益及100股单位股票的报价与申报  \n在以“发行”方式上市交易的证券中，报价与申报应以“常规方式”进行。此外，交易所可根据其不时确定的其他结算指令和周期，允许进行相应的额外结算安排。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 65. Reserved Reserved.",
+        "rule_cn": "第65条。保留保留。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 66. U.S. Government Securities Bids and offers in securities of the United States Government admitted to dealings on an \"issued\" basis shall be made only as the \"regular way.\" In addition, the Exchange may allow for any such additional settlement periods as the Exchange may from time to time determine.",
+        "rule_cn": "规则66。在美国政府证券的交易中，以“发行”为基础进行交易的美国政府证券的报价和要约，只能以“常规方式”进行。此外，交易所可随时决定允许任何额外的结算周期。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 67 (Convertible Bonds), Rule 68 (Other Bonds) and Rule 69 (Disagreement, \"Fourth Day\" or \"Delayed Delivery\") were repealed on February 9, 1968 in connection with the amendment of Rule 64 (Bonds, Rights and 100-Share-Unit Stocks) concerning five-day settlement of regular way contracts.",
+        "rule_cn": "第67条（可转换债券）、第68条（其他债券）以及第69条（争议、“第四日”或“延迟交割”）于1968年2月9日因修订第64条（债券、认股权证及100股单位股票）有关普通交易合同五日交割的规定而被废止。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 67. Rule 67. Tick Size Pilot Plan This Rule is not applicable to trading on the Pillar trading platform.",
+        "rule_cn": "第67条 第67条 Ticker Size试点计划 本规则不适用于Pillar交易平台上进行的交易。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "The provisions of this Rule will be in effect during a pilot to coincide with the pilot period for the Regulation NMS Tick Size Pilot Plan. Paragraph (f)(5) of this Rule will continue to be in effect for all Pilot Securities for six months after the end of the Pilot Period.",
+        "rule_cn": "本规则的规定将在试点期间生效，以与《NMS交易单位试点计划》的试点期同步。本规则第(f)(5)款将在试点期结束后继续适用于所有试点证券六个月。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(a) Tick Size Pilot Program",
+        "rule_cn": "(a) 交易单位试点计划",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(1) Definitions.",
+        "rule_cn": "（1）定义。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) “Plan” means the Tick Size Pilot Plan Submitted to the Securities and Exchange Commission Pursuant to Rule 608(a)(3) of Regulation NMS under the Exchange Act.",
+        "rule_cn": "（A）“计划”指根据《证券交易法》项下《全国市场系统规则》（Regulation NMS）第608(a)(3)条提交给证券交易委员会的“报价单位试点计划”。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(B) “Pilot Test Groups” means the three test groups established under the Plan, consisting of 400 Pilot Securities each, which satisfy the respective criteria established by the Plan for each such test group.",
+        "rule_cn": "（B）“试点测试组”指根据计划设立的三个测试组，每个测试组包含400只试点证券，这些证券符合计划为每个测试组分别设定的相应标准。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(C) “Retail Investor Order” means an agency order or a riskless principal order that meets the criteria of FINRA Rule 5320.03 that originates from a natural person and is submitted to the Exchange by a retail member organization, provided that no change is made to the terms of the order with respect to price or side of market and the order does not originate from a trading algorithm or any other computerized methodology. A Retail Investor Order may be an odd lot, round lot, or partial round lot.",
+        "rule_cn": "（C）“零售投资者订单”指由自然人发出，并由零售会员机构提交至交易所的代理订单或无风险本金订单，该订单符合FINRA第5320.03条规定的标准，且在订单提交过程中，不得对价格或买卖方向进行任何更改，且该订单并非由交易算法或其他任何计算机化方法生成。零售投资者订单可以是零散数量、整数数量或部分整数数量的订单。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(D) “Trade-at Intermarket Sweep Order” means a limit order for a Pilot Security that meets the following requirements:",
+        "rule_cn": "（D）“跨市场一揽子交易指令”是指一种限价指令，用于交易试点证券，且需满足以下要求：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(i) When routed to a Trading Center, the limit order is identified as a Trade-at Intermarket Sweep Order; and (ii) Simultaneously with the routing of the limit order identified as a Trade-at Intermarket Sweep Order, one or more additional limit orders, as necessary, are routed to execute against the full displayed size of any protected bid, in the case of a limit order to sell, or the full displayed size of any protected offer, in the case of a limit order to buy, for the Pilot Security with a price that is better than or equal to the limit price of the limit order identified as a Trade-at Intermarket Sweep Order. These additional routed orders also must be marked as Trade-at Intermarket Sweep Orders or Intermarket Sweep Orders.",
+        "rule_cn": "(i) 当限价单被路由至交易中心时，该限价单将被识别为“市场间扫盘交易指令”；  \n(ii) 在将识别为“市场间扫盘交易指令”的限价单路由过程中，同时将一个或多个额外的限价单路由至执行，以完成对试点证券任何受保护买盘的全部显示数量（如果是卖出限价单）或任何受保护卖盘的全部显示数量（如果是买入限价单）的交易，其价格应优于或等于被识别为“市场间扫盘交易指令”的限价单的限价。这些额外路由的订单也必须标记为“市场间扫盘交易指令”或“市场扫盘指令”。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(E) All capitalized terms not otherwise defined in this Rule shall have the meanings set forth in the Plan, Regulation NMS under the Exchange Act, or Exchange rules, as applicable.",
+        "rule_cn": "（E）本规则中未在本规则其他地方定义的全部大写术语，应适用计划、证券交易法下的纳斯达克市场规则（Regulation NMS）或交易所规则中所规定的含义，以适用的情况为准。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(2) Exchange Participation in the Plan. The Exchange is a Participant in, and subject to the applicable requirements of, the Plan, which establishes a Tick Size Pilot Program that will allow the Securities and Exchange Commission, market participants, and the public to study and assess the impact of increment conventions on the liquidity and trading of the common stocks of small capitalization companies.",
+        "rule_cn": "（2）交易所参与计划。交易所是该计划的参与方，并受该计划适用要求的约束。该计划设立了报价单位试点计划，旨在使证券交易委员会、市场参与者和公众能够研究和评估报价单位惯例对小市值公司普通股流动性和交易的影响。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(3) Member Organization Compliance. Member organizations shall establish, maintain and enforce written policies and procedures that are reasonably designed to comply with the applicable requirements of the Plan.",
+        "rule_cn": "（3）成员组织合规性。成员组织应制定、维护并执行书面政策和程序，这些政策和程序应合理设计以符合计划适用的各项要求。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(4) Exchange Compliance with the Plan. Exchange systems will not display, quote or trade in violation of the applicable quoting and trading requirements for a Pilot Security specified in the Plan and this Rule, unless such quotation or transaction is specifically exempted under the Plan.",
+        "rule_cn": "（4）与计划相符的交易合规性。交易所系统不得在未按照计划及本规则中规定的试点证券适用报价和交易要求的情况下显示、报价或进行交易，除非该报价或交易行为已根据计划明确豁免。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(5) Pilot Securities That Drop Below $1.00 during the Pilot Period. If the price of a Pilot Security drops below $1.00 during regular trading on any given business day, such Pilot Security will continue to be subject to the Plan and the requirements enumerated in (c)- (e) below and will continue to trade in accordance with such Rules as if the price of the Pilot Security had not dropped below $1.00. However, if the Closing Price of a Pilot Security on any given business day is below $1.00, such Pilot Security will be moved out of its respective Pilot Test Group into the Control Group, and may then be quoted and traded at any price increment that is currently permitted by Exchange rules for the remainder of the Pilot Period.",
+        "rule_cn": "（5）试点证券在试点期间价格低于1.00美元的情况。如果某只试点证券在某交易日的正常交易期间价格低于1.00美元，该试点证券将继续适用本计划以及下述（c）至（e）项所列的各项要求，并将继续按照相关规则进行交易，如同该试点证券的价格未曾低于1.00美元一样。然而，如果某只试点证券在某交易日的收盘价低于1.00美元，则该试点证券将从其所属的试点测试组移至对照组，并可在试点期间剩余时间内按照交易所现行规则允许的任何价格增量进行报价和交易。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Notwithstanding anything contained herein to the contrary, at all times during the Pilot Period, Pilot Securities (whether in the Control Group or any Pilot Test Group) will continue to be subject to the requirements contained in Paragraph (b).",
+        "rule_cn": "尽管本条中有任何相反规定，整个试点期间内，试点证券（无论是在控制组还是任何试点测试组中）仍将受第（b）款中所列要求的约束。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(b) Compliance with Data Collection Requirements",
+        "rule_cn": "(b) 遵守数据收集要求",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(1) Policies and Procedures Requirement. A member organization that operates a Trading Center shall establish, maintain and enforce written policies and procedures that are reasonably designed to comply with the data collection and transmission requirements of Items I and II of Appendix B of the Plan, and a member organization that is a Market Maker shall establish, maintain and enforce written policies and procedures that are reasonably designed to comply with the data collection and transmission requirements of Item IV of Appendix B of the Plan and Item I of Appendix C of the Plan.",
+        "rule_cn": "（1）政策与程序要求。运营交易中心的会员机构应制定、维护并执行书面政策和程序，这些政策和程序应合理设计以满足计划附录B中第I项和第II项所规定的数据收集与传输要求。作为做市商的会员机构应制定、维护并执行书面政策和程序，这些政策和程序应合理设计以满足计划附录B中第IV项以及附录C中第I项所规定的数据收集与传输要求。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(2) The Exchange shall collect and transmit to the SEC the data described in Items I and II of Appendix B of the Plan relating to trading activity in Pre-Pilot Data Collection Securities and Pilot Securities on a Trading Center operated by the Exchange. The Exchange shall transmit such data to the SEC in a pipe delimited format, on a disaggregated basis by Trading Center, within 30 calendar days following month end for:",
+        "rule_cn": "（2）交易所应收集并将其在附录B中第I项和第II项所描述的数据传输至证券交易委员会（SEC），这些数据涉及在交易所运营的交易平台上Pre-Pilot Data Collection证券和Pilot证券的交易活动。交易所应在每月结束后的30个日历日内，按交易平台拆分的方式，以管道分隔格式向SEC传输上述数据：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) Each Pre-Pilot Data Collection Security for the period beginning six months prior to the Pilot Period through thirty-one days prior to the first day of the Pilot Period; and",
+        "rule_cn": "（A）在试飞期开始前六个月至试飞期第一天之前的31天期间内，每个预试飞数据收集的安全性；",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(B) Each Pilot Security for the period beginning thirty days prior to the first day of the Pilot Period through six months after the end of the Pilot Period.",
+        "rule_cn": "(B) 试点期间开始前30天至试点期结束后的六个月期间内，每个飞行员的安全记录。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "The Exchange also shall make such data publicly available on the Exchange web site within 120 calendar days following month end at no charge and shall not identify the member organization that generated the data.",
+        "rule_cn": "交易所还应在每个财年结束后的120个日历日内，免费在其网站上公开发布此类数据，并且不得披露生成这些数据的会员组织的身份。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(3) Daily Market Maker Participation Statistics Requirement",
+        "rule_cn": "(3) 日常做市商参与统计要求",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) A member organization that is a Market Maker shall collect and transmit to their Designated Examining Authority (“DEA”) data relating to Item IV of Appendix B of the Plan, with respect to activity conducted on any Trading Center in Pre-Pilot Data Collection Securities and Pilot Securities in furtherance of its status as a Market Maker, including a Trading Center that executes trades otherwise than on a national securities exchange, for transactions that have settled or reached settlement date. Market Makers shall transmit such data in a format required by their DEA by 12:00 p.m. EST on T+4:",
+        "rule_cn": "（A）作为做市商的会员组织应收集并将其提交给其指定监管机构（“指定监管机构”）有关计划附录B第四项的数据，这些数据涉及在试点数据收集证券和试点证券的交易中心进行的活动，以维持其做市商地位，包括那些在非全国性证券交易所进行交易的交易中心，且这些交易已结算或达到结算日期。做市商应于T+4日东部标准时间中午12点前，以指定监管机构要求的格式提交上述数据。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(i) For transactions in each Pre-Pilot Data Collection Security for the period beginning six months prior to the Pilot Period through thirty-one days prior to the first day of the Pilot Period; and (ii) For transactions in each Pilot Security for the period beginning thirty days prior to the first day of the Pilot Period through six months after the end of the Pilot Period.",
+        "rule_cn": "(i) 对于每个预试点数据收集证券，在试点期间开始前六个月至试点期间第一天之前31天期间发生的交易；以及  \n(ii) 对于每个试点证券，在试点期间第一天之前30天至试点期间结束之后六个月期间发生的交易。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(B) A member organization that is a Market Maker whose DEA is not a Participant to the Plan shall transmit the data collected pursuant to paragraph (3)(A) above to the Financial Industry Regulatory Authority, Inc. (“FINRA”). Market Makers shall transmit such data in a format required by FINRA by 12:00 p.m. EST on T+4 in accordance with paragraphs (3)(A)(i) and (ii) above.",
+        "rule_cn": "(B) 如果某会员组织是做市商，且其 DEA 不是计划的参与者，则应将其根据上文第（3）（A）款收集的数据传输至美国金融业监管局（“FINRA”）。做市商应按照上文第（3）（A）（i）和（ii）款的规定，在 T+4 日的东部时间中午 12 点之前，以 FINRA 要求的格式向 FINRA 传输此类数据。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(C) The Exchange shall transmit the data collected by the DEA or FINRA pursuant to paragraphs (3)(A) and (B) above relating to Market Maker activity on a Trading Center operated by the Exchange to the SEC in a pipe delimited format within 30 calendar days following month end. The Exchange shall also make such data publicly available on the Exchange web site within 120 calendar days following month end at no charge and shall not identify the Trading Center that generated the data.",
+        "rule_cn": "（C）交易所应于每月结束后的30个营业日内，将根据上述第（3）（A）和（B）款由 DEA 或 FINRA 收集的有关在交易所运营的交易中心上市场做市商活动的数据，以管道分隔格式传输至 SEC。此外，交易所还应在每月结束后的120个营业日内，将此类数据免费公开发布在其网站上，并且不得标识生成该数据的交易中心。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(4) Market Maker Profitability",
+        "rule_cn": "(4) 做市商盈利性",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) A member organization that is a Market Maker shall collect and transmit to their DEA the data described in Item I of Appendix C of the Plan with respect to executions on any Trading Center that have settled or reached settlement date. Market Makers shall transmit such data in a format required to their DEA by 12:00 p.m. EST on T+4 for executions during and outside of Regular Trading Hours in each:",
+        "rule_cn": "（A）作为做市商的会员机构应收集并将其在任何交易中心达成并已结算或达成结算日的交易数据，按照计划附录C第一项中所述内容，传送给其 DEA。做市商应在 T+4 日的 EST 下午12:00 前，以 DEA 要求的格式向其 DEA 传送此类数据，用于在每个交易日的正常交易时段内及正常交易时段外的交易。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(i) Pre-Pilot Data Collection Security for the period beginning six months prior to the Pilot Period through thirty-one days prior to the first day of the Pilot Period; and (ii) Pilot Security for the period beginning thirty days prior to the first day of the Pilot Period through six months after the end of the Pilot Period.",
+        "rule_cn": "(i) 试点期开始前六个月至试点期第一天前31天期间的预试点数据收集安全；以及 (ii) 试点期开始前30天至试点期结束后的六个月期间的试点安全。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(B) A member organization that is a Market Maker whose DEA is not a Participant to the Plan shall transmit the data collected pursuant to paragraph (4)(A) above to FINRA.",
+        "rule_cn": "（B）如果某会员机构是做市商，且其 DEA 不是计划的参与方，则应将根据上文第（4）（A）款收集的数据传输至 FINRA。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Market Makers shall transmit such data in a format required by FINRA by 12:00 p.m. EST on T+4 for executions during and outside of Regular Trading Hours in accordance with paragraphs (4)(A)(i) and (ii) above.",
+        "rule_cn": "做市商应于T+4交易日的东部时间中午12:00前，按照上述第(4)(A)(i)和(ii)段所述格式，向FINRA提交所需数据，以报告在常规交易时段内及之外的成交情况。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(5) Market Maker Registration Statistics. The Exchange shall collect and transmit to the SEC the data described in Item III of Appendix B of the Plan relating to daily Market Maker registration statistics in a pipe delimited format within 30 calendar days following month end for:",
+        "rule_cn": "（5）做市商注册统计。交易所应在每月结束后的30个日历日内，以管道分隔符格式向证券交易委员会（SEC）收集并提交计划附录B第三项中所描述的有关每日做市商注册统计的数据：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) Transactions in each Pre-Pilot Data Collection Security for the period beginning six months prior to the Pilot Period through the trading day immediately preceding the Pilot Period; and",
+        "rule_cn": "（A）在试点期间开始前六个月至试点期间开始前一交易日之间，针对每只预试点数据收集证券的交易情况；",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(B) Transactions in each Pilot Security for the period beginning on the first day of the Pilot Period through six months after the end of the Pilot Period.",
+        "rule_cn": "(B) 试点期内首个交易日开始至试点期结束后的六个月期间内，对每只试点证券的交易。",
+        "testable": true,
+        "trl": "rule 1\nif Time = 试点期内首个交易日开始至试点期结束后的六个月期间内 and TradingInstrument = 试点证券 and Action = 交易\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 交易品种 = 试点证券 and 时间 = 试点期内首个交易日开始至试点期结束后的六个月期间内 and 操作 = 交易\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "试点证券"
+            },
+            {
+                "交易品种": "试点证券"
+            },
+            {
+                "交易品种": "试点证券"
+            },
+            {
+                "交易品种": "试点证券"
+            }
+        ]
+    },
+    {
+        "rule": "The Exchange also shall make such data publicly available on the Exchange web site within 120 calendar days following month end at no charge and shall not identify the member organization that generated the data.",
+        "rule_cn": "交易所还应在每个财年末起120个日历日内，免费在其网站上公开发布此类数据，并且不得披露生成该数据的会员机构。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(c) Pilot Securities in Test Group One will be subject to the following requirement: No member organization may display, rank, or accept from any person any displayable or non-displayable bids or offers, orders, or indications of interest in increments other than $0.05. However, orders priced to trade at the midpoint of the national best bid and national best offer (“NBBO”) or best protected bid and best protected offer (“PBBO”) and orders entered in the Exchange’s Retail Liquidity Program as Retail Price Improvement Orders (as defined in Rule 107C) may be ranked and accepted in increments of less than $0.05. Pilot Securities in Test Group One may continue to trade at any price increment that is currently permitted by Rule 62.10.",
+        "rule_cn": "(c) 第一组测试证券的做市商将受到以下要求的约束：任何会员组织不得向任何人展示、排名或接受任何可展示或不可展示的报价、订单或兴趣表示，且其价格变动幅度不得为除0.05美元以外的其他金额。然而，以全国最佳报价买方和卖方（“NBBO”）或最佳保护报价买方和卖方（“PBBO”）的中间价进行交易的订单，以及在交易所零售流动性计划中作为零售价格改善订单（根据规则107C定义）提交的订单，可以按小于0.05美元的幅度进行排名和接受。第一组测试证券可以继续以目前规则62.10所允许的任何价格变动幅度进行交易。",
+        "testable": true,
+        "trl": "rule 1\nif Actor = 会员组织 and TradingInstrument = 第一组测试证券 and (Action = 展示 or Action = 排名 or Action = 接受) and (OperationPart = 报价 or OperationPart = 订单 or OperationPart = 兴趣表示) and (Constraint = 可展示 or Constraint = 不可展示) and Price = 0.05美元\nthen Result = 成功\n\nrule 2\nif Actor = 会员组织 and TradingInstrument = 第一组测试证券 and (Action = 排名 or Action = 接受) and OperationPart = 订单 and Constraint = 以全国最佳报价买方和卖方（NBBO）的中间价进行交易 and Price < 0.05美元\nthen Result = 成功\n\nrule 3\nif Actor = 会员组织 and TradingInstrument = 第一组测试证券 and (Action = 排名 or Action = 接受) and OperationPart = 订单 and Constraint = 以最佳保护报价买方和卖方（PBBO）的中间价进行交易 and Price < 0.05美元\nthen Result = 成功\n\nrule 4\nif Actor = 会员组织 and TradingInstrument = 第一组测试证券 and (Action = 排名 or Action = 接受) and OperationPart = 订单 and Constraint = 在交易所零售流动性计划中作为零售价格改善订单根据规则107C定义提交 and Price < 0.05美元\nthen Result = 成功\n\nrule 5\nif TradingInstrument = 第一组测试证券 and Action = 交易 and Constraint = 价格变动幅度 = 目前规则62.10所允许的任何价格变动幅度\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 可展示 and 操作 = 展示 and 价格 = 0.05美元 and 操作部分 = 报价\nthen 结果 = 成功\nrule 2\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 可展示 and 操作 = 排名 and 价格 = 0.05美元 and 操作部分 = 报价\nthen 结果 = 成功\nrule 3\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 可展示 and 操作 = 接受 and 价格 = 0.05美元 and 操作部分 = 报价\nthen 结果 = 成功\nrule 4\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 可展示 and 操作 = 接受 and 价格 = 0.05美元 and 操作部分 = 订单\nthen 结果 = 成功\nrule 5\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 可展示 and 操作 = 接受 and 价格 = 0.05美元 and 操作部分 = 兴趣表示\nthen 结果 = 成功\nrule 6\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 不可展示 and 操作 = 接受 and 价格 = 0.05美元 and 操作部分 = 兴趣表示\nthen 结果 = 成功\nrule 7\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 以全国最佳报价买方和卖方（NBBO）的中间价进行交易 and 操作 = 排名 and 价格 < 0.05美元 and 操作部分 = 订单\nthen 结果 = 成功\nrule 8\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 以全国最佳报价买方和卖方（NBBO）的中间价进行交易 and 操作 = 接受 and 价格 < 0.05美元 and 操作部分 = 订单\nthen 结果 = 成功\nrule 9\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 以最佳保护报价买方和卖方（PBBO）的中间价进行交易 and 操作 = 排名 and 价格 < 0.05美元 and 操作部分 = 订单\nthen 结果 = 成功\nrule 10\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 以最佳保护报价买方和卖方（PBBO）的中间价进行交易 and 操作 = 接受 and 价格 < 0.05美元 and 操作部分 = 订单\nthen 结果 = 成功\nrule 11\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 在交易所零售流动性计划中作为零售价格改善订单根据规则107C定义提交 and 操作 = 排名 and 价格 < 0.05美元 and 操作部分 = 订单\nthen 结果 = 成功\nrule 12\nif 操作主体 = 会员组织 and 交易品种 = 第一组测试证券 and 约束 = 在交易所零售流动性计划中作为零售价格改善订单根据规则107C定义提交 and 操作 = 接受 and 价格 < 0.05美元 and 操作部分 = 订单\nthen 结果 = 成功\nrule 13\nif 交易品种 = 第一组测试证券 and 操作 = 交易 and 价格变动幅度 = 目前规则62.10所允许的任何价格变动幅度\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            },
+            {
+                "交易品种": "第一组测试证券"
+            }
+        ]
+    },
+    {
+        "rule": "(d) Pilot Securities in Test Group Two shall be subject to the following requirements:",
+        "rule_cn": "(d) 第二组测试中的试点证券应符合以下要求：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(1) No member organization may display, rank, or accept from any person any displayable or non-displayable bids or offers, orders, or indications of interest in increments other than $0.05. However, orders priced to trade at the midpoint of the NBBO or PBBO and orders entered in the Exchange’s Retail Liquidity Program as Retail Price Improvement Orders (as defined in Rule 107C) may be ranked and accepted in increments of less than $0.05.",
+        "rule_cn": "（1）任何会员组织不得以不同于0.05美元的增量向任何人展示、排序或接受任何可展示或不可展示的报价、订单或兴趣表示。然而，以全国最佳买卖报价（NBBO）或做市商最佳买卖报价（PBBO）中点价格成交的订单，以及在交易所零售流动性计划中作为零售价格改善订单（根据规则107C定义）提交的订单，可以以小于0.05美元的增量进行排序和接受。",
+        "testable": true,
+        "trl": "rule 1\nif Actor = 会员组织 and Action = 展示 and (OperationPart = 报价 or OperationPart = 订单 or OperationPart = 兴趣表示) and (Constraint = 可展示的 or Constraint = 不可展示的) and Price = 0.05\nthen Result = 成功\nrule 2\nif Actor = 会员组织 and Action = 排序 and (OperationPart = 报价 or OperationPart = 订单 or OperationPart = 兴趣表示) and (Constraint = 可展示的 or Constraint = 不可展示的) and Price = 0.05\nthen Result = 成功\nrule 3\nif Actor = 会员组织 and Action = 接受 and (OperationPart = 报价 or OperationPart = 订单 or OperationPart = 兴趣表示) and (Constraint = 可展示的 or Constraint = 不可展示的) and Price = 0.05\nthen Result = 成功\nrule 4\nif Actor = 会员组织 and Action = 排序 and OperationPart = 订单 and (Constraint = 可展示的 or Constraint = 不可展示的) and Price < 0.05 and (Constraint = 以全国最佳买卖报价（NBBO）或做市商最佳买卖报价（PBBO）中点价格成交 or Constraint = 在交易所零售流动性计划中作为零售价格改善订单（根据规则107C定义）提交)\nthen Result = 成功\nrule 5\nif Actor = 会员组织 and Action = 接受 and OperationPart = 订单 and (Constraint = 可展示的 or Constraint = 不可展示的) and Price < 0.05 and (Constraint = 以全国最佳买卖报价（NBBO）或做市商最佳买卖报价（PBBO）中点价格成交 or Constraint = 在交易所零售流动性计划中作为零售价格改善订单（根据规则107C定义）提交)\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 操作 = 展示 and 价格 = 0.05 and 操作部分 = 报价\nthen 结果 = 成功\nrule 2\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 操作 = 展示 and 价格 = 0.05 and 操作部分 = 订单\nthen 结果 = 成功\nrule 3\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 操作 = 展示 and 价格 = 0.05 and 操作部分 = 兴趣表示\nthen 结果 = 成功\nrule 4\nif 操作主体 = 会员组织 and 约束 = 不可展示的 and 操作 = 展示 and 价格 = 0.05 and 操作部分 = 兴趣表示\nthen 结果 = 成功\nrule 5\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 操作 = 排序 and 价格 = 0.05 and 操作部分 = 报价\nthen 结果 = 成功\nrule 6\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 操作 = 排序 and 价格 = 0.05 and 操作部分 = 订单\nthen 结果 = 成功\nrule 7\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 操作 = 排序 and 价格 = 0.05 and 操作部分 = 兴趣表示\nthen 结果 = 成功\nrule 8\nif 操作主体 = 会员组织 and 约束 = 不可展示的 and 操作 = 排序 and 价格 = 0.05 and 操作部分 = 兴趣表示\nthen 结果 = 成功\nrule 9\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 操作 = 接受 and 价格 = 0.05 and 操作部分 = 报价\nthen 结果 = 成功\nrule 10\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 操作 = 接受 and 价格 = 0.05 and 操作部分 = 订单\nthen 结果 = 成功\nrule 11\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 操作 = 接受 and 价格 = 0.05 and 操作部分 = 兴趣表示\nthen 结果 = 成功\nrule 12\nif 操作主体 = 会员组织 and 约束 = 不可展示的 and 操作 = 接受 and 价格 = 0.05 and 操作部分 = 兴趣表示\nthen 结果 = 成功\nrule 13\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 约束 = 以全国最佳买卖报价（NBBO）或做市商最佳买卖报价（PBBO）中点价格成交 and 操作 = 排序 and 价格 < 0.05 and 操作部分 = 订单\nthen 结果 = 成功\nrule 14\nif 操作主体 = 会员组织 and 约束 = 不可展示的 and 约束 = 以全国最佳买卖报价（NBBO）或做市商最佳买卖报价（PBBO）中点价格成交 and 操作 = 排序 and 价格 < 0.05 and 操作部分 = 订单\nthen 结果 = 成功\nrule 15\nif 操作主体 = 会员组织 and 约束 = 不可展示的 and 约束 = 在交易所零售流动性计划中作为零售价格改善订单（根据规则107C定义）提交 and 操作 = 排序 and 价格 < 0.05 and 操作部分 = 订单\nthen 结果 = 成功\nrule 16\nif 操作主体 = 会员组织 and 约束 = 可展示的 and 约束 = 以全国最佳买卖报价（NBBO）或做市商最佳买卖报价（PBBO）中点价格成交 and 操作 = 接受 and 价格 < 0.05 and 操作部分 = 订单\nthen 结果 = 成功\nrule 17\nif 操作主体 = 会员组织 and 约束 = 不可展示的 and 约束 = 以全国最佳买卖报价（NBBO）或做市商最佳买卖报价（PBBO）中点价格成交 and 操作 = 接受 and 价格 < 0.05 and 操作部分 = 订单\nthen 结果 = 成功\nrule 18\nif 操作主体 = 会员组织 and 约束 = 不可展示的 and 约束 = 在交易所零售流动性计划中作为零售价格改善订单（根据规则107C定义）提交 and 操作 = 接受 and 价格 < 0.05 and 操作部分 = 订单\nthen 结果 = 成功",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(2) Absent any of the exceptions listed in (3) below, no member organization may execute orders in any Pilot Security in Test Group Two in price increments other than $0.05. The $0.05 trading increment will apply to all trades, including Brokered Cross Trades.",
+        "rule_cn": "（2）除非下列（3）项中列明的例外情况适用，任何成员机构不得以除0.05美元以外的价位递增幅度在第二测试组试点证券中执行交易。0.05美元的交易价位递增幅度适用于所有交易，包括经纪对冲交易。",
+        "testable": true,
+        "trl": "rule 1\nif Actor = 成员机构 and TradingInstrument = 第二测试组试点证券 and Action = 执行交易 and Price != 0.05美元 and NOT Constraint = 下列（3）项中列明的例外情况适用\nthen Result = 失败\n\nrule 2\nif TradingInstrument = 第二测试组试点证券 and TradingMethod = 经纪对冲交易 and Price = 0.05美元\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作主体 = 成员机构 and 交易品种 = 第二测试组试点证券 and 约束 != 下列（3）项中列明的例外情况适用 and 操作 = 执行交易 and 价格 != 0.05美元\nthen 结果 != 失败\nrule 2\nif 交易品种 != 第二测试组试点证券 and 交易方式 = 经纪对冲交易 and 价格 = 0.05美元\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "第二测试组试点证券"
+            },
+            {
+                "交易品种": "第二测试组试点证券"
+            },
+            {
+                "交易品种": "非第二测试组试点证券"
+            }
+        ]
+    },
+    {
+        "rule": "(3) Pilot Securities in Test Group Two may trade in increments less than $0.05 under the following circumstances: (A) Trading may occur at the midpoint between the NBBO or the PBBO; (B) Retail Investor Orders may be provided with price improvement that is at least $0.005 better than the PBBO; (C) Negotiated Trades may trade in increments less than $0.05; and (D) Execution of a customer order to comply with Rule 5320 following the execution of a proprietary trade by the member organization at an increment other than $0.05, where such proprietary trade was permissible pursuant to an exception under the Plan.",
+        "rule_cn": "（3）第二组测试证券的交易可在以下情况下以少于0.05美元的价位进行交易：  \n（A）交易可在NBBO或PBBO的中间价位进行；  \n（B）零售投资者订单可获得至少比PBBO好0.005美元的优惠报价；  \n（C）协商交易可按少于0.05美元的价位进行；  \n（D）会员机构在以非0.05美元的价位执行自营交易后，为执行客户订单以符合规则5320的情况，可按少于0.05美元的价位进行交易，前提是该自营交易符合计划中的例外规定。",
+        "testable": true,
+        "trl": "rule 1\nif TradingInstrument = 第二组测试证券 and Action = 交易 and Price < 0.05 and Price = NBBO中间价位 or Price = PBBO中间价位\nthen Result = 成功\n\nrule 2\nif TradingInstrument = 第二组测试证券 and Actor = 零售投资者 and OperationPart = 订单 and Price >= PBBO + 0.005\nthen Result = 成功\n\nrule 3\nif TradingInstrument = 第二组测试证券 and TradingMethod = 协商交易 and Price < 0.05\nthen Result = 成功\n\nrule 4\nif TradingInstrument = 第二组测试证券 and Actor = 会员机构 and Action = 执行自营交易 and Price != 0.05 and Action = 执行客户订单 and Constraint = 符合规则5320 and Price < 0.05 and Constraint = 自营交易符合计划中的例外规定\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 交易品种 = 第二组测试证券 and 操作 = 交易 and 价格 < 0.05 and 价格 = NBBO中间价位\nthen 结果 = 成功\nrule 2\nif 交易品种 = 第二组测试证券 and 操作 = 交易 and 价格 < 0.05 and 价格 = PBBO中间价位\nthen 结果 = 成功\nrule 3\nif 操作主体 = 零售投资者 and 交易品种 = 第二组测试证券 and 价格 >= PBBO + 0.005 and 操作部分 = 订单\nthen 结果 = 成功\nrule 4\nif 交易品种 = 第二组测试证券 and 交易方式 = 协商交易 and 价格 < 0.05\nthen 结果 = 成功\nrule 5\nif 操作主体 = 会员机构 and 交易品种 = 第二组测试证券 and 约束 = 符合规则5320 and 约束 = 自营交易符合计划中的例外规定 and 操作 = 执行自营交易 and 操作 = 执行客户订单 and 价格 != 0.05 and 价格 < 0.05\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            },
+            {
+                "交易品种": "第二组测试证券"
+            }
+        ]
+    },
+    {
+        "rule": "(e) Pilot Securities in Test Group Three shall be subject to the following requirements:",
+        "rule_cn": "(e) 第三组测试中的试点证券应符合以下要求：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(1) No member organization may display, rank, or accept from any person any displayable or non-displayable bids or offers, orders, or indications of interest in increments other than $0.05. However, orders priced to trade at the midpoint of the NBBO or PBBO and orders entered in the Exchange’s Retail Liquidity Program as Retail Price Improvement Orders (as defined in Rule 107C) may be ranked and accepted in increments of less than $0.05.",
+        "rule_cn": "（1）任何会员组织不得以不同于0.05美元的增量向任何人士展示、排名或接受任何可展示或不可展示的报价、要约、订单或兴趣表示。然而，以全国最佳报价（NBBO）或买卖报价（PBBO）中点价格成交的订单，以及在交易所零售流动性计划中作为零售报价改善订单（根据规则107C定义）提交的订单，可以以小于0.05美元的增量进行排名和接受。",
+        "testable": true,
+        "trl": "rule 1\nif Actor = 会员组织 and Constraint = 向任何人士 and (Action = 展示 or Action = 排名 or Action = 接受) and (Status = 可展示 or Status = 不可展示) and (OperationPart = 报价 or OperationPart = 要约 or OperationPart = 订单 or OperationPart = 兴趣表示) and Price % 0.05 != 0\nthen Result = 失败\n\nrule 2\nif OperationPart = 订单 and Constraint = 以全国最佳报价（NBBO）或买卖报价（PBBO）中点价格成交 and (Action = 排名 or Action = 接受) and Price % 0.05 != 0\nthen Result = 成功\n\nrule 3\nif OperationPart = 订单 and Constraint = 在交易所零售流动性计划中作为零售报价改善订单（根据规则107C定义）提交 and (Action = 排名 or Action = 接受) and Price % 0.05 != 0\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作主体 = 会员组织 and 约束 = 向任何人士 and 操作 = 展示 and 价格 % 0.05 != 0 and 操作部分 = 报价 and 状态 = 可展示\nthen 结果 = 失败\nrule 2\nif 操作主体 = 会员组织 and 约束 = 向任何人士 and 操作 = 排名 and 价格 % 0.05 != 0 and 操作部分 = 报价 and 状态 = 可展示\nthen 结果 = 失败\nrule 3\nif 操作主体 = 会员组织 and 约束 = 向任何人士 and 操作 = 接受 and 价格 % 0.05 != 0 and 操作部分 = 报价 and 状态 = 可展示\nthen 结果 = 失败\nrule 4\nif 操作主体 = 会员组织 and 约束 = 向任何人士 and 操作 = 接受 and 价格 % 0.05 != 0 and 操作部分 = 报价 and 状态 = 不可展示\nthen 结果 = 失败\nrule 5\nif 操作主体 = 会员组织 and 约束 = 向任何人士 and 操作 = 接受 and 价格 % 0.05 != 0 and 操作部分 = 要约 and 状态 = 不可展示\nthen 结果 = 失败\nrule 6\nif 操作主体 = 会员组织 and 约束 = 向任何人士 and 操作 = 接受 and 价格 % 0.05 != 0 and 操作部分 = 订单 and 状态 = 不可展示\nthen 结果 = 失败\nrule 7\nif 操作主体 = 会员组织 and 约束 = 向任何人士 and 操作 = 接受 and 价格 % 0.05 != 0 and 操作部分 = 兴趣表示 and 状态 = 不可展示\nthen 结果 = 失败\nrule 8\nif 约束 = 以全国最佳报价（NBBO）或买卖报价（PBBO）中点价格成交 and 操作 = 排名 and 价格 % 0.05 != 0 and 操作部分 = 订单\nthen 结果 = 成功\nrule 9\nif 约束 = 以全国最佳报价（NBBO）或买卖报价（PBBO）中点价格成交 and 操作 = 接受 and 价格 % 0.05 != 0 and 操作部分 = 订单\nthen 结果 = 成功\nrule 10\nif 约束 = 在交易所零售流动性计划中作为零售报价改善订单（根据规则107C定义）提交 and 操作 = 排名 and 价格 % 0.05 != 0 and 操作部分 = 订单\nthen 结果 = 成功\nrule 11\nif 约束 = 在交易所零售流动性计划中作为零售报价改善订单（根据规则107C定义）提交 and 操作 = 接受 and 价格 % 0.05 != 0 and 操作部分 = 订单\nthen 结果 = 成功",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(2) Absent any of the exceptions listed in (3) below, no member organization may execute orders in any Pilot Security in Test Group Three in price increments other than $0.05. The $0.05 trading increment will apply to all trades, including Brokered Cross Trades.",
+        "rule_cn": "（2）除非下列（3）项中列出的例外情况适用，任何会员机构不得以除0.05美元以外的价位增量在第三测试组试点证券中执行交易。0.05美元的交易价位增量适用于所有交易，包括经纪对冲交易。",
+        "testable": true,
+        "trl": "rule 1\nif Actor = 会员机构 and TradingInstrument = 第三测试组试点证券 and Action = 执行交易 and not Constraint = 下列（3）项中列出的例外情况适用 and Price % 0.05 != 0\nthen Result = 失败\nrule 2\nif TradingMethod = 经纪对冲交易 and Price % 0.05 == 0\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作主体 = 会员机构 and 交易品种 = 第三测试组试点证券 and 约束 != 下列（3）项中列出的例外情况适用 and 操作 = 执行交易 and 价格 % 0.05 != 0\nthen 结果 = 失败\nrule 2\nif 交易方式 = 经纪对冲交易 and 价格 % 0.05 == 0\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "第三测试组试点证券"
+            },
+            {
+                "交易品种": "第三测试组试点证券"
+            },
+            {}
+        ]
+    },
+    {
+        "rule": "(3) Pilot Securities in Test Group Three may trade in increments less than $0.05 under the following circumstances: (A) Trading may occur at the midpoint between the NBBO or PBBO; (B) Retail Investor Orders may be provided with price improvement that is at least $0.005 better than the Best Protected Bid or the Best Protected Offer; (C) Negotiated Trades may trade in increments less than $0.05; and (D) Execution of a customer order to comply with Rule 5320 following the execution of a proprietary trade by the member organization at an increment other than $0.05, where such proprietary trade was permissible pursuant to an exception under the Plan.",
+        "rule_cn": "（3）第三组测试证券的交易可以以少于0.05美元的价位进行，具体情形如下：  \n（A）交易可在NBBO或PBBO的中间价位进行；  \n（B）零售投资者订单可以以至少比最佳保护买价或最佳保护卖价好0.005美元的价格进行交易；  \n（C）协商交易可以以少于0.05美元的价位进行；  \n（D）在会员组织以非0.05美元的价位执行自营交易后，为遵守规则5320执行客户订单时，若该自营交易符合计划中的例外情况，也可以少于0.05美元的价位进行交易。",
+        "testable": true,
+        "trl": "rule 1\nif TradingInstrument = 第三组测试证券 and Price < 0.05美元 and Constraint = 交易可在NBBO或PBBO的中间价位进行\nthen Result = 成功\n\nrule 2\nif TradingInstrument = 第三组测试证券 and Actor = 零售投资者 and OperationPart = 订单 and Price < 0.05美元 and Constraint = 至少比最佳保护买价或最佳保护卖价好0.005美元的价格进行交易\nthen Result = 成功\n\nrule 3\nif TradingInstrument = 第三组测试证券 and TradingMethod = 协商交易 and Price < 0.05美元\nthen Result = 成功\n\nrule 4\nif TradingInstrument = 第三组测试证券 and Actor = 会员组织 and Action = 执行 and OperationPart = 自营交易 and Price != 0.05美元 and Event = 执行自营交易后 and Action = 执行 and OperationPart = 客户订单 and Constraint = 遵守规则5320 and Constraint = 该自营交易符合计划中的例外情况 and Price < 0.05美元\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 交易品种 = 第三组测试证券 and 约束 = 交易可在NBBO或PBBO的中间价位进行 and 价格 < 0.05美元\nthen 结果 = 成功\nrule 2\nif 操作主体 = 零售投资者 and 交易品种 = 第三组测试证券 and 约束 = 至少比最佳保护买价或最佳保护卖价好0.005美元的价格进行交易 and 价格 < 0.05美元 and 操作部分 = 订单\nthen 结果 = 成功\nrule 3\nif 交易品种 = 第三组测试证券 and 交易方式 = 协商交易 and 价格 < 0.05美元\nthen 结果 = 成功\nrule 4\nif 操作主体 = 会员组织 and 交易品种 = 第三组测试证券 and 约束 = 遵守规则5320 and 约束 = 该自营交易符合计划中的例外情况 and 事件 = 执行自营交易后 and 操作 = 执行 and 操作 = 执行 and 价格 != 0.05美元 and 价格 < 0.05美元 and 操作部分 = 自营交易 and 操作部分 = 客户订单\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "第三组测试证券"
+            },
+            {
+                "交易品种": "第三组测试证券"
+            },
+            {
+                "交易品种": "第三组测试证券"
+            },
+            {
+                "交易品种": "第三组测试证券"
+            },
+            {
+                "交易品种": "第三组测试证券"
+            },
+            {
+                "交易品种": "第三组测试证券"
+            },
+            {
+                "交易品种": "第三组测试证券"
+            }
+        ]
+    },
+    {
+        "rule": "(4) Pilot Securities in Test Group Three will be subject to the following Trade-at Prohibition:",
+        "rule_cn": "(4) 第三组测试中的试点证券将受到以下交易禁止规定：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) “Trade-at Prohibition” means the prohibition against executions by a Trading Center of a sell order for a Pilot Security at the price of a Protected Bid or the execution of a buy order for a Pilot Security at the price of a Protected Offer during regular trading hours.",
+        "rule_cn": "（A）“交易禁止”是指在正常交易时间内，交易场所不得按保护性报价价格执行卖出指令，或按保护性要价价格执行买入指令。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(B) Absent any of the exceptions listed in (C) below, no member organization may execute a sell order for a Pilot Security in Test Group Three at the price of a Protected Bid or execute a buy order for a Pilot Security in Test Group Three at the price of a Protected Offer.",
+        "rule_cn": "（B）除非下列（C）项中列明的例外情况适用，任何会员机构均不得以受保护报价价格执行第三测试组试点证券的卖出指令，也不得以受保护要价价格执行第三测试组试点证券的买入指令。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(C) Member organizations may execute a sell order for a Pilot Security in Test Group Three at the price of a Protected Bid or execute a buy order for a Pilot Security in Test Group Three at the price of a Protected Offer if any of the following circumstances exist:",
+        "rule_cn": "（C）如果出现以下任何一种情况，会员机构可以以受保护的投标价格卖出或以受保护的报价价格买入第三组试点证券：",
+        "testable": true,
+        "trl": "rule 1\nif Event = 出现以下任何一种情况 and Actor = 会员机构 and TradingInstrument = 第三组试点证券 and ( (TradingDirection = 卖出 and Price = 受保护的投标价格) or (TradingDirection = 买入 and Price = 受保护的报价价格) )\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作主体 = 会员机构 and 交易品种 = 第三组试点证券 and 事件 = 出现以下任何一种情况 and 交易方向 = 卖出 and 价格 = 受保护的投标价格\nthen 结果 = 成功\nrule 2\nif 操作主体 = 会员机构 and 交易品种 = 第三组试点证券 and 事件 = 出现以下任何一种情况 and 交易方向 = 买入 and 价格 = 受保护的报价价格\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "第三组试点证券"
+            },
+            {
+                "交易品种": "第三组试点证券"
+            }
+        ]
+    },
+    {
+        "rule": "(i) The order is executed as agent or riskless principal by an independent trading unit, as defined under Rule 200(f) of Regulation SHO, of a Trading Center within a member organization that has a displayed quotation as agent or riskless principal, via either a processor or an SRO Quotation Feed, at a price equal to the traded-at Protected Quotation, that was displayed before the order was received, but only up to the full displayed size of that independent trading unit’s previously displayed quote; (ii) The order is executed by an independent trading unit, as defined under Rule 200(f) of Regulation SHO, of a Trading Center within a member organization that has a displayed quotation for the account of that Trading Center on a principal (excluding riskless principal) basis, via either a processor or an SRO Quotation Feed, at a price equal to the traded-at Protected Quotation, that was displayed before the order was received, but only up to the full displayed size of that independent trading unit’s previously displayed quote; (iii) The order is of Block Size at the time of origin and may not be:",
+        "rule_cn": "(i) 该订单由会员组织内一家交易中心的独立交易单位以做市商或无风险做市商身份执行，该交易单位根据《SHO规则》第200(f)条定义，通过处理器或证券交易所报价系统（SRO Quotation Feed）以等于交易时显示的保护报价的价格执行该订单，该报价在订单接收前已显示，但仅限于该独立交易单位此前显示报价的全部显示数量；\n\n(ii) 该订单由会员组织内一家交易中心的独立交易单位以做市商（不包括无风险做市商）身份执行，该交易单位根据《SHO规则》第200(f)条定义，通过处理器或证券交易所报价系统（SRO Quotation Feed）以等于交易时显示的保护报价的价格执行该订单，该报价在订单接收前已显示，但仅限于该独立交易单位此前显示报价的全部显示数量；\n\n(iii) 该订单在发起时为大宗交易规模，不得：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) an aggregation of non-block orders; or (B) broken into orders smaller than Block Size prior to submitting the order to a Trading Center for execution.",
+        "rule_cn": "（A）非整块订单的集合；或（B）在将订单提交至交易中心执行前，将其拆分为小于整块规模的订单。",
+        "testable": true,
+        "trl": "rule 1\nif Constraint = 非整块订单的集合\nthen Result = 成功\n\nrule 2\nif Action = 提交订单 and OperationPart = 交易中心 and Action = 执行 and Action = 拆分 and Quantity < 整块规模\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 约束 = 非整块订单的集合\nthen 结果 = 成功\nrule 2\nif 操作 = 提交订单 and 操作 = 执行 and 操作 = 拆分 and 数量 < 整块规模 and 操作部分 = 交易中心\nthen 结果 = 成功",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(iv) The order is a Retail Investor Order executed with at least $0.005 price improvement;",
+        "rule_cn": "(iv) 该订单为零售投资者订单，并且以至少 0.005 美元的价格优势执行；",
+        "testable": true,
+        "trl": "rule 1\nif Actor = 零售投资者 and OperationPart = 订单 and Action = 执行 and Price >= 0.005 and Constraint = 美元的价格优势\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作主体 = 零售投资者 and 约束 = 美元的价格优势 and 操作 = 执行 and 价格 >= 0.005 and 操作部分 = 订单\nthen 结果 = 成功",
+        "testcase": [
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(v) The order is executed when the Trading Center displaying the Protected Quotation that was traded at was experiencing a failure, material delay, or malfunction of its systems or equipment; (vi) The order is executed as part of a transaction that was not a \"regular way\" contract; (vii) The order is executed as part of a single-priced opening, reopening, or closing transaction on the Exchange; (viii) The order is executed when a Protected Bid was priced higher than a Protected Offer in the Pilot Security; (ix) The order is identified as a Trade-at Intermarket Sweep Order;",
+        "rule_cn": "(v) 当交易中心显示的受保护报价在交易时其系统或设备出现故障、重大延迟或运行异常时，该订单将被执行；  \n(vi) 该订单作为一项非“常规方式”合约的交易的一部分被执行；  \n(vii) 该订单作为交易所单价格开盘、重新开盘或收盘交易的一部分被执行；  \n(viii) 当试点证券中的受保护报价高于受保护卖价时，该订单将被执行；  \n(ix) 该订单被识别为跨市场扫盘交易订单。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(x) The order is executed by a Trading Center that simultaneously routed Trade-at Intermarket Sweep Orders or Intermarket Sweep Orders to execute against the full displayed size of the Protected Quotation that was traded at; (xi) The order is executed as part of a Negotiated Trade; (xii) The order is executed when the Trading Center displaying the Protected Quotation that was traded at had displayed, within one second prior to execution of the transaction that constituted the Trade-at, a Best Protected Bid or Best Protected Offer, as applicable, for the Pilot Security with a price that was inferior to the price of the Trade-at transaction; (xiii) The order is executed by a Trading Center which, at the time of order receipt, the Trading Center had guaranteed an execution at no worse than a specified price (a \"stopped order\"), where:",
+        "rule_cn": "（x）该订单由交易中心执行，该交易中心同时将交易指令（Trade-at）市场扫单指令或市场扫单指令路由至交易对手，以执行该交易指令所涉及的受保护报价的全部显示数量；  \n（xi）该订单作为协商交易的一部分被执行；  \n（xii）当交易中心在交易构成交易指令的交易执行前的一秒钟内，已显示针对试点证券的最优受保护买价或最优受保护卖价（视情况而定），且该价格劣于交易指令交易的价格时，该订单被执行；  \n（xiii）该订单由交易中心执行，该交易中心在接收订单时已承诺以不劣于指定价格的价格执行（“停止订单”），其中：",
+        "testable": true,
+        "trl": "rule 1\nif Actor = 交易中心 and Action = 执行 and OperationPart = 该订单 and Actor = 交易中心 and Action = 将 and TradingInstruction = 交易指令（Trade-at）市场扫单指令 or 市场扫单指令 and Action = 路由 and OperationPart = 至交易对手 and ToExecute = 以执行该交易指令所涉及的受保护报价的全部显示数量\nthen ResultStatus = 执行\n\nrule 2\nif OperationPart = 该订单 and Action = 被执行 and Constraint = 作为协商交易的一部分\nthen ResultStatus = 执行\n\nrule 3\nif Actor = 交易中心 and Time = 交易构成交易指令的交易执行前的一秒钟内 and Action = 已显示 and TradingInstrument = 针对试点证券 and Constraint = 最优受保护买价 or 最优受保护卖价 and Constraint = 视情况而定 and Price = 该价格劣于交易指令交易的价格 and OperationPart = 该订单\nthen ResultStatus = 被执行\n\nrule 4\nif Actor = 交易中心 and Action = 执行 and OperationPart = 该订单 and Actor = 交易中心 and Time = 在接收订单时 and Constraint = 已承诺以不劣于指定价格的价格执行 and Constraint = “停止订单”\nthen ResultStatus = 执行",
+        "trl_postprocess": "rule 1\nif 操作主体 = 交易中心 and 操作主体 = 交易中心 and 操作 = 执行 and 操作 = 将 and 操作 = 路由 and 操作部分 = 该订单 and 操作部分 = 至交易对手 and TradingInstruction = 交易指令（Trade-at）市场扫单指令 and ToExecute = 以执行该交易指令所涉及的受保护报价的全部显示数量\nthen 结果状态 = 执行\nrule 2\nif 操作主体 = 交易中心 and 操作主体 = 交易中心 and 操作 = 执行 and 操作 = 将 and 操作 = 路由 and 操作部分 = 该订单 and 操作部分 = 至交易对手 and ToExecute = 以执行该交易指令所涉及的受保护报价的全部显示数量 and 市场扫单指令\nthen 结果状态 = 执行\nrule 3\nif 约束 = 作为协商交易的一部分 and 操作 = 被执行 and 操作部分 = 该订单\nthen 结果状态 = 执行\nrule 4\nif 操作主体 = 交易中心 and 交易品种 = 针对试点证券 and 时间 = 交易构成交易指令的交易执行前的一秒钟内 and 约束 = 最优受保护买价 and 约束 = 视情况而定 and 操作 = 已显示 and 价格 = 该价格劣于交易指令交易的价格 and 操作部分 = 该订单\nthen 结果状态 = 被执行\nrule 5\nif 操作主体 = 交易中心 and 交易品种 = 针对试点证券 and 时间 = 交易构成交易指令的交易执行前的一秒钟内 and 约束 = 视情况而定 and 操作 = 已显示 and 价格 = 该价格劣于交易指令交易的价格 and 操作部分 = 该订单 and 最优受保护卖价\nthen 结果状态 = 被执行\nrule 6\nif 操作主体 = 交易中心 and 操作主体 = 交易中心 and 时间 = 在接收订单时 and 约束 = 已承诺以不劣于指定价格的价格执行 and 约束 = “停止订单” and 操作 = 执行 and 操作部分 = 该订单\nthen 结果状态 = 执行",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {
+                "交易品种": "针对试点证券"
+            },
+            {
+                "交易品种": "针对试点证券"
+            },
+            {
+                "交易品种": "针对试点证券"
+            },
+            {
+                "交易品种": "针对试点证券"
+            },
+            {
+                "交易品种": "针对试点证券"
+            },
+            {
+                "交易品种": "针对试点证券"
+            },
+            {
+                "交易品种": "针对试点证券"
+            },
+            {
+                "交易品种": "针对试点证券"
+            },
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(A) The order is executed by a Trading Center which, at the time of order receipt, the Trading Center had guaranteed an execution at no worse than a specified price (a \"stopped order\"), where:",
+        "rule_cn": "(A) 该订单由交易中心执行，该交易中心在接收订单时已保证以不低于指定价格的价格进行成交（以下简称“止损订单”），其中：",
+        "testable": true,
+        "trl": "rule 1\nif Actor = 交易中心 and Action = 执行订单 and Constraint = 该订单 and TradingMethod = 止损订单 and Actor = 交易中心 and Action = 接收订单 and Constraint = 已保证 and Price >= 指定价格 and Action = 进行成交\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作主体 = 交易中心 and 操作主体 = 交易中心 and 约束 = 该订单 and 约束 = 已保证 and 操作 = 执行订单 and 操作 = 接收订单 and 操作 = 进行成交 and 交易方式 = 止损订单 and 价格 >= 指定价格\nthen 结果 = 成功",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(B) The customer agreed to the specified price on an order-by-order basis; and",
+        "rule_cn": "(B) 客户同意按订单逐一确定指定价格；",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(C) The price of the Trade-at transaction was, for a stopped buy order, equal to or less than the National Best Bid in the Pilot Security at the time of execution or, for a stopped sell order, equal to or greater than the National Best Offer in the Pilot Security at the time of execution, as long as such order is priced at an acceptable increment; (xiv) The order is for a fractional share of a Pilot Security, provided that such fractional share order was not the result of breaking an order for one or more whole shares of a Pilot Security into orders for fractional shares or was not otherwise effected to evade the requirements of the Trade-at Prohibition or any other provisions of the Plan; or (xv) The order is to correct a bona fide error, which is recorded by the Trading Center in its error account. A bona fide error is defined as:",
+        "rule_cn": "（C）在成交时，对于止买委托，成交价格等于或低于试点证券当时的全国最佳买价；对于止卖委托，成交价格等于或高于试点证券当时的全国最佳卖价，但前提是该委托价格符合可接受的报价单位；（xiv）该委托为试点证券的零股交易，但该零股交易并非因将一个或多个整股委托拆分为零股委托，或未以规避交易成交禁令或其他计划条款的方式进行；或（xv）该委托是为了纠正一个真实无过失的错误，且该错误由交易中心记录在其错误账户中。所谓真实无过失的错误，是指：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) The inaccurate conveyance or execution of any term of an order including, but not limited to, price, number of shares or other unit of trading; identification of the security; identification of the account for which securities are purchased or sold; lost or otherwise misplaced order tickets; short sales that were instead sold long or vice versa; or the execution of an order on the wrong side of a market;",
+        "rule_cn": "（A）任何订单条款的不准确传达或执行，包括但不限于价格、股数或其他交易单位；证券的识别；买入或卖出证券所涉及账户的识别；遗失或错放的订单票据；卖空交易被错误地作为多头交易执行，或反之；或在市场错误一侧执行订单；",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(B) The unauthorized or unintended purchase, sale, or allocation of securities, or the failure to follow specific client instructions;",
+        "rule_cn": "（B）未经授权或非故意的证券购买、出售或分配，或未遵循特定客户指令；",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(C) The incorrect entry of data into relevant systems, including reliance on incorrect cash positions, withdrawals, or securities positions reflected in an account; or",
+        "rule_cn": "（C）向相关系统输入错误数据，包括依赖账户中反映的错误现金头寸、提款或证券头寸；或",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(D) A delay, outage, or failure of a communication system used to transmit market data prices or to facilitate the delivery or execution of an order.",
+        "rule_cn": "（D）用于传输市场数据价格、或用于订单交付或执行的通信系统出现延迟、中断或故障。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(D) No member organization shall break an order into smaller orders or otherwise effect or execute an order to evade the requirements of the Trade-at Prohibition of this Rule or any other provisions of the Plan.",
+        "rule_cn": "(D) 任何会员机构不得将订单拆分为更小的订单，或以其他方式下达或执行订单，以规避本规则中禁止交易的规定或其他计划条款的要求。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(f) Exchange handling of orders during the pilot period for the Plan.",
+        "rule_cn": "(f) 试点期间计划订单的处理方式。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(1) Trade-at Intermarket Sweep Orders (“TA ISO”)",
+        "rule_cn": "（1）跨市场交易扫盘订单（“TA ISO”）",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) The Exchange will accept TA ISOs in all securities. TA ISOs must be designated as IOC, may include a minimum trade size, and do not route.",
+        "rule_cn": "（A）交易所将接受所有证券的TA ISO订单。TA ISO订单必须指定为IOC（立即成交剩余取消），可以包含最小交易规模，并且不进行路由。",
+        "testable": true,
+        "trl": "rule 1\nif Actor = 交易所 and Action = 接受 and TradingInstrument = 所有证券 and TradingMethod = TA ISO订单 and Status = IOC（立即成交剩余取消） and Constraint = 不进行路由\nthen Result = 成功\n\nrule 2\nif TradingMethod = TA ISO订单 and Constraint = 包含最小交易规模\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作主体 = 交易所 and 交易品种 = 所有证券 and 约束 = 不进行路由 and 操作 = 接受 and 交易方式 = TA ISO订单 and 状态 = IOC（立即成交剩余取消）\nthen 结果 = 成功\nrule 2\nif 约束 = 包含最小交易规模 and 交易方式 = TA ISO订单\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "所有证券"
+            },
+            {
+                "交易品种": "所有证券"
+            },
+            {}
+        ]
+    },
+    {
+        "rule": "(B) A TA ISO will be immediately and automatically executed against the displayed and non-displayed bid (offer) up to its full size in accordance with and to the extent provided by Exchange Rules 1000 – 1004 and will then sweep the Exchange’s book as provided in Rule 1000(e)(iii), and the portion not so executed will be immediately and automatically cancelled.",
+        "rule_cn": "(B) 限价指令（TA ISO）将立即自动地以显示和未显示的买盘（卖盘）进行全部或部分成交，成交数量以交易所规则第1000至1004条的规定为准，然后根据规则第1000(e)(iii)条的规定扫盘交易所的订单簿，未成交部分将立即自动取消。",
+        "testable": true,
+        "trl": "rule 1\nif TradingMethod = 限价指令（TA ISO） and Action = 立即自动 and OperationPart = 显示和未显示的买盘（卖盘） and Action = 成交 and Quantity = 全部或部分 and Constraint = 成交数量以交易所规则第1000至1004条的规定为准 and Action = 扫盘 and OperationPart = 交易所的订单簿 and Constraint = 根据规则第1000(e)(iii)条的规定 and OperationPart = 未成交部分 and Action = 立即自动取消\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 约束 = 成交数量以交易所规则第1000至1004条的规定为准 and 约束 = 根据规则第1000eiii条的规定 and 操作 = 立即自动 and 操作 = 成交 and 操作 = 扫盘 and 操作 = 立即自动取消 and 交易方式 = 限价指令（TA ISO） and 数量 = 全部或部分 and 操作部分 = 显示和未显示的买盘（卖盘） and 操作部分 = 交易所的订单簿 and 操作部分 = 未成交部分\nthen 结果 = 成功",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(C) TA ISOs will be accepted before the Exchange opens and will be eligible to participate in the opening transaction at its limit price, but will not be accepted during a trading halt or pause for participation in a reopening transaction.",
+        "rule_cn": "（C）在交易所开市前提交的TA ISOs将有资格以限价参与开市交易，但在交易暂停期间提交的TA ISOs将不被接受，除非是为了参与重新开市交易。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(D) TA ISOs may not be entered as e-Quotes, d-Quotes, or g-Quotes.",
+        "rule_cn": "(D) TA ISOs 不能以电子报价（e-Quotes）、对话报价（d-Quotes）或公开报价（g-Quotes）的形式输入。",
+        "testable": true,
+        "trl": "rule 1\nif TradingInstrument = TA ISOs and Action = 输入 and (TradingMethod = 电子报价（e-Quotes） or TradingMethod = 对话报价（d-Quotes） or TradingMethod = 公开报价（g-Quotes）)\nthen Result = 失败",
+        "trl_postprocess": "rule 1\nif 交易品种 = TA ISOs and 操作 = 输入 and 交易方式 = 电子报价（e-Quotes）\nthen 结果 = 失败\nrule 2\nif 交易品种 = TA ISOs and 操作 = 输入 and 交易方式 = 对话报价（d-Quotes）\nthen 结果 = 失败\nrule 3\nif 交易品种 = TA ISOs and 操作 = 输入 and 交易方式 = 公开报价（g-Quotes）\nthen 结果 = 失败",
+        "testcase": [
+            {
+                "交易品种": "TA"
+            },
+            {
+                "交易品种": "TA"
+            },
+            {
+                "交易品种": "TA"
+            },
+            {
+                "交易品种": "TA"
+            },
+            {
+                "交易品种": "TA"
+            },
+            {
+                "交易品种": "TA"
+            }
+        ]
+    },
+    {
+        "rule": "(2) For Pilot Securities in Test Groups One, Two, and Three:",
+        "rule_cn": "（2）针对第一、第二和第三测试组的试点证券：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) References in Exchange rules to the minimum price variation, as defined in Supplementary Material .10 to Rule 62, instead mean the quoting minimum price variation specified in paragraphs (c), (d), and (e) of this Rule.",
+        "rule_cn": "（A）在交易规则中提及的最小价格变动，如根据第62条补充材料第10部分所定义的，应理解为本规则第（c）、（d）和（e）款中规定的报价最小价格变动。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(B) Pre-opening indications, as defined in Rule 15(a), must be published in $0.05 pricing increments.",
+        "rule_cn": "(B) 根据第15(a)条定义的开市前报价，必须以0.05美元的价位进行公布。",
+        "testable": true,
+        "trl": "rule 1\nif Constraint = 根据第15(a)条定义的 and Time = 开市前 and Action = 报价 and Action = 公布 and Price % 0.05 == 0\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 时间 = 开市前 and 约束 = 根据第15a条定义的 and 操作 = 报价 and 操作 = 公布 and 价格 % 0.05 == 0\nthen 结果 = 成功",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(C) MPL Orders must be entered with a limit price in a $0.05 pricing increment.",
+        "rule_cn": "(C) MPL订单必须以0.05美元的价位递增方式输入限价。",
+        "testable": true,
+        "trl": "rule 1\nif TradingMethod = MPL订单 and Action = 输入限价 and Price % 0.05 = 0\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作 = 输入限价 and 交易方式 = MPL订单 and 价格 % 0.05 = 0\nthen 结果 = 成功",
+        "testcase": [
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(D) Trading Collars that are not in the trading MPV for the security will be moved to the nearest price in the trading MPV for that security.",
+        "rule_cn": "(D) 未在该证券交易MPV中的交易对冲合约将被移动到该证券交易MPV中最接近的价格。",
+        "testable": true,
+        "trl": "rule 1\nif TradingInstrument = 交易对冲合约 and Constraint = 未在该证券交易MPV中 and Action = 移动 and OperationPart = 该证券交易MPV中最接近的价格\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 交易品种 = 交易对冲合约 and 约束 = 未在该证券交易MPV中 and 操作 = 移动 and 操作部分 = 该证券交易MPV中最接近的价格\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "交易对冲合约"
+            },
+            {
+                "交易品种": "交易对冲合约"
+            }
+        ]
+    },
+    {
+        "rule": "(3) For Pilot Securities in Test Groups Two and Three, Retail Price Improvement Orders must be entered with a limit price and an offset in a $0.005 pricing increment.",
+        "rule_cn": "（3）对于第二和第三测试组的试点证券，零售价改善订单必须以0.005美元的价位递增幅度输入限价和对冲价格。",
+        "testable": true,
+        "trl": "rule 1\nif Constraint = 第二测试组 or Constraint = 第三测试组 and TradingInstrument = 试点证券 and TradingMethod = 零售价改善订单 and Action = 输入 and OperationPart = 限价 and Price % 0.005 == 0 and OperationPart = 对冲价格 and Price % 0.005 == 0\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 交易品种 = 试点证券 and 约束 = 第二测试组 and 操作 = 输入 and 交易方式 = 零售价改善订单 and 价格 % 0.005 == 0 and 价格 % 0.005 == 0 and 操作部分 = 限价 and 操作部分 = 对冲价格\nthen 结果 = 成功\nrule 2\nif 交易品种 = 试点证券 and 约束 = 第三测试组 and 操作 = 输入 and 交易方式 = 零售价改善订单 and 价格 % 0.005 == 0 and 价格 % 0.005 == 0 and 操作部分 = 限价 and 操作部分 = 对冲价格\nthen 结果 = 成功",
+        "testcase": [
+            {
+                "交易品种": "试点证券"
+            },
+            {
+                "交易品种": "试点证券"
+            },
+            {
+                "交易品种": "试点证券"
+            },
+            {
+                "交易品种": "试点证券"
+            }
+        ]
+    },
+    {
+        "rule": "(4) For Pilot Securities in Test Group Three:",
+        "rule_cn": "（4）针对第三组试点证券：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(A) An incoming automatically executing order to sell (buy) will trade with displayable bids (offers) and route to protected bids (offers) before trading with an unexecuted Market Order held undisplayed at the same price. After trading or routing, or both, any remaining balance of an incoming order will satisfy any unexecuted Market Orders in time priority before trading with non-displayable interest on parity.",
+        "rule_cn": "（A）一项自动执行的买入（或卖出）订单在成交时，将先与可显示的买盘（或卖盘）成交，并路由至受保护的买盘（或卖盘），然后再与同一价格下未成交且未显示的市价订单成交。在成交或路由之后，或两者同时进行，任何剩余的买入订单将按照时间优先顺序，先满足未成交的市价订单，然后再与不可显示的交易兴趣按同等条件成交。",
+        "testable": true,
+        "trl": "rule 1\nif Action = 自动执行 and TradingDirection = 买入 or TradingDirection = 卖出 and Status = 成交时 and Action = 成交 and OperationPart = 可显示的买盘 or OperationPart = 可显示的卖盘\nthen Result = 成功\n\nrule 2\nif Action = 自动执行 and TradingDirection = 买入 or TradingDirection = 卖出 and Status = 成交时 and Action = 路由 and OperationPart = 受保护的买盘 or OperationPart = 受保护的卖盘\nthen Result = 成功\n\nrule 3\nif Action = 自动执行 and TradingDirection = 买入 or TradingDirection = 卖出 and Status = 成交时 and Price = 同一价格下 and Status = 未成交 and Status = 未显示 and TradingMethod = 市价订单 and Action = 成交\nthen Result = 成功\n\nrule 4\nif Status = 成交 or Status = 路由 or (Status = 成交 and Status = 路由) and TradingDirection = 买入 and Status = 剩余 and Constraint = 时间优先顺序 and Action = 满足 and Status = 未成交 and TradingMethod = 市价订单\nthen Result = 成功\n\nrule 5\nif Status = 成交 or Status = 路由 or (Status = 成交 and Status = 路由) and TradingDirection = 买入 and Status = 剩余 and Constraint = 时间优先顺序 and Action = 成交 and OperationPart = 不可显示的交易兴趣 and Constraint = 同等条件\nthen Result = 成功",
+        "trl_postprocess": "rule 1\nif 操作 = 自动执行 and 操作 = 成交 and 交易方向 = 买入 and 操作部分 = 可显示的买盘 and 状态 = 成交时\nthen 结果 = 成功\nrule 2\nif 操作 = 自动执行 and 操作 = 成交 and 交易方向 = 卖出 and 操作部分 = 可显示的买盘 and 状态 = 成交时\nthen 结果 = 成功\nrule 3\nif 操作 = 自动执行 and 操作 = 成交 and 交易方向 = 卖出 and 操作部分 = 可显示的卖盘 and 状态 = 成交时\nthen 结果 = 成功\nrule 4\nif 操作 = 自动执行 and 操作 = 路由 and 交易方向 = 买入 and 操作部分 = 受保护的买盘 and 状态 = 成交时\nthen 结果 = 成功\nrule 5\nif 操作 = 自动执行 and 操作 = 路由 and 交易方向 = 卖出 and 操作部分 = 受保护的买盘 and 状态 = 成交时\nthen 结果 = 成功\nrule 6\nif 操作 = 自动执行 and 操作 = 路由 and 交易方向 = 卖出 and 操作部分 = 受保护的卖盘 and 状态 = 成交时\nthen 结果 = 成功\nrule 7\nif 操作 = 自动执行 and 操作 = 成交 and 交易方向 = 买入 and 交易方式 = 市价订单 and 价格 = 同一价格下 and 状态 = 成交时 and 状态 = 未成交 and 状态 = 未显示\nthen 结果 = 成功\nrule 8\nif 操作 = 自动执行 and 操作 = 成交 and 交易方向 = 卖出 and 交易方式 = 市价订单 and 价格 = 同一价格下 and 状态 = 成交时 and 状态 = 未成交 and 状态 = 未显示\nthen 结果 = 成功\nrule 9\nif 约束 = 时间优先顺序 and 操作 = 满足 and 交易方向 = 买入 and 交易方式 = 市价订单 and 状态 = 成交 and 状态 = 路由 and 状态 = 剩余 and 状态 = 未成交\nthen 结果 = 成功\nrule 10\nif 约束 = 时间优先顺序 and 操作 = 满足 and 交易方向 = 买入 and 交易方式 = 市价订单 and 状态 = 路由 and 状态 = 路由 and 状态 = 剩余 and 状态 = 未成交\nthen 结果 = 成功\nrule 11\nif 约束 = 时间优先顺序 and 操作 = 满足 and 交易方向 = 买入 and 交易方式 = 市价订单 and 状态 = 成交 and 状态 = 路由 and 状态 = 剩余 and 状态 = 未成交\nthen 结果 = 成功\nrule 12\nif 约束 = 时间优先顺序 and 约束 = 同等条件 and 操作 = 成交 and 交易方向 = 买入 and 操作部分 = 不可显示的交易兴趣 and 状态 = 成交 and 状态 = 路由 and 状态 = 剩余\nthen 结果 = 成功\nrule 13\nif 约束 = 时间优先顺序 and 约束 = 同等条件 and 操作 = 成交 and 交易方向 = 买入 and 操作部分 = 不可显示的交易兴趣 and 状态 = 路由 and 状态 = 路由 and 状态 = 剩余\nthen 结果 = 成功\nrule 14\nif 约束 = 时间优先顺序 and 约束 = 同等条件 and 操作 = 成交 and 交易方向 = 买入 and 操作部分 = 不可显示的交易兴趣 and 状态 = 成交 and 状态 = 路由 and 状态 = 剩余\nthen 结果 = 成功",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(B) Intermarket Sweep Orders: (i) On entry, Day ISOs will be eligible for the exception set forth in paragraph (e)(4)(C) (ix) of this Rule. (ii) An IOC ISO to buy (sell) will not trade with non-displayed interest to sell (buy) that is the same price as a protected offer (bid) unless the limit price such IOC ISO is higher (lower) than the price of the protected offer (bid).",
+        "rule_cn": "（B）跨市场扫货订单：（i）在入场时，日间扫货订单将符合本规则第（e）（4）（C）（ix）项中规定的例外情况。（ii）买入（卖出）的即时成交剩余撤销订单（IOC ISO）不会与价格相同且为受保护报价（报价）的非显示买卖兴趣进行交易，除非该IOC ISO的限价高于（低于）受保护报价（报价）的价格。",
+        "testable": true,
+        "trl": "rule 1\nif TradingInstrument = 跨市场扫货订单 and Time = 入场时 and OperationPart = 日间扫货订单\nthen Constraint = 符合本规则第（e）（4）（C）（ix）项中规定的例外情况\nrule 2\nif TradingInstrument = 跨市场扫货订单 and TradingDirection = 买入 and TradingMethod = 即时成交剩余撤销订单（IOC ISO） and Price = 相同 and Status = 受保护报价 and OperationPart = 非显示买卖兴趣 and Action = 进行交易 and Price <= 受保护报价的价格\nthen Result = 失败\nrule 3\nif TradingInstrument = 跨市场扫货订单 and TradingDirection = 卖出 and TradingMethod = 即时成交剩余撤销订单（IOC ISO） and Price = 相同 and Status = 受保护报价 and OperationPart = 非显示买卖兴趣 and Action = 进行交易 and Price >= 受保护报价的价格\nthen Result = 失败",
+        "trl_postprocess": "rule 1\nif 交易品种 = 跨市场扫货订单 and 时间 = 入场时 and 操作部分 = 日间扫货订单\nthen 约束 = 符合本规则第（e）（4）（C）（ix）项中规定的例外情况\nrule 2\nif 交易品种 = 跨市场扫货订单 and 操作 = 进行交易 and 交易方向 = 买入 and 交易方式 = 即时成交剩余撤销订单（IOC ISO） and 价格 = 相同 and 价格 <= 受保护报价的价格 and 操作部分 = 非显示买卖兴趣 and 状态 = 受保护报价\nthen 结果 = 失败\nrule 3\nif 交易品种 = 跨市场扫货订单 and 操作 = 进行交易 and 交易方向 = 卖出 and 交易方式 = 即时成交剩余撤销订单（IOC ISO） and 价格 = 相同 and 价格 >= 受保护报价的价格 and 操作部分 = 非显示买卖兴趣 and 状态 = 受保护报价\nthen 结果 = 失败",
+        "testcase": [
+            {
+                "交易品种": "跨市场扫货订单"
+            },
+            {
+                "交易品种": "跨市场扫货订单"
+            },
+            {
+                "交易品种": "跨市场扫货订单"
+            },
+            {
+                "交易品种": "跨市场扫货订单"
+            },
+            {
+                "交易品种": "跨市场扫货订单"
+            },
+            {
+                "交易品种": "跨市场扫货订单"
+            }
+        ]
+    },
+    {
+        "rule": "(C) A resting order to buy (sell) that is not displayed at the price at which it is eligible to trade (“Non-displayed interest”): (i) Will not trade at the price of a protected offer (bid). (ii) Will not trade at the price of a protected bid (offer) unless the incoming order to sell (buy) is a TA ISO, Day ISO, or IOC ISO that has a limit price lower (higher) than the price of the non-displayed interest. (iii) Will be routed, cancelled, or re-priced, consistent with the terms of the order, to avoid trading with an arriving order at the price of a protected quotation.",
+        "rule_cn": "（C）未显示的买入（卖出）挂单（即未以可交易价格显示的订单，称为“非显示兴趣”）：  \n（i）不会以受保护的报价（买价）价格成交；  \n（ii）除非进来的卖出（买入）订单是TA ISO、Day ISO或IOC ISO订单，且其限价低于（高于）非显示兴趣的价格，否则不会以受保护的买价（卖价）成交；  \n（iii）将根据订单条款进行路由、取消或重新定价，以避免以受保护报价的价格与到达的订单成交。",
+        "testable": true,
+        "trl": "rule 1\nif OperationPart = 未显示的买入挂单 and OperationPart = 非显示兴趣 and Price = 受保护的报价买价\nthen Result = 不会成交\n\nrule 2\nif OperationPart = 未显示的卖出挂单 and OperationPart = 非显示兴趣 and Price = 受保护的报价卖价\nthen Result = 不会成交\n\nrule 3\nif OperationPart = 未显示的买入挂单 and OperationPart = 非显示兴趣 and TradingDirection = 进来的卖出订单 and TradingMethod = TA ISO or TradingMethod = Day ISO or TradingMethod = IOC ISO and Price = 限价 and Price < 非显示兴趣的价格 and Price = 受保护的买价\nthen Result = 成交\n\nrule 4\nif OperationPart = 未显示的买入挂单 and OperationPart = 非显示兴趣 and TradingDirection = 进来的卖出订单 and (TradingMethod != TA ISO and TradingMethod != Day ISO and TradingMethod != IOC ISO) or Price >= 非显示兴趣的价格 and Price = 受保护的买价\nthen Result = 不会成交\n\nrule 5\nif OperationPart = 未显示的卖出挂单 and OperationPart = 非显示兴趣 and TradingDirection = 进来的买入订单 and TradingMethod = TA ISO or TradingMethod = Day ISO or TradingMethod = IOC ISO and Price = 限价 and Price > 非显示兴趣的价格 and Price = 受保护的卖价\nthen Result = 成交\n\nrule 6\nif OperationPart = 未显示的卖出挂单 and OperationPart = 非显示兴趣 and TradingDirection = 进来的买入订单 and (TradingMethod != TA ISO and TradingMethod != Day ISO and TradingMethod != IOC ISO) or Price <= 非显示兴趣的价格 and Price = 受保护的卖价\nthen Result = 不会成交\n\nrule 7\nif OperationPart = 未显示的买入挂单 and OperationPart = 非显示兴趣 and Price = 受保护的报价价格 and TradingDirection = 到达的订单\nthen Action = 路由 or Action = 取消 or Action = 重新定价\n\nrule 8\nif OperationPart = 未显示的卖出挂单 and OperationPart = 非显示兴趣 and Price = 受保护的报价价格 and TradingDirection = 到达的订单\nthen Action = 路由 or Action = 取消 or Action = 重新定价",
+        "trl_postprocess": "rule 1\nif 价格 = 受保护的报价买价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 不会成交\nrule 2\nif 价格 = 受保护的报价卖价 and 操作部分 = 未显示的卖出挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 不会成交\nrule 3\nif 交易方向 = 进来的卖出订单 and 交易方式 = TA ISO and 价格 = 限价 and 价格 < 非显示兴趣的价格 and 价格 = 受保护的买价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 成交\nrule 4\nif 交易方向 = 进来的卖出订单 and 交易方式 = Day ISO and 价格 = 限价 and 价格 < 非显示兴趣的价格 and 价格 = 受保护的买价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 成交\nrule 5\nif 交易方向 = 进来的卖出订单 and 交易方式 = IOC ISO and 价格 = 限价 and 价格 < 非显示兴趣的价格 and 价格 = 受保护的买价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 成交\nrule 6\nif 交易方向 = 进来的卖出订单 and 交易方式 != TA ISO and 交易方式 != Day ISO and 交易方式 != IOC ISO and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nrule 7\nif 交易方向 = 进来的卖出订单 and 价格 >= 非显示兴趣的价格 and 价格 = 受保护的买价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 不会成交\nrule 8\nif 交易方向 = 进来的买入订单 and 交易方式 = TA ISO and 操作部分 = 未显示的卖出挂单 and 操作部分 = 非显示兴趣\nrule 9\nif 交易方向 = 进来的卖出订单 and 交易方式 = Day ISO and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nrule 10\nif 交易方向 = 进来的卖出订单 and 交易方式 = IOC ISO and 价格 = 限价 and 价格 > 非显示兴趣的价格 and 价格 = 受保护的卖价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 成交\nrule 11\nif 交易方向 = 进来的买入订单 and 交易方式 != TA ISO and 交易方式 != Day ISO and 交易方式 != IOC ISO and 操作部分 = 未显示的卖出挂单 and 操作部分 = 非显示兴趣\nrule 12\nif 交易方向 = 进来的卖出订单 and 交易方式 = IOC ISO and 价格 = 限价 and 价格 > 非显示兴趣的价格 and 价格 = 受保护的卖价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 成交\nrule 13\nif 交易方向 = 进来的买入订单 and 价格 <= 非显示兴趣的价格 and 价格 = 受保护的卖价 and 操作部分 = 未显示的卖出挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 不会成交\nrule 14\nif 交易方向 = 到达的订单 and 价格 = 受保护的报价价格 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 操作 = 路由\nrule 15\nif 交易方向 = 进来的卖出订单 and 交易方式 = IOC ISO and 价格 = 限价 and 价格 > 非显示兴趣的价格 and 价格 = 受保护的卖价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 成交\nrule 16\nif 操作 = 取消 and 交易方向 = 进来的买入订单 and 操作部分 = 未显示的卖出挂单 and 操作部分 = 非显示兴趣\nrule 17\nif 交易方向 = 进来的卖出订单 and 交易方式 = IOC ISO and 价格 = 限价 and 价格 > 非显示兴趣的价格 and 价格 = 受保护的卖价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 成交\nrule 18\nif 操作 = 重新定价 and 交易方向 = 进来的买入订单 and 操作部分 = 未显示的卖出挂单 and 操作部分 = 非显示兴趣\nrule 19\nif 交易方向 = 到达的订单 and 价格 = 受保护的报价价格 and 操作部分 = 未显示的卖出挂单 and 操作部分 = 非显示兴趣\nthen 操作 = 路由\nrule 20\nif 交易方向 = 进来的卖出订单 and 交易方式 = IOC ISO and 价格 = 限价 and 价格 > 非显示兴趣的价格 and 价格 = 受保护的卖价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 成交\nrule 21\nif 操作 = 取消 and 交易方向 = 进来的买入订单 and 操作部分 = 未显示的卖出挂单 and 操作部分 = 非显示兴趣\nrule 22\nif 交易方向 = 进来的卖出订单 and 交易方式 = IOC ISO and 价格 = 限价 and 价格 > 非显示兴趣的价格 and 价格 = 受保护的卖价 and 操作部分 = 未显示的买入挂单 and 操作部分 = 非显示兴趣\nthen 结果 = 成交\nrule 23\nif 操作 = 重新定价 and 交易方向 = 进来的买入订单 and 操作部分 = 未显示的卖出挂单 and 操作部分 = 非显示兴趣",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(D) Reserved",
+        "rule_cn": "（D）保留",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(E) The only orders eligible for the exception set forth in paragraph (e)(4)(C)(iii) of this Rule are buy and sell orders that are entered into the Cross Function pursuant to Supplementary Material .10 to Rule 76.",
+        "rule_cn": "（E）本规则第（e）（4）（C）（iii）款所述例外情况仅适用于根据第76条补充材料.10进入交叉交易功能的买入和卖出指令。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(F) Incoming orders designated with an STPN Modifier will cancel before routing or trading with non-displayed orders if the opposite-side resting interest marked with an STP modifier with the same MPID is a displayed order.",
+        "rule_cn": "(F) 指定带有STPN修饰符的入场订单，在路由或交易前会取消，如果相反侧挂单中带有相同MPID的STP修饰符的挂单是显示订单。",
+        "testable": true,
+        "trl": "rule 1\nif Constraint = 相反侧挂单中带有相同MPID的STP修饰符的挂单 and Constraint = 显示订单 and OperationPart = 入场订单 and Constraint = 带有STPN修饰符 and Time = 路由或交易前\nthen Action = 取消 and Result = 成功",
+        "trl_postprocess": "rule 1\nif 时间 = 路由或交易前 and 约束 = 相反侧挂单中带有相同MPID的STP修饰符的挂单 and 约束 = 显示订单 and 约束 = 带有STPN修饰符 and 操作部分 = 入场订单\nthen 操作 = 取消 and 结果 = 成功",
+        "testcase": [
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(G) g-Quotes and Buy Minus/Zero Plus Orders will be rejected.",
+        "rule_cn": "(G) g-报价单及买减/卖加订单将被拒绝。",
+        "testable": true,
+        "trl": "rule 1\nif Action = 报价 and OperationPart = 单 or (TradingDirection = 买 and Action = 减 and OperationPart = 订单) or (TradingDirection = 卖 and Action = 加 and OperationPart = 订单)\nthen Result = 失败",
+        "trl_postprocess": "rule 1\nif 操作 = 报价 and 操作 = 减 and 操作 = 加 and 操作部分 = 单 and 操作部分 = 订单 and 操作部分 = 订单\nthen 结果 = 失败\nrule 2\nif 操作 = 报价 and 操作 = 减 and 操作 = 加 and 交易方向 = 买 and 操作部分 = 订单 and 操作部分 = 订单\nthen 结果 = 失败\nrule 3\nif 操作 = 报价 and 操作 = 减 and 操作 = 加 and 交易方向 = 买 and 交易方向 = 卖 and 操作部分 = 订单\nthen 结果 = 失败",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "(5) In all Pilot Securities, d-Quotes to buy (sell) will not exercise discretion as provided for in Rule 70.25 if (i) exercising such discretion would result in an execution equal to or higher (lower) than the price of a protected offer (bid), or (ii) the price of a protected bid (offer) is equal to or higher (lower) than the filed price of the d-Quote.",
+        "rule_cn": "（5）在所有试点证券中，如果（i）行使该自由裁量权会导致成交价等于或高于（低于）保护性报价（报价）的价格，或（ii）保护性报价（报价）的价格等于或高于（低于）d-报价申报的价格，则d-报价的买入（卖出）将不适用第70.25条规定的自由裁量权。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "SupplementaryMaterial: • • • .10 For purposes of the reporting requirement in Appendix B.II.(n), a Trading Center shall report “Y” to their DEA where it is relying upon the Retail Investor Order exception to Test Groups Two and Three, and “N” in all other instances.",
+        "rule_cn": "补充材料：• • • .10 为满足附录B.II.(n)中的报告要求，交易中心在依靠零售投资者订单豁免条款来豁免第二组和第三组测试时，应向其所属的DEA报告“Y”；在所有其他情况下均应报告“N”。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": ".20 For purposes of Appendix B.I, the field “Affected by Limit-Up Limit-Down bands” shall be included. A Trading Center shall report a value of “Y” to their DEA when the ability of an order to execute has been affected by the Limit-Up Limit-Down (LULD) bands in effect at the time of order receipt. A Trading Center shall report a value of “N” to their DEA when the ability of an order to execute has not been affected by the LULD bands in effect at the time of order receipt.",
+        "rule_cn": "为附录B.I的目的，“受涨跌停板影响”这一字段应予以包含。当订单接收时生效的涨跌停板（LULD）影响了该订单的成交能力时，交易场所应向其 DEA 报告“Y”值。当订单接收时生效的涨跌停板（LULD）未影响该订单的成交能力时，交易场所应向其 DEA 报告“N”值。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "For purposes of Appendix B.I, the Participants shall classify all orders in Pilot and Pre-Pilot Securities that may trade in a foreign market as: (1) fully executed domestically or (2) fully or partially executed on a foreign market. For purposes of Appendix B.II, the Participants shall classify all orders in Pilot Securities and Pre-Pilot Data Collection Securities that may trade in a foreign market as: (1) directed to a domestic venue for execution; (2) may only be directed to a foreign venue for execution; or (3) fully or partially directed to a foreign venue at the discretion of the member organization.",
+        "rule_cn": "为附录B.I的目的，参与者应将可能在外国市场交易的试点证券和预试点证券的所有订单分类为以下两类之一：（1）完全在国内市场执行；或（2）完全或部分在国外市场执行。为附录B.II的目的，参与者应将可能在外国市场交易的试点证券和预试点数据收集证券的所有订单分类为以下三类之一：（1）指定在国内市场执行；（2）只能指定在国外市场执行；或（3）由会员组织自行决定，完全或部分指定在国外市场执行。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": ".30 (a) For purposes of Appendix B.I.a(14), B.I.a(15), B.I.a(21) and B.I.a(22), the time ranges shall be changed as follows:",
+        "rule_cn": ".30 （a）为附录 B.I.a（14）、B.I.a（15）、B.I.a（21）和 B.I.a（22）之目的，时间范围应作如下更改：",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(1) Appendix B.I.a(14A): The cumulative number of shares of orders executed from 100 microseconds to less than 1 millisecond after the time of order receipt;",
+        "rule_cn": "（1）附录B.I.a（14A）：订单接收时间后100微秒至少于1毫秒期间已成交订单的累计成交股数；",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(2) Appendix B.I.a(15): The cumulative number of shares of orders executed from 1 millisecond to less than 100 milliseconds after the time of order receipt;",
+        "rule_cn": "（2）附录B.I.a（15）：订单接收时间之后1毫秒至少于100毫秒期间已成交订单的累计成交股数；",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(3) Appendix B.I.a(21A): The cumulative number of shares of orders canceled from 100 microseconds to less than 1 millisecond after the time of order receipt; and",
+        "rule_cn": "（3）附录B.I.a（21A）：在订单接收时间之后的100微秒至少于1毫秒期间被取消的订单股份累计数量；",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(4) Appendix B.I.a(22): The cumulative number of shares of orders canceled from 1 millisecond to less than 100 milliseconds after the time of order receipt.",
+        "rule_cn": "（4）附录B.I.a(22)：订单接收时间之后1毫秒至少于100毫秒期间取消订单的累计股份数量。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(b) For purposes of Appendix B.I.a(21) through B.I.a(27), unexecuted Immediate or Cancel orders shall be categorized separately irrespective of the duration of time after order receipt.",
+        "rule_cn": "（b）就附录 B.I.a(21) 至 B.I.a(27) 的目的而言，无论下单后经过的时间长短，未执行的立即成交或撤销订单应单独分类。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": ".40 For purposes of Appendix B.I.a(31)-(33), the relevant measurement is the time of order receipt.",
+        "rule_cn": "为附录B.I.a（31）至（33）项之目的，相关测量标准是订单接收时间。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": ".50 For purposes of Appendix B, the following order types and numbers shall be included and assigned the following numbers: \"not held\" orders (18); clean cross orders (19); auction orders (20); orders that cannot otherwise be classified, including orders received when the NBBO is crossed (21); and limit orders priced more than $0.10 away from NBBO (22). For purposes of order types 12-14 in Appendix B, such order types shall include all orders and not solely “resting” orders.",
+        "rule_cn": "为附录B之目的，下列订单类型及其编号应被纳入并分配如下编号：未持有订单（18）；干净交叉订单（19）；拍卖订单（20）；无法以其他方式归类的订单，包括当全国最佳买卖报价（NBBO）被交叉时收到的订单（21）；以及价格距离NBBO超过0.10美元的限价订单（22）。为附录B中订单类型12至14之目的，此类订单类型应包括所有订单，而不仅限于“挂单”订单。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": ".60 A member organization shall not be deemed a Trading Center for purposes of Appendix B of the Plan where that member organization only executes orders otherwise than on a national securities exchange for the purpose of: (i) correcting a bona fide error related to the execution of a customer order; (ii) purchases a security from a customer at a nominal price solely for purposes of liquidating the customer’s position; or (iii) completing the fractional share portion of an order.",
+        "rule_cn": "60. 会员机构在计划附录B中不得被视为交易中心，除非该会员机构仅出于以下目的执行订单，而非在国家证券交易所执行：(i) 为纠正与客户订单执行相关的善意错误；(ii) 以象征性价格从客户处购买证券， solely 用于平仓客户的头寸；或 (iii) 完成订单中的零股部分。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": ".70 A Trading Center shall begin the data collection required pursuant to Appendix B.I.a(1) through B.II.(y) of the Plan and Item I of Appendix C of the Plan on April 4, 2016. The requirement that the Exchange or their DEA provide information to the SEC within 30 days following month end pursuant to Appendix B and C of the Plan shall commence at the beginning of the Pilot Period. Notwithstanding the provisions of paragraphs (b)(2), (b)(3)(C) and (b)(5) of this Rule, with respect to data for the Pre- Pilot Period and Pilot Period, the requirement that the Exchange or their DEA make Appendix B data publicly available on the Exchange's or DEA's website shall commence on August 31, 2017. Notwithstanding the provisions of paragraph (b)(4) of this Rule, the Exchange or their DEA shall make Appendix C data for the Pre-Pilot Period through January 2017 publicly available on the Exchange's or DEA's website by February 28, 2017.",
+        "rule_cn": "70. 交易场所应自2016年4月4日起开始按照计划附录B.I.a(1)至B.II.(y)以及计划附录C第I项的规定进行数据收集。根据计划附录B和C的规定，交易所或其指定机构应在每月结束后的30日内向美国证券交易委员会（SEC）提供信息的义务，自试点期开始之日起生效。尽管本规则第(b)(2)、(b)(3)(C)和(b)(5)款有其他规定，但就试点期前期间和试点期的数据而言，交易所或其指定机构应自2017年8月31日起，将附录B的数据在交易所或指定机构的网站上公开。此外，尽管本规则第(b)(4)款有其他规定，交易所或其指定机构应于2017年2月28日前，将试点期前期间至2017年1月的数据按照附录C的规定在交易所或指定机构的网站上公开。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": ".80 For purposes of Item I of Appendix C, the Participants shall calculate daily Market Maker realized profitability statistics for each trading day on a daily last in, first out (LIFO) basis using reported trade price and shall include only trades executed on the subject trading day. The daily LIFO calculation shall not include any positions carried over from previous trading days. For purposes of Item I.c of Appendix C, the Participants shall calculate daily Market Maker unrealized profitability statistics for each trading day on an average price basis. Specifically, the Participants must calculate the volume weighted average price of the excess (deficit) of buy volume over sell volume for the current trading day using reported trade price. The gain (loss) of the excess (deficit) of buy volume over sell volume shall be determined by using the volume weighted average price compared to the closing price of the security as reported by the primary listing exchange. In calculating unrealized trading profits, the Participant also shall report the number of excess (deficit) shares held by the Market Maker, the volume weighted average price of that excess (deficit), and the closing price of the security as reported by the primary listing exchange used in reporting unrealized profit.",
+        "rule_cn": "8.0 为附录C第I项的目的，参与者应根据每日最后进价、先出价（LIFO）方式，使用报告的成交价格，计算每个交易日的做市商实现盈利统计数据，并且仅包括在相关交易日执行的交易。每日LIFO计算不应包括任何从前一交易日延续下来的头寸。为附录C第I.c项的目的，参与者应根据平均价格方式，计算每个交易日的做市商未实现盈利统计数据。具体而言，参与者必须使用报告的成交价格，计算当前交易日买方成交量超过卖方成交量的差额（或不足）的加权平均价。该差额（或不足）的盈亏应根据加权平均价与主要上市交易所报告的收盘价进行比较来确定。在计算未实现交易利润时，参与者还应报告做市商持有的差额（或不足）股数、该差额（或不足）的加权平均价，以及用于报告未实现利润的主要上市交易所报告的收盘价。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": ".90 \"Pre-Pilot Data Collection Securities\" are the securities designated by the Participants for purposes of the data collection requirements described in Items I, II and IV of Appendix B and Item I of Appendix C of the Plan for the period beginning six months prior to the Pilot Period through thirty-one days prior to the Pilot Period. The Participants shall compile the list of Pre- Pilot Data Collection Securities by selecting all NMS stocks with a market capitalization of $5 billion or less, a Consolidated Average Daily Volume (CADV) of 2 million shares or less and a closing price of $1 per share or more. The market capitalization and the closing price thresholds shall be applied to the last day of the prepilot measurement period, and the CADV threshold shall be applied to the duration of the prepilot measurement period. The Pre-Pilot measurement period shall be the three calendar months ending on the day when the Pre-Pilot Data Collection Securities are selected. The Pre-Pilot Data Collection Securities shall be selected thirty days prior to the commencement of the six-month Pre-Pilot Period.",
+        "rule_cn": "90 “预试点数据收集证券”是指参与者为满足计划中附录B的第I、II和IV项以及附录C的第I项所描述的数据收集要求而指定的证券，涵盖试点期开始前六个月至试点期开始前31天的期间。参与者应通过选择所有符合以下条件的全国市场系统（NMS）股票来编制“预试点数据收集证券”清单：市值不超过50亿美元、合并平均日成交量（CADV）不超过200万股，以及收盘价不低于1美元/股。市值和收盘价的门槛应适用于预试点测量期的最后一天，而CADV的门槛则适用于整个预试点测量期的持续时间。预试点测量期应为从选定“预试点数据收集证券”之日往前推算的三个日历月份。应在六个月内预试点期开始前30天选定“预试点数据收集证券”。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": ".100 For purposes of Appendix B.IV, the count of the number of Market Makers used in the calculation of share (trade) participation shall be added to each category. For purposes of Appendix B.IV(b) and (c), share participation and trade participation shall be calculated by using a total count instead of a share-weighted average or a trade-weighted average. For purposes of Appendix B, B.IV(d) (cross-quote share (trade) participation), (e) (inside-the-quote share (trade) participation), (f) (at-the-quote share (trade) participation), and (g) (outside-the-quote share (trade) participation), shall be calculated by reference to the National Best Bid or National Best Offer in effect immediately prior to the trade.",
+        "rule_cn": "100. 为附录B.IV的目的，用于计算股份（交易）参与度的市场做市商数量应分别计入各个类别。为附录B.IV(b)和(c)的目的，股份参与度和交易参与度应通过总数量计算，而非按股份加权平均或交易加权平均。为附录B.IV(d)（跨报价股份（交易）参与度）、(e)（报价内股份（交易）参与度）、(f)（报价处股份（交易）参与度）和(g)（报价外股份（交易）参与度）的目的，应参考交易发生前即时有效的全国最佳买价或全国最佳卖价进行计算。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 70. Operation of an Exchange-Approved Booth Premise SupplementaryMaterial: • • • .30 Definition of Crowd.",
+        "rule_cn": "第70条 交易所批准展位的运营 附加材料：• • • .30 人群的定义。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "The rooms on the Exchange Floor that contain active posts/panels where Floor brokers are able to conduct business constitute the Crowd. A Floor broker will be considered to be in the Crowd if he or she is physically present in one of these rooms.",
+        "rule_cn": "交易大厅内设有活跃帖子/展板的房间，是构成“人群”的区域。如果交易员身处于这些房间之一，则被视为身处“人群”中。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": ".40 Operation of an Exchange Approved Booth Premise",
+        "rule_cn": "40号 交易所批准展位场所的运营",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(1) A member organization will be permitted to operate within its booth premise on the Floor as described in subparagraph (2) below provided that the member organization has obtained prior approval from the Exchange’s regulatory staff to operate its booth premise in said manner.",
+        "rule_cn": "（1）会员机构可在其展位区域内按照下文第（2）款所述方式开展业务，但前提是该会员机构已事先获得交易所监管人员的批准，允许其以该方式在其展位区域内开展业务。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(2) A member organization approved to operate its booth premise pursuant to this rule is permitted, subject to the provisions of subparagraph (3) below, to conduct the same business- related activities for its customer accounts from its booth premise as it is permitted to conduct from its off-Floor or \"upstairs\" location, including initiating orders and routing orders to Exchange systems and other markets.",
+        "rule_cn": "（2）根据本规则获准在其展位场所开展业务的会员机构，可在下述第（3）款规定限制的条件下，从其展位场所为客户的账户开展与业务相关的活动，这些活动与从其场外或“楼上”场所开展的活动相同，包括发起订单并将其路由至交易所系统及其他市场。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(3) A member organization approved to operate booth premises pursuant to this rule is prohibited from effecting any transaction from its approved booth premises for its own account, the account of an associated person or an account with respect to which it or an associated person thereof exercises investment discretion on the Exchange, except that such member organization may effect such transactions in the common, preferred, and debt securities of an operating company that is quoted on the OTC Bulletin Board or OTC Markets (\"OTC Security\") if such security is not related to a security listed or traded on the Exchange or NYSE American LLC (\"NYSE American\"). For purposes of Rule 70.40, an OTC Security is related to a security listed or traded on the Exchange or NYSE American if:",
+        "rule_cn": "（3）根据本规则获准经营展位的会员机构，不得在其获准的展位内，以自身名义、关联人士的名义，或以其或其关联人士在交易所行使投资决策权的账户名义，进行任何交易，除非该会员机构可就已在场外交易市场（OTC Bulletin Board 或 OTC Markets，以下简称“OTC证券”）上市或交易的经营公司的普通股、优先股和债务证券进行此类交易，前提是该证券与在交易所或纽约证券交易所美国市场有限公司（NYSE American）上市或交易的证券无关联。在规则70.40的适用范围内，若某OTC证券与在交易所或NYSE American上市或交易的证券存在关联，则该OTC证券被视为与之相关。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(a) the OTC Security is issued by an issuer of a security that is listed or traded on the Exchange or NYSE American or that underlies an NYSE American option, or an affiliate of such issuer;",
+        "rule_cn": "(a) 该场外证券由在交易所或纽交所阿姆斯特丹市场上市或交易的证券的发行人发行，或该证券是纽交所阿姆斯特丹市场期权的基础证券，或为上述发行人的关联方；",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(b) the OTC Security is subject to a corporate action that relates to the issuer of a security that is listed or traded on the Exchange or NYSE American or that underlies an NYSE American option, or an affiliate of such issuer;",
+        "rule_cn": "(b) 该场外交易证券将受到与在交易所或NYSE American上市或交易的证券发行人，或与NYSE American期权相关联的证券，或与上述发行人有关联公司的公司行为的影响；",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(c) the OTC Security is issued by an issuer of a security that is a component of a narrow-based security index (as defined in Section 3(a)(55) of the Securities Exchange Act of 1934) that is linked to a security that listed or traded on the Exchange or NYSE American or that underlies an NYSE American option; or",
+        "rule_cn": "(c) 该场外证券由发行人发行，该发行人是1934年证券交易法第3(a)(55)条所定义的窄基证券指数（以下简称“窄基指数”）的成分证券发行人，而该窄基指数所关联的证券已在交易所或纽约证券交易所美国市场上市交易，或该窄基指数所关联的证券是纽约证券交易所美国市场期权的标的证券；或",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(d) the OTC Security is issued by a foreign issuer or is a depositary receipt (or the equivalent thereof) for such a security, and a security issued by such foreign issuer or a depositary receipt (or the equivalent thereof) for such a security is listed or traded on the Exchange or NYSE American or underlies an NYSE American option.",
+        "rule_cn": "(d) 该场外证券由境外发行人发行，或为该证券的存托凭证（或具有同等功能的凭证），并且由该境外发行人发行的证券或该证券的存托凭证（或具有同等功能的凭证）在交易所或纽交所阿姆斯特丹市场上市交易，或作为纽交所阿姆斯特丹市场期权的基础资产。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "For purposes of Rule 70.40, a corporate action is any action by an issuer of an OTC Security or a security listed or traded on the Exchange or NYSE American that causes a relationship between the price of the OTC Security and the price of the security that is listed or traded on the Exchange or NYSE American or that underlies an NYSE American option, such as the announcement of a merger, acquisition, joint venture, spinoff, dissolution, bankruptcy filing or other similar type of event involving the issuers. With respect to trading in an OTC Security, such written procedures must require the member organization to exercise due diligence before commencing trading from the booth premises pursuant to this Rule to ensure that such trading is in compliance with the requirements of this Rule and that the member organization has procedures to monitor its trading activity in order to remain in compliance. A member organization must have supervisory systems in place that produce records sufficient to reconstruct, in a time-sequenced manner, all orders with respect to which the member organization is trading from the booth premises under this Rule. The member organization must be able to demonstrate which OTC Security transactions were effected from the booth premises (as compared to off-Floor trading, if applicable). If the member organization cannot demonstrate which trading is from the booth premises, the Exchange shall presume that all such trading was effected from the booth premises.",
+        "rule_cn": "根据第70.40条规定，所谓“公司行为”是指由场外证券发行人或在交易所或纽交所美国市场上市或交易的证券发行人所采取的任何行为，该行为会导致场外证券价格与在交易所或纽交所美国市场上市或交易的证券价格之间或与纽交所美国市场期权标的证券价格之间产生关系，例如：并购、合资、分拆、解散、破产申请或其他类似事件的公告。有关场外证券的交易，相关书面程序应要求会员组织在根据本规则从交易席位进行交易之前，必须进行尽职调查，以确保其交易符合本规则的要求，并且会员组织应具备监控其交易活动的程序，以保持持续合规。会员组织必须建立监督系统，以生成足够的记录，以便按照时间顺序重建其根据本规则从交易席位进行的所有交易订单。会员组织必须能够证明哪些场外证券交易是从交易席位进行的（如有适用，与场外交易进行区分）。如果会员组织无法证明哪些交易是从交易席位进行的，交易所将假定所有此类交易均是从交易席位进行的。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(4) A member organization approved to operate its booth premise pursuant to this rule is subject to the same regulatory requirements governing the conduct of the member organization’s off-Floor or “upstairs” office, including but not limited to relevant employee registration and qualification requirements pursuant to Exchange Rule 345 and supervisory responsibilities pursuant to Exchange Rule 3110.",
+        "rule_cn": "（4）根据本规则获准设立展位的会员机构，应遵守适用于其场外或“楼上”办公室运营的相同监管要求，包括但不限于根据交易所规则第345条对员工进行注册和资格管理的要求，以及根据交易所规则第3110条规定的监管职责。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(5) Orders originated in or routed through facilities located at such approved booth premises must comply with the relevant order entry requirements of Exchange Rules including Exchange Rules 123 and 7400 Series.",
+        "rule_cn": "（5）在获准展位场所内发出或经由此类获准展位场所中转的订单，必须符合交易所规则中相关的订单录入要求，包括交易所规则第123条和第7400系列规则。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(6) A member organization approved to operate its booth premise pursuant to this rule must adopt and implement comprehensive written procedures and guidelines governing the conduct and supervision of business handled in such booth and staff working in such booth. Further, the member organization must establish a process for regular review of such written procedures and guidelines and compliance therewith. With respect to trading in an OTC Security, such written procedures must require the member organization to exercise due diligence before commencing trading from the booth premises pursuant to this Rule to ensure that such trading is in compliance with the requirements of this Rule and that the member organization has procedures to monitor its trading activity in order to remain in compliance. A member organization must have supervisory systems in place that produce records sufficient to reconstruct, in a time-sequenced manner, all orders with respect to which the member organization is trading from the booth premises under this Rule. The member organization must be able to demonstrate which OTC Security transactions were effected from the booth premises (as compared to off-Floor trading, if applicable). If the member organization cannot demonstrate which trading is from the booth premises, the Exchange shall presume that all such trading was effected from the booth premises.",
+        "rule_cn": "（6）根据本规则获准在其展位内开展业务的会员组织，必须制定并实施全面的书面程序和指南，以规范和监督在该展位内进行的业务活动及工作人员的工作。此外，会员组织还必须建立定期审查此类书面程序和指南及其执行情况的机制。就场外交易证券（OTC Security）的交易而言，此类书面程序必须要求会员组织在根据本规则从展位内开始交易之前，进行充分的尽职调查，以确保此类交易符合本规则的要求，并且会员组织应具备监控其交易活动的程序，以确保持续合规。会员组织必须建立监督系统，以产生足够详细的记录，以便按照时间顺序重建其在展位内进行的所有交易订单。会员组织必须能够证明哪些场外交易证券的交易是在展位内完成的（如有适用的场外交易，则需与场外交易进行对比）。如果会员组织无法证明哪些交易是在展位内进行的，交易所将推定所有此类交易均是在展位内完成的。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(7) The written procedures and guidelines, and any changes thereto, referred to in (6) above must be approved by the Exchange’s regulatory staff before implementation.",
+        "rule_cn": "（7）上述（6）项中所指的书面程序和指南以及对其所做的任何修改，在实施前必须获得交易所监管人员的批准。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 71. Precedence of Highest Bid and Lowest Offer",
+        "rule_cn": "第71条 最高买价与最低卖价优先规则",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(a) All verbal bids made and accepted, and all verbal offers made and accepted, in accordance with Exchange Rules shall be binding.",
+        "rule_cn": "(a) 根据交易所规则作出并接受的所有口头报价和口头要约均具有约束力。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(b) Any verbal bid that is made at the same or higher price of the prevailing offer shall result in a transaction at the offer price in an amount equal to the lesser of the bid or offer. The same principle shall apply when a verbal offer is made at the same or lower price as the bid.",
+        "rule_cn": "(b) 任何在当前报价价格相同或更高的口头报价，将促成以报价价格成交，成交数量为该报价或报价价格中较低者。当口头报价价格与当前报价相同或更低时，也应适用相同的原则。",
+        "testable": true,
+        "trl": "rule 1\nif Action = 口头报价 and Constraint = 在当前报价价格相同或更高\nthen ResultStatus = 成交 and Result = 成功 and Constraint = 以报价价格成交 and Constraint = 成交数量为该报价或报价价格中较低者\n\nrule 2\nif Action = 口头报价 and Constraint = 口头报价价格与当前报价相同或更低\nthen ResultStatus = 成交 and Result = 成功 and Constraint = 以报价价格成交 and Constraint = 成交数量为该报价或报价价格中较低者",
+        "trl_postprocess": "rule 1\nif 约束 = 在当前报价价格相同或更高 and 操作 = 口头报价\nthen 约束 = 以报价价格成交 and 约束 = 成交数量为该报价或报价价格中较低者 and 结果状态 = 成交 and 结果 = 成功\nrule 2\nif 约束 = 口头报价价格与当前报价相同或更低 and 操作 = 口头报价\nthen 约束 = 以报价价格成交 and 约束 = 成交数量为该报价或报价价格中较低者 and 结果状态 = 成交 and 结果 = 成功",
+        "testcase": [
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "Rule 72. Priority of Cross Transactions",
+        "rule_cn": "第72条　交叉交易的优先权",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(d) Priority of Cross Transactions When a member has an order to buy and an order to sell an equivalent amount of the same security, and both orders are \"block\" orders and are not for the account of such member or member organization, an account of an associated person, or an account with respect to which the member, member organization or associated person thereof exercises investment discretion, the member may \"cross\" those orders at a price at or within the Exchange best bid or offer. The member's bid or offer shall be entitled to priority at such cross price, irrespective of pre-existing displayed bids or offers on the Exchange at that price. The member shall follow the crossing procedures of Rule 76, and another member may trade with either the bid or offer side of the cross transaction only to provide a price which is better than the cross price as to all or part of such bid or offer. A member who is providing a better price to one side of the cross transaction must trade with all other displayed market interest on the Exchange at that price before trading with any part of the cross transaction. Following a transaction at the improved price, the member with the agency cross transaction shall follow the crossing procedures of Rule 76 and complete the balance of the cross. No member may break up the proposed cross transaction, in whole or in part, at the cross price. No DMM may effect a proprietary transaction to provide price improvement to one side or the other of a cross transaction effected pursuant to this paragraph. A transaction effected at the cross price in reliance on this paragraph shall be printed as \"stopped stock\".",
+        "rule_cn": "(d) 交叉交易的优先权 当会员同时持有买入和卖出相同证券等额的订单，且这些订单均为“大宗”订单，且并非为该会员或会员组织、关联人士的账户，或该会员、会员组织或其关联人士拥有投资决策权的账户时，该会员可在交易所最佳买价或卖价或其范围内以该价格进行“交叉”交易。在该交叉价格下，会员的买价或卖价应优先于交易所内此前已显示的买价或卖价。会员应遵循第76条规定的交叉交易程序，其他会员仅可在交叉交易的买方或卖方报价一侧进行交易，以提供优于交叉价格的报价，适用于全部或部分该买价或卖价。若某会员向交叉交易的一侧提供更优价格，则该会员必须在与交易所内所有显示的市场报价进行交易后，才可与交叉交易的部分进行交易。完成以改善价格成交后，代理交叉交易的会员应遵循第76条规定的交叉交易程序，并完成剩余的交叉交易。任何会员不得在交叉价格下拆分该拟议交叉交易，无论是全部还是部分。任何做市商不得执行自营交易以改善交叉交易中任一侧的价格。依据本段规定执行的交叉价格交易应打印为“停止交易”。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "When a member effects a transaction under the provisions of this paragraph, the member shall, as soon as practicable after the trade is completed, complete such documentation of the trade as the Exchange may from time to time require.",
+        "rule_cn": "当会员根据本段规定进行交易时，会员应在交易完成后尽快完成交易所不时要求的交易相关文件。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Example 1 Assume the Exchange’s market in XYZ is quoted 20 to 20.01, 40,000 shares by 30,000 shares. A member intending to effect a 25,000 share \"agency cross\" transaction at a price of 20 must bid 20 for 25,000 shares and offer 25,000 shares at 20.01. The member's bid at 20 has priority, and the proposed cross could not be broken up at that price. The proposed cross could however, be broken up at 20.01, as this would provide a better price to the seller. However, a member intending to trade with the offer side of the cross would first have to take the entire displayed 30,000 share offer at 20.01 before trading with any part of the offer side of the cross.",
+        "rule_cn": "示例1：假设XYZ市场报价为20到20.01，挂出40,000股，显示30,000股。某会员意图以20元的价格进行25,000股的“代理交叉”交易，他必须以20元的价格申报买入25,000股，并以20.01元的价格申报卖出25,000股。该会员的20元买入申报具有优先权，因此在该价格下，该交叉交易无法被拆分。然而，该交叉交易可以在20.01元的价格下被拆分，因为这样对卖方来说价格更优。但若某会员希望与交叉交易的卖方报价进行交易，他必须首先全部承接显示的30,000股以20.01元的卖方报价，然后再与交叉交易的卖方报价部分进行交易。",
+        "testable": true,
+        "trl": "rule 1\nif TradingMarket = XYZ and Price > 20 and Proce < 20.01 and Quantity = 40000 and Constraint = 挂出40000股 and Constraint = 显示30000股\nthen Result = 成功\n\nrule 2\nif Actor = 某会员 and TradingMethod = “代理交叉” and Price = 20 and Quantity = 25000\nthen Action = 申报 and TradingDirection = 买入 and Price = 20 and Quantity = 25000 and Action = 申报 and TradingDirection = 卖出 and Price = 20.01 and Quantity = 25000\n\nrule 3\nif Actor = 该会员 and Price = 20 and Action = 买入申报 and Constraint = 具有优先权\nthen Constraint = 交叉交易无法被拆分\n\nrule 4\nif TradingMethod = 交叉交易 and Price = 20.01 and Constraint = 对卖方价格更优\nthen Constraint = 交叉交易可以被拆分\n\nrule 5\nif Actor = 某会员 and Action = 与交叉交易的卖方报价进行交易\nthen Action = 全部承接 and Quantity = 30000 and Price = 20.01 and TradingDirection = 卖方报价 and Action = 与交叉交易的卖方报价部分进行交易",
+        "trl_postprocess": "rule 1\nif 交易市场 = XYZ and 约束 = 挂出40000股 and 约束 = 显示30000股 and 数量 = 40000 and 价格 > 20 and Proce < 20.01\nthen 结果 = 成功\nrule 2\nif 操作主体 = 某会员 and 交易方式 = “代理交叉” and 数量 = 25000 and 价格 = 20\nthen 操作 = 申报 and 操作 = 申报 and 交易方向 = 买入 and 交易方向 = 卖出 and 数量 = 25000 and 数量 = 25000 and 价格 = 20 and 价格 = 20.01\nrule 3\nif 操作主体 = 该会员 and 约束 = 具有优先权 and 操作 = 买入申报 and 价格 = 20\nthen 约束 = 交叉交易无法被拆分\nrule 4\nif 约束 = 对卖方价格更优 and 交易方式 = 交叉交易 and 价格 = 20.01\nthen 约束 = 交叉交易可以被拆分\nrule 5\nif 操作主体 = 某会员 and 操作 = 与交叉交易的卖方报价进行交易\nthen 操作 = 全部承接 and 操作 = 与交叉交易的卖方报价部分进行交易 and 交易方向 = 卖方报价 and 数量 = 30000 and 价格 = 20.01",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "Example 2 Assume the Exchange’s market in XYZ is quoted 20 to 20.35, 20,000 shares by 20,000 shares. A member intending to effect a 25,000 share \"agency cross\" transaction at a price of 20.05 must follow the crossing procedures of Rule 76 and bid 20.05 for 25,000 shares and offer 25,000 shares at 20.06. The member's bid at 20.05 has priority, and the proposed cross could not be broken up at this price. The proposed cross could, however, be broken up, in whole or in part, at 20.06, as this would provide a better price to the seller.",
+        "rule_cn": "示例2：假设XYZ市场的报价为20至20.35，以每20,000股为一个报价单位。某会员希望以20.05的价格进行25,000股的“代理交叉”交易，必须遵循第76条的交叉交易程序，以20.05的价格申报买入25,000股，并以20.06的价格申报卖出25,000股。该会员以20.05的价格申报的买入指令具有优先权，因此在此价格下该交叉交易无法被拆分。然而，该交易可以在20.06的价格下被全部或部分拆分，因为这将为卖方提供更好的成交价格。",
+        "testable": true,
+        "trl": "rule 1\nif TradingMarket = XYZ and Price > 20 and Proce < 20.35 and Quantity = 20000\nthen Result = 成功\n\nrule 2\nif Actor = 会员 and Price = 20.05 and Quantity = 25000 and TradingMethod = 代理交叉 and Constraint = 遵循第76条的交叉交易程序\nthen Action = 申报 and TradingDirection = 买入 and Price = 20.05 and Quantity = 25000 and Action = 申报 and TradingDirection = 卖出 and Price = 20.06 and Quantity = 25000\n\nrule 3\nif Actor = 会员 and Price = 20.05 and Action = 申报 and TradingDirection = 买入 and Status = 优先权 and Price = 20.05\nthen ResultStatus = 无法拆分\n\nrule 4\nif Price = 20.06 and Constraint = 为卖方提供更好的成交价格\nthen ResultStatus = 可以全部或部分拆分",
+        "trl_postprocess": "rule 1\nif 交易市场 = XYZ and 数量 = 20000 and 价格 > 20 and Proce < 20.35\nthen 结果 = 成功\nrule 2\nif 操作主体 = 会员 and 约束 = 遵循第76条的交叉交易程序 and 交易方式 = 代理交叉 and 数量 = 25000 and 价格 = 20.05\nthen 操作 = 申报 and 操作 = 申报 and 交易方向 = 买入 and 交易方向 = 卖出 and 数量 = 25000 and 数量 = 25000 and 价格 = 20.05 and 价格 = 20.06\nrule 3\nif 操作主体 = 会员 and 操作 = 申报 and 交易方向 = 买入 and 价格 = 20.05 and 价格 = 20.05 and 状态 = 优先权\nthen 结果状态 = 无法拆分\nrule 4\nif 约束 = 为卖方提供更好的成交价格 and 价格 = 20.06\nthen 结果状态 = 可以全部或部分拆分",
+        "testcase": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+        ]
+    },
+    {
+        "rule": "SupplementaryMaterial: • • • .10 Definition of a Block - For purposes of this rule, a \"block\" shall be at least 10,000 shares or a quantity of stock having a market value of $200,000 or more, whichever is less.",
+        "rule_cn": "补充材料：• • • .10 “块”的定义——就本规则而言，“块”指至少10,000股，或市值达到200,000美元或以上的股票数量，以较低者为准。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 74. Publicity of Bids and Offers A claim by a member who states that he had on the Floor a prior or better bid or offer shall not be sustained if the bid or offer was not made with the publicity and frequency necessary to make the existence of such bid or offer generally known at the time of the transaction.",
+        "rule_cn": "第74条 招标与要约的公开性 如果会员声称其在交易时已在交易大厅内提出过更早或更优的招标或要约，但该招标或要约并未以足以使交易时普遍知晓的公开程度和频率进行发布，则该主张不应被支持。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 75. Disputes as to Bids and Offers Disputes arising on bids or offers, if not settled by agreement between the members interested, shall be settled by a Trading Official. In rendering a decision as to disputes regarding the amount traded, the Trading Official shall give primary weight to statements by any member who was not a party to the transaction and shall also take into account the size of orders held by parties to the disputed transaction, and such other facts as he deems relevant. Members may also proceed to resolve a dispute through long-standing arbitration procedures established under the Exchange's Rules.",
+        "rule_cn": "第75条 有关报价与申报的争议  \n若涉及报价或申报所产生的争议，如相关会员未能通过协商解决，则应由交易官员进行裁决。在处理与交易金额相关的争议时，交易官员应优先考虑未参与该交易的会员所作出的陈述，并同时考虑争议交易各方所持有的订单规模以及其他其认为相关的情况。会员也可依据交易所规则中规定的长期仲裁程序解决争议。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "SupplementaryMaterial: • • • .10 Discrepancies as to amount.—When there is no dispute regarding a transaction except as to the amount traded and neither party can produce a witness, the transaction must be considered to have been for the smaller amount; provided, however, that if the member claiming the smaller amount held, at the time of the transaction in dispute, an order or orders totalling the larger amount, the Trading Official, in reaching his decision, shall take into consideration that fact and all other facts which he deems relevant.",
+        "rule_cn": "补充材料：  \n• • • .10 金额差异。——如果对于一笔交易不存在其他争议，仅对交易金额存在分歧，且双方均无法提供证人，那么该交易应被视为按较小金额进行；但若声称交易金额较小的一方在争议交易发生时持有总计较大金额的订单，交易官员在作出决定时应考虑这一事实以及其他其认为相关的事实。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 76. “Crossing” Orders Supplementary Material .10 to this Rule is not applicable to trading UTP Securities on the Pillar trading platform.",
+        "rule_cn": "第76条。本规则第10条“交叉”订单的补充材料不适用于在Pillar交易平台上交易的UTP证券。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "When a member has an order to buy and an order to sell the same security, he or she shall offer such security at a price which is higher than his or her bid by the minimum variation permitted in such security before making a transaction with himself or herself. All such bids and offers shall be clearly announced to the trading Crowd before the member may proceed with the proposed \"cross\" transaction.",
+        "rule_cn": "当会员持有相同证券的买入订单和卖出订单时，其在与自己进行交易前，应以高于其买价的最低允许变动幅度的价格提供该证券。会员在进行拟议的“交叉”交易之前，必须将所有此类买盘和卖盘清楚地向交易群体公告。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "The provisions of this rule apply only to manual transactions.",
+        "rule_cn": "本规则的规定仅适用于手动交易。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(See Rule 91.) SupplementaryMaterial: • • • .10 Cross Function —",
+        "rule_cn": "（参见规则91。）补充材料：• • • .10 跨职能——",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(a) Floor brokers seeking to execute buy and sell orders pursuant to Rule 76 may enter such orders from their wireless hand-held devices (“HHD”) into an Exchange-provided quote minder, which will monitor protected bids and offers to determine when the limit price assigned to the proposed crossed orders is such that the orders may be executed consistent with Rule 611 of Regulation NMS. When the trade can be effected at or between the protected bid and offer, the quote minder will: (i) deliver an alert message to the HHD indicating that the order may be crossed; (ii) capture a time-stamped quote at the time that the alert was sent, (iii) commence a 20-second timer from the moment a cross trade may be executed at or between the protected bid and offer; and (iv) enable a “print” key function in the HHD permitting the Floor broker to cross the orders and print the trade to the Tape within that 20-second time period. Upon receipt of an alert, Floor brokers using the cross function must first announce the bid and offer to the trading Crowd in compliance with this Rule and then cross the stock using the “print” key function in the HHD before the 20-second timer expires. Quote minder will not monitor protected bids and offers when the PBBO is crossed.",
+        "rule_cn": "（a）根据第76条规定进行买卖订单执行的场内经纪人，可以使用其无线手持设备（“HHD”）将订单输入交易所提供的报价监视器（Quote Minder）。该监视器将监控受保护的报价和要约，以判断所提出的交叉订单的限价是否符合《NMS条例》第611条的规定，从而可以执行交易。当交易可在受保护的报价和要约之间或其价位上达成时，报价监视器将：（i）向HHD发送警报信息，提示该订单可能可以进行交叉交易；（ii）在发送警报时记录时间戳的报价；（iii）从可以执行交叉交易的那一刻开始计时20秒；（iv）在HHD上启用“打印”键功能，允许场内经纪人在此20秒的时间段内执行交叉交易并打印交易至行情带（Tape）。收到警报后，使用交叉功能的场内经纪人必须首先根据本规则向交易人群宣布报价和要约，然后在20秒计时器结束前使用HHD上的“打印”键功能完成股票的交叉交易。当PBBO（受保护的买卖报价）被交叉后，报价监视器将不再监控受保护的报价和要约。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "(b) To be eligible for the Cross Function, the proposed cross transaction must be for at least 10,000 shares or a quantity of stock having a market value of $200,000 or more and may not be for the account of the member or member organization, an account of an associated person, or an account with respect to which the member, member organization or associated person thereof exercises investment discretion.",
+        "rule_cn": "(b) 若拟进行的跨市场交易符合跨市场交易资格，该交易必须涉及至少10,000股股票，或者市值达到200,000美元或以上的股票数量，并且不得为会员或会员组织自身的账户、关联人员的账户，或会员、会员组织或其关联人员拥有投资决策权的账户。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 77. Prohibited Dealings and Activities This Rule is not applicable to trading UTP Securities on the Pillar trading platform.",
+        "rule_cn": "第77条 禁止交易行为及活动 本规则不适用于在支柱交易平台上进行的UTP证券交易。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "No member shall offer publicly on the Floor: (1) To buy or sell securities \"on stop\" above or below the market; (2) to buy or sell securities \"at the close\"; (3) to buy or sell dividends; (4) to bet upon the course of the market; or (5) to buy or sell privileges to receive or deliver securities.",
+        "rule_cn": "会员不得在交易厅公开提出以下交易指令：(1) 在市场价格之上或之下以“停止价”买卖证券；(2) 在收盘时买卖证券；(3) 买卖股息；(4) 对市场走势进行投注；或(5) 买卖接收或交付证券的权利。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 78. Sell and Buy Orders Coupled at Same Price An offer to sell coupled with an offer to buy back at the same or at an advanced price, or the reverse, is a prearranged trade and is prohibited. This rule applies both to transactions in the unit of trading and in lesser and greater amounts.",
+        "rule_cn": "规则78. 同一价格下的买卖订单绑定  \n以相同价格或更高价格发出的卖出要约与买入要约，或反之，构成事先安排的交易，是被禁止的。本规则适用于以交易单位、更小单位或更大单位进行的交易。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    },
+    {
+        "rule": "Rule 80B. Trading Halts Due to Extraordinary Market Volatility This Rule is no longer applicable. Please see Rule 7.12.",
+        "rule_cn": "规则80B。因异常市场波动导致的交易暂停 本规则已不再适用。请参见规则7.12。",
+        "testable": false,
+        "trl": "",
+        "testcase": []
+    }
+]

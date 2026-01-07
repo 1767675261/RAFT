@@ -1,0 +1,272 @@
+## Testable Rule Language (TRL) – 完整定义
+
+下面给出 **TRL** 的四个核心部分：  
+1️⃣ **符号系统 (Symbols)**  
+2️⃣ **语法 (Syntax – BNF)**  
+3️⃣ **语义 (Semantics)**  
+4️⃣ **可测试性约束 (Testability Constraints – OCL)**  
+
+随后给出 **TRL 完整模型**、**映射示例**（自然语言 → TRL）以及 **可测试性判定**。
+
+---
+
+## 1️⃣ 符号系统 (Symbols)
+
+| 类别 | 符号 | 位置/作用 | 说明 |
+|------|------|-----------|------|
+| **逻辑符号** | `AND` `OR` `NOT` `(` `)` | Condition、Action、ExpectedOutcome 中的组合运算 | 传统布尔运算；`AND`/`OR` 为二元，`NOT` 为一元 |
+| **比较符号** | `=` `!=` `>` `>=` `<` `<=` | 原子谓词的比较 | 左侧必须是 **Domain‑Object.Attribute**，右侧是字面值（String、Number、Boolean） |
+| **关键字** | `IF` `THEN` | 规则结构的固定关键字（BNF 中已固定） | 只能出现在 Rule 产生式的开头和结尾 |
+| **域符号** (Domain‑Symbols) | `Participant` `TradingProduct` `Market` `TradeMethod` `TradingDirection` `OrderQuantity` `OrderPrice` `TradingTime` `SettlementMethod` `SettlementCycle` `OrderStatus` `Result` `ResultStatus` `Constraint` | 任何 **Precondition**、**Operation**、**ExpectedResult** 中出现的对象类型 | 与元模型中的类一一对应 |
+| **属性符号** | `.<attribute>` (e.g. `.type`, `.code`, `.value`) | 通过点号访问对象属性 | 必须是该类在元模型中声明的原子属性（字符串、数值、布尔） |
+| **操作符号** | `. <operation>(<arg‑list>)` (e.g. `.submit(order)`, `.setStatus("ACTIVE")`) | **Operation** 中的行为描述 | `operation` 必须是该类在元模型中声明的可执行方法；参数只能是字面值或已在前置条件中绑定的变量 |
+| **常量** | `"string"` `123` `45.67` `TRUE` `FALSE` | 右侧比较值或操作参数 | 只能是 **原始字面量**（不允许枚举、集合、函数调用） |
+
+> **作用范围**  
+> - **逻辑符号** 与 **比较符号** 只能出现在 **Expression**（Condition / Action / ExpectedOutcome）内部。  
+> - **域符号** 与 **属性/操作符号** 必须完整限定（`Class.attribute` / `Class.operation()`），否则视为语法错误。  
+
+---
+
+## 2️⃣ 语法 (Syntax – BNF)
+
+> **约定**  
+> - `<Identifier>` = 任意合法类名或属性名（字母开头，后续字母/数字/_）  
+> - `<Number>` = 整数或实数  
+> - `<String>` = 双引号包围的字符序列  
+> - `<Value>` = `<Number>` | `<String>` | `TRUE` | `FALSE`  
+
+```bnf
+Rule            ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+
+<Condition>     ::= <Expression>
+<Action>        ::= <Expression>
+<ExpectedOutcome>::= <Expression>
+
+<Expression>    ::= <Term> { ("OR" | "AND") <Term> }*
+<Term>          ::= "NOT" <Factor> | <Factor>
+<Factor>        ::= "(" <Expression> ")" | <Predicate> | <OperationCall>
+
+<Predicate>     ::= <DomainObject> "." <Attribute> <CompOp> <Value>
+<OperationCall> ::= <DomainObject> "." <Operation> "(" <ArgList> ")"
+
+<DomainObject>  ::= <Identifier>                     // e.g. Participant, Order
+<Attribute>     ::= <Identifier>                     // attribute of the object
+<Operation>     ::= <Identifier>                     // operation name
+<CompOp>        ::= "=" | "!=" | ">" | ">=" | "<" | "<="
+
+<ArgList>       ::= <Value> { "," <Value> }* | ε
+```
+
+### 说明
+
+* **Condition、Action、ExpectedOutcome** 使用相同的 **Expression** 语法，保证结构一致。  
+* **Predicate** 用于描述 **Precondition** 与 **ExpectedResult**（属性比较）。  
+* **OperationCall** 用于 **Operation**（对对象的行为），返回值在 TRL 中不关心，只要是 **确定的副作用**。  
+* **嵌套**：任意层次的括号允许表达 **复合条件**（如 `(A AND B) OR (C AND NOT D)`）。  
+* **变量绑定**：在实际使用时，`<DomainObject>` 可以是 **实例标识符**（如 `participant1`），但在语言层面只要求类名；实例化在运行时由测试工具完成。
+
+---
+
+## 3️⃣ 语义 (Semantics)
+
+TRL 的语义采用 **操作语义**（小步执行）来解释每一条规则。下面给出关键概念与推导规则。
+
+### 3.1 基本概念
+
+| 符号 | 解释 |
+|------|------|
+| `σ` | 系统当前状态（所有对象属性的映射） |
+| `⟦e⟧σ` | 在状态 `σ` 下 **Expression** `e` 的布尔求值 |
+| `⟦op⟧σ` | 在状态 `σ` 下 **OperationCall** `op` 的执行，产生新状态 `σ'`（确定性） |
+| `⊨` | 断言成立（True） |
+
+### 3.2 评价规则
+
+1. **Predicate**  
+   ```
+   ⟦ Obj.attr op val ⟧σ  =  σ(Obj).attr  op  val
+   ```
+   其中 `σ(Obj).attr` 为对象 `Obj` 在状态 `σ` 中的属性值。
+
+2. **Logical Connectives**  
+   ```
+   ⟦ e1 AND e2 ⟧σ = ⟦e1⟧σ ∧ ⟦e2⟧σ
+   ⟦ e1 OR  e2 ⟧σ = ⟦e1⟧σ ∨ ⟦e2⟧σ
+   ⟦ NOT e ⟧σ   = ¬⟦e⟧σ
+   ```
+
+3. **OperationCall** (Action 部分)  
+   ```
+   ⟦ Obj.op(arg1,…,argn) ⟧σ = σ'   where σ' = apply(σ, Obj, op, [arg1,…,argn])
+   ```
+   `apply` 必须是 **确定的**（同样的输入状态产生同样的输出状态），并且只能修改 **Operation** 所在类的属性或产生 **Result** 对象。
+
+4. **Rule Evaluation**  
+   给定 Rule `R = IF C AND A THEN E`：
+
+   1. **前置检查**  
+      ```
+      if ⟦C⟧σ = TRUE
+      ```
+   2. **执行动作**  
+      ```
+      σ₁ = ⟦A⟧σ   // deterministic state transition
+      ```
+   3. **断言结果**  
+      ```
+      R passes ⇔ ⟦E⟧σ₁ = TRUE
+      ```
+
+   若任一步骤求值为 **FALSE**，则规则 **不通过**，测试框架会把对应的测试用例标记为失败。
+
+### 3.3 可测试性语义要点
+
+| 要点 | 语义解释 |
+|------|----------|
+| **可决定性** | 所有 `OperationCall` 必须是 **纯函数式**（相同输入必产生相同输出），否则无法自动验证。 |
+| **闭合性** | `Condition` 与 `ExpectedOutcome` 必须只引用 **已在前置条件或操作中出现的对象**，防止出现“自由变量”。 |
+| **可观测性** | `ExpectedOutcome` 必须是 **属性比较**（Predicate），即可直接从系统状态读取并断言。 |
+| **有限域** | 所有属性值必须是 **基本类型**（String、Number、Boolean），不允许集合、列表或无限结构，以保证穷举或随机生成测试数据的可行性。 |
+
+---
+
+## 4️⃣ 可测试性约束 (Testability Constraints – OCL)
+
+以下 OCL 约束应在 **Rule** 元模型层面强制执行。`self` 代表 `Rule` 实例。
+
+```ocl
+-- 1. 必须至少有一条前置条件、一次操作和一次预期结果
+context Rule inv MustContainElements:
+    self.precondition->size() > 0 and
+    self.operation->size()   > 0 and
+    self.expectedResult->size() > 0
+
+-- 2. 每个 Predicate 必须使用原子属性（非集合、非派生属性）
+context Predicate inv AtomicAttributes:
+    let attr = self.attribute in
+    attr.isDerived = false and
+    attr.type.oclIsKindOf(PrimitiveType)
+
+-- 3. Operation 必须是确定的（无副作用、无随机数）
+context Operation inv Deterministic:
+    self.isDeterministic = true   -- 由建模工具标记
+    -- 另外检查：所有修改的属性必须在 Operation 的 post‑condition 中明确给出
+
+-- 4. 所有引用的对象必须在同一 Rule 内部或在全局唯一标识集合中出现
+context Expression inv ClosedWorld:
+    self.allObjects()->forAll(o |
+        Rule.allInstances()->exists(r |
+            r.precondition->includes(o) or
+            r.operation->includes(o) or
+            r.expectedResult->includes(o)
+        )
+    )
+
+-- 5. 参数/比较值只能是基本字面量
+context Value inv LiteralOnly:
+    self.oclIsKindOf(String) or
+    self.oclIsKindOf(Integer) or
+    self.oclIsKindOf(Real)    or
+    self = true or self = false
+
+-- 6. 不允许循环依赖的 Operation（A 调用 B，B 再调用 A）
+context Operation inv NoCyclicCalls:
+    not self.allInvokedOperations()->includes(self)
+
+-- 7. 每条 Rule 的 ExpectedOutcome 必须能够映射为断言（Predicate）
+context ExpectedResult inv MustBePredicate:
+    self.oclIsKindOf(Predicate)
+```
+
+> **解释**  
+> - **约束 1** 确保规则完整且可执行。  
+> - **约束 2** 与 **约束 5** 保证语义上可直接比较、无需额外解析。  
+> - **约束 3、6** 保证 **可决定性**（自动化测试需要可重复的行为）。  
+> - **约束 4** 防止出现“未绑定变量”。  
+> - **约束 7** 确保 ExpectedResult 只是一条可直接断言的谓词。
+
+---
+
+## 5️⃣ TRL 完整定义（汇总）
+
+| 章节 | 内容 |
+|------|------|
+| **符号系统** | 逻辑符号、比较符号、关键字、域符号、属性/操作符号、常量（见 §1） |
+| **语法** | BNF（见 §2），顶层结构固定为 `Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>` |
+| **语义** | 操作语义：`Condition` → 布尔约束，`Action` → 确定性状态转移，`ExpectedOutcome` → 断言（见 §3） |
+| **可测试性约束** | OCL 约束（见 §4），确保每条规则可自动解析、可执行、可断言、无歧义、无循环、使用基本类型 |
+| **模型映射** | `Rule` ↔ TRL 语句；`Precondition` ↔ Condition 中的 Predicate 列表；`Operation` ↔ Action 中的 OperationCall 列表；`ExpectedResult` ↔ ExpectedOutcome 中的 Predicate 列表 |
+
+---
+
+## 6️⃣ 示例：自然语言规则 → TRL
+
+### 6.1 原始自然语言（摘自《深圳证券交易所债券交易规则》第二章 参与主体‑2.1.2）
+
+> **规则**：  
+> “非会员机构申请成为债券交易参与人，应当符合下列条件：  
+> (1) 具备较强的资本、资金实力与持续经营能力；  
+> (2) 具有独立的债券交易团队；  
+> (3) 具有完善的交易业务管理制度和风险控制制度；  
+> (4) 具有能够支持开展债券交易的相关技术系统；  
+> (5) 近 2 年无债券交易结算重大违法违规行为。”
+
+### 6.2 TRL 表达
+
+```trl
+IF
+    Participant.type = "NonMemberInstitution"
+    AND Participant.capital >= 100000000
+    AND Participant.hasTradingTeam = TRUE
+    AND Participant.hasRiskControl = TRUE
+    AND Participant.hasTechSystem = TRUE
+    AND Participant.lastTwoYearsViolations = 0
+AND
+    Participant.submitApplication()
+THEN
+    Participant.status = "Approved"
+```
+
+**解释**  
+
+| 部分 | TRL 代码 | 对应元模型要素 |
+|------|----------|----------------|
+| **Condition** | `Participant.type = "NonMemberInstitution" AND ...` | `Precondition` 中的多个 **Predicate**（每个属性比较） |
+| **Action** | `Participant.submitApplication()` | `Operation` 中的 **OperationCall**（确定性调用） |
+| **ExpectedOutcome** | `Participant.status = "Approved"` | `ExpectedResult` 中的 **Predicate**（断言） |
+
+### 6.3 可测试性判定（依据 OCL 约束）
+
+| 约束 | 检查结果 |
+|------|----------|
+| **MustContainElements** | 前置条件 6 条、操作 1 条、预期结果 1 条 → ✅ |
+| **AtomicAttributes** | 所有属性 (`type`, `capital`, `hasTradingTeam`, …) 为基本类型（String、Number、Boolean） → ✅ |
+| **Deterministic** | `submitApplication()` 在模型中标记为 deterministic（仅改变 `status`） → ✅ |
+| **ClosedWorld** | 所有引用的对象均为 `Participant`，在同一 Rule 中出现 → ✅ |
+| **LiteralOnly** | 所有比较值为字面量（字符串、数字、布尔） → ✅ |
+| **NoCyclicCalls** | `submitApplication` 不调用自身或其他产生循环的操作 → ✅ |
+| **MustBePredicate** | ExpectedOutcome 为 Predicate → ✅ |
+
+**结论**：该规则满足所有可测试性约束，能够被自动解析、执行（调用 `submitApplication`）并验证（检查 `status` 是否为 `"Approved"`）。
+
+---
+
+## 7️⃣ 如何使用 TRL 在测试框架中
+
+1. **解析器**：基于 BNF 将 TRL 文本转为抽象语法树（AST）。  
+2. **模型映射**：AST → 元模型实例（`Rule`、`Precondition`、`Operation`、`ExpectedResult`）。  
+3. **数据生成**：依据 **Condition** 中的比较值自动生成满足前置条件的对象实例（如 `Participant.capital = 150,000,000`）。  
+4. **执行**：调用 **Action** 中的 `OperationCall`（通过反射或业务服务），得到新状态 `σ₁`。  
+5. **断言**：对 **ExpectedOutcome** 进行求值，若为 `TRUE` 则测试通过，否则记录失败原因。  
+6. **覆盖报告**：每条 `Rule` 对应一组 **测试用例**（可手动或自动生成），框架统计覆盖率、通过率。
+
+---
+
+### 小结
+
+* **TRL** 将自然语言规则结构化为 **IF … AND … THEN …** 的三段式表达。  
+* 通过 **明确的符号系统**、**形式化 BNF**、**操作语义** 与 **OCL 可测试性约束**，TRL 能够被 **自动解析、自动生成测试数据、自动执行并自动断言**。  
+* 示例展示了从《深圳证券交易所债券交易规则》抽取的业务规则到可执行的 TRL 语句，并验证了其可测试性。  
+
+这样，业务分析师、系统设计师与测试工程师可以在同一语言层面协同工作，实现 **需求‑实现‑测试** 的闭环。

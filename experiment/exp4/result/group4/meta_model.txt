@@ -1,0 +1,53 @@
+@startuml
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+class Rule
+class Precondition
+class Operation
+class ExpectedResult
+
+Rule -u- Precondition : contains
+Rule -u- Operation : contains
+Rule -u- ExpectedResult : contains
+
+' -------- Precondition layer (elements kept if appear in >=2 models) --------
+class Actor
+class BondType
+class Market
+class Constraint
+class TimeCondition
+class Account
+
+Precondition -u- Actor : contains
+Precondition -u- BondType : contains
+Precondition -u- Market : contains
+Precondition -u- Constraint : contains
+Precondition -u- TimeCondition : contains
+Precondition -u- Account : contains
+
+' -------- Operation layer --------
+class Action
+class TradingDirection
+class TradingMethod
+class Price
+class Quantity
+
+Operation -u- Action : contains
+Operation -u- TradingDirection : contains
+Operation -u- TradingMethod : contains
+Operation -u- Price : contains
+Operation -u- Quantity : contains
+
+' -------- ExpectedResult layer --------
+class ExecutionResult
+class ResultStatus
+class OrderStatus
+
+ExpectedResult -u- ExecutionResult : contains
+ExpectedResult -u- ResultStatus : contains
+ExpectedResult -u- OrderStatus : contains
+ExpectedResult -u- Constraint : contains
+
+@enduml

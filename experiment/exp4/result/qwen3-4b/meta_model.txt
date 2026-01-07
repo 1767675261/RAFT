@@ -1,0 +1,69 @@
+### Step1 — 规则要素清单
+1. **TransactionDirection**（交易方向）：买卖方向（买入/卖出）  
+2. **TradingMarket**（交易市场）：深圳证券交易所  
+3. **TradingInstrument**（交易品种）：债券/债券回购/债券现券  
+4. **TradingMethod**（交易方式）：匹配成交/点击成交/询价成交/竞买成交/协商成交  
+5. **TradingTime**（交易时间）：交易日/非交易日/当日/非当日  
+6. **TradingVolume**（交易数量）：申报数量/成交数量/最大申报量  
+7. **TradingPrice**（交易价格）：申报价格/成交价格/最小变动单位  
+8. **SettlementMethod**（结算方式）：多边净额结算/逐笔全额结算  
+9. **SettlementCycle**（结算周期）：T+1/T+3  
+10. **TradingVenue**（交易场所）：交易主机/交易终端  
+11. **OrderStatus**（订单状态）：未申报/未成交/部分成交/已成交  
+12. **OrderCancellation**（撤销操作）：委托撤销/部分撤销  
+13. **SettlementDate**（结算日）：T+1/T+3  
+14. **MarketCondition**（市场状态）：正常/临时停牌/临时停市  
+15. **Constraint**（约束条件）：当日回转交易/交易时间限制  
+
+---
+
+### Step2 — 元模型（PlantUML代码）
+```plantuml
+@startuml
+class Rule {
+  - Precondition : Precondition
+  - Operation : Operation
+  - ExpectedResult : ExpectedResult
+}
+
+class Precondition {
+  - contains TransactionDirection
+  - contains TradingMarket
+  - contains TradingInstrument
+  - contains TradingTime
+  - contains MarketCondition
+  - constrains SettlementMethod
+  - dependsOn Constraint
+}
+
+class Operation {
+  - contains TradingMethod
+  - contains TradingVolume
+  - contains TradingPrice
+  - contains OrderStatus
+  - contains OrderCancellation
+  - triggers ExpectedResult
+  - dependsOn Constraint
+}
+
+class ExpectedResult {
+  - contains SettlementMethod
+  - contains SettlementCycle
+  - contains SettlementDate
+  - contains OrderStatus
+  - contains TradingVenue
+  - constrains Constraint
+  - triggers Constraint
+}
+
+Rule "contains" 1..* (Precondition, Operation, ExpectedResult)
+Precondition "contains" 1..* (TransactionDirection, TradingMarket, TradingInstrument, TradingTime, MarketCondition)
+Operation "contains" 1..* (TradingMethod, TradingVolume, TradingPrice, OrderStatus, OrderCancellation)
+ExpectedResult "contains" 1..* (SettlementMethod, SettlementCycle, SettlementDate, OrderStatus, TradingVenue)
+Precondition "constrains" 1..* (SettlementMethod)
+Operation "triggers" 1..* (ExpectedResult)
+Operation "dependsOn" 1..* (Constraint)
+ExpectedResult "constrains" 1..* (Constraint)
+ExpectedResult "triggers" 1..* (Constraint)
+@enduml
+```

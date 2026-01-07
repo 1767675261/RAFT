@@ -1,0 +1,233 @@
+### 步骤一：规则要素清单
+基于《中华人民共和国道路交通安全法》文档和测试用例，提取15个核心规则要素（叶子节点）。每个要素使用UpperCamelCase命名，并附有简短语义说明。
+
+1. **Actor**: 执行主体  
+2. **Action**: 操作行为  
+3. **Permission**: 许可类型  
+4. **Location**: 位置信息  
+5. **Speed**: 速度值  
+6. **Distance**: 距离值  
+7. **Condition**: 条件状态  
+8. **Target**: 操作对象  
+9. **Credential**: 凭证类型  
+10. **Event**: 事件类型  
+11. **PenaltyAmount**: 罚款金额  
+12. **Duration**: 时间长度  
+13. **Direction**: 方向指示  
+14. **LicenseStatus**: 驾驶证状态  
+15. **VehicleStatus**: 车辆状态  
+
+### 步骤二：元模型
+使用PlantUML构建三层元模型结构。顶层为`Rule`，中间层为`Precondition`、`Operation`、`ExpectedResult`，底层为上述15个叶子节点。关系类型为`contains`，表示中层节点对底层要素的组成关系。
+
+```plantuml
+@startuml
+class Rule
+class Precondition
+class Operation
+class ExpectedResult
+
+class Actor
+class Action
+class Permission
+class Location
+class Speed
+class Distance
+class Condition
+class Target
+class Credential
+class Event
+class PenaltyAmount
+class Duration
+class Direction
+class LicenseStatus
+class VehicleStatus
+
+Rule --> Precondition : contains
+Rule --> Operation : contains
+Rule --> ExpectedResult : contains
+
+Precondition --> Condition : contains
+Precondition --> Credential : contains
+Precondition --> LicenseStatus : contains
+Precondition --> VehicleStatus : contains
+Precondition --> Event : contains
+Precondition --> Location : contains
+Precondition --> Permission : contains
+
+Operation --> Actor : contains
+Operation --> Action : contains
+Operation --> Target : contains
+Operation --> Speed : contains
+Operation --> Distance : contains
+Operation --> Direction : contains
+
+ExpectedResult --> PenaltyAmount : contains
+ExpectedResult --> Duration : contains
+@enduml
+```
+
+
+## TRL (Testable Rule Language) 定义
+
+### 1. 符号系统 (Symbols)
+
+#### 逻辑符号
+- `AND`：逻辑与
+- `OR`：逻辑或  
+- `NOT`：逻辑非
+- `(` `)`：分组符号
+
+#### 比较符号
+- `=`：等于
+- `!=`：不等于
+- `>`：大于
+- `<`：小于
+- `>=`：大于等于
+- `<=`：小于等于
+
+#### 领域符号
+- **Actor**: "机动车", "驾驶人", "非机动车", "行人", "货运机动车"
+- **VehicleType**: "机动车", "非机动车", "货运机动车"
+- **Condition**: "饮酒后", "故障", "前车左转弯", "违规", "驾驶证暂扣", "超载", "伪造", "行人通过", "车道减少", "非紧急任务"
+- **Location**: "高速公路", "非机动车道"
+- **Credential**: "行驶证", "号牌"
+- **Event**: "交通事故"
+- **Time**: 时间数值
+- **Action**: "行驶", "让行", "驾驶", "设置", "超车", "载人", "使用", "停车", "进入", "载货"
+- **Speed**: 速度数值
+- **Distance**: 距离数值
+- **Target**: "行人", "标志", "警报器"
+- **Direction**: "右侧", "交替"
+- **Outcome**: "成功", "失败"
+- **Amount**: 金额数值
+
+### 2. 语法 (Syntax)
+
+```bnf
+Rule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+
+Condition ::= Expression | Condition ("AND" | "OR") Condition | "NOT" Condition
+Expression ::= Attribute Operator Value
+Attribute ::= "actor" | "vehicleType" | "condition" | "location" | "credential" 
+             | "event" | "time" | "speed" | "distance" | "direction" | "target" | "amount"
+Operator ::= "=" | "!=" | ">" | "<" | ">=" | "<="
+Value ::= StringLiteral | Number
+StringLiteral ::= "\"" [a-zA-Z0-9\u4e00-\u9fa5]+ "\""
+Number ::= [0-9]+
+
+Action ::= Expression | Action ("AND" | "OR") Action | "NOT" Action
+
+ExpectedOutcome ::= Expression | ExpectedOutcome ("AND" | "OR") ExpectedOutcome | "NOT" ExpectedOutcome
+```
+
+### 3. 语义 (Semantics)
+
+#### 操作语义定义：
+
+**条件部分语义**：
+- `IF Condition` → 系统输入状态约束集合
+- 每个条件表达式映射为测试前置条件验证
+- 复合条件通过逻辑运算符组合验证结果
+
+**动作部分语义**：
+- `AND Action` → 测试执行操作序列
+- 每个动作表达式映射为具体测试步骤
+- 动作参数通过属性-值对具体化
+
+**预期结果语义**：
+- `THEN ExpectedOutcome` → 测试断言集合
+- 每个结果表达式映射为测试后置条件验证
+- 支持多结果条件的复合验证
+
+#### 语义映射规则：
+```
+⟦IF Condition AND Action THEN ExpectedOutcome⟧ = 
+    {input: ⟦Condition⟧, operations: ⟦Action⟧, assertions: ⟦ExpectedOutcome⟧}
+    
+⟦Attribute Operator Value⟧ = 
+    lambda state: evaluate_condition(state[Attribute], Operator, Value)
+```
+
+### 4. 可测试性约束 (Testability Constraints)
+
+```ocl
+context Rule
+-- 规则必须具有明确的主体和操作
+inv HasActorAndAction: 
+    self.condition->exists(expr | expr.attribute = 'actor') and 
+    self.action->exists(expr | expr.attribute = 'action')
+
+-- 预期结果必须明确指定
+inv HasExpectedOutcome: 
+    self.expectedOutcome->exists(expr | expr.attribute = 'outcome')
+
+-- 所有属性值必须可观测或可设置
+inv ObservableAttributes:
+    self.getAllAttributes()->forAll(attr | 
+        attr.isObservable() or attr.isControllable())
+
+-- 条件部分不能包含矛盾约束
+inv ConsistentConditions:
+    self.condition->select(expr | expr.attribute = 'restriction')->
+    forAll(e1, e2 | e1.value != '禁止' or e2.value != '允许')
+
+-- 数值型属性必须具有有效范围
+inv ValidNumericRanges:
+    self.getAllExpressions()->select(expr | expr.value.isNumeric())->
+    forAll(expr | expr.value >= expr.attribute.minValue() and 
+                  expr.value <= expr.attribute.maxValue())
+
+-- 操作必须可执行
+inv ExecutableActions:
+    self.action->forAll(expr | 
+        expr.attribute = 'action' implies expr.value.isExecutable())
+
+context Expression
+-- 表达式必须具有有效的操作符和值类型匹配
+inv ValidOperatorAndType:
+    (self.attribute.type = 'string' implies self.operator in {'=', '!='}) and
+    (self.attribute.type = 'numeric' implies self.operator in {'=', '!=', '>', '<', '>=', '<='})
+
+-- 值必须与属性类型匹配
+inv ValueTypeMatchesAttribute:
+    self.attribute.type = 'string' implies self.value.isString() and
+    self.attribute.type = 'numeric' implies self.value.isNumeric()
+```
+
+## TRL 完整定义
+
+Testable Rule Language (TRL) 是一个形式化的领域特定语言，用于将交通法规等自然语言规则转化为可测试的规范。它具有以下特点：
+
+1. **结构化规则表示**：采用 IF-Condition-AND-Action-THEN-ExpectedOutcome 的统一结构
+2. **领域适配性**：内置交通领域核心概念和属性
+3. **逻辑完备性**：支持与或非逻辑运算和复合条件
+4. **类型安全性**：确保属性值与类型匹配
+5. **可测试性保证**：通过约束确保规则可被自动测试
+
+## 示例：自然语言规则转换
+
+### 原始规则（来自测试用例）：
+"机动车在高速公路上行驶速度50，限制禁止，预期结果失败"
+
+### TRL 转换：
+```
+IF actor = "机动车" AND location = "高速公路" AND speed = 50 AND condition = "禁止" 
+AND action = "行驶" 
+THEN outcome = "失败"
+```
+
+### 可测试性验证：
+1. ✅ 具有明确的主体 (actor="机动车") 和操作 (action="行驶")
+2. ✅ 具有明确的预期结果 (outcome="失败")  
+3. ✅ 所有属性可观测（速度、位置、条件）
+4. ✅ 操作可执行（行驶动作）
+5. ✅ 数值在有效范围内 (speed=50)
+6. ✅ 条件一致（禁止行驶与失败结果一致）
+
+该TRL规则可直接用于生成测试用例：
+- **前置条件**：设置环境为高速公路，主体为机动车
+- **测试步骤**：执行行驶操作，设置速度为50
+- **验证断言**：检查结果是否为失败状态
+
+通过TRL的形式化表示，实现了从自然语言规则到可执行测试用例的自动转换，确保了规则的可测试性和验证的自动化。

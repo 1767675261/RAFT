@@ -1,0 +1,159 @@
+## TRL (可测试规则语言) 定义
+
+**TRL 概述:**
+
+可测试规则语言 (TRL) 旨在将自然语言规则或需求文档形式化，使其能够被自动解析、验证和生成测试用例。TRL 采用结构化的方式描述规则，强调可测试性，并提供形式化的约束，确保规则能够被有效验证。
+
+**1. 符号系统 (Symbols)**
+
+* **逻辑符号:**
+    * `AND`: 逻辑与
+    * `OR`: 逻辑或
+    * `NOT`: 逻辑非
+    * `IF`: 条件判断
+    * `THEN`: 条件分支
+    * `ELSE`: 条件分支 else
+* **比较符号:**
+    * `=`: 等于
+    * `!=`: 不等于
+    * `>`: 大于
+    * `<`: 小于
+    * `>=`: 大于等于
+    * `<=`: 小于等于
+* **领域符号:** (根据元模型定义，此处示例)
+    * `债券`: 指债券
+    * `交易`: 指债券交易
+    * `参与人`: 指债券交易参与人
+    * `价格`: 指债券价格
+    * `数量`: 指债券数量
+    * `市场`: 指交易市场
+    * `结算`: 指结算方式
+* **关键词:**
+    * `Rule`: 规则
+    * `Condition`: 条件
+    * `Action`: 操作
+    * `ExpectedOutcome`: 预期结果
+
+**2. 语法 (Syntax)**
+
+TRL 采用 BNF (Backus-Naur Form) 形式定义，核心结构如下：
+
+```
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+Condition ::= <Comparison> <Operand> <Operator> <Comparison>
+Action ::= <Operation> <Operand>
+ExpectedOutcome ::= <Assertion>
+Operand ::= <Literal> | <Variable>
+Operator ::= "=" | "!=" | ">" | "<" | ">=" | "<=" | "AND" | "OR" | "NOT"
+Literal ::= <Number> | <String> | <DomainSymbol>
+Variable ::= <Identifier>
+Number ::= "0" | "1" | "2" | ... | "9"
+String ::= "\"" <Character>* "\""
+Character ::= "a" | "b" | "c" | ... | "z" | "A" | "B" | "C" | ... | "Z" | "0" | "1" | "2" | ... | "9" | " " | "." | "," | "-" | "+" | "/" | "*" | "?" | ":" | ";" | "<" | ">" | "=" | "!"
+DomainSymbol ::= 债券 | 交易 | 参与人 | 价格 | 数量 | 市场 | 结算
+Identifier ::= [a-zA-Z_][a-zA-Z0-9_]*
+```
+
+**3. 语义 (Semantics)**
+
+* **Rule:**  表示一个规则，包含条件、操作和预期结果。
+* **Condition:**  表示规则的条件，由比较操作符和操作数组成。
+* **Action:**  表示规则的操作，通常涉及对系统进行操作。
+* **ExpectedOutcome:**  表示规则的预期结果，通常是断言或验证。
+* **Operand:**  表示操作数，可以是字面量或变量。
+* **Operator:**  表示比较操作符或逻辑操作符。
+* **Literal:**  表示字面量，例如数字或字符串。
+* **Variable:**  表示变量，用于表示系统状态或参数。
+* **Number:**  表示数字。
+* **String:**  表示字符串。
+* **DomainSymbol:**  表示领域符号，例如债券、交易等。
+
+**语义解释:**
+
+* **条件 (Condition):**  从条件表达式推导出系统可执行行为，即确定是否满足规则的条件。
+* **操作 (Action):**  从操作序列推导出系统执行的操作，即确定系统应该执行哪些操作。
+* **预期结果 (ExpectedOutcome):**  从断言推导出系统状态是否符合预期，即确定系统是否满足规则的预期结果。
+
+**操作语义 (Operational Semantics):**
+
+可以使用基于规则的操作语义来描述 TRL 的语义。例如，对于一个条件表达式 `IF x > 10 AND y < 20 THEN z = 30`，操作语义可以定义如下：
+
+1.  评估 `x > 10`，如果为真，则继续评估。如果为假，则整个条件表达式为假。
+2.  评估 `y < 20`，如果为真，则继续评估。如果为假，则整个条件表达式为假。
+3.  如果步骤 1 和步骤 2 都为真，则执行 `z = 30`。
+
+**4. 可测试性约束 (Testability Constraints)**
+
+可测试性约束使用 OCL (Object Constraint Language) 来形式化表示。以下是一些示例：
+
+* **规则必须包含条件、操作和预期结果:**
+   ```ocl
+   context Rule
+   inv: contains("IF") and contains("THEN")
+   ```
+* **条件必须是可评估的:**
+   ```ocl
+   context Condition
+   inv: allValuesAreEvaluable
+   ```
+* **操作必须是可执行的:**
+   ```ocl
+   context Action
+   inv: allOperationsAreExecutable
+   ```
+* **预期结果必须是可验证的:**
+   ```ocl
+   context ExpectedOutcome
+   inv: allAssertionsAreVerifiable
+   ```
+* **条件和预期结果必须一致:**
+   ```ocl
+   context Rule
+   inv: conditionAndExpectedOutcomeAreConsistent
+   ```
+* **操作必须与条件和预期结果相关:**
+   ```ocl
+   context Rule
+   inv: actionIsRelatedToConditionAndExpectedOutcome
+   ```
+
+**示例**
+
+**自然语言规则:**  如果债券价格低于 100 元，则触发止损订单。
+
+**TRL 实例:**
+
+```trl
+Rule ::= IF 价格 < 100 THEN 触发止损订单
+Condition ::= 价格 < 100
+Action ::= 触发止损订单
+ExpectedOutcome ::= 止损订单触发
+```
+
+**测试用例:**
+
+| 测试用例ID | 债券价格 | 预期结果 |
+|---|---|---|
+| TC001 | 95 | 止损订单触发 |
+| TC002 | 105 | 止损订单未触发 |
+
+**TRL 的完整定义:**  (由于篇幅限制，此处省略完整的 BNF 定义和 OCL 约束，但上述定义已经涵盖了 TRL 的核心要素)
+
+**示例：**
+
+将自然语言规则“如果债券价格低于 100 元，则触发止损订单”转化为 TRL 实例：
+
+```trl
+Rule ::= IF 价格 < 100 THEN 触发止损订单
+Condition ::= 价格 < 100
+Action ::= 触发止损订单
+ExpectedOutcome ::= 止损订单触发
+```
+
+**可测试性验证:**
+
+使用 OCL 约束验证该 TRL 实例是否满足可测试性条件。例如，验证规则是否包含条件、操作和预期结果。
+
+**总结:**
+
+TRL 提供了一种结构化的方式来表示可测试规则，并使用 OCL 约束来确保规则的可测试性。通过将自然语言规则形式化为 TRL 实例，可以自动生成测试用例，并验证规则的正确性。

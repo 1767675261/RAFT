@@ -1,0 +1,166 @@
+## 步骤一：规则要素清单 (18个)
+
+1.  **债券交易参与人**：指参与债券交易的实体。
+2.  **债券交易**：指债券的买卖、回购、质押等交易行为。
+3.  **询价**：债券交易参与人向其他参与人发出报价。
+4.  **申报**：债券交易参与人向交易系统提交交易指令。
+5.  **成交**：交易指令被交易系统确认并执行。
+6.  **买入**：债券交易参与人购买债券。
+7.  **卖出**：债券交易参与人出售债券。
+8.  **价格**：债券交易的价格。
+9.  **数量**：债券交易的数量。
+10. **撤销**：撤销已提交的交易指令。
+11. **回转交易**：债券现券交易的一种交易方式。
+12. **质押**：将债券作为抵押品进行融资。
+13. **回购**：将债券质押给融资方，从融资方获得资金，到期返还债券。
+14. **竞买**：债券交易参与人以指定价格竞买债券。
+15. **协商成交**：债券交易参与人通过协商达成交易。
+16. **投资者适当性管理**：对投资者进行风险评估和分类管理。
+17. **交易系统**：用于执行债券交易指令的平台。
+18. **交易信息**：债券交易的各种数据和报告。
+
+## 步骤二：元模型 (PlantUML)
+
+```plantuml
+@startuml
+' 定义顶层节点
+class Rule {
+}
+
+' 定义中间层节点
+class Precondition {
+    contains Constraint
+}
+
+class Operation {
+    contains Constraint
+}
+
+class ExpectedResult {
+    contains Constraint
+}
+
+' 定义底层节点 (规则要素)
+class BondTradingParticipant {
+}
+
+class BondTrading {
+}
+
+class Inquiry {
+}
+
+class Declaration {
+}
+
+class Completion {
+}
+
+class Buy {
+}
+
+class Sell {
+}
+
+class Price {
+}
+
+class Quantity {
+}
+
+class Cancellation {
+}
+
+class Repurchase {
+}
+
+class Pledge {
+}
+
+class Auction {
+}
+
+class Negotiation {
+}
+
+class InvestorSuitabilityManagement {
+}
+
+class TradingSystem {
+}
+
+class TradingInformation {
+}
+
+' 关系
+Rule -- Precondition : contains
+Rule -- Operation : contains
+Rule -- ExpectedResult : contains
+
+Precondition -- BondTradingParticipant : constrains
+Precondition -- BondTrading : constrains
+Precondition -- Inquiry : constrains
+Precondition -- Declaration : constrains
+Precondition -- Completion : constrains
+Precondition -- Buy : constrains
+Precondition -- Sell : constrains
+Precondition -- Price : constrains
+Precondition -- Quantity : constrains
+Precondition -- Cancellation : constrains
+Precondition -- Repurchase : constrains
+Precondition -- Pledge : constrains
+Precondition -- Auction : constrains
+Precondition -- Negotiation : constrains
+Precondition -- InvestorSuitabilityManagement : constrains
+Precondition -- TradingSystem : constrains
+Precondition -- TradingInformation : constrains
+
+Operation -- BondTrading : constrains
+Operation -- Inquiry : constrains
+Operation -- Declaration : constrains
+Operation -- Completion : constrains
+Operation -- Buy : constrains
+Operation -- Sell : constrains
+Operation -- Price : constrains
+Operation -- Quantity : constrains
+Operation -- Cancellation : constrains
+Operation -- Repurchase : constrains
+Operation -- Pledge : constrains
+Operation -- Auction : constrains
+Operation -- Negotiation : constrains
+Operation -- TradingSystem : constrains
+Operation -- TradingInformation : constrains
+
+ExpectedResult -- BondTradingParticipant : constrains
+ExpectedResult -- BondTrading : constrains
+ExpectedResult -- Inquiry : constrains
+ExpectedResult -- Declaration : constrains
+ExpectedResult -- Completion : constrains
+ExpectedResult -- Buy : constrains
+ExpectedResult -- Sell : constrains
+ExpectedResult -- Price : constrains
+ExpectedResult -- Quantity : constrains
+ExpectedResult -- Cancellation : constrains
+ExpectedResult -- Repurchase : constrains
+ExpectedResult -- Pledge : constrains
+ExpectedResult -- Auction : constrains
+ExpectedResult -- Negotiation : constrains
+ExpectedResult -- InvestorSuitabilityManagement : constrains
+ExpectedResult -- TradingSystem : constrains
+ExpectedResult -- TradingInformation : constrains
+
+@enduml
+```
+
+**说明:**
+
+*   `contains Constraint`：表示该节点包含一个约束条件。
+*   `constrains`：表示该节点对其他节点施加限制。
+*   `dependsOn`：表示该节点依赖于其他节点。
+*   `triggers`：表示该节点触发其他节点。
+*   `Rule` 是顶层节点，代表整个规则。
+*   `Precondition`、`Operation`、`ExpectedResult` 是中间层节点，分别代表前置条件、操作步骤、预期结果。
+*   底层节点代表具体的规则要素。
+*   PlantUML 代码可以被编译成图形化类图，方便理解和维护。
+
+这个元模型结构清晰地展示了规则的语法，并明确了各个要素之间的关系。  希望这个回答对您有所帮助！

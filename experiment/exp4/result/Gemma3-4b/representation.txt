@@ -1,0 +1,148 @@
+## TRL (可测试规则语言) 定义
+
+以下是对可测试规则语言 (TRL) 的完整定义，包含符号系统、语法、语义和可测试性约束。
+
+**1. 符号系统 (Symbols)**
+
+* **逻辑符号:**
+    * `AND`: 逻辑与
+    * `OR`: 逻辑或
+    * `NOT`: 逻辑非
+    * `==`: 等于
+    * `!=`: 不等于
+    * `>`: 大于
+    * `<`: 小于
+    * `>=`: 大于等于
+    * `<=`: 小于等于
+* **比较符号:**
+    * `=`, `!=`, `>`, `<`, `>=`, `<=`
+* **领域符号:** (根据元模型定义，以下仅为示例)
+    * `BondTradingParticipant`: 债券交易参与人
+    * `BondTrading`: 债券交易
+    * `Inquiry`: 询价
+    * `Declaration`: 申报
+    * `Completion`: 完成
+    * `Buy`: 购买
+    * `Sell`: 出售
+    * `Price`: 价格
+    * `Quantity`: 数量
+    * `Cancellation`: 取消
+    * `Repurchase`: 回购
+    * `Pledge`: 质押
+    * `Auction`: 拍卖
+    * `Negotiation`: 协商
+    * `InvestorSuitabilityManagement`: 投资者适当性管理
+    * `TradingSystem`: 交易系统
+    * `TradingInformation`: 交易信息
+* **关键词:**
+    * `IF`: 条件
+    * `AND`: 逻辑与
+    * `THEN`: 则
+    * `ELSE`: 否则 (可选)
+    * `RULE`: 规则 (用于标识规则)
+
+**2. 语法 (Syntax)**
+
+TRL 的核心组成单元是 `Rule`，其结构如下：
+
+```
+Rule ::= "RULE" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+```
+
+*   `<Condition>`:  一个或多个条件表达式，用 `AND` 连接。
+*   `<Action>`:  一个或多个操作表达式，用 `AND` 连接。
+*   `<ExpectedOutcome>`:  一个或多个预期结果表达式，用 `AND` 连接。
+
+条件、动作和预期结果可以包含以下元素：
+
+*   领域符号 (如 `BondTradingParticipant`)
+*   逻辑符号 (如 `==`, `!=`, `AND`, `OR`, `NOT`)
+*   比较符号 (如 `>`, `<`, `>=`, `<=`)
+*   数字 (用于数值比较)
+*   字符串 (用于文本比较)
+
+**示例:**
+
+```
+RULE BondTradingParticipant AND BondTrading AND Inquiry THEN Declaration
+```
+
+**3. 语义 (Semantics)**
+
+*   **Condition:**  条件表达式会被解析为输入约束。例如，`BondTradingParticipant == "深圳证券交易所"`  会被转换为 "债券交易参与人必须是深圳证券交易所"。
+*   **Action:**  操作表达式会被解析为操作序列。例如，`Buy AND Price > 1000`  会被转换为 "执行购买操作，且价格必须大于 1000"。
+*   **ExpectedOutcome:**  预期结果表达式会被解析为断言。例如，`Declaration AND Quantity == 100`  会被转换为 "预期结果是申报，且数量必须为 100"。
+
+**操作语义 (Operational Semantics):**
+
+规则的执行过程可以描述为：
+
+1.  系统接收到输入约束 (Condition)。
+2.  系统执行操作序列 (Action)。
+3.  系统验证预期结果 (ExpectedOutcome)。
+4.  如果所有预期结果都满足，则规则被认为成功执行。
+
+**模型语义 (Denotational Semantics):**
+
+规则可以被建模为状态转换系统，其中状态表示系统当前的状态，动作表示状态之间的转换，预期结果表示状态的验证条件。
+
+**4. 可测试性约束 (Testability Constraints) - OCL (Object Constraint Language)**
+
+以下使用 OCL 定义可测试性约束，确保规则模型满足可测试性条件。
+
+*   **规则必须包含条件、动作和预期结果:**  `requires (Rule has Condition and Rule has Action and Rule has ExpectedOutcome)`
+*   **条件、动作和预期结果必须使用领域符号:** `requires (Rule.Condition.elementType in {BondTradingParticipant, BondTrading, ...}) and (Rule.Action.elementType in {BondTrading, Inquiry, ...}) and (Rule.ExpectedOutcome.elementType in {Declaration, Completion, ...})`
+*   **条件、动作和预期结果必须使用逻辑和比较符号:** `requires (Rule.Condition.expressionType in {LogicalExpression, ComparisonExpression}) and (Rule.Action.expressionType in {LogicalExpression, ComparisonExpression}) and (Rule.ExpectedOutcome.expressionType in {LogicalExpression, ComparisonExpression})`
+*   **规则必须具有明确的预期结果:** `requires (Rule.ExpectedOutcome.size > 0)`
+*   **规则的条件、动作和预期结果必须相互关联:** `requires (Rule.Condition implies Rule.Action implies Rule.ExpectedOutcome)`  (逻辑蕴含关系)
+*   **规则的执行结果必须可验证:** `requires (Rule.ExpectedOutcome.canBeVerified = true)`  (表示预期结果可以被系统验证)
+
+**5. TRL 的完整定义**
+
+```
+TRL (可测试规则语言)
+
+1.  符号系统:
+    *   逻辑符号: AND, OR, NOT, ==, !=, >, <, >=, <=
+    *   比较符号: =, !=, >, <, >=, <=
+    *   领域符号: (根据元模型定义)
+    *   关键词: RULE, IF, THEN, ELSE
+
+2.  语法:
+    *   Rule ::= "RULE" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+
+3.  语义:
+    *   Condition -> 输入约束
+    *   Action -> 操作序列
+    *   ExpectedOutcome -> 断言
+
+4.  可测试性约束:
+    *   requires (Rule has Condition and Rule has Action and Rule has ExpectedOutcome)
+    *   requires (Rule.Condition.elementType in {BondTradingParticipant, BondTrading, ...})
+    *   requires (Rule.Action.elementType in {BondTrading, Inquiry, ...})
+    *   requires (Rule.ExpectedOutcome.elementType in {Declaration, Completion, ...})
+    *   requires (Rule.Condition.expressionType in {LogicalExpression, ComparisonExpression})
+    *   requires (Rule.Action.expressionType in {LogicalExpression, ComparisonExpression})
+    *   requires (Rule.ExpectedOutcome.expressionType in {LogicalExpression, ComparisonExpression})
+    *   requires (Rule.ExpectedOutcome.size > 0)
+    *   requires (Rule.Condition implies Rule.Action implies Rule.ExpectedOutcome)
+    *   requires (Rule.ExpectedOutcome.canBeVerified = true)
+```
+
+**6. 示例**
+
+**自然语言规则:**  “如果债券交易参与人是深圳证券交易所，并且进行债券交易，则需要进行申报。”
+
+**TRL 实例:**
+
+```
+RULE BondTradingParticipant AND BondTrading THEN Declaration
+```
+
+**可测试性验证:**
+
+使用 OCL 验证器，可以确认该 TRL 实例满足所有可测试性约束。  例如，验证器会确认该规则包含条件、动作和预期结果，并且这些元素都使用了正确的符号和语法。
+
+---
+
+这个定义提供了一个框架，可以根据具体的领域和应用场景进行扩展和定制。  关键在于保持语言的简洁性、可读性和可验证性。  希望这个定义对您有所帮助！

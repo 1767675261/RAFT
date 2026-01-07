@@ -1,0 +1,91 @@
+## Symbols
+
+- 逻辑符号
+  - and, or, not
+  - -> (if...then...)
+- 比较符号
+  - =, !=, >, >=, <, <=, in, notin
+- 领域符号
+  - Precondition相关: Actor, TradingInstrument, TradingMarket, Time, Constraint, Event
+  - Operation相关: Action, TradingDirection, TradingMethod, Quantity, Price, OperationPart, Status
+  - ExpectedResult相关: ResultStatus, Result
+
+
+## Syntax
+
+Rule ::= "IF" <Precondition> "AND" <Operation> "THEN" <ExpectedOutcome>
+
+Precondition ::= <AtomicPrecondition> | <CompoundPrecondition>
+AtomicPrecondition ::= <PreconditionElement> <Comparator> <Value>
+CompoundPrecondition ::= "(" <Precondition> ")" 
+                    | <Precondition> "AND" <Precondition>
+                    | <Precondition> "OR" <Precondition>
+                    | "NOT" <Precondition>
+
+Operation ::= <AtomicOperation> | <CompoundOperation>
+AtomicOperation ::= <OperationElement> <Comparator> <Value>
+CompoundOperation ::= "(" <Operation> ")" 
+                 | <Operation> "AND" <Operation>
+                 | <Operation> "OR" <Operation>
+                 | "NOT" <Operation>
+
+ExpectedOutcome ::= <AtomicOutcome> | <CompoundOutcome>
+AtomicOutcome ::= <ResultElement> <Comparator> <Value>
+CompoundOutcome ::= "(" <ExpectedOutcome> ")" 
+                  | <ExpectedOutcome> "AND" <ExpectedOutcome>
+
+PreconditionElement ::= "Actor" | "TradingInstrument" | "TradingMarket" 
+                | "Time" | "Event" | "Constraint"
+                
+OperationElement ::= "Action" | "TradingDirection" | "TradingMethod" 
+                   | "Quantity" | "Price" | "OperationPart" | "Status" | "Constraint"
+                   
+ResultElement ::= "ResultStatus" | "Result" | "Constraint"
+
+Comparator ::= "=" | "!=" | ">" | "<" | ">=" | "<=" | "in" | "not in"
+
+Value ::= <StringLiteral> | <NumberLiteral> | <BooleanLiteral> | <TimeLiteral> | <TimeRangeSet>
+StringLiteral ::= "\"" [^"]* "\""
+NumberLiteral ::= [0-9]+ ("." [0-9]+)?
+BooleanLiteral ::= "true" | "false"
+
+TimeLiteral ::= "\"" [0-9]{2} ":" [0-9]{2} (":" [0-9]{2})? "\""  // 支持到分或秒
+TimeRange ::= <TimeLiteral> "-" <TimeLiteral>
+TimeRangeSet ::= "[" <TimeRange> ("," <TimeRange>)* "]"  // 例：[10:00-12:00,13:00-14:00]
+
+## Testability Constraints
+
+1. 结构完备性：条件、动作、结果非空
+context Rule
+inv StructuralCompleteness:
+    not self.Precondition.oclIsUndefined() and
+    not self.Operation.oclIsUndefined() and
+    not self.ExpectedResult.oclIsUndefined()
+
+2. 前置条件、操作、预期结果要素具体确定
+context Rule
+inv RuleElementDeterministic:
+    self.Precondition->forAll(e | e.concrete() and e.deterministic())
+    self.Operation->forAll(e | e.concrete() and e.deterministic())
+    self.ExpectedResult->forAll(e | e.concrete() and e.deterministic())
+
+3. 动作可执行
+context Rule
+inv ActionExecutable:
+    self.Operation.Action.notEmpty() and
+    self.Operation.Action.executable()
+
+4. 结果可观测
+context Rule
+inv ExpectedResultObservable:
+    self.ExpectedResult.Result.notEmpty() and
+    self.ExpectedResult.Result.observable()
+
+5. 无二义性/确定性（同一前置条件+操作不应给出相互矛盾的预期结果）
+context Rule
+inv DeterministicOutcome:
+    Rule.allInstances()->forAll(r2 |
+        if r2 <> self and r2.Precondition = self.Precondition and r2.Operation = self.Operation
+        then r2.ExpectedResult.ResultStatus = self.ExpectedResult.ResultStatus
+        else true
+        endif)

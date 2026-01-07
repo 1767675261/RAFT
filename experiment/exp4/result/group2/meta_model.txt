@@ -1,0 +1,57 @@
+@startuml
+'================= 顶层 =================
+class Rule
+
+'================= 中层 =================
+class Precondition
+class Operation
+class ExpectedResult
+
+Rule contains Precondition
+Rule contains Operation
+Rule contains ExpectedResult
+
+'================= 底层（合并后） =================
+class BondType
+class TradingParticipant
+class OrderDirection
+class TradingTime
+class TransactionPrice
+class Quantity
+class TradingMethod
+class TradingStatus
+class SettlementMethod
+class SettlementCycle
+class Cancellation
+class RiskControl
+class TechnicalFault
+class MarketCondition
+class ComplianceStatus
+class TradeResult
+
+'================= 关系 =================
+Precondition contains BondType
+Precondition contains TradingParticipant
+Precondition contains OrderDirection
+Precondition contains TradingTime
+Precondition contains RiskControl
+Precondition contains ComplianceStatus
+Precondition contains MarketCondition
+
+Operation contains OrderDirection
+Operation contains TradingTime
+Operation contains TransactionPrice
+Operation contains Quantity
+Operation contains TradingMethod
+Operation contains Cancellation
+
+ExpectedResult contains TradingStatus
+ExpectedResult contains SettlementMethod
+ExpectedResult contains SettlementCycle
+ExpectedResult contains TradeResult
+ExpectedResult contains MarketCondition
+ExpectedResult contains TechnicalFault
+ExpectedResult contains RiskControl
+ExpectedResult contains ComplianceStatus
+
+@enduml

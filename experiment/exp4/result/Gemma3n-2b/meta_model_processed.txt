@@ -1,0 +1,41 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+class Rule {
+}
+
+class Precondition {
+    + Constraint : Constraint
+}
+
+class Operation {
+    + Constraint : Constraint
+}
+
+class ExpectedResult {
+    + Constraint : Constraint
+}
+
+Rule -- Precondition : contains
+Rule -- Operation : contains
+Rule -- ExpectedResult : contains
+
+Precondition -- Constraint : constrains
+Operation -- Constraint : constrains
+ExpectedResult -- Constraint : constrains
+
+Operation -- ExpectedResult : triggers
+
+Precondition -- Operation : dependsOn
+Operation -- ExpectedResult : triggers
+
+' 关系说明:
+' Rule: 规则
+' Precondition: 前置条件
+' Operation: 操作步骤
+' ExpectedResult: 预期结果
+' Constraint: 约束条件
+' dependsOn: 依赖关系
+' triggers: 触发关系
+@enduml

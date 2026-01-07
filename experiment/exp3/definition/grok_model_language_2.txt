@@ -1,0 +1,210 @@
+### Step1 — 规则要素清单
+1. **VoltageLevel** - 电压水平设定  
+2. **FrequencyLevel** - 频率水平设定  
+3. **Operator** - 测试操作人员  
+4. **Action** - 测试执行动作  
+5. **Target** - 测试目标组件  
+6. **Duration** - 测试持续时间  
+7. **Result** - 测试预期结果  
+8. **LVRTCapability** - 低电压穿越能力  
+9. **HVRTCapability** - 高电压穿越能力  
+10. **ActivePowerResponse** - 有功功率响应  
+11. **ReactivePowerOutput** - 无功功率输出  
+12. **ProtectionAction** - 保护动作触发  
+13. **HarmonicContent** - 谐波含量限值  
+14. **FlickerValue** - 电压闪变值  
+15. **PowerPredictionAccuracy** - 功率预测准确率  
+
+### Step2 — 元模型
+```plantuml
+@startuml
+!define CLASS class
+
+Rule CLASS {
+}
+
+CLASS Precondition {
+}
+CLASS Operation {
+}
+CLASS ExpectedResult {
+}
+
+Rule --> Precondition : contains
+Rule --> Operation : contains
+Rule --> ExpectedResult : contains
+
+Precondition --> VoltageLevel : contains
+Precondition --> FrequencyLevel : contains
+Precondition --> Operator : contains
+Precondition --> Target : contains
+VoltageLevel ..> FrequencyLevel : dependsOn
+Operator ..> Target : constrains
+
+Operation --> Action : contains
+Operation --> Duration : contains
+Operation --> LVRTCapability : contains
+Operation --> HVRTCapability : contains
+Action ..> Duration : dependsOn
+LVRTCapability ..> HVRTCapability : constrains
+
+ExpectedResult --> Result : contains
+ExpectedResult --> ActivePowerResponse : contains
+ExpectedResult --> ReactivePowerOutput : contains
+ExpectedResult --> ProtectionAction : contains
+ExpectedResult --> HarmonicContent : contains
+ExpectedResult --> FlickerValue : contains
+ExpectedResult --> PowerPredictionAccuracy : contains
+Result ..> ActivePowerResponse : triggers
+ReactivePowerOutput ..> ProtectionAction : constrains
+PowerPredictionAccuracy ..> HarmonicContent : dependsOn
+Action ..> ExpectedResult : triggers
+
+@enduml
+```
+
+### 1. 符号系统 (Symbols)
+
+符号系统基于元模型定义，旨在支持光伏发电站接入系统的领域特定规则表达。符号分为三类，每类符号的语法位置和语义角色如下：
+
+- **逻辑符号 (Logical Symbols)**：
+  - `AND`：用于连接多个条件、动作或预期结果的并列关系。位置：Condition、Action或ExpectedOutcome内部的连接符。语义：逻辑与，表示所有子要素必须同时满足。
+  - `OR`：用于连接备选关系。位置：同上。语义：逻辑或，表示至少一个子要素满足。
+  - `NOT`：用于否定。位置：Condition、Action或ExpectedOutcome的前缀。语义：逻辑非，反转子要素的真值。
+
+- **比较符号 (Comparison Symbols)**：
+  - `=`：相等比较。位置：AtomicCondition或AtomicExpected中的运算符。语义：精确匹配，用于数值或字符串等值检查。
+  - `!=`：不相等。位置：同上。语义：不匹配检查。
+  - `<`、`>`：小于/大于。位置：同上。语义：数值顺序比较，用于阈值如电压跌落。
+  - `<=`、`>=`：小于等于/大于等于。位置：同上。语义：包含边界的阈值比较。
+
+- **领域符号 (Domain Symbols)**：
+  - 参数符号：基于元模型的Precondition、Operation和ExpectedResult子类，如`Voltage(string|number)`、`Frequency(number)`、`Operator(string)`、`Target(string)`、`Action(string)`、`Fault(string)`、`Duration(number)`、`Protection(string)`、`Harmonic(number)`、`Flicker(number)`、`Status(string)`、`PredictionAccuracy(number)`、`PowerResponse(string)`。位置：AtomicCondition、AtomicAction或AtomicExpected的左侧。语义：表示系统状态、输入或输出实体，值限于字符串（如"光伏电站并网点"）或数字（如97、30）。
+  - 值符号：字符串（引号包围，如"97%"）或数字（如49）。位置：领域符号右侧。语义：具体实例值，支持直接比较。
+
+所有符号作用范围限于单个Rule表达式内，支持嵌套括号`()`以界定优先级。
+
+### 2. 语法 (Syntax)
+
+语法基于元模型的层次结构定义：Rule包含Precondition（条件输入，如Voltage/Frequency/Operator/Target）、Operation（动作序列，如Action/Fault/Duration）和ExpectedResult（输出断言，如Status/Protection等）。核心单元为原子表达式（Atomic），支持逻辑组合以处理复杂规则（如嵌套条件或复合动作）。每个元素的值限于字符串或数字，确保一致的结构风格：所有Condition、Action、ExpectedOutcome均以参数-比较-值的原子形式为基础，支持AND/OR/NOT组合。
+
+使用BNF形式化表示：
+
+```
+<Rule> ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+
+<Condition> ::= <AtomicCondition> | "(" <Condition> "AND" <Condition> ")" | "(" <Condition> "OR" <Condition> ")" | "NOT" <Condition> | "(" <Condition> ")"
+
+<AtomicCondition> ::= <Parameter> <Comparator> <Value>  // Parameter from {Voltage, Frequency, Operator, Target}, Value: string|number
+
+<Action> ::= <AtomicAction> | "(" <Action> "AND" <Action> ")" | "(" <Action> "OR" <Action> ")" | "NOT" <Action> | "(" <Action> ")"
+
+<AtomicAction> ::= <Parameter> <Comparator> <Value>  // Parameter from {Action, Fault, Duration}, Value: string|number
+
+<ExpectedOutcome> ::= <AtomicExpected> | "(" <ExpectedOutcome> "AND" <ExpectedOutcome> ")" | "(" <ExpectedOutcome> "OR" <ExpectedOutcome> ")" | "NOT" <ExpectedOutcome> | "(" <ExpectedOutcome> ")"
+
+<AtomicExpected> ::= <Parameter> <Comparator> <Value>  // Parameter from {Protection, Harmonic, Flicker, Status, PredictionAccuracy, PowerResponse}, Value: string|number
+
+<Parameter> ::= "Voltage" | "Frequency" | "Operator" | "Target" | "Action" | "Fault" | "Duration" | "Protection" | "Harmonic" | "Flicker" | "Status" | "PredictionAccuracy" | "PowerResponse"
+
+<Comparator> ::= "=" | "!=" | "<" | ">" | "<=" | ">="
+
+<Value> ::= <StringLiteral> | <Number>
+
+<StringLiteral> ::= '"' <StringChar>* '"'
+
+<Number> ::= <Digit>+
+
+<Digit> ::= "0" | "1" | ... | "9"
+
+<StringChar> ::= any non-quote character
+```
+
+层次结构：Atomic为叶节点，逻辑运算符构建树状组合，支持嵌套（如`(NOT (Voltage <= "90%")) OR (Frequency >= 51)`）。组合规则：AND/OR要求同级平衡，NOT仅作用于单一子树；括号确保优先级。
+
+### 3. 语义 (Semantics)
+
+语义采用**操作语义 (Operational Semantics)** 表示：每个Rule表达式通过逐步求值（reduction）映射为可执行行为。状态空间为系统配置σ = (Input: Precondition值, State: Operation值, Output: ExpectedResult值)。求值规则为小步语义（small-step），从Rule开始逐步减化为真/假或执行轨迹。
+
+- **核心映射**：
+  - `<Condition>` 映射为输入约束：求值为布尔函数C(σ.Input)，如`Voltage = "97%"` → 检查σ.Input.Voltage == "97%"，生成测试输入集（e.g., 电压设定为97%）。
+  - `<Action>` 映射为操作序列：求值为动作列表A(σ.State)，如`Action = "调节并网点电压至97%标称值" AND Duration >= 30` → 执行序列[set_voltage(97%), wait(30min)]，更新σ.State。
+  - `<ExpectedOutcome>` 映射为断言：求值为输出检查E(σ.Output)，如`Status = "光伏电站连续运行，无脱网"` → 后置条件assert σ.Output.Status == "光伏电站连续运行，无脱网"。
+
+- **求值规则 (Judgment: <expr> ⇒ <value> in σ)**：
+  1. **Atomic求值**：`<Parameter> = <Value>` ⇒ true if σ(匹配域) == <Value>，else false。比较符号类似（e.g., `<` ⇒ 数值<比较）。
+  2. **逻辑求值**：`C1 AND C2` ⇒ true if (C1 ⇒ true) ∧ (C2 ⇒ true)；`OR`为∨；`NOT C` 为¬(C ⇒ value)。
+  3. **嵌套求值**：括号先内后外，逐步替换子表达式。
+  4. **整体Rule求值**：IF C AND A THEN E ⇒ 执行[A] if C ⇒ true，then check E ⇒ true；否则失败。推导轨迹：输入约束生成测试数据 → 操作序列模拟行为 → 断言验证输出。
+
+此语义确保从TRL表达式生成JUnit-like测试：Condition填充@Before，Action为@Test方法体，ExpectedOutcome为asserts。
+
+### 4. 可测试性约束 (Testability Constraints)
+
+可测试性约束确保规则可观测、可控、可测量，基于文档（GB/T 19964标准，如故障穿越要求）和测试用例（JSON，如电压跌落至20%须625ms内不脱网）。约束使用OCL (Object Constraint Language)形式化，针对Rule类（上下文：Rule with attributes condition:Condition, action:Action, outcome:ExpectedOutcome）。
+
+```
+context Rule inv:
+  -- 约束1: 条件必须包含至少一个可观测参数 (e.g., Voltage/Frequency from standard measurable vars)
+  condition.parameters->exists(p | p in Set{'Voltage', 'Frequency', 'Operator', 'Target'}) and
+  condition.comparators->forAll(c | c in Set{'=', '<=', '>=', '<', '>', '!='}) -- 只允许标准比较，避免不可控
+
+  -- 约束2: 动作必须指定Duration或Fault，确保时序可控 (from JSON time fields)
+  action.parameters->includes('Duration') or action.parameters->includes('Fault') and
+  action.values->forAll(v | v.oclIsTypeOf(Number) implies v > 0) -- Duration >0，避免零时序
+
+  -- 约束3: 预期结果必须是可量化的 (e.g., Status/PredictionAccuracy measurable per standard)
+  outcome.parameters->exists(p | p in Set{'Status', 'PredictionAccuracy', 'Harmonic', 'Flicker', 'PowerResponse', 'Protection'}) and
+  outcome.values->forAll(v | (v.oclIsTypeOf(String) implies v.length() > 0) and (v.oclIsTypeOf(Number) implies v >= 0)) -- 非空、非负
+
+  -- 约束4: 无无限嵌套 (深度<=3，确保解析效率)
+  self.nestingDepth(condition) <= 3 and self.nestingDepth(action) <= 3 and self.nestingDepth(outcome) <= 3
+
+  -- 约束5: 完整覆盖元模型 (至少覆盖Precondition-Operation-ExpectedResult各一子类)
+  condition.parameters->union(action.parameters)->union(outcome.parameters)->size() >= 3 and
+  let covered = condition.parameters->union(action.parameters)->union(outcome.parameters)
+  in covered->intersection(Set{'Voltage','Frequency','Action','Duration','Status','PredictionAccuracy'})->size() >= 2 -- 至少2领域覆盖
+
+context Condition def: nestingDepth(c: Condition): Integer =
+  if c.oclIsKindOf(AtomicCondition) then 1
+  else if c.oclIsKindOf(LogicalCondition) then 1 + c.subConditions->collect(nestingDepth)->max()
+  else 0 endif
+-- 类似定义Action/Outcome的nestingDepth
+```
+
+这些约束在解析时检查：违反则标记不可测试（e.g., 无Duration的动作无法模拟时序）。
+
+### TRL 的完整定义
+
+TRL是一种声明式语言，用于形式化光伏发电站接入规则，支持从自然语言（GB/T 19964标准）到测试用例（JSON）的自动化转换。完整定义整合以上四部分：
+
+- **字母表**：符号系统中的所有符号。
+- **语法**：BNF定义的层次结构，支持AND/OR/NOT嵌套，值限于string/number。
+- **语义**：操作语义的逐步求值，映射为约束-序列-断言的三元组，用于生成测试（如Python unittest）。
+- **静态语义**：OCL约束确保可测试性（可观测输入、可控动作、可测输出）。
+- **动态语义**：执行时生成轨迹图（trace: Input → State transitions → Output asserts）。
+
+语言优势：简单（原子为基础）、扩展（嵌套支持复合如连续LVRT）、领域特定（光伏参数）。
+
+### 一个示例
+
+**自然语言规则转化**（从JSON第一个用例和PDF 6.1节LVRT要求）：  
+"当电压调节至97%标称值，由测试工程师A针对光伏电站并网点执行动作30分钟后，预期光伏电站连续运行，无脱网。"
+
+**TRL实例**：  
+```
+IF (Voltage = "97%") AND (Operator = "测试工程师A") AND (Target = "光伏电站并网点") 
+AND 
+(Action = "调节并网点电压至97%标称值") AND (Duration >= 30) 
+THEN 
+(Status = "光伏电站连续运行，无脱网")
+```
+
+**可测试性判断**：  
+使用OCL约束检查：  
+- 条件包含Voltage/Operator/Target（可观测，满足约束1）。  
+- 动作包含Action/Duration（时序可控，Duration=30>0，满足约束2）。  
+- 预期包含Status（可量化字符串，满足约束3）。  
+- 嵌套深度=1（满足约束4）。  
+- 覆盖Voltage/Action/Status（>=3参数，>=2领域，满足约束5）。  
+**结果**：满足所有约束，可测试。可自动生成测试：输入{voltage=97%}，执行[set_voltage("97%"), wait(30min)]，断言status=="光伏电站连续运行，无脱网"。

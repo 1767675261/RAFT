@@ -1,0 +1,246 @@
+## 1. 形式化定义
+
+> **TRL (Testable Rule Language)**  
+> 目标：把自然语言规则/需求文档转化为可机器解析、可验证、可生成测试用例的形式化语言。
+
+### 1.1 符号系统 (Symbols)
+
+| 级别 | 符号 | 语法位置 | 语义角色 |
+|------|------|----------|----------|
+| **逻辑符号** | `AND`、`OR`、`NOT`、`(`、`)` | 连接条件/动作/期望结果 | 逻辑组合 |
+| **比较符号** | `=`、`!=`、`>`、`<`、`>=`、`<=` | 条件表达式中 | 取值比较 |
+| **领域符号** | 领域字段（见元模型） | `Condition`、`Action`、`ExpectedOutcome` | 业务属性（如 `BondType`、`TradingParticipant`、`OrderDirection` 等） |
+
+> **说明**  
+> * 领域字段是 **字符串** 或 **数字**（不使用枚举），因为后续需要自动生成测试数据。  
+> * 逻辑符号只能在 **Condition**、**Action**、**ExpectedOutcome** 的组合子句中出现。  
+
+---
+
+### 1.2 语法 (Syntax)
+
+> **BNF（Backus–Naur 形式）**  
+> 规则顶层结构固定为  
+> ```
+> Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+> ```
+
+下面给出完整的 BNF 语法（简化但足够表达复杂规则）：
+
+```
+Rule                ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+
+Condition           ::= SimpleCondition
+                      | Condition "AND" Condition
+                      | Condition "OR" Condition
+                      | "NOT" Condition
+                      | "(" Condition ")"
+
+SimpleCondition     ::= Field ComparisonOperator Value
+
+Action              ::= SimpleAction
+                      | Action "AND" Action
+                      | Action "OR" Action
+                      | "NOT" Action
+                      | "(" Action ")"
+
+SimpleAction        ::= Field "=" Value
+
+ExpectedOutcome     ::= SimpleOutcome
+                      | ExpectedOutcome "AND" ExpectedOutcome
+                      | ExpectedOutcome "OR" ExpectedOutcome
+                      | "NOT" ExpectedOutcome
+                      | "(" ExpectedOutcome ")"
+
+SimpleOutcome       ::= Field "=" Value
+
+Field               ::= "BondType" | "TradingParticipant" | "OrderDirection"
+                      | "TradingTime" | "RiskControl" | "ComplianceStatus"
+                      | "MarketCondition" | "TransactionPrice" | "Quantity"
+                      | "TradingMethod" | "Cancellation" | "TradingStatus"
+                      | "SettlementMethod" | "SettlementCycle" | "TradeResult"
+                      | "TechnicalFault"
+
+ComparisonOperator  ::= "=" | "!=" | ">" | "<" | ">=" | "<="
+
+Value               ::= <string> | <number>
+```
+
+> **约束**  
+> * `Field` 必须来自元模型。  
+> * `Value` 为字符串或数字（不使用枚举）。  
+> * 逻辑符号只能在 Condition / Action / ExpectedOutcome 里出现，不能直接跟在 `IF`、`AND`、`THEN` 之后。  
+
+---
+
+### 1.3 语义 (Semantics)
+
+采用 **操作语义**（Operational Semantics）描述每个语法元素如何映射到系统行为。
+
+| 语法元素 | 语义说明 |
+|----------|-----------|
+| `Rule` | 由三部分组成：<br>① **Condition** → 输入约束（系统状态或外部输入）<br>② **Action** → 触发的操作序列（交易指令、状态变更等）<br>③ **ExpectedOutcome** → 断言（系统状态或输出） |
+| `Condition` | 逐个字段进行比较，生成布尔约束。<br>示例：`BondType = "国债"` → 约束系统中交易品种为国债。 |
+| `Action` | 产生或修改字段值。<br>示例：`TransactionPrice = 100.5` → 生成交易指令，价格设为 100.5。 |
+| `ExpectedOutcome` | 断言系统最终状态。<br>示例：`TradeResult = "Success"` → 期望交易成功。 |
+| `AND` / `OR` / `NOT` | 逻辑组合。<br>`AND` 需要所有子条件/动作/期望同时成立；`OR` 只需至少一项；`NOT` 取反。 |
+| `ComparisonOperator` | 对字段值执行比较。<br>`>` 需要字段值大于给定数；`=` 等价等。 |
+
+> **执行流程**  
+> 1. **输入约束**（Condition）被评估。若为 `false`，规则不触发。<br> 2. **操作序列**（Action）被执行，系统状态被更新。<br> 3. **期望断言**（ExpectedOutcome）被验证。<br> 4. 若断言成立，规则通过；否则产生错误/异常。  
+
+---
+
+### 1.4 可测试性约束 (Testability Constraints)
+
+> 目的：确保每条 TRL 规则都能被 **自动化测试**，即可以为其生成至少一组 **可执行测试用例**。
+
+采用 **OCL** 形式化约束，写在 `Rule` 上下文中。
+
+```ocl
+context Rule
+-- 1. 每个字段在 Condition、Action、ExpectedOutcome 中都必须出现至少一次
+inv ConditionHasField:
+    self.condition.fields()->size() > 0
+
+inv ActionHasField:
+    self.action.fields()->size() > 0
+
+inv ExpectedOutcomeHasField:
+    self.expectedOutcome.fields()->size() > 0
+
+-- 2. Condition 必须包含可变的（可测试）字段
+inv TestableCondition:
+    self.condition.fields()->exists(f | f.isTestable())
+
+-- 3. Action 必须产生可观察的状态变化
+inv ObservableAction:
+    self.action.fields()->exists(f | f.isObservable())
+
+-- 4. ExpectedOutcome 必须是可断言的（可验证）状态
+inv AssertableOutcome:
+    self.expectedOutcome.fields()->exists(f | f.isAssertable())
+
+-- 5. 逻辑组合不导致无解（至少有一条满足路径）
+inv Satisfiable:
+    let sat := self.condition.evaluate() in
+    sat = true
+
+-- 6. 生成测试用例的最小集合满足覆盖
+inv MinimalTestSet:
+    self.testSet->size() >= 1
+```
+
+> **字段属性**（在 `Field` 的 OCL 里定义）  
+> ```ocl
+> context Field
+> def isTestable(): Boolean = 
+>   self.name <> 'TechnicalFault' and self.name <> 'ComplianceStatus'  // 例如可变字段
+> def isObservable(): Boolean = 
+>   self.name = 'TransactionPrice' or self.name = 'Quantity' or self.name = 'TradingMethod'
+> def isAssertable(): Boolean = 
+>   self.name = 'TradeResult' or self.name = 'TradingStatus' or self.name = 'SettlementMethod'
+> ```
+
+> **解释**  
+> * `ConditionHasField` 等保证每个子句都包含业务字段。  
+> * `TestableCondition`、`ObservableAction`、`AssertableOutcome` 保证规则至少能产生可观测的输入/输出。  
+> * `Satisfiable` 通过模型检查确保存在满足条件的输入。  
+> * `MinimalTestSet` 强制至少有一组测试用例。  
+
+---
+
+## 2. TRL 的完整定义
+
+```
+TRule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+Condition ::= SimpleCondition | Condition "AND" Condition
+           | Condition "OR" Condition | "NOT" Condition | "(" Condition ")"
+SimpleCondition ::= Field ComparisonOperator Value
+Action ::= SimpleAction | Action "AND" Action
+        | Action "OR" Action | "NOT" Action | "(" Action ")"
+SimpleAction ::= Field "=" Value
+ExpectedOutcome ::= SimpleOutcome | ExpectedOutcome "AND" ExpectedOutcome
+                  | ExpectedOutcome "OR" ExpectedOutcome | "NOT" ExpectedOutcome
+                  | "(" ExpectedOutcome ")"
+SimpleOutcome ::= Field "=" Value
+Field ::= "BondType" | "TradingParticipant" | "OrderDirection"
+       | "TradingTime" | "RiskControl" | "ComplianceStatus"
+       | "MarketCondition" | "TransactionPrice" | "Quantity"
+       | "TradingMethod" | "Cancellation" | "TradingStatus"
+       | "SettlementMethod" | "SettlementCycle" | "TradeResult"
+       | "TechnicalFault"
+ComparisonOperator ::= "=" | "!=" | ">" | "<" | ">=" | "<="
+Value ::= <string> | <number>
+```
+
+> **语义**：见 1.3  
+> **可测试性约束**：见 1.4
+
+---
+
+## 3. 示例
+
+### 3.1 自然语言规则
+
+> **规则**  
+> “如果债券交易参与人满足 **资本、资金实力与持续经营能力**，并且交易时间为 **工作日**，且 **风险控制已通过**，则 **提交交易申报**，预期结果为 **交易成功**。”
+
+### 3.2 TRL 表达
+
+```
+Rule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+
+Condition ::= 
+    (TradingParticipant = "资本、资金实力与持续经营能力")
+    AND
+    (TradingTime = "工作日")
+    AND
+    (RiskControl = "已通过")
+
+Action ::= 
+    TransactionPrice = 100.5
+    AND
+    Quantity = 1000
+    AND
+    TradingMethod = "提交交易申报"
+
+ExpectedOutcome ::= 
+    TradeResult = "Success"
+```
+
+> **完整 TRL 语句**（按 BNF 合并）：
+
+```
+IF (TradingParticipant = "资本、资金实力与持续经营能力") AND (TradingTime = "工作日") AND (RiskControl = "已通过")
+AND
+TransactionPrice = 100.5 AND Quantity = 1000 AND TradingMethod = "提交交易申报"
+THEN TradeResult = "Success"
+```
+
+### 3.3 可测试性判断
+
+| 约束 | 说明 | 是否满足 |
+|------|------|----------|
+| ConditionHasField | 至少一个字段 | ✅ (`TradingParticipant`, `TradingTime`, `RiskControl`) |
+| ActionHasField | 至少一个字段 | ✅ (`TransactionPrice`, `Quantity`, `TradingMethod`) |
+| ExpectedOutcomeHasField | 至少一个字段 | ✅ (`TradeResult`) |
+| TestableCondition | 条件字段可变 | ✅ (`TradingParticipant`, `TradingTime`, `RiskControl`) |
+| ObservableAction | 操作字段可观测 | ✅ (`TransactionPrice`, `Quantity`, `TradingMethod`) |
+| AssertableOutcome | 断言字段可验证 | ✅ (`TradeResult`) |
+| Satisfiable | 存在满足输入 | ✅ （如 `TradingParticipant="资本、资金实力与持续经营能力"` 等） |
+| MinimalTestSet | 至少一组测试 | ✅ （可生成测试用例：输入上述字段，期望 `TradeResult="Success"`） |
+
+> **结论**  
+> 该 TRL 规则满足所有可测试性约束，可被自动化测试工具解析、执行并验证。
+
+---
+
+## 4. 小结
+
+* **符号系统**：区分逻辑、比较、领域符号，保证语义清晰。  
+* **语法**：使用 BNF 定义可扩展的结构，支持嵌套与逻辑组合。  
+* **语义**：把规则映射为输入约束、操作序列、断言，形成完整的执行流程。  
+* **可测试性约束**：通过 OCL 形式化，确保每条规则都能被自动生成至少一组可执行、可验证的测试用例。  
+
+该 TRL 语言可直接从自然语言规则文档中提取、形式化，并在测试框架中自动生成、执行与验证，满足软件需求建模与测试专家的需求。

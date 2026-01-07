@@ -1,0 +1,37 @@
+@startuml
+!define CLASS class
+
+CLASS Rule {
+}
+
+CLASS Precondition {
+}
+CLASS Operation {
+}
+CLASS ExpectedResult {
+}
+
+Rule --> Precondition : contains
+Rule --> Operation : contains
+Rule --> ExpectedResult : contains
+
+Precondition --> Operator : contains
+Precondition --> Instrument : contains
+Precondition --> BusinessPart : contains
+Precondition --> Direction : contains
+Precondition --> Market : contains
+Precondition --> TimePeriod : contains
+Precondition --> Constraint : dependsOn
+Precondition --> Event : triggers
+Precondition --> BondType : contains
+
+Operation --> Method : contains
+Operation --> Action : contains
+Operation --> Status : constrains
+Operation --> Price : dependsOn
+Operation --> Quantity : dependsOn
+Operation --> BiddingMethod : contains
+
+ExpectedResult --> ResultStatus : contains
+ExpectedResult --> Outcome : triggers
+@enduml

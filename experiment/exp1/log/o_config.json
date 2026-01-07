@@ -1,0 +1,39 @@
+{
+    "exp1": {
+        "ours_precision": 0.74,
+        "ours_recall": 0.33,
+        "ours_rc": 0.25,
+        "llm_precision": 0.5,
+        "llm_recall": 0.45,
+        "llm_recall ": 0.5,
+        "llm_rc": 0.6,
+        "exp_precision": 0.45,
+        "exp_recall": 0.48,
+        "exp_rc": 0.35,
+        "cmp_precision": 0.9,
+        "cmp_recall": 0.34,
+        "cmp_rc": 0.17,
+        "only_precision": 0.68,
+        "only_recall": 0.4,
+        "only_recall ": 0.45,
+        "only_rc":0.45,
+        "only_rc ":0.5
+    },
+    "exp2": {
+        "ours_precision": 0.66,
+        "ours_recall": 0.41,
+        "ours_rc": 0.15,
+        "llm_precision": 0.5,
+        "llm_recall": 0.4,
+        "llm_rc": 0.5,
+        "exp_precision": 0.44,
+        "exp_recall": 0.5,
+        "exp_rc": 0.26,
+        "cmp_precision": 0.49,
+        "cmp_recall": 0.001,
+        "cmp_rc": 0.001,
+        "only_precision": 0.7,
+        "only_recall": 0.49,
+        "only_rc": 0.35
+    }
+}

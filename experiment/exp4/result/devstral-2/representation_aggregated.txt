@@ -1,0 +1,133 @@
+# 可测试规则语言（Testable Rule Language, TRL）定义
+
+## 1. 符号系统（Symbols）
+
+### 1.1 逻辑符号
+- `AND`：逻辑与
+- `OR`：逻辑或
+- `NOT`：逻辑非
+- `IF`：条件引导词
+- `THEN`：结果引导词
+
+### 1.2 比较符号
+- `=`：等于
+- `!=`：不等于
+- `>`：大于
+- `<`：小于
+- `>=`：大于等于
+- `<=`：小于等于
+- `IN`：属于集合
+- `NOT_IN`：不属于集合
+
+### 1.3 领域符号
+- **参与者类**：`Participant`, `TradingProduct`, `Market`, `TradeMethod`, `TradingDirection`
+- **交易属性**：`OrderQuantity`, `OrderPrice`, `TradingTime`, `SettlementMethod`, `SettlementCycle`
+- **状态类**：`OrderStatus`, `Result`, `ResultStatus`
+- **约束类**：`Constraint`
+
+## 2. 语法（Syntax）
+
+使用BNF表示法定义：
+
+```
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+
+Condition ::= <SimpleCondition> | <ComplexCondition>
+SimpleCondition ::= <Attribute> <ComparisonOperator> <Value> | <Attribute> <SetOperator> <ValueSet>
+ComplexCondition ::= "(" <Condition> <LogicalOperator> <Condition> ")" | "NOT" <Condition>
+
+Action ::= <SimpleAction> | <ComplexAction>
+SimpleAction ::= <Operation> "(" <ParameterList> ")"
+ComplexAction ::= "(" <Action> <LogicalOperator> <Action> ")"
+
+ExpectedOutcome ::= <SimpleOutcome> | <ComplexOutcome>
+SimpleOutcome ::= <ResultAttribute> <ComparisonOperator> <ExpectedValue> | <ResultAttribute> <SetOperator> <ExpectedValueSet>
+ComplexOutcome ::= "(" <ExpectedOutcome> <LogicalOperator> <ExpectedOutcome> ")"
+
+Attribute ::= "Participant" | "TradingProduct" | "Market" | "TradeMethod" | "TradingDirection" |
+              "OrderQuantity" | "OrderPrice" | "TradingTime" | "SettlementMethod" | "SettlementCycle" |
+              "OrderStatus" | "Result" | "ResultStatus"
+
+ComparisonOperator ::= "=" | "!=" | ">" | "<" | ">=" | "<="
+
+SetOperator ::= "IN" | "NOT_IN"
+
+LogicalOperator ::= "AND" | "OR"
+
+Operation ::= "SubmitOrder" | "CancelOrder" | "ModifyOrder" | "ExecuteTrade" | "SettleTrade"
+
+ParameterList ::= <Parameter> | <Parameter> "," <ParameterList>
+Parameter ::= <Attribute> "=" <Value>
+
+ResultAttribute ::= "OrderStatus" | "Result" | "ResultStatus"
+
+Value ::= <String> | <Number> | <Boolean>
+ValueSet ::= "{" <Value> | <Value> "," <ValueSet> "}"
+```
+
+## 3. 语义（Semantics）
+
+### 3.1 条件部分（Condition）
+- 映射为输入约束，定义规则适用的前提条件
+- 简单条件直接比较属性值
+- 复杂条件通过逻辑运算符组合多个条件
+
+### 3.2 动作部分（Action）
+- 映射为操作序列，定义在条件满足时应执行的操作
+- 简单动作为单个操作调用
+- 复杂动作为多个操作的组合
+
+### 3.3 预期结果（ExpectedOutcome）
+- 映射为断言，定义操作执行后应满足的状态
+- 简单结果为单个状态检查
+- 复杂结果为多个状态的组合
+
+## 4. 可测试性约束（Testability Constraints）
+
+使用OCL表示：
+
+```ocl
+context Rule
+inv: self.condition->notEmpty() and self.action->notEmpty() and self.expectedOutcome->notEmpty()
+
+context Condition
+inv: self.attribute->notEmpty() and self.operator->notEmpty() and
+     (self.operator = 'IN' or self.operator = 'NOT_IN') implies self.valueSet->notEmpty() and
+     (self.operator <> 'IN' and self.operator <> 'NOT_IN') implies self.value->notEmpty()
+
+context Action
+inv: self.operation->notEmpty() and self.parameters->notEmpty() and
+     self.parameters->forAll(p | p.attribute->notEmpty() and p.value->notEmpty())
+
+context ExpectedOutcome
+inv: self.resultAttribute->notEmpty() and self.operator->notEmpty() and
+     (self.operator = 'IN' or self.operator = 'NOT_IN') implies self.expectedValueSet->notEmpty() and
+     (self.operator <> 'IN' and self.operator <> 'NOT_IN') implies self.expectedValue->notEmpty()
+```
+
+## 5. TRL完整定义
+
+TRL是一种形式化语言，用于描述可测试的业务规则。其核心结构为"IF条件AND动作THEN预期结果"，支持复杂条件、复合动作和多重预期结果的组合。
+
+## 6. 示例
+
+### 自然语言规则：
+"债券交易参与人在深圳证券交易所进行债券现券交易时，如果交易数量大于10万元面额且交易方式为匹配成交，则应在9:30至11:30或13:00至15:30之间提交申报"
+
+### TRL表示：
+```
+IF (Participant = "债券交易参与人" AND Market = "深圳证券交易所" AND
+    TradingProduct = "债券现券" AND OrderQuantity > 100000 AND TradeMethod = "匹配成交")
+AND SubmitOrder(Participant="债券交易参与人", TradingProduct="债券现券",
+               OrderQuantity=100000, TradeMethod="匹配成交")
+THEN (OrderStatus = "已提交" AND TradingTime IN {"9:30-11:30", "13:00-15:30"})
+```
+
+### 可测试性判断：
+该规则满足所有可测试性约束：
+1. 条件、动作和预期结果均非空
+2. 所有属性和操作均明确定义
+3. 比较运算符和值匹配正确
+4. 集合操作符与值集合匹配
+
+该规则可以自动生成测试用例，验证在不同交易数量和时间段下的系统行为是否符合预期。

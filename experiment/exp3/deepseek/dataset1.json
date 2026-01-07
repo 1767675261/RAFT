@@ -1,0 +1,3321 @@
+[
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSection Contents\n62 Speed Control\n64 Passing\n65 Keeping to the Right\n65 Yielding the Right-of-Way\n66 Pedestrians in a Crosswalk\n67 Intersections\n68 Entering Highways, Parkways, and Turnpikes\n69 Leaving Highways, Parkways, and Turnpikes\n70 Special Highway, Parkway, and Turnpike Conditions\n72 Curves\n72 Interchanges\n72 Turning Regulations\n74 Stopping Regulations\n82 Using Headlights\n83 Parking Regulations\n84 Cellular Telephones\n86 Littering",
+        "testcase": []
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSpeed Control\nExceeding the speed limit is a common contributing factor of fatal and other types of crashes. A motorist must always obey the speed limit. Speed affects almost everything that can happen when driving. A good rule is to keep up with the flow of traffic at any legal speed. To make safe emergency stops when necessary, it is important to keep enough distance from surrounding traffic. New Jersey law sets top speed limits for any given road, street, highway, or freeway.\nSPEED LIMIT 25 mph: School zones, business, or residential districts\nSPEED LIMIT 35 mph: Suburban business and residential districts\nSPEED LIMIT 50 mph: Non-posted rural roadways\nSPEED LIMIT 55 mph: Certain state highways (as posted) and interstates\nSPEED LIMIT 65 mph: Certain interstate highways (as posted)\nMotorists pay double fines for exceeding the 65 mph limit by 10 miles per hour or more. Double fines also apply to most other moving violations committed in a 65 mph zone. (N.J.S.A. 39:4-98.6)",
+        "testcase": [
+  {
+    "id": 1,
+    "道路类型": "学区、商业区或居民区",
+    "规定限速": 25,
+    "实际速度": 24,
+    "车辆类型": "机动车",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "道路类型": "学区、商业区或居民区",
+    "规定限速": 25,
+    "实际速度": 26,
+    "车辆类型": "机动车",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "道路类型": "郊区商业和居民区",
+    "规定限速": 35,
+    "实际速度": 34,
+    "车辆类型": "机动车",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "道路类型": "郊区商业和居民区",
+    "规定限速": 35,
+    "实际速度": 36,
+    "车辆类型": "机动车",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "道路类型": "未标示的乡村道路",
+    "规定限速": 50,
+    "实际速度": 49,
+    "车辆类型": "机动车",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "道路类型": "未标示的乡村道路",
+    "规定限速": 50,
+    "实际速度": 51,
+    "车辆类型": "机动车",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "道路类型": "特定州际公路（65英里区域）",
+    "规定限速": 65,
+    "实际速度": 64,
+    "车辆类型": "机动车",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "道路类型": "特定州际公路（65英里区域）",
+    "规定限速": 65,
+    "实际速度": 75,
+    "车辆类型": "机动车",
+    "结果": "失败",
+    "处罚类型": "双倍罚款"
+  },
+  {
+    "id": 9,
+    "道路类型": "特定州际公路（65英里区域）",
+    "规定限速": 65,
+    "实际速度": 66,
+    "车辆类型": "机动车",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nNEW JERSEY LIMITS (UNLESS OTHERWISE POSTED) (N.J.S.A. 39:4-98)\nNever drive faster than weather, road, or other conditions safely allow, regardless of the posted speed limit. A motorist should judge his/her speed control by existing conditions. A motorist should slow down enough to be able to see clearly and stop quickly in traffic. Failure to do so can result in a moving violation.\nAlways slow down:\n• On narrow or winding roads.\n• At intersections or railroad crossings.\n• On hills.\n• At sharp or blind curves.\n• Where there are pedestrians or driving hazards.\n• When the road is wet or slippery.\nIf vehicle problems prevent a motorist from keeping up with the normal flow of traffic, he/she should pull off the road and activate hazard lights.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "狭窄蜿蜒道路",
+    "道路条件": "狭窄蜿蜒",
+    "天气条件": "晴朗",
+    "能见度": "良好",
+    "操作": "减速行驶",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "雨天湿滑道路",
+    "道路条件": "湿滑",
+    "天气条件": "降雨",
+    "能见度": "一般",
+    "操作": "未减速",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "行人横穿道路",
+    "道路条件": "平坦",
+    "天气条件": "晴朗",
+    "能见度": "良好",
+    "行人存在": "是",
+    "操作": "减速避让",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "盲弯路段",
+    "道路条件": "盲弯",
+    "天气条件": "晴朗",
+    "能见度": "受限",
+    "操作": "未减速",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "场景": "车辆故障",
+    "道路条件": "平坦",
+    "天气条件": "晴朗",
+    "车辆状态": "故障",
+    "操作": "靠边开启双闪",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景": "车辆故障未处理",
+    "道路条件": "平坦",
+    "天气条件": "晴朗",
+    "车辆状态": "故障",
+    "操作": "继续行驶",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "铁路道口",
+    "道路条件": "铁路交叉口",
+    "天气条件": "晴朗",
+    "能见度": "良好",
+    "操作": "减速观察",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "DRIVING TOO SLOWLY\nA motorist should always try to keep up with the normal flow of traffic, while not exceeding the posted speed limit. Some crashes are caused by driving too slowly and backing up traffic. When road surfaces and traffic are normal, New Jersey law prohibits blocking traffic through slow driving. (N.J.S.A. 39:4-56)",
+        "testcase": [
+  {
+    "id": 1,
+    "主体": "机动车驾驶员",
+    "行驶状态": "保持正常车流速度",
+    "道路条件": "正常",
+    "交通状况": "正常",
+    "速度": "等于限速",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "主体": "机动车驾驶员",
+    "行驶状态": "低于正常车流速度",
+    "道路条件": "正常",
+    "交通状况": "正常",
+    "速度": "明显低于限速",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "主体": "机动车驾驶员",
+    "行驶状态": "阻塞交通",
+    "道路条件": "正常",
+    "交通状况": "正常",
+    "速度": "过慢导致后方拥堵",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "主体": "机动车驾驶员",
+    "行驶状态": "适当慢行",
+    "道路条件": "恶劣",
+    "交通状况": "拥堵",
+    "速度": "低于正常车流",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "主体": "机动车驾驶员",
+    "行驶状态": "超过限速",
+    "道路条件": "正常",
+    "交通状况": "正常",
+    "速度": "超过限速标志",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE CORRIDORS (N.J.S.A. 39:4-203.5)\nTo improve highway safety, New Jersey initiated the Safe Corridors Program, which was signed into law in July 2003. The Safe Corridors law doubles fines on various state highways for a variety of driving offenses, including speeding and aggressive driving. Highways are designated as safe corridors based on statistics showing crash rates 50 percent over the state rate and 1,000 or more crashes reported over a three-year period. The Commissioner of Transportation has the authority to designate safe corridors as necessary, as well as to remove those that show improved safety levels. A current list of Safe Corridor highways is available on the New Jersey Department of Transportation website at www.nj.gov/transportation.",
+        "testcase": []
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nPassing\nA motorist must know the proper lane for normal driving and how to change lanes safely. The rules for passing depend on the type of road. Stay to the right of the roadway’s center lines. Passing is only safe when there is no oncoming traffic.\nWatch for the following lane markings: (N.J.S.A. 39:4-86)\n• Both center lines are solid: No passing allowed.\n• One center line is broken: Passing is allowed only on the side with the broken line.\n• Both center lines are broken: Passing is allowed on both sides.\nNote: All passing must be completed before the center lines are solid again.\nPASS ONLY WHEN SAFE: When line is broken PASS; DO NOT PASS When line is solid; NO PASSING With double solid lines",
+        "testcase": [
+  {
+    "id": 1,
+    "道路标线类型": "双实线",
+    "当前车道位置": "任意车道",
+    "对向交通状况": "无对向车辆",
+    "操作": "超车",
+    "结果": "失败",
+    "说明": "双实线禁止任何超车行为"
+  },
+  {
+    "id": 2,
+    "道路标线类型": "单侧虚线（己方侧）",
+    "当前车道位置": "虚线侧车道",
+    "对向交通状况": "无对向车辆",
+    "操作": "超车",
+    "结果": "成功",
+    "说明": "己方车道为虚线且在安全条件下允许超车"
+  },
+  {
+    "id": 3,
+    "道路标线类型": "单侧虚线（对向侧）",
+    "当前车道位置": "实线侧车道",
+    "对向交通状况": "无对向车辆",
+    "操作": "超车",
+    "结果": "失败",
+    "说明": "己方车道为实线禁止超车"
+  },
+  {
+    "id": 4,
+    "道路标线类型": "双虚线",
+    "当前车道位置": "任意车道",
+    "对向交通状况": "无对向车辆",
+    "操作": "超车",
+    "结果": "成功",
+    "说明": "双虚线允许双向超车"
+  },
+  {
+    "id": 5,
+    "道路标线类型": "单侧虚线（己方侧）",
+    "当前车道位置": "虚线侧车道",
+    "对向交通状况": "有对向车辆",
+    "操作": "超车",
+    "结果": "失败",
+    "说明": "虽有虚线但存在对向车辆，不安全"
+  },
+  {
+    "id": 6,
+    "道路标线类型": "虚线转为实线",
+    "当前车道位置": "虚线侧车道",
+    "对向交通状况": "无对向车辆",
+    "操作": "开始超车但在实线区域完成",
+    "结果": "失败",
+    "说明": "超车必须在进入实线区域前完成"
+  },
+  {
+    "id": 7,
+    "道路标线类型": "双虚线",
+    "当前车道位置": "任意车道",
+    "对向交通状况": "有对向车辆",
+    "操作": "超车",
+    "结果": "失败",
+    "说明": "虽有虚线但存在对向车辆，不安全"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nMost passing should be on the left. Passing on the right is allowed only on roads with more than one lane going in the same direction, if vehicles on the roadway are moving in two or more substantially continuous lines or when the motorist ahead is making a left turn and there is room to pass. Never pass on the right shoulder of the road. This is against the law. (N.J.S.A. 39:4-85)\nA motorist should not pass:\n• On a hill or curve or at any time he/she cannot see far enough ahead.\n• At a street crossing or intersection.\n• At a railroad crossing.\n• On narrow bridges or in underpasses or tunnels.\n• When a sign prohibits passing or center lines restrict passing.\n• When behind a vehicle that has stopped to let a pedestrian cross.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "多车道道路",
+    "车辆位置": "左侧车道",
+    "前车状态": "直行",
+    "道路条件": "两条以上同向车道",
+    "超车方向": "右侧",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "双实线道路",
+    "车辆位置": "跟车",
+    "前车状态": "左转等待",
+    "道路条件": "单车道，有足够空间",
+    "超车方向": "右侧",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "场景": "右侧路肩",
+    "车辆位置": "跟车",
+    "前车状态": "慢行",
+    "道路条件": "单车道",
+    "超车方向": "右侧路肩",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "场景": "坡道超车",
+    "车辆位置": "跟车",
+    "前车状态": "慢行",
+    "道路条件": "坡道，视野受限",
+    "超车方向": "左侧",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "场景": "交叉路口",
+    "车辆位置": "跟车",
+    "前车状态": "直行",
+    "道路条件": "十字路口",
+    "超车方向": "左侧",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "场景": "铁路道口",
+    "车辆位置": "跟车",
+    "前车状态": "慢行",
+    "道路条件": "铁路交叉口",
+    "超车方向": "左侧",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "狭窄桥梁",
+    "车辆位置": "跟车",
+    "前车状态": "慢行",
+    "道路条件": "窄桥",
+    "超车方向": "左侧",
+    "结果": "失败"
+  },
+  {
+    "id": 8,
+    "场景": "禁止超车标志",
+    "车辆位置": "跟车",
+    "前车状态": "慢行",
+    "道路条件": "有禁止超车标志",
+    "超车方向": "左侧",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "场景": "礼让行人",
+    "车辆位置": "跟车",
+    "前车状态": "停车让行行人",
+    "道路条件": "人行横道前",
+    "超车方向": "左侧",
+    "结果": "失败"
+  },
+  {
+    "id": 10,
+    "场景": "连续车流",
+    "车辆位置": "右侧车道",
+    "前车状态": "正常行驶",
+    "道路条件": "多车道连续车流",
+    "超车方向": "右侧",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "Keeping to the Right\nNew Jersey law requires motorists to keep to the right, except when passing. Motorists must drive on the right half of the roadway unless driving on a one-way street. Motorists must drive a vehicle as close as possible to the right-hand edge or curb of the roadway, except when overtaking and passing another vehicle. (N.J.S.A. 39:4-82)\nOn a multi-lane roadway, motorists must drive in the lane nearest to the right-hand edge or curb of the roadway when the lane is available for travel, except when overtaking another vehicle or in preparation for a left turn. (N.J.S.A. 39:4-88)",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "双向道路正常行驶",
+    "道路类型": "双向道路",
+    "车道数": "多车道",
+    "当前位置": "右侧车道",
+    "操作": "直行",
+    "超车状态": "否",
+    "准备左转": "否",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "双向道路超车",
+    "道路类型": "双向道路",
+    "车道数": "多车道",
+    "当前位置": "左侧车道",
+    "操作": "超车",
+    "超车状态": "是",
+    "准备左转": "否",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "场景": "双向道路无故占用左侧车道",
+    "道路类型": "双向道路",
+    "车道数": "多车道",
+    "当前位置": "左侧车道",
+    "操作": "直行",
+    "超车状态": "否",
+    "准备左转": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "场景": "单向道路正常行驶",
+    "道路类型": "单向道路",
+    "车道数": "多车道",
+    "当前位置": "任意车道",
+    "操作": "直行",
+    "超车状态": "否",
+    "准备左转": "否",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "准备左转",
+    "道路类型": "双向道路",
+    "车道数": "多车道",
+    "当前位置": "左侧车道",
+    "操作": "准备左转",
+    "超车状态": "否",
+    "准备左转": "是",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景": "右侧车道可用但占用左侧车道",
+    "道路类型": "双向道路",
+    "车道数": "多车道",
+    "当前位置": "左侧车道",
+    "操作": "直行",
+    "超车状态": "否",
+    "准备左转": "否",
+    "右侧车道状态": "可用",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "右侧车道不可用时占用左侧车道",
+    "道路类型": "双向道路",
+    "车道数": "多车道",
+    "当前位置": "左侧车道",
+    "操作": "直行",
+    "超车状态": "否",
+    "准备左转": "否",
+    "右侧车道状态": "不可用",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景": "双向单车道道路靠右行驶",
+    "道路类型": "双向道路",
+    "车道数": "单车道",
+    "当前位置": "右侧",
+    "操作": "直行",
+    "超车状态": "否",
+    "准备左转": "否",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "Yielding the Right-of-Way\nAlthough laws govern the right-of-way, a motorist should always be prepared to yield. These basic rules always apply:\n• Emergency vehicles: When police cars, fire engines, and ambulances are giving warning signs (sirens, flashing lights).\n• Trains: When a train is approaching a railroad crossing.\n• Buses: When re-entering the flow of traffic.\n• Postal vehicles: When the vehicle re-enters the flow of traffic.\n• Motorized or mobility-assistance devices: When in a crosswalk or seeking to cross a road.\n• Other vehicles: That are already in the intersection.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "紧急车辆接近",
+    "主体": "普通机动车",
+    "对方车辆": "警车",
+    "警告信号": "警笛和闪光灯开启",
+    "主体操作": "让行",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "紧急车辆接近",
+    "主体": "普通机动车",
+    "对方车辆": "消防车",
+    "警告信号": "无警告信号",
+    "主体操作": "不让行",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "场景": "火车通过",
+    "主体": "普通机动车",
+    "对方车辆": "火车",
+    "铁路道口状态": "火车接近",
+    "主体操作": "停车让行",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "火车通过",
+    "主体": "普通机动车",
+    "对方车辆": "火车",
+    "铁路道口状态": "火车未接近",
+    "主体操作": "不让行",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "公交车并线",
+    "主体": "普通机动车",
+    "对方车辆": "公交车",
+    "公交车状态": "重新进入交通流",
+    "主体操作": "让行",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景": "公交车并线",
+    "主体": "普通机动车",
+    "对方车辆": "公交车",
+    "公交车状态": "正常行驶中",
+    "主体操作": "不让行",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "场景": "邮政车辆并线",
+    "主体": "普通机动车",
+    "对方车辆": "邮政车辆",
+    "邮政车状态": "重新进入交通流",
+    "主体操作": "让行",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景": "残疾人辅助设备",
+    "主体": "普通机动车",
+    "对方": "电动轮椅",
+    "位置": "人行横道",
+    "对方状态": "寻求过马路",
+    "主体操作": "让行",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "场景": "残疾人辅助设备",
+    "主体": "普通机动车",
+    "对方": "机动辅助车",
+    "位置": "非人行横道",
+    "对方状态": "路边静止",
+    "主体操作": "不让行",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "场景": "其他车辆在交叉口",
+    "主体": "普通机动车",
+    "对方车辆": "其他机动车",
+    "交叉口状态": "对方车辆已在交叉口内",
+    "主体操作": "让行",
+    "结果": "成功"
+  },
+  {
+    "id": 11,
+    "场景": "其他车辆在交叉口",
+    "主体": "普通机动车",
+    "对方车辆": "其他机动车",
+    "交叉口状态": "双方同时到达交叉口",
+    "主体操作": "不让行",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nPedestrians in a Crosswalk\nNew Jersey has experienced many pedestrian injury crashes and fatalities, as compared to the nation as a whole. The most important pedestrian safety message for New Jersey residents is: Pedestrian safety is a shared responsibility. There is no single cause of crashes involving pedestrians. Pedestrians and motorists must all do their part to keep pedestrians safe.\nA motorist must:\n• Stop for pedestrians in crosswalks. Failure to stop carries a fine of up to $500, up to 25 days in jail, community service, a driving privilege suspension of up to 6 months, and 2 points. (N.J.S.A. 39:4-36)\n• Watch for pedestrians when turning on red.\n• Obey speed limits.\n• Be sure not to block or park in crosswalks.\n• Keep the vehicle’s windshield clean for maximum visibility.\n• Always be alert for pedestrians.\n• Be aware of areas where pedestrians are most likely to appear (near schools, town centers, residential neighborhoods, parks).\n• Never pass another vehicle that has stopped for a pedestrian.\n• Stop for all pedestrians in a crosswalk even if they began crossing with a proper signal and they are still in the crosswalk when the signal changes.\n• Remember that pedestrians are the most vulnerable roadway users.\nMotorists will be held responsible for maintaining pedestrian safety.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "人行横道有行人",
+    "主体": "机动车驾驶员",
+    "行为": "在行人通过人行横道时停车让行",
+    "行人状态": "正在通过人行横道",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "人行横道有行人",
+    "主体": "机动车驾驶员",
+    "行为": "未在行人通过人行横道时停车让行",
+    "行人状态": "正在通过人行横道",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "红灯右转",
+    "主体": "机动车驾驶员",
+    "行为": "右转时注意观察行人",
+    "行人状态": "在交叉路口行走",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "红灯右转",
+    "主体": "机动车驾驶员",
+    "行为": "右转时未注意观察行人",
+    "行人状态": "在交叉路口行走",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "场景": "前车礼让行人",
+    "主体": "机动车驾驶员",
+    "行为": "未超越已停车让行的前车",
+    "行人状态": "正在通过人行横道",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景": "前车礼让行人",
+    "主体": "机动车驾驶员",
+    "行为": "超越已停车让行的前车",
+    "行人状态": "正在通过人行横道",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "信号灯变化",
+    "主体": "机动车驾驶员",
+    "行为": "在信号灯变化后仍让行未完全通过的行人",
+    "行人状态": "信号灯变化后仍在人行横道上",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景": "信号灯变化",
+    "主体": "机动车驾驶员",
+    "行为": "在信号灯变化后未让行未完全通过的行人",
+    "行人状态": "信号灯变化后仍在人行横道上",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "场景": "人行横道区域",
+    "主体": "机动车驾驶员",
+    "行为": "未在人行横道上停车或阻塞",
+    "行人状态": "需要用人行横道",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "场景": "人行横道区域",
+    "主体": "机动车驾驶员",
+    "行为": "在人行横道上停车或阻塞",
+    "行人状态": "无法使用被阻塞的人行横道",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nIntersections\nAn intersection is where two or more roads cross or merge at angles. As most crashes occur at intersections, a motorist should be aware of the four types of intersections and know how to safely navigate through them. A single solid white line across a road at an intersection means that a motorist must stop behind the line for a traffic signal or sign.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "交叉路口",
+    "道路标记": "单条实白线",
+    "车辆状态": "行驶中",
+    "信号状态": "红灯",
+    "停止位置": "白线后",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "交叉路口", 
+    "道路标记": "单条实白线",
+    "车辆状态": "行驶中",
+    "信号状态": "红灯",
+    "停止位置": "白线上",
+    "操作": "停车",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "交叉路口",
+    "道路标记": "单条实白线",
+    "车辆状态": "行驶中",
+    "信号状态": "绿灯",
+    "停止位置": "白线后",
+    "操作": "停车",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "场景": "交叉路口",
+    "道路标记": "单条实白线",
+    "车辆状态": "行驶中",
+    "信号状态": "黄灯",
+    "停止位置": "白线后",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "非交叉路口",
+    "道路标记": "单条实白线",
+    "车辆状态": "行驶中",
+    "信号状态": "红灯",
+    "停止位置": "白线后",
+    "操作": "停车",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "CONTROLLED\nAn intersection is controlled if there are traffic signals or signs in any direction or controlled by a police officer. A motorist must obey the signals and signs. At a controlled intersection, a motorist must yield for certain conditions. At a multi-way stop or stop intersection, a motorist must yield to the motorist on the right if both motorists get there at the same time. A motorist should also yield to another motorist already stopped at the intersection. At an intersection controlled by a yield sign, a motorist must slow down and yield to traffic on the intersecting roadway, even if he/she must stop. When making a left turn at an intersection, a motorist must yield to oncoming traffic and stop for pedestrians within the crosswalk.\nA motorist is prohibited from entering or crossing an intersecting street marked with a stop sign unless he or she first brings the vehicle to a complete stop at a point within five feet of the nearest crosswalk or stop line marked upon the pavement at the near side of the intersection street. The motorist may only proceed after yielding the right-of-way to all traffic on the intersection street, which is so close as to constitute an immediate hazard.\nNote: Driving on private property to avoid a traffic signal or sign is a motor vehicle violation. (N.J.S.A. 39:4-66.2)",
+        "testcase": [
+  {
+    "id": 1,
+    "场景类型": "多路停车路口",
+    "主体行为": "同时到达路口",
+    "相对位置": "右侧有车辆",
+    "操作": "通行决策",
+    "结果": "失败"
+  },
+  {
+    "id": 2,
+    "场景类型": "多路停车路口", 
+    "主体行为": "后到达路口",
+    "相对位置": "左侧车辆已停稳",
+    "操作": "通行决策",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景类型": "让行标志路口",
+    "主体行为": "接近路口",
+    "相对位置": "相交道路有接近车辆",
+    "操作": "减速让行",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景类型": "左转路口",
+    "主体行为": "准备左转",
+    "相对位置": "对向有直行车辆",
+    "操作": "让行等待",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景类型": "左转路口",
+    "主体行为": "准备左转",
+    "相对位置": "人行横道有行人",
+    "操作": "停车让行",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景类型": "停车标志路口",
+    "主体行为": "未完全停止",
+    "相对位置": "接近交叉路口",
+    "操作": "进入路口",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景类型": "停车标志路口",
+    "主体行为": "在指定位置完全停止",
+    "相对位置": "无接近危险车辆",
+    "操作": "安全通行",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景类型": "绕行避让",
+    "主体行为": "使用私人地产",
+    "相对位置": "避开交通信号",
+    "操作": "绕行",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "UNCONTROLLED\nAn intersection is uncontrolled when two or more roads join and there is no traffic signal or regulatory device. A motorist must be careful when approaching these types of intersections. Most of the time there will be a warning sign prior to reaching the intersection. As a motorist nears a crossroad that is not controlled, he/she must reduce speed and be ready to stop if any traffic is coming from the right or left. A motorist coming from a private road or driveway must yield to all traffic on the main road. As a rule, the vehicle on the left should yield to the vehicle on the right. When a traffic signal is not illuminated because of a power failure or other malfunction; the traffic signal is observed as a 4-way stop signal. (N.J.S.A. 39:4-81)",
+        "testcase": [
+  {
+    "id": 1,
+    "场景类型": "无控制交叉口",
+    "主体车辆位置": "主路",
+    "其他交通参与者": "无",
+    "主体车辆动作": "减速通过",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景类型": "无控制交叉口",
+    "主体车辆位置": "主路",
+    "其他交通参与者": "右侧来车",
+    "主体车辆动作": "停车让行",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "场景类型": "无控制交叉口",
+    "主体车辆位置": "主路",
+    "其他交通参与者": "左侧来车",
+    "主体车辆动作": "减速观察",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景类型": "无控制交叉口",
+    "主体车辆位置": "支路",
+    "其他交通参与者": "主路来车",
+    "主体车辆动作": "停车让行",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景类型": "无控制交叉口",
+    "主体车辆位置": "支路",
+    "其他交通参与者": "主路无车",
+    "主体车辆动作": "减速通过",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景类型": "信号灯故障",
+    "主体车辆位置": "交叉口",
+    "其他交通参与者": "同时到达车辆",
+    "主体车辆位置关系": "左侧车辆",
+    "主体车辆动作": "让行右侧车辆",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "场景类型": "信号灯故障",
+    "主体车辆位置": "交叉口",
+    "其他交通参与者": "同时到达车辆",
+    "主体车辆位置关系": "右侧车辆",
+    "主体车辆动作": "优先通过",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景类型": "无控制交叉口",
+    "主体车辆位置": "主路",
+    "其他交通参与者": "右侧来车",
+    "主体车辆动作": "不让行直接通过",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "场景类型": "无控制交叉口",
+    "主体车辆位置": "支路",
+    "其他交通参与者": "主路来车",
+    "主体车辆动作": "不让行直接通过",
+    "结果": "失败"
+  },
+  {
+    "id": 10,
+    "场景类型": "信号灯故障",
+    "主体车辆位置": "交叉口",
+    "其他交通参与者": "同时到达车辆",
+    "主体车辆位置关系": "左侧车辆",
+    "主体车辆动作": "不让行直接通过",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "BLIND LINE OF SIGHT\nBuildings, parked vehicles, or bushes may obstruct a motorist’s line of sight. On rural roadways, trees or crops may obstruct a motorist’s line of sight. A motorist should always slow down or stop completely to make sure there is no cross traffic before proceeding.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景类型": "视线受阻",
+    "障碍物": "建筑物",
+    "道路类型": "城市道路",
+    "操作": "减速观察",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景类型": "视线受阻",
+    "障碍物": "停放车辆",
+    "道路类型": "城市道路",
+    "操作": "完全停止观察",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "场景类型": "视线受阻",
+    "障碍物": "灌木丛",
+    "道路类型": "城市道路",
+    "操作": "未减速直接通过",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "场景类型": "视线受阻",
+    "障碍物": "树木",
+    "道路类型": "乡村道路",
+    "操作": "减速观察",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景类型": "视线受阻",
+    "障碍物": "农作物",
+    "道路类型": "乡村道路",
+    "操作": "完全停止观察",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景类型": "视线受阻",
+    "障碍物": "多种障碍物",
+    "道路类型": "交叉路口",
+    "操作": "未观察直接通过",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "TRAFFIC CIRCLE\nThere are no set rules for driving into, around and out of a traffic circle in New Jersey. Common sense and caution must always prevail. In most cases, the circle’s historically established traffic flow pattern dictates who has the right-of-way. If a major highway flows into and through the circle, it usually dominates the traffic flow pattern and commands the right-of-way. Traffic control signs, such as stop or yield signs, at the entrances to the circle also govern which motorist has the right-of-way. Never enter a traffic circle without checking all signs and determining the intentions of the motorists already moving within the circle.\nWhenever a motorist is in doubt concerning who has the right-of-way in a circle, he/she should exercise extreme caution and remember the basic rule governing any uncontrolled intersection: The vehicle to the left yields the right-of-way to the vehicle approaching from the right.",
+        "testcase": []
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nEntering Highways, Parkways, and Turnpikes\nHighways, parkways, and turnpikes are high-speed (up to 65 mph) divided roadways and generally have multiple lanes. Traffic on each side of the divide will travel in only one direction. There are no direct intersections. Motorists enter these roadways by way of acceleration lanes, which are extra lanes at highway entrances used by motorists to speed up to join the flow of traffic. A motorist must yield to traffic already traveling on the main road before moving into the proper lane.\nKeep the following points in mind when entering a highway, parkway, or turnpike:\n• Obey posted advisory speed limits (if any) at the entrance ramp.\n• Speed up to the flow of traffic when leaving the acceleration lane.\n• Avoid coming to a complete stop in the acceleration lane.\n• Yield to traffic and enter the right-hand lane when safe.\n• Use turn signal.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "进入高速公路",
+    "车辆状态": "加速车道行驶",
+    "操作": "遵守建议限速",
+    "主路交通状况": "正常车流",
+    "信号灯使用": "使用转向灯",
+    "进入时机": "安全间隙",
+    "结果": "成功并入"
+  },
+  {
+    "id": 2,
+    "场景": "进入高速公路",
+    "车辆状态": "加速车道行驶",
+    "操作": "超速通过入口匝道",
+    "主路交通状况": "正常车流",
+    "信号灯使用": "使用转向灯",
+    "进入时机": "安全间隙",
+    "结果": "违反限速规定"
+  },
+  {
+    "id": 3,
+    "场景": "进入高速公路",
+    "车辆状态": "加速车道末端",
+    "操作": "未达到车流速度",
+    "主路交通状况": "正常车流",
+    "信号灯使用": "使用转向灯",
+    "进入时机": "安全间隙",
+    "结果": "并入困难危险"
+  },
+  {
+    "id": 4,
+    "场景": "进入高速公路",
+    "车辆状态": "加速车道完全停止",
+    "操作": "在加速车道停车",
+    "主路交通状况": "正常车流",
+    "信号灯使用": "使用转向灯",
+    "进入时机": "无合适间隙",
+    "结果": "违反规定危险"
+  },
+  {
+    "id": 5,
+    "场景": "进入高速公路",
+    "车辆状态": "加速车道行驶",
+    "操作": "未让行主路车辆",
+    "主路交通状况": "有接近车辆",
+    "信号灯使用": "使用转向灯",
+    "进入时机": "强行切入",
+    "结果": "违反让行规定"
+  },
+  {
+    "id": 6,
+    "场景": "进入高速公路",
+    "车辆状态": "加速车道行驶",
+    "操作": "未使用转向灯",
+    "主路交通状况": "正常车流",
+    "信号灯使用": "未使用转向灯",
+    "进入时机": "安全间隙",
+    "结果": "违反信号使用规定"
+  },
+  {
+    "id": 7,
+    "场景": "进入高速公路",
+    "车辆状态": "加速车道行驶",
+    "操作": "正确加速并让行",
+    "主路交通状况": "密集车流",
+    "信号灯使用": "使用转向灯",
+    "进入时机": "等待安全间隙",
+    "结果": "安全并入"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nLeaving Highways, Parkways, and Turnpikes\nIn most cases, exit ramps or deceleration lanes, which are extra lanes at a highway exit, are located on the right-hand side of the roadway. A motorist should always watch for signs that direct where to exit the roadway. If a motorist misses an exit ramp on a highway, parkway, or turnpike, he/she should go to the next exit.\nKeep the following points in mind when leaving a highway, parkway, or turnpike:\n• Start slowing down when entering a deceleration lane.\n• Obey the posted advisory speed limit of the deceleration lane.\n• Use turn signal.\n• Avoid stopping in the exit lane.\n• Slow to the speed of entry and exit lanes.\n• When the exit is located on the left of a roadway, look for signs that will direct traffic to the proper lane for exiting.\n• If you miss an exit, go on to the next one.\n• Never back up on an exit ramp or deceleration lane.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "驶出高速公路",
+    "操作": "进入减速车道时开始减速",
+    "减速时机": "进入减速车道时",
+    "速度控制": "遵守减速车道限速",
+    "转向灯使用": "使用",
+    "停车行为": "未在出口车道停车",
+    "出口位置": "右侧",
+    "错过出口处理": "前往下一个出口",
+    "倒车行为": "未在出口匝道倒车",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "驶出高速公路",
+    "操作": "未在进入减速车道时开始减速",
+    "减速时机": "未及时减速",
+    "速度控制": "超速",
+    "转向灯使用": "未使用",
+    "停车行为": "在出口车道停车",
+    "出口位置": "右侧",
+    "错过出口处理": "前往下一个出口",
+    "倒车行为": "未在出口匝道倒车",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "左侧出口驶出",
+    "操作": "提前变道至左侧出口车道",
+    "减速时机": "进入减速车道时",
+    "速度控制": "遵守减速车道限速",
+    "转向灯使用": "使用",
+    "停车行为": "未在出口车道停车",
+    "出口位置": "左侧",
+    "错过出口处理": "前往下一个出口",
+    "倒车行为": "未在出口匝道倒车",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "错过出口",
+    "操作": "错过出口后继续行驶",
+    "减速时机": "不适用",
+    "速度控制": "保持主路速度",
+    "转向灯使用": "不适用",
+    "停车行为": "未在出口车道停车",
+    "出口位置": "右侧",
+    "错过出口处理": "前往下一个出口",
+    "倒车行为": "未在出口匝道倒车",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "危险行为",
+    "操作": "错过出口后倒车",
+    "减速时机": "紧急制动",
+    "速度控制": "异常速度变化",
+    "转向灯使用": "未使用",
+    "停车行为": "在出口车道停车",
+    "出口位置": "右侧",
+    "错过出口处理": "试图倒车返回",
+    "倒车行为": "在出口匝道倒车",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "场景": "速度控制不当",
+    "操作": "未适应匝道速度",
+    "减速时机": "延迟减速",
+    "速度控制": "未降至匝道安全速度",
+    "转向灯使用": "使用",
+    "停车行为": "未在出口车道停车",
+    "出口位置": "右侧",
+    "错过出口处理": "前往下一个出口",
+    "倒车行为": "未在出口匝道倒车",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSpecial Highway, Parkway, and Turnpike Conditions\nWEAVE LANE\nA weave lane is both an entrance and an exit for an expressway. Traffic may come onto and leave the expressway at the same location. This traffic weave causes conflicts, both for motorists using a weave lane and those on the expressway and entrance ramp (in terms of speed and space adjustments). The motorist entering from the entrance ramp must yield the right-of-way to the motorist leaving the expressway.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "交织车道",
+    "主体": "入口匝道车辆",
+    "操作": "进入高速公路",
+    "交互对象": "出口车辆",
+    "路权状态": "让行",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "交织车道", 
+    "主体": "入口匝道车辆",
+    "操作": "强行进入",
+    "交互对象": "出口车辆",
+    "路权状态": "未让行",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "交织车道",
+    "主体": "出口车辆",
+    "操作": "离开高速公路",
+    "交互对象": "入口匝道车辆",
+    "路权状态": "拥有路权",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "交织车道",
+    "主体": "高速公路主线车辆",
+    "操作": "正常行驶",
+    "交互对象": "交织区域车辆",
+    "路权状态": "保持路权",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "交织车道",
+    "主体": "入口匝道车辆",
+    "操作": "等待合适间隙",
+    "交互对象": "连续出口车辆",
+    "路权状态": "耐心让行",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nHIGHWAYS THROUGH CITIES\nThe volume of traffic may increase dramatically. Speeds may slow to a crawl. The motorist should drive in the left or center lane to avoid merge conflicts during rush hour. A motorist should search for exits early and adjust position for exit.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "城市高速公路高峰时段",
+    "主体": "机动车驾驶员",
+    "操作": "在左侧或中间车道行驶",
+    "车道选择": "左侧车道",
+    "交通状况": "高流量，低速",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "城市高速公路高峰时段",
+    "主体": "机动车驾驶员",
+    "操作": "在左侧或中间车道行驶",
+    "车道选择": "中间车道",
+    "交通状况": "高流量，低速",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "场景": "城市高速公路高峰时段",
+    "主体": "机动车驾驶员",
+    "操作": "在右侧车道行驶",
+    "车道选择": "右侧车道",
+    "交通状况": "高流量，低速",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "场景": "城市高速公路接近出口",
+    "主体": "机动车驾驶员",
+    "操作": "提前寻找出口并调整位置",
+    "提前准备": "是",
+    "位置调整": "及时",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "城市高速公路接近出口",
+    "主体": "机动车驾驶员",
+    "操作": "未提前寻找出口",
+    "提前准备": "否",
+    "位置调整": "不及时",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "DISABLED VEHICLES\nWhen seeing a disabled vehicle ahead, a motorist should reduce speed and increase the space between his/her vehicle and the disabled vehicle. This may involve changing lanes. Be alert for pedestrians, tow trucks, and/or police vehicles. (See New Jersey’s “Move Over” law later in this chapter.)\nIf a motorist’s vehicle becomes disabled, he/she must:\n• Pull off as far as possible onto the shoulder or median.\n• Turn on emergency flashers.\n• Raise the hood to signal for assistance.\n• Stay in the vehicle, keep your seatbelt on and lock the doors.\n• If available, use a cell phone to call for help.\n• Ask anyone who stops to go to a phone and call for assistance.\n• Do not get into a stranger’s vehicle.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景类型": "发现前方故障车辆",
+    "主体": "驾驶员",
+    "操作": "减速并增大与前车距离",
+    "是否变道": "是",
+    "注意对象": ["行人", "拖车", "警车"],
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景类型": "发现前方故障车辆",
+    "主体": "驾驶员",
+    "操作": "仅减速未增大安全距离",
+    "是否变道": "否",
+    "注意对象": [],
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景类型": "自身车辆故障",
+    "主体": "驾驶员",
+    "操作": "靠边停车并开启危险警示灯",
+    "求助信号": "掀开发动机盖",
+    "人员位置": "留在车内",
+    "安全带状态": "系好",
+    "车门状态": "锁闭",
+    "通讯方式": "使用手机求助",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景类型": "自身车辆故障",
+    "主体": "驾驶员",
+    "操作": "未靠边停车",
+    "求助信号": "未开启警示灯",
+    "人员位置": "离开车辆",
+    "安全带状态": "未系",
+    "车门状态": "未锁",
+    "通讯方式": "进入陌生人车辆",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "场景类型": "自身车辆故障",
+    "主体": "驾驶员",
+    "操作": "部分合规操作",
+    "求助信号": "开启警示灯但未掀开发动机盖",
+    "人员位置": "留在车内",
+    "安全带状态": "系好",
+    "车门状态": "锁闭",
+    "通讯方式": "请路人电话求助",
+    "结果": "部分成功"
+  }
+]
+    },
+    {
+        "rule": "CONSTRUCTION AREAS\nA motorist should always stay alert for construction-area warning signs. When coming across these areas, a motorist should adjust speed and adjust position to maintain space around his/her vehicle.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景类型": "施工区域",
+    "驾驶员状态": "保持警觉",
+    "警告标志": "有施工警告标志",
+    "速度调整": "已调整至合理速度",
+    "位置调整": "已调整位置保持安全空间",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景类型": "施工区域",
+    "驾驶员状态": "未保持警觉",
+    "警告标志": "有施工警告标志",
+    "速度调整": "未调整速度",
+    "位置调整": "未调整位置",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景类型": "施工区域",
+    "驾驶员状态": "保持警觉",
+    "警告标志": "无施工警告标志",
+    "速度调整": "未调整速度",
+    "位置调整": "未调整位置",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "场景类型": "非施工区域",
+    "驾驶员状态": "正常驾驶",
+    "警告标志": "无施工警告标志",
+    "速度调整": "未调整速度",
+    "位置调整": "未调整位置",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "TOLL BOOTHS\nA motorist should stay alert for toll booth signs and begin reducing speed early, as traffic may be backed up at the booth. Green lights or signals highlight open booths. A motorist should be aware of EZ Pass booths and lanes, including high speed EZ Pass lanes. When exiting toll booths, a motorist should search traffic to both sides for merging potential, accelerate smoothly and adjust speed.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "接近收费站",
+    "主体": "驾驶员",
+    "操作": "观察收费站标志并提前减速",
+    "交通状况": "交通拥堵",
+    "信号灯状态": "无",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "接近收费站",
+    "主体": "驾驶员",
+    "操作": "未观察标志未提前减速",
+    "交通状况": "交通拥堵",
+    "信号灯状态": "无",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "选择收费通道",
+    "主体": "驾驶员",
+    "操作": "选择绿灯标识的开放通道",
+    "通道类型": "普通通道",
+    "信号灯状态": "绿灯",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "选择收费通道",
+    "主体": "驾驶员",
+    "操作": "选择无信号灯或红灯通道",
+    "通道类型": "普通通道",
+    "信号灯状态": "红灯",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "场景": "使用EZ Pass通道",
+    "主体": "驾驶员",
+    "操作": "使用正确的EZ Pass通道",
+    "通道类型": "EZ Pass通道",
+    "车速": "符合要求",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景": "使用EZ Pass通道",
+    "主体": "驾驶员",
+    "操作": "无EZ Pass设备使用专用通道",
+    "通道类型": "EZ Pass通道",
+    "设备状态": "无设备",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "驶离收费站",
+    "主体": "驾驶员",
+    "操作": "观察两侧交通、平稳加速",
+    "合并操作": "安全合并",
+    "加速方式": "平稳",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景": "驶离收费站",
+    "主体": "驾驶员",
+    "操作": "未观察交通、急加速",
+    "合并操作": "危险合并",
+    "加速方式": "急加速",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "场景": "高速EZ Pass通道",
+    "主体": "驾驶员",
+    "操作": "在高速通道保持适当速度",
+    "通道类型": "高速EZ Pass通道",
+    "车速": "符合高速通道要求",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "场景": "高速EZ Pass通道",
+    "主体": "驾驶员",
+    "操作": "在高速通道速度过低",
+    "通道类型": "高速EZ Pass通道",
+    "车速": "低于要求",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nCurves\nIt is important for a motorist to adjust steering and speed when approaching a curve in the road. The best way to enter a curve is to slow down before entering and avoid drifting into another lane. A motorist should always watch for vehicles that may drift into his/her lane as well. Check for Curve Ahead warning signs and recommended speeds.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "弯道驾驶",
+    "主体": "机动车驾驶员",
+    "操作": "进入弯道前减速",
+    "速度控制": "提前减速",
+    "车道保持": "未漂移",
+    "观察行为": "观察对向车辆",
+    "警告标志": "有弯道警告标志",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "弯道驾驶",
+    "主体": "机动车驾驶员",
+    "操作": "未提前减速进入弯道",
+    "速度控制": "未提前减速",
+    "车道保持": "发生漂移",
+    "观察行为": "未观察对向车辆",
+    "警告标志": "无视弯道警告标志",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "弯道驾驶",
+    "主体": "机动车驾驶员",
+    "操作": "以超过建议速度进入弯道",
+    "速度控制": "超速",
+    "车道保持": "部分漂移",
+    "观察行为": "有限观察",
+    "警告标志": "有弯道警告标志但无视建议速度",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "场景": "弯道驾驶",
+    "主体": "机动车驾驶员",
+    "操作": "无警告标志弯道驾驶",
+    "速度控制": "适当减速",
+    "车道保持": "保持车道",
+    "观察行为": "主动观察对向车辆",
+    "警告标志": "无警告标志",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "Interchanges\nDivided roadways are built for express traffic. To ease traffic flow, there are usually no traffic lights or direct intersections. To enter or exit such an expressway, a cloverleaf turn is often necessary. A motorist should watch for entrance and exit signs and drive slowly in the circle, obeying the posted speed limit.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "进入匝道",
+    "主体": "机动车驾驶员",
+    "动作": "观察入口标志",
+    "速度": "符合限速要求",
+    "结果": "成功进入"
+  },
+  {
+    "id": 2,
+    "场景": "环形匝道行驶",
+    "主体": "机动车驾驶员",
+    "动作": "低速行驶",
+    "速度": "低于限速标准",
+    "结果": "安全通过"
+  },
+  {
+    "id": 3,
+    "场景": "环形匝道行驶",
+    "主体": "机动车驾驶员",
+    "动作": "超速行驶",
+    "速度": "超过限速标准",
+    "结果": "危险驾驶"
+  },
+  {
+    "id": 4,
+    "场景": "驶出匝道",
+    "主体": "机动车驾驶员",
+    "动作": "观察出口标志",
+    "速度": "符合限速要求",
+    "结果": "成功驶出"
+  },
+  {
+    "id": 5,
+    "场景": "环形匝道行驶",
+    "主体": "机动车驾驶员",
+    "动作": "未注意标志",
+    "速度": "符合限速要求",
+    "结果": "错过出口"
+  }
+]
+    },
+    {
+        "rule": "Turning Regulations\nRIGHT TURN ON RED\nUnless a No Turn on Red sign is posted, New Jersey law authorizes a right turn on a red light after a motorist comes to a full stop and checks for traffic. A motorist must yield to all oncoming traffic and pedestrians before turning right at a red light. Difficult-to-see vehicles, such as bicycles and mopeds, may have a green light, so it is important for a motorist to be aware of their presence. (N.J.S.A. 39:4-115) Always use a proper turn signal at least 100 feet before making any turn and cancel the signal after completing the turn. (N.J.S.A. 39:4-126)",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "右转红灯",
+    "交通标志": "无禁止右转红灯标志",
+    "车辆状态": "完全停止",
+    "交通状况": "无迎面车辆和行人",
+    "操作": "右转",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "右转红灯",
+    "交通标志": "有禁止右转红灯标志",
+    "车辆状态": "完全停止",
+    "交通状况": "无迎面车辆和行人",
+    "操作": "右转",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "右转红灯",
+    "交通标志": "无禁止右转红灯标志",
+    "车辆状态": "未完全停止",
+    "交通状况": "无迎面车辆和行人",
+    "操作": "右转",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "场景": "右转红灯",
+    "交通标志": "无禁止右转红灯标志",
+    "车辆状态": "完全停止",
+    "交通状况": "有迎面车辆",
+    "操作": "右转",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "场景": "右转红灯",
+    "交通标志": "无禁止右转红灯标志",
+    "车辆状态": "完全停止",
+    "交通状况": "有行人通过",
+    "操作": "右转",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "场景": "右转红灯",
+    "交通标志": "无禁止右转红灯标志",
+    "车辆状态": "完全停止",
+    "交通状况": "有自行车或轻便摩托车绿灯通行",
+    "操作": "右转",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "右转",
+    "转向灯使用": "提前100英尺以上开启转向灯，转弯后关闭",
+    "操作": "右转",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景": "右转",
+    "转向灯使用": "未提前100英尺开启转向灯",
+    "操作": "右转",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "场景": "右转",
+    "转向灯使用": "转弯后未关闭转向灯",
+    "操作": "右转",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "RIGHT TURNS (N.J.S.A. 39:4-123)\nTo make a safe right turn, a motorist should approach the intersection as far to the right as possible, keeping near to the curb or parked vehicles. The motorist should not swing outward or into another lane while making the right turn. He/she should drive up to the turn as far to the right as possible, keeping close to the right curb or parked vehicles at the curb. Proper vehicle positioning prior to a right turn reduces the chance of another vehicle being in the space on the right as the motorist makes the turn. He/she should not swing into the wrong lane while making the turn. Use turn signal; SLOW DOWN.",
+        "testcase": [
+  {
+    "id": 1,
+    "操作类型": "右转",
+    "车辆位置": "尽可能靠近右侧路缘",
+    "转向信号": "使用",
+    "车速": "减速",
+    "转向路径": "保持正常转向路径",
+    "是否侵入其他车道": "否",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "操作类型": "右转",
+    "车辆位置": "远离右侧路缘",
+    "转向信号": "使用",
+    "车速": "减速",
+    "转向路径": "向外摆动",
+    "是否侵入其他车道": "是",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "操作类型": "右转",
+    "车辆位置": "尽可能靠近右侧路缘",
+    "转向信号": "未使用",
+    "车速": "减速",
+    "转向路径": "保持正常转向路径",
+    "是否侵入其他车道": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "操作类型": "右转",
+    "车辆位置": "尽可能靠近右侧路缘",
+    "转向信号": "使用",
+    "车速": "未减速",
+    "转向路径": "保持正常转向路径",
+    "是否侵入其他车道": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "操作类型": "右转",
+    "车辆位置": "尽可能靠近右侧路缘",
+    "转向信号": "使用",
+    "车速": "减速",
+    "转向路径": "转向过程中侵入左侧车道",
+    "是否侵入其他车道": "是",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nLEFT TURNS (N.J.S.A. 39:4-123)\nLeft turns, two vehicles: When two vehicles meet at an intersection and both have signaled to turn left, extra caution must be applied. When safe, each motorist should turn to the left of the center of the intersection.\nLeft turn from a one-way road on to a one-way road: Approaching the turn in the left lane, the motorist should turn into the left lane of the road he/she is entering.\nLeft turn from a two-way road onto a two-way road: Approach the turn as close as possible to the line nearest to the center of the road. When turning, the vehicle should not cross lane markings. The motorist should keep to the right of the center line of the road that the vehicle is entering.\nLeft turns, between intersections: Between intersections, solid lines show when not to pass. However, these lines may be crossed with care when entering or leaving driveways in business or residential areas.\nLeft turn from a two-way road onto a four-lane highway: Approach the turn as close to the center line to the right side of the road as possible. Make the turn before reaching the center of the intersection. It is important not to cross lane markings. The motorist should turn into the lane nearest the center line of the right side of the other road. This is the passing lane of the four-lane highway. When traffic permits, the motorist should move to the right, out of the passing lane. Use turn signal; Yield to oncoming traffic; DO NOT CROSS DIVIDING LINE; Don’t cut corners.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "两车在路口同时左转",
+    "车辆A状态": "已打左转向灯",
+    "车辆B状态": "已打左转向灯",
+    "路口类型": "普通路口",
+    "转向方式": "各自转向路口中心左侧",
+    "操作安全性": "安全",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "两车在路口同时左转",
+    "车辆A状态": "已打左转向灯",
+    "车辆B状态": "已打左转向灯",
+    "路口类型": "普通路口",
+    "转向方式": "未转向路口中心左侧",
+    "操作安全性": "不安全",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "单向道路左转至单向道路",
+    "起始道路": "单向道路",
+    "目标道路": "单向道路",
+    "起始车道": "左侧车道",
+    "目标车道": "左侧车道",
+    "转向信号": "已打灯",
+    "车道保持": "正确",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "单向道路左转至单向道路",
+    "起始道路": "单向道路",
+    "目标道路": "单向道路",
+    "起始车道": "右侧车道",
+    "目标车道": "右侧车道",
+    "转向信号": "已打灯",
+    "车道保持": "错误",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "场景": "双向道路左转至双向道路",
+    "起始道路": "双向道路",
+    "目标道路": "双向道路",
+    "接近位置": "靠近中心线",
+    "车道标记": "未跨越",
+    "中心线位置": "保持在右侧",
+    "转向信号": "已打灯",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景": "双向道路左转至双向道路",
+    "起始道路": "双向道路",
+    "目标道路": "双向道路",
+    "接近位置": "远离中心线",
+    "车道标记": "跨越",
+    "中心线位置": "跨越到左侧",
+    "转向信号": "未打灯",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "路段中间左转",
+    "道路标线": "实线",
+    "转入类型": "商业区出入口",
+    "操作谨慎性": "小心通过",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景": "路段中间左转",
+    "道路标线": "实线",
+    "转入类型": "非出入口区域",
+    "操作谨慎性": "随意跨越",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "场景": "双向道路左转至四车道公路",
+    "起始道路": "双向道路",
+    "目标道路": "四车道公路",
+    "接近位置": "靠近中心线右侧",
+    "转向时机": "到达路口中心前",
+    "车道标记": "未跨越",
+    "目标车道": "最靠近中心线的车道",
+    "后续操作": "及时变道至右侧",
+    "转向信号": "已打灯",
+    "让行情况": "已让行直行车辆",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "场景": "双向道路左转至四车道公路",
+    "起始道路": "双向道路",
+    "目标道路": "四车道公路",
+    "接近位置": "远离中心线",
+    "转向时机": "越过路口中心",
+    "车道标记": "跨越",
+    "目标车道": "错误车道",
+    "后续操作": "未及时变道",
+    "转向信号": "未打灯",
+    "让行情况": "未让行直行车辆",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nStopping Regulations\nSigns, signals, and traffic rules indicate when a motorist must stop. A motorist must be careful when traveling through an intersection and exercise caution when proceeding from a red light after the light turns green. There may be other vehicles coming through or still in the intersection.\nMost crashes at traffic signals happen in the first few seconds after the light has changed. When a yellow light follows a green light, a motorist must stop before entering the intersection, unless yellow appears when the vehicle is too close to stop safely. If the light changes while a driver is already in the intersection, he/she should go through with caution. Be alert for a stale green light; this is a light that has been green for some time. Be prepared for it to change to yellow and then to red. Slow down and stop accordingly.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "绿灯刚亮起",
+    "车辆状态": "在停止线前等待",
+    "信号灯状态": "红灯变绿灯",
+    "操作": "启动行驶",
+    "注意事项": "观察交叉路口其他车辆",
+    "结果": "成功通过"
+  },
+  {
+    "id": 2,
+    "场景": "黄灯亮起",
+    "车辆状态": "距离交叉路口较远",
+    "信号灯状态": "绿灯变黄灯",
+    "操作": "减速停车",
+    "注意事项": "安全制动距离充足",
+    "结果": "成功停止"
+  },
+  {
+    "id": 3,
+    "场景": "黄灯亮起",
+    "车辆状态": "距离交叉路口很近",
+    "信号灯状态": "绿灯变黄灯",
+    "操作": "继续通过",
+    "注意事项": "因距离过近无法安全停车",
+    "结果": "谨慎通过"
+  },
+  {
+    "id": 4,
+    "场景": "黄灯亮起时已在交叉路口内",
+    "车辆状态": "正在通过交叉路口",
+    "信号灯状态": "绿灯变黄灯",
+    "操作": "继续通行",
+    "注意事项": "保持谨慎观察",
+    "结果": "成功通过"
+  },
+  {
+    "id": 5,
+    "场景": "长时间绿灯",
+    "车辆状态": "接近交叉路口",
+    "信号灯状态": "持续绿灯较长时间",
+    "操作": "提前减速准备",
+    "注意事项": "预防信号灯突然变化",
+    "结果": "准备充分"
+  },
+  {
+    "id": 6,
+    "场景": "绿灯刚亮起立即加速",
+    "车辆状态": "在停止线前等待",
+    "信号灯状态": "红灯变绿灯",
+    "操作": "立即快速起步",
+    "注意事项": "未观察交叉路口情况",
+    "结果": "可能发生碰撞"
+  }
+]
+    },
+    {
+        "rule": "A motorist must stop:\n• At an intersection with a stop sign.\n• At an intersection with a red light either flashing or illuminated.\n• At an intersection with a yellow light after a green light, unless too close to stop safely.\n• When a traffic officer orders the vehicle to stop.\n• When there is a yield sign and traffic does not permit a safe merge.\n• When a school bus is picking up or letting off children and/or the red lights are flashing.\n• When coming from an alley, private driveway, or building.\n• At a bridge span that is about to open for boat traffic.\n• For a blind pedestrian using a white or metallic walking cane, or a trained guide dog, or a guide dog instructor engaged in instructing a guide dog.\n• For a pedestrian in a crosswalk or at an intersection.\n• For a motorized wheelchair or mobility-assistance device in a crosswalk or at an intersection.\nSingle white lines show motorists where to stop at stop signs or traffic signals.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "有停车标志的交叉口",
+    "主体": "机动车驾驶员",
+    "交通标志": "停车标志",
+    "位置": "交叉口",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "红色交通信号灯",
+    "主体": "机动车驾驶员",
+    "信号灯状态": "红色常亮",
+    "位置": "交叉口",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "场景": "黄色信号灯后安全距离不足",
+    "主体": "机动车驾驶员",
+    "信号灯状态": "黄色",
+    "安全距离": "不足",
+    "位置": "交叉口",
+    "操作": "继续通行",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "黄色信号灯后安全距离充足",
+    "主体": "机动车驾驶员",
+    "信号灯状态": "黄色",
+    "安全距离": "充足",
+    "位置": "交叉口",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "交通警察指挥停车",
+    "主体": "机动车驾驶员",
+    "指挥人员": "交通警察",
+    "指令": "停车",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景": "让行标志且无法安全汇入",
+    "主体": "机动车驾驶员",
+    "交通标志": "让行标志",
+    "交通状况": "无法安全汇入",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "场景": "校车接送学生且红灯闪烁",
+    "主体": "机动车驾驶员",
+    "校车状态": "红灯闪烁",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景": "从私人车道驶出",
+    "主体": "机动车驾驶员",
+    "起点": "私人车道",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "场景": "桥梁即将开启",
+    "主体": "机动车驾驶员",
+    "桥梁状态": "即将开启",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "场景": "盲人使用白色手杖",
+    "主体": "机动车驾驶员",
+    "行人类型": "盲人",
+    "辅助工具": "白色手杖",
+    "位置": "人行横道",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 11,
+    "场景": "人行横道上有行人",
+    "主体": "机动车驾驶员",
+    "行人位置": "人行横道",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 12,
+    "场景": "人行横道上有电动轮椅",
+    "主体": "机动车驾驶员",
+    "设备类型": "电动轮椅",
+    "位置": "人行横道",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 13,
+    "场景": "单白线停车位置",
+    "主体": "机动车驾驶员",
+    "道路标线": "单白线",
+    "操作": "在标线处停车",
+    "结果": "成功"
+  },
+  {
+    "id": 14,
+    "场景": "无停车要求时继续通行",
+    "主体": "机动车驾驶员",
+    "交通状况": "正常",
+    "信号灯": "绿色",
+    "操作": "继续通行",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSTOP AT RAILROAD CROSSINGS\nTo ensure public safety, the New Jersey Department of Transportation (NJDOT) and railroads mark public highway rail-grade crossings, also known as railroad crossings with one or more warning devices. Warning devices include advance-warning signs, pavement markings in front of a railroad crossing’s flashing red lights (usually on railroad crossing signs), gates or gates with flashing red lights, ringing bells, and flag signals.\nA motorist must stop at least 15 feet from a railroad crossing when there are flashing red lights, ringing bells, descending or lowered gates, or flag signals. Flashing red lights, ringing bells, descending gates or gates that have already been lowered indicate that a train is coming, and a motorist must stop. A motorist should never cross until the gates have been raised, the bells have stopped ringing and the red lights have stopped flashing. (N.J.S.A. 39:4-127.1) Never race a train. A motorist can underestimate the speed and distance of trains. Most trains need more than a mile to stop if traveling at 60 mph or more.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "铁路道口",
+    "警告设备": "闪烁红灯",
+    "主体": "机动车驾驶员",
+    "停车距离": "15英尺",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "铁路道口",
+    "警告设备": "响铃",
+    "主体": "机动车驾驶员",
+    "停车距离": "15英尺",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "场景": "铁路道口",
+    "警告设备": "降下栏杆",
+    "主体": "机动车驾驶员",
+    "停车距离": "15英尺",
+    "操作": "停车",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "铁路道口",
+    "警告设备": "无警告信号",
+    "主体": "机动车驾驶员",
+    "停车距离": "0英尺",
+    "操作": "通过",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "铁路道口",
+    "警告设备": "闪烁红灯",
+    "主体": "机动车驾驶员",
+    "停车距离": "10英尺",
+    "操作": "未停车",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "场景": "铁路道口",
+    "警告设备": "闪烁红灯",
+    "主体": "机动车驾驶员",
+    "停车距离": "15英尺",
+    "操作": "在信号停止前通过",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "铁路道口",
+    "警告设备": "降下栏杆",
+    "主体": "机动车驾驶员",
+    "停车距离": "20英尺",
+    "操作": "绕行栏杆",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "Special Circumstances:\nSome vehicles, such as school buses, buses, or vehicles carrying hazardous materials must always stop at railroad crossings. When driving behind one of these vehicles, a motorist must be prepared to stop, even if the signals do not indicate a train is coming. (N.J.S.A. 39:4-128)\nA motorist should never stop his/her vehicle on railroad tracks. When crossings railroad tracks, a motorist should make sure there is room on the other side to get completely across. If warning devices activate while a motorist is crossing railroad tracks, he/she should immediately proceed to the other side.",
+        "testcase": [
+  {
+    "id": 1,
+    "主体": "校车",
+    "车辆类型": "特殊车辆",
+    "位置": "铁路道口",
+    "操作": "停车",
+    "信号状态": "无火车信号",
+    "结果": "必须停车"
+  },
+  {
+    "id": 2,
+    "主体": "公交车",
+    "车辆类型": "特殊车辆",
+    "位置": "铁路道口",
+    "操作": "停车",
+    "信号状态": "无火车信号",
+    "结果": "必须停车"
+  },
+  {
+    "id": 3,
+    "主体": "危险品运输车",
+    "车辆类型": "特殊车辆",
+    "位置": "铁路道口",
+    "操作": "停车",
+    "信号状态": "无火车信号",
+    "结果": "必须停车"
+  },
+  {
+    "id": 4,
+    "主体": "普通机动车",
+    "车辆类型": "非特殊车辆",
+    "位置": "铁路道口",
+    "操作": "跟随特殊车辆",
+    "信号状态": "无火车信号",
+    "结果": "必须准备停车"
+  },
+  {
+    "id": 5,
+    "主体": "机动车",
+    "车辆类型": "所有类型",
+    "位置": "铁路轨道上",
+    "操作": "停车",
+    "结果": "禁止"
+  },
+  {
+    "id": 6,
+    "主体": "机动车",
+    "车辆类型": "所有类型",
+    "位置": "铁路道口",
+    "操作": "穿越轨道",
+    "前方空间": "足够完全通过",
+    "结果": "允许通过"
+  },
+  {
+    "id": 7,
+    "主体": "机动车",
+    "车辆类型": "所有类型",
+    "位置": "铁路道口",
+    "操作": "穿越轨道",
+    "前方空间": "不足够完全通过",
+    "结果": "禁止通过"
+  },
+  {
+    "id": 8,
+    "主体": "机动车",
+    "车辆类型": "所有类型",
+    "位置": "铁路轨道上",
+    "操作": "穿越中",
+    "信号状态": "警报装置激活",
+    "应对措施": "立即继续通过",
+    "结果": "正确应对"
+  },
+  {
+    "id": 9,
+    "主体": "机动车",
+    "车辆类型": "所有类型",
+    "位置": "铁路轨道上",
+    "操作": "穿越中",
+    "信号状态": "警报装置激活",
+    "应对措施": "停车或倒车",
+    "结果": "错误应对"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSTOP FOR SCHOOL BUSES (N.J.S.A. 39:4-128.1)\nA motorist must stop for a school bus with flashing red lights. State law requires a motorist to stop at least 25 feet away if he/she is traveling on a two-lane road or on a multi-lane highway where lanes are only separated by lines, or on a privately maintained road. When traveling on a dual-lane highway, a motorist should slow to 10 mph if on the other side of a safety island or raised median. School buses are equipped with yellow (or amber) and red flashing lights. The yellow (or amber) lights go on before the bus stops and the red lights go on when the bus has stopped. However, a motorist should not depend on these lights, if driving behind a school bus. They could be malfunctioning.\nWhen a school bus stops, all motorists traveling behind or approaching the bus must stop their vehicles at least 25 feet away. A motorist should only proceed after the bus signals have been turned off and even then, he/she must watch for children or persons who have developmental disabilities.\nIf a school bus has stopped directly in front of a school to pick up or let off children or persons with developmental disabilities, a motorist may pass from either direction at a speed of no more than 10 mph. Cars must stop 25 feet from school buses.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "双车道道路",
+    "车辆类型": "小客车",
+    "与校车位置关系": "同向行驶，在校车后方",
+    "校车状态": "红色闪光灯开启，已停车",
+    "停车距离": "30英尺",
+    "操作": "停车等待",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "双车道道路",
+    "车辆类型": "小客车",
+    "与校车位置关系": "同向行驶，在校车后方",
+    "校车状态": "红色闪光灯开启，已停车",
+    "停车距离": "20英尺",
+    "操作": "停车等待",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "多车道高速公路（仅标线分隔）",
+    "车辆类型": "货车",
+    "与校车位置关系": "对向行驶",
+    "校车状态": "红色闪光灯开启，已停车",
+    "停车距离": "28英尺",
+    "操作": "停车等待",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "双车道分隔公路",
+    "车辆类型": "小客车",
+    "与校车位置关系": "对向行驶，中间有安全岛隔离",
+    "校车状态": "红色闪光灯开启，已停车",
+    "行驶速度": "8英里/小时",
+    "操作": "减速通过",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "双车道分隔公路",
+    "车辆类型": "小客车",
+    "与校车位置关系": "对向行驶，中间有安全岛隔离",
+    "校车状态": "红色闪光灯开启，已停车",
+    "行驶速度": "15英里/小时",
+    "操作": "减速通过",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "场景": "学校正前方",
+    "车辆类型": "小客车",
+    "与校车位置关系": "同向行驶",
+    "校车状态": "红色闪光灯开启，正在上下客",
+    "行驶速度": "8英里/小时",
+    "操作": "减速通过",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "场景": "学校正前方",
+    "车辆类型": "小客车",
+    "与校车位置关系": "对向行驶",
+    "校车状态": "红色闪光灯开启，正在上下客",
+    "行驶速度": "12英里/小时",
+    "操作": "减速通过",
+    "结果": "失败"
+  },
+  {
+    "id": 8,
+    "场景": "私有道路",
+    "车辆类型": "小客车",
+    "与校车位置关系": "同向行驶，在校车后方",
+    "校车状态": "红色闪光灯开启，已停车",
+    "停车距离": "26英尺",
+    "操作": "停车等待",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "场景": "双车道道路",
+    "车辆类型": "小客车",
+    "与校车位置关系": "同向行驶，在校车后方",
+    "校车状态": "黄色闪光灯开启，准备停车",
+    "操作": "准备减速",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "场景": "双车道道路",
+    "车辆类型": "小客车",
+    "与校车位置关系": "同向行驶，在校车后方",
+    "校车状态": "信号灯关闭，已启动",
+    "操作": "观察后通过",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSTOP FOR FROZEN DESSERT TRUCKS (N.J.S.A. 39:4-128.4)\nWhen approaching or overtaking an ice cream or frozen dessert truck from either direction, and the truck is flashing red lights and posting a stop signal arm, a motorist must:\n• Yield the right-of-way to any person who is crossing the roadway to or from the truck.\n• Watch out for children and be prepared to stop.\n• Stop, and then drive past the truck at a speed of no more than 15 mph.\n• A motorist needs not stop on a dual highway if he/she is on the other side of a safety island or raised median.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "接近冷冻甜品车",
+    "车辆类型": "机动车",
+    "甜品车状态": "闪烁红灯并伸出停车信号臂",
+    "行人状态": "有行人正在横穿马路前往甜品车",
+    "道路类型": "普通道路",
+    "驾驶员操作": "停车让行",
+    "预期结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "超越冷冻甜品车",
+    "车辆类型": "机动车",
+    "甜品车状态": "闪烁红灯并伸出停车信号臂",
+    "行人状态": "无行人横穿马路",
+    "道路类型": "普通道路",
+    "驾驶员操作": "停车后以15英里/小时以下速度通过",
+    "预期结果": "成功"
+  },
+  {
+    "id": 3,
+    "场景": "接近冷冻甜品车",
+    "车辆类型": "机动车",
+    "甜品车状态": "未闪烁红灯",
+    "行人状态": "有行人横穿马路",
+    "道路类型": "普通道路",
+    "驾驶员操作": "未停车",
+    "预期结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "超越冷冻甜品车",
+    "车辆类型": "机动车",
+    "甜品车状态": "闪烁红灯并伸出停车信号臂",
+    "行人状态": "无行人横穿马路",
+    "道路类型": "普通道路",
+    "驾驶员操作": "未停车直接通过",
+    "预期结果": "失败"
+  },
+  {
+    "id": 5,
+    "场景": "接近冷冻甜品车",
+    "车辆类型": "机动车",
+    "甜品车状态": "闪烁红灯并伸出停车信号臂",
+    "行人状态": "有行人横穿马路",
+    "道路类型": "双车道带安全岛",
+    "驾驶员位置": "安全岛另一侧",
+    "驾驶员操作": "未停车",
+    "预期结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景": "超越冷冻甜品车",
+    "车辆类型": "机动车",
+    "甜品车状态": "闪烁红灯并伸出停车信号臂",
+    "行人状态": "无行人横穿马路",
+    "道路类型": "普通道路",
+    "驾驶员操作": "停车后以20英里/小时速度通过",
+    "预期结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "接近冷冻甜品车",
+    "车辆类型": "机动车",
+    "甜品车状态": "闪烁红灯但未伸出停车信号臂",
+    "行人状态": "有行人横穿马路",
+    "道路类型": "普通道路",
+    "驾驶员操作": "未停车",
+    "预期结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "PULL OVER AND STOP FOR EMERGENCY VEHICLES\nNew Jersey law requires all motorists to yield to emergency vehicles when emergency vehicles sound sirens and/or flashing red and/or blue emergency lights. A motorist should steer to the extreme right of the roadway, stop, and wait for the emergency vehicle to pass. Afterward, the motorist should keep at least 300 feet behind a signaling emergency vehicle. (N.J.S.A. 39:4-92)\nPolice cars, fire trucks, ambulances or other emergency vehicles have sirens and red lights. Private vehicles operated by volunteer fire and rescue squad members (with emergency vehicle identification) responding to an emergency call use blue lights. A motorist should never park within 200 feet of a fire department vehicle in service or drive over a fire hose unless directed to do so by a fire, emergency rescue or police official.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "道路行驶",
+    "主体": "普通驾驶员",
+    "紧急车辆类型": "警车",
+    "紧急信号": "警笛和红色闪光灯",
+    "操作": "靠右停车等待",
+    "与紧急车辆距离": "300英尺以上",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "道路行驶",
+    "主体": "普通驾驶员",
+    "紧急车辆类型": "救护车",
+    "紧急信号": "仅警笛",
+    "操作": "未靠右停车",
+    "与紧急车辆距离": "200英尺",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "道路行驶",
+    "主体": "普通驾驶员",
+    "紧急车辆类型": "消防车",
+    "紧急信号": "仅红色闪光灯",
+    "操作": "靠右停车等待",
+    "与紧急车辆距离": "300英尺以上",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "道路行驶",
+    "主体": "普通驾驶员",
+    "紧急车辆类型": "志愿者救援车辆",
+    "紧急信号": "蓝色灯光",
+    "操作": "靠右停车等待",
+    "与紧急车辆距离": "300英尺以上",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "停车",
+    "主体": "普通驾驶员",
+    "紧急车辆类型": "消防部门车辆",
+    "停车距离": "150英尺",
+    "操作": "停车",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "场景": "道路行驶",
+    "主体": "普通驾驶员",
+    "紧急车辆类型": "消防车",
+    "障碍物": "消防水管",
+    "操作": "未经指示碾压通过",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "道路行驶",
+    "主体": "普通驾驶员",
+    "紧急车辆类型": "消防车",
+    "障碍物": "消防水管",
+    "操作": "经消防官员指示通过",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "场景": "跟随行驶",
+    "主体": "普通驾驶员",
+    "紧急车辆类型": "救护车",
+    "紧急信号": "警笛和红色闪光灯",
+    "与紧急车辆距离": "250英尺",
+    "操作": "继续跟随",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "MOVE OVER LAW\nNew Jersey’s “Move Over” law requires all motorists approaching a stationary, authorized emergency vehicle, tow truck, highway maintenance, other emergency service vehicle that is displaying a flashing, blinking or alternating red, blue, amber or yellow light, or a configuration of lights containing one of these colors, or a disabled vehicle that is flashing hazard warning signal lights or utilizing road flares or reflective triangles, to change lanes, safety and traffic conditions permitting, into a lane not adjacent to the stationary emergency or disabled vehicle. If a lane change is impossible, prohibited by law or unsafe, the motorist must reduce the speed of his/her vehicle to a reasonable and proper speed that is lower than the posted speed limit and be prepared to stop, if necessary. Motorists who violate this law face a fine of not less than $100 and not more than $500. (N.J.S.A. 39:4-92.2) Additionally, motorists convicted of three or more offenses may be subject to motor vehicle penalty points. (N.J.S.A. 39:5-30.5)",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "接近静止的紧急车辆",
+    "车辆类型": "机动车",
+    "目标车辆类型": "警车",
+    "目标车辆状态": "静止",
+    "灯光信号": "闪烁红蓝灯",
+    "车道变更可能": "是",
+    "操作": "变道至非相邻车道",
+    "速度调整": "无",
+    "预期结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "接近静止的拖车",
+    "车辆类型": "机动车",
+    "目标车辆类型": "拖车",
+    "目标车辆状态": "静止",
+    "灯光信号": "闪烁黄灯",
+    "车道变更可能": "否",
+    "操作": "减速至合理速度",
+    "速度调整": "低于限速",
+    "预期结果": "成功"
+  },
+  {
+    "id": 3,
+    "场景": "接近故障车辆",
+    "车辆类型": "机动车",
+    "目标车辆类型": "故障车辆",
+    "目标车辆状态": "静止",
+    "灯光信号": "危险警告灯",
+    "车道变更可能": "是",
+    "操作": "变道至非相邻车道",
+    "速度调整": "无",
+    "预期结果": "成功"
+  },
+  {
+    "id": 4,
+    "场景": "无法变道且未减速",
+    "车辆类型": "机动车",
+    "目标车辆类型": "消防车",
+    "目标车辆状态": "静止",
+    "灯光信号": "闪烁红灯",
+    "车道变更可能": "否",
+    "操作": "保持原速",
+    "速度调整": "未减速",
+    "预期结果": "失败"
+  },
+  {
+    "id": 5,
+    "场景": "无灯光信号的静止车辆",
+    "车辆类型": "机动车",
+    "目标车辆类型": "普通车辆",
+    "目标车辆状态": "静止",
+    "灯光信号": "无",
+    "车道变更可能": "不适用",
+    "操作": "无特殊操作",
+    "速度调整": "无",
+    "预期结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景": "可变道但未变道",
+    "车辆类型": "机动车",
+    "目标车辆类型": "高速公路维护车",
+    "目标车辆状态": "静止",
+    "灯光信号": "闪烁琥珀灯",
+    "车道变更可能": "是",
+    "操作": "未变道",
+    "速度调整": "无",
+    "预期结果": "失败"
+  },
+  {
+    "id": 7,
+    "场景": "使用反光三角的故障车辆",
+    "车辆类型": "机动车",
+    "目标车辆类型": "故障车辆",
+    "目标车辆状态": "静止",
+    "灯光信号": "反光三角",
+    "车道变更可能": "否",
+    "操作": "减速至合理速度",
+    "速度调整": "低于限速",
+    "预期结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nMESSAGE FROM THE ATTORNEY GENERAL\nFor many people, being pulled over by a Police Officer while driving a vehicle can be a stressful event. In order to make the traffic stop as safe and pleasant as possible for all involved, here are some important tips:\n• Pull over in a safe place as soon as possible.\n• Be courteous, mutual respect between the officer and the driver is expected and encouraged.\n• Have your license, insurance card and registration in a place you can easily access.\n• Turn down your music.\n• If you are stopped at night, turn on your dome and/or interior lights. This will increase the visibility inside your vehicle so the Officer will be less concerned about what he or she cannot see.\n• Roll down your window.\n• Keep your hands visible, preferably on the steering wheel.\n• Do not make sudden movements, particularly if the movements involve reaching into areas not visible to the Officer. If you must reach for something, wait for the Officer to come to your vehicle and tell the Officer what you are planning to do before you do it.\n• Stay calm and communicate with the Officer.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "白天交通检查",
+    "停车位置": "安全区域",
+    "驾驶员行为": "立即安全停车、礼貌配合、证件准备齐全、调低音乐、摇下车窗、双手放在方向盘上",
+    "警察可视性": "良好",
+    "驾驶员动作": "无突然动作",
+    "沟通方式": "主动与警察沟通",
+    "结果": "检查顺利"
+  },
+  {
+    "id": 2,
+    "场景": "夜间交通检查",
+    "停车位置": "安全区域",
+    "驾驶员行为": "立即安全停车、开启车内灯、礼貌配合、证件准备齐全、调低音乐、摇下车窗、双手放在方向盘上",
+    "警察可视性": "良好",
+    "驾驶员动作": "无突然动作",
+    "沟通方式": "主动与警察沟通",
+    "结果": "检查顺利"
+  },
+  {
+    "id": 3,
+    "场景": "交通检查",
+    "停车位置": "不安全区域",
+    "驾驶员行为": "未立即停车、继续行驶寻找更安全位置",
+    "警察可视性": "未知",
+    "驾驶员动作": "延迟停车",
+    "沟通方式": "无沟通",
+    "结果": "可能引起警察警觉"
+  },
+  {
+    "id": 4,
+    "场景": "交通检查",
+    "驾驶员行为": "突然伸手到手套箱或座位下方",
+    "警察可视性": "差",
+    "驾驶员动作": "有突然隐蔽动作",
+    "沟通方式": "未提前告知",
+    "结果": "可能引起警察安全担忧"
+  },
+  {
+    "id": 5,
+    "场景": "交通检查",
+    "驾驶员行为": "需要取证件时先告知警察再动作",
+    "警察可视性": "良好",
+    "驾驶员动作": "事先沟通后动作",
+    "沟通方式": "提前告知计划动作",
+    "结果": "检查顺利"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nUsing Headlights\nProper use of headlights is critical to safe driving. Headlights must be used between one-half hour after sunset and one-half hour before sunrise. Headlights must also be used when visibility is 500 feet or less, when using windshield wipers (during rain, snow, and ice) or when encountering fog, mist, smoke, or other factors that reduce visibility. (N.J.S.A. 39:3-46)\nBeing able to see clearly while driving is especially important. A vehicle’s lights should always be in good working order and clean. Headlights help other motorists see approaching vehicles. Parking or auxiliary lights cannot legally be used in place of headlights when headlights are required.",
+        "testcase": [
+  {
+    "id": 1,
+    "时间条件": "日落后半小时至日出前半小时之间",
+    "天气状况": "晴朗",
+    "能见度": "良好",
+    "雨刷使用": "未使用",
+    "前照灯状态": "开启",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "时间条件": "日落后半小时至日出前半小时之外",
+    "天气状况": "晴朗",
+    "能见度": "600英尺",
+    "雨刷使用": "未使用",
+    "前照灯状态": "关闭",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "时间条件": "日落后半小时至日出前半小时之外",
+    "天气状况": "大雨",
+    "能见度": "400英尺",
+    "雨刷使用": "使用中",
+    "前照灯状态": "关闭",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "时间条件": "日落后半小时至日出前半小时之外",
+    "天气状况": "大雾",
+    "能见度": "300英尺",
+    "雨刷使用": "未使用",
+    "前照灯状态": "关闭",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "时间条件": "日落后半小时至日出前半小时之外",
+    "天气状况": "小雪",
+    "能见度": "450英尺",
+    "雨刷使用": "使用中",
+    "前照灯状态": "开启",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "时间条件": "日落后半小时至日出前半小时之外",
+    "天气状况": "浓烟",
+    "能见度": "500英尺",
+    "雨刷使用": "未使用",
+    "前照灯状态": "关闭",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "时间条件": "日落后半小时至日出前半小时之外",
+    "天气状况": "浓烟",
+    "能见度": "500英尺",
+    "雨刷使用": "未使用",
+    "前照灯状态": "开启",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "时间条件": "日落后半小时至日出前半小时之间",
+    "天气状况": "晴朗",
+    "能见度": "良好",
+    "雨刷使用": "未使用",
+    "前照灯状态": "使用停车灯代替",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "BRIGHT AND DIM\nHeadlights have two sets of beams: bright (high) and dim (low), which are controlled by a switch or button on or near the dashboard. The bright beam is for open country driving when there is no traffic in sight. The bright beam helps a motorist see farther ahead and peripherally or at a wider angle. At night, a motorist’s pupils are dilated, allowing more light to aid in the ability to see. Bright beams can momentarily blind other motorists by constricting the pupils and should not be used if other vehicles are approaching or when driving behind another vehicle. It can take three to five seconds for a motorist to recover from the glare of approaching high-beam headlights. At a speed of 50 mph, a motorist will have traveled the length of a football field while being unable to see. If a vehicle is approaching with high beams, a motorist should look to the right of the road until the vehicle passes. Never flash high beams at an approaching motorist.\nThe dim beams are used for city driving and driving in traffic on roadways. Dim beams are focused down on the road. Dim beams are used when traveling behind other vehicles or when another vehicle is approaching.",
+        "testcase": [
+  {
+    "id": 1,
+    "场景": "开阔乡村道路",
+    "交通状况": "无其他车辆",
+    "灯光类型": "远光灯",
+    "操作": "开启远光灯",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "场景": "对向车道有来车",
+    "交通状况": "有车辆接近",
+    "灯光类型": "远光灯",
+    "操作": "开启远光灯",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "场景": "跟随前车行驶",
+    "交通状况": "前方有车辆",
+    "灯光类型": "远光灯",
+    "操作": "开启远光灯",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "场景": "城市道路",
+    "交通状况": "有交通流",
+    "灯光类型": "近光灯",
+    "操作": "开启近光灯",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "场景": "跟随其他车辆",
+    "交通状况": "前方有车辆",
+    "灯光类型": "近光灯",
+    "操作": "开启近光灯",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "场景": "对向车辆使用远光灯",
+    "交通状况": "被远光灯照射",
+    "操作": "看向道路右侧",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "场景": "对向车辆使用远光灯",
+    "交通状况": "被远光灯照射",
+    "操作": "闪烁远光灯提醒",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "OTHER TYPES OF LIGHTS\n• Parking lights: Parking lights are to be used for a short period of time, such as when a vehicle is left in a permitted zone, to show other motorists where a vehicle is parked. Parking lights are required on vehicles parked in areas other than business or residential zones.\n• Taillights: Taillights turn on at the same time as a vehicle’s headlights and parking lights. They become brighter when a motorist applies the brakes to show that he/she is slowing or stopping. During the day, without headlights, the taillights also turn on as a motorist applies the brakes.\n• Brake lights: Brake lights become brighter when a motorist applies the brakes, showing that the vehicle is slowing or stopping.\n• Interim (overhead) lights: Found inside the vehicle, these types of lights should be used only briefly (when necessary) when driving or to comply with a police officer’s request to illuminate the motorist’s compartment of the vehicle when stopped.\n• Dashboard lights: If dashboard lights are too bright, they may create a glare for the motorist and impede vision. The lights should be kept dim but still light enough for a motorist to read the dials.\n• Spotlights: Spotlights should be used only in emergencies. This also applies to emergency flashers (hazard lights). Spotlights may not be used for driving purposes.\n• Fog lights: These auxiliary driving lights may be used with low-beam headlights to provide general lighting ahead of a motor vehicle, specifically during foggy weather conditions. (N.J.A.C. 13:20-32.25)",
+        "testcase": [
+  {
+    "id": 1,
+    "灯光类型": "停车灯",
+    "使用场景": "车辆停放在非商业或住宅区的允许区域",
+    "使用时长": "短时间",
+    "使用目的": "显示停车位置",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "灯光类型": "停车灯",
+    "使用场景": "商业区停车",
+    "使用时长": "短时间",
+    "使用目的": "显示停车位置",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "灯光类型": "尾灯",
+    "车辆状态": "开启大灯或停车灯",
+    "刹车状态": "未刹车",
+    "时间": "夜间",
+    "亮度": "正常",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "灯光类型": "尾灯",
+    "车辆状态": "未开启大灯",
+    "刹车状态": "刹车",
+    "时间": "白天",
+    "亮度": "变亮",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "灯光类型": "临时顶灯",
+    "使用场景": "驾驶时必要情况",
+    "使用时长": "短暂",
+    "使用目的": "必要照明",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "灯光类型": "临时顶灯",
+    "使用场景": "正常驾驶",
+    "使用时长": "长时间",
+    "使用目的": "常规照明",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "灯光类型": "仪表盘灯",
+    "亮度": "偏暗但可读",
+    "眩光影响": "无眩光",
+    "可视性": "可读取仪表",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "灯光类型": "仪表盘灯",
+    "亮度": "过亮",
+    "眩光影响": "产生眩光",
+    "可视性": "影响驾驶视线",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "灯光类型": "聚光灯",
+    "使用场景": "紧急情况",
+    "使用目的": "应急照明",
+    "结果": "成功"
+  },
+  {
+    "id": 10,
+    "灯光类型": "聚光灯",
+    "使用场景": "正常驾驶",
+    "使用目的": "常规照明",
+    "结果": "失败"
+  },
+  {
+    "id": 11,
+    "灯光类型": "雾灯",
+    "天气条件": "雾天",
+    "配合灯光": "近光灯",
+    "使用目的": "提供前方照明",
+    "结果": "成功"
+  },
+  {
+    "id": 12,
+    "灯光类型": "雾灯",
+    "天气条件": "晴天",
+    "配合灯光": "无",
+    "使用目的": "常规照明",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nParking Regulations\nA motorist should always check for traffic when leaving a vehicle after parking. He/she should also check for bicycles or mopeds, which are sometimes difficult to see, before opening the driver-side door and exiting the vehicle. A motorist opening a door into traffic may be liable for any crash with a moving vehicle. It is safer for passengers to exit a parked vehicle from the curbside. A motorist should read parking signs before parking on a city street to be aware of restrictions or time limits. It is illegal for a vehicle to be parked more than six inches from the curb. (N.J.S.A. 39:4-135) Never park where a vehicle will block traffic.",
+        "testcase": [
+  {
+    "id": 1,
+    "主体": "驾驶员",
+    "操作": "停车后离开前检查交通",
+    "检查项目": ["常规交通", "自行车", "摩托车"],
+    "车门开启侧": "驾驶侧",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "主体": "驾驶员",
+    "操作": "停车后离开前未充分检查",
+    "检查项目": ["常规交通"],
+    "遗漏项目": ["自行车"],
+    "车门开启侧": "驾驶侧",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "主体": "乘客",
+    "操作": "从路缘侧下车",
+    "下车位置": "路缘侧",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "主体": "乘客",
+    "操作": "从驾驶侧下车",
+    "下车位置": "驾驶侧",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "主体": "驾驶员",
+    "操作": "阅读停车标志",
+    "行为": "阅读标志并遵守限制",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "主体": "驾驶员",
+    "操作": "忽略停车标志",
+    "行为": "未阅读标志违反限制",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "主体": "车辆",
+    "停车距离": "距离路缘5厘米",
+    "操作": "路边停车",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "主体": "车辆",
+    "停车距离": "距离路缘20厘米",
+    "操作": "路边停车",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "主体": "车辆",
+    "停车位置": "交通要道",
+    "操作": "停车阻塞交通",
+    "结果": "失败"
+  },
+  {
+    "id": 10,
+    "主体": "车辆",
+    "停车位置": "指定停车区域",
+    "操作": "停车不阻塞交通",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "DO NOT PARK (N.J.S.A. 39:4-138)\nUnless directed to do so by a police officer or to avoid a crash, a motorist should never stop or park at any of the following places:\n• In a crosswalk.\n• Between a safety zone for pedestrians and the adjacent curb or within 20 feet of the end of the safety zone.\n• Near properly marked street construction.\n• In a space on public or private property marked for vehicle parking for persons with a disability (unless legally authorized).\n• On an interstate highway.\n• In a sidewalk.\n• In a bus stop zone.\n• In front of a public or private driveway.\n• Within an intersection.\n• Within 10 feet of a fire hydrant.\n• Within 25 feet of a crosswalk at an intersection or sideline of a street or intersection highway, except at alleys.\n• Within 50 feet of a railroad crossing.\n• Within 50 feet of a stop sign.\n• Within 20 feet of the driveway entrance to any fire station and within 75 feet on the street opposite a fire station entrance.\n• On any bridge or elevated roadway or in any tunnel.\n• Next to another vehicle parked at the curb (double parking).\n• In an area where parking is prohibited by municipal ordinance.\nIn case of mechanical trouble or other emergency, a motorist should stop on the right highway shoulder and turn on emergency flashers.",
+        "testcase": [
+  {
+    "id": 1,
+    "主体": "机动车驾驶员",
+    "位置": "人行横道内",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 2,
+    "主体": "机动车驾驶员",
+    "位置": "行人安全区与路缘间20英尺内",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "失败"
+  },
+  {
+    "id":  3,
+    "主体": "机动车驾驶员",
+    "位置": "残疾人专用停车位",
+    "操作": "停车",
+    "授权状态": "未授权",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "主体": "机动车驾驶员",
+    "位置": "州际高速公路",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "主体": "机动车驾驶员",
+    "位置": "消防栓10英尺内",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 6,
+    "主体": "机动车驾驶员",
+    "位置": "交叉路口内",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 7,
+    "主体": "机动车驾驶员",
+    "位置": "铁路道口50英尺内",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 8,
+    "主体": "机动车驾驶员",
+    "位置": "消防站入口20英尺内",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 9,
+    "主体": "机动车驾驶员",
+    "位置": "桥梁上",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "失败"
+  },
+  {
+    "id": 10,
+    "主体": "机动车驾驶员",
+    "位置": "路肩",
+    "操作": "停车",
+    "紧急情况": "是",
+    "车辆故障": "是",
+    "开启应急灯": "是",
+    "结果": "成功"
+  },
+  {
+    "id": 11,
+    "主体": "机动车驾驶员",
+    "位置": "人行横道内",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "是",
+    "避让事故": "否",
+    "结果": "成功"
+  },
+  {
+    "id": 12,
+    "主体": "机动车驾驶员",
+    "位置": "交叉路口内",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "是",
+    "结果": "成功"
+  },
+  {
+    "id": 13,
+    "主体": "机动车驾驶员",
+    "位置": "合法停车位",
+    "操作": "停车",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "成功"
+  },
+  {
+    "id": 14,
+    "主体": "机动车驾驶员",
+    "位置": "残疾人专用停车位",
+    "操作": "停车",
+    "授权状态": "已授权",
+    "紧急情况": "否",
+    "警察指示": "否",
+    "避让事故": "否",
+    "结果": "成功"
+  },
+  {
+    "id": 15,
+    "主体": "机动车驾驶员",
+    "位置": "路肩",
+    "操作": "停车",
+    "紧急情况": "是",
+    "车辆故障": "是",
+    "开启应急灯": "否",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nCellular Telephones\nState law prohibits the use of handheld electronic devices (such as cellular telephone) while driving a motor vehicle on any public road or highway. Using a handheld cellular telephone or texting device is a primary offense. Law enforcement may stop and cite a motorist specifically for these actions. Motorists are permitted to use a hands-free cellular telephone if it does not interfere with any federally required safety equipment or with the safe operation of the vehicle. Although the use of a hands-free cellular telephone is legal, it is strongly discouraged.",
+        "testcase": [
+  {
+    "id": 1,
+    "主体": "驾驶员",
+    "设备类型": "手持电子设备",
+    "设备状态": "使用中",
+    "车辆状态": "行驶中",
+    "地点": "公共道路或高速公路",
+    "操作": "驾驶车辆",
+    "结果": "失败"
+  },
+  {
+    "id": 2,
+    "主体": "驾驶员",
+    "设备类型": "手持电子设备",
+    "设备状态": "未使用",
+    "车辆状态": "行驶中",
+    "地点": "公共道路或高速公路",
+    "操作": "驾驶车辆",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "主体": "驾驶员",
+    "设备类型": "手持电话",
+    "设备状态": "通话中",
+    "车辆状态": "行驶中",
+    "地点": "公共道路或高速公路",
+    "操作": "驾驶车辆",
+    "结果": "失败"
+  },
+  {
+    "id": 4,
+    "主体": "驾驶员",
+    "设备类型": "手持短信设备",
+    "设备状态": "发短信",
+    "车辆状态": "行驶中",
+    "地点": "公共道路或高速公路",
+    "操作": "驾驶车辆",
+    "结果": "失败"
+  },
+  {
+    "id": 5,
+    "主体": "驾驶员",
+    "设备类型": "免提电话",
+    "设备状态": "通话中",
+    "车辆状态": "行驶中",
+    "地点": "公共道路或高速公路",
+    "操作": "驾驶车辆",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "主体": "驾驶员",
+    "设备类型": "免提电话",
+    "设备状态": "通话中",
+    "车辆状态": "行驶中",
+    "地点": "公共道路或高速公路",
+    "操作": "驾驶车辆",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "主体": "驾驶员",
+    "设备类型": "免提电话",
+    "设备状态": "通话中",
+    "车辆状态": "停车状态",
+    "地点": "公共道路或高速公路",
+    "操作": "驾驶车辆",
+    "结果": "成功"
+  },
+  {
+    "id": 8,
+    "主体": "驾驶员",
+    "设备类型": "手持电话",
+    "设备状态": "通话中",
+    "车辆状态": "停车状态",
+    "地点": "公共道路或高速公路",
+    "操作": "驾驶车辆",
+    "结果": "成功"
+  },
+  {
+    "id": 9,
+    "主体": "驾驶员",
+    "设备类型": "免提电话",
+    "设备状态": "通话中",
+    "车辆状态": "行驶中",
+    "地点": "私人道路",
+    "操作": "驾驶车辆",
+    "结果": "成功"
+  }
+]
+    },
+    {
+        "rule": "A handheld cellular telephone may be used only in certain emergency situations, which include:\n• Fire\n• Traffic crash\n• Serious road hazard\n• Medical emergency\n• Hazardous material emergency\nMotorists in the above-mentioned circumstances must keep one hand on the steering wheel while using a handheld telephone. To prove legal use of a handheld telephone while operating a motor vehicle, a motorist may be asked to produce testimony or written statements from appropriate authorities, or telephone records. The fine for breaking this law is $200-$400 for a first offense, $400-$600 for a second offense within 10 years of the first offense, $600-$800 for a third offense within 10 years of the second offense and for all subsequent offenses. A person convicted of a third or subsequent violation shall also be assessed three motor vehicle penalty points. (N.J.S.A. 39:4-97.3) There may be a 90-day license suspension as well.",
+        "testcase": [
+  {
+    "id": 1,
+    "主体": "驾驶员",
+    "设备类型": "手持蜂窝电话",
+    "使用场景": "火灾紧急情况",
+    "驾驶状态": "正在驾驶",
+    "手部控制": "单手扶方向盘",
+    "紧急情况证明": "可提供",
+    "结果": "成功"
+  },
+  {
+    "id": 2,
+    "主体": "驾驶员",
+    "设备类型": "手持蜂窝电话",
+    "使用场景": "交通事故",
+    "驾驶状态": "正在驾驶",
+    "手部控制": "单手扶方向盘",
+    "紧急情况证明": "可提供",
+    "结果": "成功"
+  },
+  {
+    "id": 3,
+    "主体": "驾驶员",
+    "设备类型": "手持蜂窝电话",
+    "使用场景": "严重道路危险",
+    "驾驶状态": "正在驾驶",
+    "手部控制": "单手扶方向盘",
+    "紧急情况证明": "可提供",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "主体": "驾驶员",
+    "设备类型": "手持蜂窝电话",
+    "使用场景": "医疗紧急情况",
+    "驾驶状态": "正在驾驶",
+    "手部控制": "单手扶方向盘",
+    "紧急情况证明": "可提供",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "主体": "驾驶员",
+    "设备类型": "手持蜂窝电话",
+    "使用场景": "危险材料紧急情况",
+    "驾驶状态": "正在驾驶",
+    "手部控制": "单手扶方向盘",
+    "紧急情况证明": "可提供",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "主体": "驾驶员",
+    "设备类型": "手持蜂窝电话",
+    "使用场景": "非紧急通话",
+    "驾驶状态": "正在驾驶",
+    "手部控制": "单手扶方向盘",
+    "紧急情况证明": "无法提供",
+    "结果": "失败",
+    "处罚金额": "200-400美元",
+    "违规次数": "第一次"
+  },
+  {
+    "id": 7,
+    "主体": "驾驶员",
+    "设备类型": "手持蜂窝电话",
+    "使用场景": "紧急情况",
+    "驾驶状态": "正在驾驶",
+    "手部控制": "双手离开方向盘",
+    "紧急情况证明": "可提供",
+    "结果": "失败"
+  },
+  {
+    "id": 8,
+    "主体": "驾驶员",
+    "设备类型": "手持蜂窝电话",
+    "使用场景": "紧急情况",
+    "驾驶状态": "正在驾驶",
+    "手部控制": "单手扶方向盘",
+    "紧急情况证明": "无法提供",
+    "结果": "失败",
+    "处罚金额": "400-600美元",
+    "违规次数": "第二次",
+    "时间范围": "10年内"
+  },
+  {
+    "id": 9,
+    "主体": "驾驶员",
+    "设备类型": "手持蜂窝电话",
+    "使用场景": "非紧急通话",
+    "驾驶状态": "正在驾驶",
+    "手部控制": "单手扶方向盘",
+    "紧急情况证明": "无法提供",
+    "结果": "失败",
+    "处罚金额": "600-800美元",
+    "违规次数": "第三次",
+    "扣分": "3分",
+    "时间范围": "10年内",
+    "可能处罚": "90天驾照暂停"
+  }
+]
+    },
+    {
+        "rule": "“Kulesh’s, Kuberts’ and Bolis’ Law,” enacted in 2012, establishes illegal use of a cellular telephone while driving as recklessness under the vehicular homicide (N.J.S.A. 2C:11-5) and assault by auto (N.J.S.A. 2C-12-1) statutes. The intent and effect of this law is to make it easier for prosecutors to obtain convictions for vehicular homicide or assault by auto against a person who illegally uses a cell phone while driving and, as result, kills or injures someone.",
+        "testcase": []
+    },
+    {
+        "rule": "A graduated driver license (GDL) holder may not use a handheld or hands-free cellular telephone, or any other handheld electronic device, when behind the wheel. Doing so is a violation of GDL restrictions. (N.J.S.A. 39:3-13, 39:3-13.2a, 39:3-13.4)",
+        "testcase": [
+  {
+    "id": 1,
+    "主体": "GDL驾照持有人",
+    "设备类型": "手持手机",
+    "操作": "通话",
+    "驾驶状态": "驾驶中",
+    "结果": "违规"
+  },
+  {
+    "id": 2,
+    "主体": "GDL驾照持有人",
+    "设备类型": "免提电话",
+    "操作": "通话",
+    "驾驶状态": "驾驶中",
+    "结果": "违规"
+  },
+  {
+    "id": 3,
+    "主体": "GDL驾照持有人",
+    "设备类型": "平板电脑",
+    "操作": "操作设备",
+    "驾驶状态": "驾驶中",
+    "结果": "违规"
+  },
+  {
+    "id": 4,
+    "主体": "普通驾照持有人",
+    "设备类型": "手持手机",
+    "操作": "通话",
+    "驾驶状态": "驾驶中",
+    "结果": "允许"
+  },
+  {
+    "id": 5,
+    "主体": "GDL驾照持有人",
+    "设备类型": "车载导航系统",
+    "操作": "使用导航",
+    "驾驶状态": "停车状态",
+    "结果": "允许"
+  },
+  {
+    "id": 6,
+    "主体": "GDL驾照持有人",
+    "设备类型": "智能手表",
+    "操作": "查看信息",
+    "驾驶状态": "驾驶中",
+    "结果": "违规"
+  }
+]
+    },
+    {
+        "rule": "A school bus driver may not use a handheld or hands-free cellular telephone while operating a school bus, except in an emergency or when the school bus is parked in a safe area off a highway. (N.J.S.A. 39:3B-25)",
+        "testcase": [
+  {
+    "id": 1,
+    "主体": "校车司机",
+    "操作": "驾驶校车",
+    "电话使用": "使用手持电话",
+    "场景": "正常行驶中",
+    "结果": "失败"
+  },
+  {
+    "id": 2,
+    "主体": "校车司机",
+    "操作": "驾驶校车",
+    "电话使用": "使用免提电话",
+    "场景": "正常行驶中",
+    "结果": "失败"
+  },
+  {
+    "id": 3,
+    "主体": "校车司机",
+    "操作": "驾驶校车",
+    "电话使用": "使用手持电话",
+    "场景": "紧急情况",
+    "结果": "成功"
+  },
+  {
+    "id": 4,
+    "主体": "校车司机",
+    "操作": "驾驶校车",
+    "电话使用": "使用免提电话",
+    "场景": "紧急情况",
+    "结果": "成功"
+  },
+  {
+    "id": 5,
+    "主体": "校车司机",
+    "操作": "停车状态",
+    "电话使用": "使用手持电话",
+    "场景": "安全区域离开公路",
+    "结果": "成功"
+  },
+  {
+    "id": 6,
+    "主体": "校车司机",
+    "操作": "停车状态",
+    "电话使用": "使用免提电话",
+    "场景": "安全区域离开公路",
+    "结果": "成功"
+  },
+  {
+    "id": 7,
+    "主体": "校车司机",
+    "操作": "停车状态",
+    "电话使用": "使用手持电话",
+    "场景": "非安全区域",
+    "结果": "失败"
+  }
+]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nLittering\nThrowing trash, debris or rubbish from a moving or parked vehicle is illegal. Litter is a safety hazard and an eyesore. Fines of up to $1,000 may be imposed on motorists found throwing “dangerous objects” from a vehicle onto a roadway. If the vehicle is moving when litter is thrown, the motorist may lose his/her license. All trash, debris or rubbish carried in a vehicle must be covered to keep it from littering the roadway. (N.J.S.A. 39:4-63, 39:4-64)",
+        "testcase": [
+  {
+    "id": 1,
+    "主体": "驾驶员",
+    "车辆状态": "行驶中",
+    "行为": "抛掷危险物品",
+    "物品类型": "危险物品",
+    "地点": "道路",
+    "结果": "失败",
+    "处罚类型": ["罚款", "吊销驾照"]
+  },
+  {
+    "id": 2,
+    "主体": "驾驶员",
+    "车辆状态": "停放中",
+    "行为": "抛掷危险物品",
+    "物品类型": "危险物品",
+    "地点": "道路",
+    "结果": "失败",
+    "处罚类型": ["罚款"]
+  },
+  {
+    "id": 3,
+    "主体": "驾驶员",
+    "车辆状态": "行驶中",
+    "行为": "抛掷普通垃圾",
+    "物品类型": "普通垃圾",
+    "地点": "道路",
+    "结果": "失败",
+    "处罚类型": ["罚款"]
+  },
+  {
+    "id": 4,
+    "主体": "驾驶员",
+    "车辆状态": "行驶中",
+    "行为": "未抛掷物品",
+    "物品覆盖状态": "已覆盖",
+    "地点": "道路",
+    "结果": "成功",
+    "处罚类型": "无"
+  },
+  {
+    "id": 5,
+    "主体": "驾驶员",
+    "车辆状态": "行驶中",
+    "行为": "未抛掷物品",
+    "物品覆盖状态": "未覆盖",
+    "地点": "道路",
+    "结果": "失败",
+    "处罚类型": ["罚款"]
+  },
+  {
+    "id": 6,
+    "主体": "驾驶员",
+    "车辆状态": "停放中",
+    "行为": "抛掷普通垃圾",
+    "物品类型": "普通垃圾",
+    "地点": "非道路区域",
+    "结果": "成功",
+    "处罚类型": "无"
+  }
+]
+    }
+]

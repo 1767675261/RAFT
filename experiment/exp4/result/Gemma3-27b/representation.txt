@@ -1,0 +1,155 @@
+:
+
+## 可测试规则语言 (TRL) 定义
+
+以下是可测试规则语言 (TRL) 的完整定义，包括符号、语法、语义和可测试性约束。
+
+### 1. 符号系统 (Symbols)
+
+*   **逻辑符号:**
+    *   `AND`: 逻辑与，连接条件。
+    *   `OR`: 逻辑或，连接条件。
+    *   `NOT`: 逻辑非，否定条件。
+    *   `EQUALS`: 等于，用于比较。
+    *   `GREATER_THAN`: 大于，用于比较。
+    *   `LESS_THAN`: 小于，用于比较。
+    *   `IN`: 包含，用于检查值是否在一个集合中。
+*   **比较符号:**
+    *   `=`:  等于
+    *   `>`:  大于
+    *   `<`:  小于
+    *   `>=`: 大于等于
+    *   `<=`: 小于等于
+*   **领域符号 (基于元模型):**
+    *   `AccountStatus`: 账户状态 (字符串)
+    *   `BondType`: 债券类型 (字符串)
+    *   `TradingDirection`: 交易方向 (字符串，例如 "买入", "卖出")
+    *   `OrderQuantity`: 订单数量 (数字)
+    *   `OrderPrice`: 订单价格 (数字)
+    *   `TransactionTime`: 交易时间 (字符串，例如 "YYYY-MM-DD HH:MM:SS")
+    *   `MarketStatus`: 市场状态 (字符串)
+    *   `SettlementType`: 结算类型 (字符串)
+    *   `SettlementCycle`: 结算周期 (字符串)
+    *   `EntrustmentStatus`: 委托状态 (字符串)
+    *   `TransactionStatus`: 交易状态 (字符串)
+    *   `TradingMode`: 交易模式 (字符串)
+    *   `Counterparty`:  交易对手方 (字符串)
+    *   `RiskControl`: 风险控制 (字符串)
+    *   `RegulatoryCompliance`: 监管合规 (字符串)
+    *   `Constraint`: 约束 (字符串)
+    *   `OrderCancellation`: 订单取消 (字符串)
+    *   `TransactionConfirmation`: 交易确认 (字符串)
+
+### 2. 语法 (Syntax)
+
+```bnf
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+Condition ::= <Expression> | <Expression> "OR" <Condition>
+Expression ::= <Term> | <Term> <ComparisonOperator> <Term>
+Term ::= <DomainSymbol> <ComparisonOperator> <Value> | "(" <Expression> ")"
+ComparisonOperator ::= "=" | ">" | "<" | ">=" | "<="
+Action ::= <Operation> | <Operation> "AND" <Action>
+Operation ::= <DomainSymbol> "=" <Value>
+ExpectedOutcome ::= <DomainSymbol> "=" <Value> | <DomainSymbol> <ComparisonOperator> <Value>
+Value ::= STRING | NUMBER
+STRING ::= "\"" [a-zA-Z0-9_]+ "\""
+NUMBER ::= [0-9]+ "." [0-9]+ | [0-9]+
+DomainSymbol ::= AccountStatus | BondType | TradingDirection | OrderQuantity | OrderPrice | TransactionTime | MarketStatus | SettlementType | SettlementCycle | EntrustmentStatus | TransactionStatus | TradingMode | Counterparty | RiskControl | RegulatoryCompliance | Constraint | OrderCancellation | TransactionConfirmation
+```
+
+### 3. 语义 (Semantics)
+
+TRL 规则的语义可以解释为：
+
+*   **IF <Condition> AND <Action> THEN <ExpectedOutcome>**:  如果满足 `<Condition>` 并且执行 `<Action>`，则 `<ExpectedOutcome>` 必须成立。
+
+*   **Condition**:  定义了输入约束。  `<Expression>`  表示一个简单的条件，例如  `BondType = "国债"`。  `OR`  连接多个条件，表示任何一个条件满足即可。
+
+*   **Action**:  定义了系统操作。  `<Operation>`  表示一个状态改变，例如  `TradingDirection = "买入"`。  `AND`  连接多个操作，表示需要按顺序执行这些操作。
+
+*   **ExpectedOutcome**:  定义了操作后的预期结果。  `<DomainSymbol> = <Value>`  表示某个领域符号的值应该等于某个值。  `<DomainSymbol> <ComparisonOperator> <Value>`  表示某个领域符号的值应该满足某个比较条件。
+
+**操作语义示例:**
+
+假设规则：`IF BondType = "国债" AND TradingDirection = "买入" THEN TransactionStatus = "成功"`
+
+1.  **输入:**  `BondType = "国债"`, `TradingDirection = "买入"`
+2.  **操作:**  系统执行买入操作。
+3.  **验证:**  系统检查 `TransactionStatus` 是否等于 `"成功"`。  如果相等，则规则通过；否则，规则失败。
+
+### 4. 可测试性约束 (Testability Constraints) - OCL
+
+以下是一些 OCL 约束，用于确保 TRL 规则的可测试性：
+
+1.  **条件可评估性:**  所有条件表达式必须能够被评估为真或假。
+    ```ocl
+    context Rule
+    inv: self.condition.oclIsUndefined() = false
+    ```
+
+2.  **动作可执行性:**  所有动作操作必须能够被系统执行。
+    ```ocl
+    context Rule
+    inv: self.action.oclIsUndefined() = false
+    ```
+
+3.  **预期结果可观察性:**  所有预期结果必须能够被系统观察到。
+    ```ocl
+    context Rule
+    inv: self.expectedOutcome.oclIsUndefined() = false
+    ```
+
+4.  **值类型一致性:**  条件、动作和预期结果中使用的值类型必须与相应的领域符号类型一致。
+    ```ocl
+    context Expression
+    inv: self.term.type = self.value.type
+    ```
+
+5.  **避免循环依赖:**  规则之间不能存在循环依赖，否则无法确定测试顺序。
+    ```ocl
+    context Rule
+    inv: not self.dependsOn(self)
+    ```
+
+6.  **明确的输入:** 规则的条件部分必须明确定义输入，不能有模糊不清的描述。
+    ```ocl
+    context Condition
+    inv: not self.containsKeyword("可能") and not self.containsKeyword("大概")
+    ```
+
+7.  **可验证的输出:** 规则的预期结果部分必须是可验证的，不能包含主观判断。
+    ```ocl
+    context ExpectedOutcome
+    inv: not self.containsKeyword("应该") and not self.containsKeyword("最好")
+    ```
+
+## 示例
+
+**自然语言规则:**
+
+“如果债券类型为国债，并且交易方向为买入，那么交易状态应该为成功。”
+
+**TRL 实例:**
+
+```
+IF BondType = "国债" AND TradingDirection = "买入" THEN TransactionStatus = "成功"
+```
+
+**可测试性验证:**
+
+1.  **条件可评估性:**  `BondType = "国债"`  可以被评估为真或假。
+2.  **动作可执行性:**  `TradingDirection = "买入"`  可以被系统执行。
+3.  **预期结果可观察性:**  `TransactionStatus = "成功"`  可以被系统观察到。
+4.  **值类型一致性:**  `BondType`  和  `"国债"`  都是字符串类型；`TradingDirection`  和  `"买入"`  都是字符串类型；`TransactionStatus`  和  `"成功"`  都是字符串类型。
+5.  **明确的输入:** 规则明确定义了债券类型和交易方向作为输入。
+6.  **可验证的输出:** 规则明确定义了交易状态为“成功”作为可验证的输出。
+
+**结论:**
+
+该 TRL 实例满足所有可测试性约束，因此是可测试的。  可以根据该规则生成测试用例，例如：
+
+*   **测试用例 1:**  `BondType = "国债"`, `TradingDirection = "买入"`,  验证  `TransactionStatus = "成功"`。
+*   **测试用例 2:**  `BondType = "地方债"`, `TradingDirection = "买入"`,  验证  `TransactionStatus != "成功"`。
+*   **测试用例 3:**  `BondType = "国债"`, `TradingDirection = "卖出"`,  验证  `TransactionStatus != "成功"`。
+
+这个 TRL 定义提供了一个基础框架，可以根据具体的领域需求进行扩展和修改。  关键在于保持语言的简洁性、可读性和可测试性。

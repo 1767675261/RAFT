@@ -1,0 +1,91 @@
+好的，根据您提供的规则文档和测试用例，我将按照规范构建领域元模型。
+
+**步骤一：规则要素清单**
+
+以下是提取的18个规则要素：
+
+1.  **BondType** - 债券类型 (如：债券现券、债券回购)
+2.  **TradingParticipant** - 交易参与人 (如：主做市商、一般做市商)
+3.  **InvestorType** - 投资者类型 (如：经纪客户)
+4.  **TradingMethod** - 交易方式 (如：匹配成交、点击成交)
+5.  **OrderDirection** - 订单方向 (如：买入、卖出)
+6.  **PriceRange** - 价格范围 (如：有效申报价格范围)
+7.  **Quantity** - 交易数量
+8.  **SettlementMethod** - 结算方式 (如：多边净额结算、逐笔全额结算)
+9.  **SettlementCycle** - 结算周期
+10. **TradingTime** - 交易时间
+11. **Cancellation** - 订单撤销
+12. **Disclosure** - 是否匿名
+13. **Contract** - 委托协议
+14. **RiskControl** - 风险控制
+15. **TransactionPrice** - 交易价格
+16. **TradingStatus** - 交易状态 (如：已成交、未成交)
+17. **OrderValidity** - 订单有效性
+18. **TechnicalFault** - 技术故障
+
+**步骤二：元模型（PlantUML）**
+
+```plantuml
+@startuml
+class Rule {
+}
+
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+Rule "contains" Precondition : P1
+Rule "contains" Operation : O1
+Rule "contains" ExpectedResult : E1
+
+Precondition "constrains" BondType : T1
+Precondition "constrains" TradingParticipant : TP1
+Precondition "constrains" InvestorType : IT1
+Precondition "dependsOn" OrderValidity : OV1
+
+Operation "triggers" TransactionPrice : TP1
+Operation "triggers" TradingStatus : TS1
+Operation "contains" TradingMethod : TM1
+Operation "contains" OrderDirection : OD1
+Operation "contains" TradingTime : TT1
+
+ExpectedResult "constrains" SettlementMethod : SM1
+ExpectedResult "constrains" SettlementCycle : SC1
+ExpectedResult "constrains" Disclosure : D1
+ExpectedResult "constrains" Cancellation : C1
+ExpectedResult "constrains" RiskControl : RC1
+ExpectedResult "constrains" TechnicalFault : TF1
+ExpectedResult "constrains" Contract : CT1
+ExpectedResult "constrains" Quantity : Q1
+ExpectedResult "constrains" PriceRange : PR1
+
+@enduml
+```
+
+**解释：**
+
+*   **Rule**: 顶层类，代表整个规则。
+*   **Precondition**: 前置条件，代表规则执行前的状态或条件。
+*   **Operation**: 操作步骤，代表规则执行的操作。
+*   **ExpectedResult**: 预期结果，代表规则执行后的结果。
+
+**关系解释：**
+
+*   `contains`:  表示一个类包含其他类，例如 `Rule` 包含 `Precondition`、`Operation` 和 `ExpectedResult`。
+*   `constrains`: 表示一个要素对另一个要素的限制，例如 `Precondition` 约束 `BondType`。
+*   `dependsOn`: 表示要素运行时的前提关系，例如`Precondition`依赖于`OrderValidity`。
+*   `triggers`: 表示操作对预期结果的引发关系，例如 `Operation` 触发 `TransactionPrice`。
+
+**注意：**
+
+*   以上元模型仅为示例，可以根据实际需求进行调整和扩展。
+*   PlantUML代码可以直接复制到在线PlantUML编辑器或本地PlantUML工具中进行渲染。
+*   各个要素之间的关系可以根据具体规则进行调整。
+*   该元模型仅包含类和关系，不包含类的属性和方法，符合规范要求。
+
+希望这个元模型能够满足您的需求！

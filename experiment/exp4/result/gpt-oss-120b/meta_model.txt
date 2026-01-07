@@ -1,0 +1,85 @@
+**Step 1 – 规则要素清单（叶子类）**
+
+| 编号 | 叶子类（UpperCamelCase） | 语义说明（≤10字） |
+|------|--------------------------|-------------------|
+| 1 | Participant | 操作主体 |
+| 2 | TradingProduct | 交易品种 |
+| 3 | Market | 交易市场 |
+| 4 | TradeMethod | 交易方式 |
+| 5 | SettlementMethod | 结算方式 |
+| 6 | Constraint | 通用约束（如回转交易） |
+| 7 | Action | 操作动作（申报、撤销等） |
+| 8 | OperationPart | 操作环节（做市业务等） |
+| 9 | TimePeriod | 时间范围（当日/非当日） |
+|10 | QuantityConstraint | 申报数量要求 |
+|11 | PriceConstraint | 价格单位/最小变动 |
+|12 | TradeDirection | 交易方向（买入/卖出） |
+|13 | OrderStatus | 订单状态（未申报/部分成交） |
+|14 | Result | 结果（成功/不成功） |
+|15 | ResultStatus | 结果状态（未成交/部分撤销） |
+
+---
+
+**Step 2 – 元模型（PlantUML）**
+
+```plantuml
+@startuml
+'=== 顶层 ===
+class Rule
+
+'=== 中层 ===
+class Precondition
+class Operation
+class ExpectedResult
+
+'=== 叶子类（Step 1） ===
+class Participant
+class TradingProduct
+class Market
+class TradeMethod
+class SettlementMethod
+class Constraint
+class Action
+class OperationPart
+class TimePeriod
+class QuantityConstraint
+class PriceConstraint
+class TradeDirection
+class OrderStatus
+class Result
+class ResultStatus
+
+'=== 结构关系 ===
+Rule "contains" --> Precondition
+Rule "contains" --> Operation
+Rule "contains" --> ExpectedResult
+
+Precondition "contains" --> Participant
+Precondition "contains" --> TradingProduct
+Precondition "contains" --> Market
+Precondition "contains" --> TradeMethod
+Precondition "contains" --> SettlementMethod
+Precondition "contains" --> Constraint
+
+Operation "contains" --> Action
+Operation "contains" --> OperationPart
+Operation "contains" --> TimePeriod
+Operation "contains" --> QuantityConstraint
+Operation "contains" --> PriceConstraint
+Operation "contains" --> TradeDirection
+
+ExpectedResult "contains" --> Result
+ExpectedResult "contains" --> ResultStatus
+ExpectedResult "contains" --> OrderStatus
+
+'=== 业务触发关系 ===
+Operation "triggers" --> ExpectedResult
+@enduml
+```
+
+*说明*  
+
+- **Rule** 为根节点，包含三类核心节点：`Precondition`、`Operation`、`ExpectedResult`。  
+- 每个中层节点通过 **contains** 关系拥有其专属的叶子要素，叶子类仅出现一次，保持树形结构。  
+- `Operation` 与 `ExpectedResult` 之间用 **triggers** 表示“操作导致结果”。  
+- 叶子类全部来源于规则文档与提供的测试用例，具备可测、可量化、可复用的特性。

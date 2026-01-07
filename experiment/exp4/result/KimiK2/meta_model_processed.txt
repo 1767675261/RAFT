@@ -1,0 +1,56 @@
+@startuml
+class Rule
+
+class Precondition
+class Operation
+class ExpectedResult
+
+class Actor
+class Instrument
+class Market
+class Account
+class TradingMethod
+class TradingDirection
+class Action
+class OrderStatus
+class ResultStatus
+class ExecutionResult
+class TimeCondition
+class SpecialConstraint
+class Price
+class Quantity
+class Settlement
+class Constraint
+
+Rule --contains--> Precondition
+Rule --contains--> Operation
+Rule --contains--> ExpectedResult
+
+Precondition --contains--> Actor
+Precondition --contains--> Instrument
+Precondition --contains--> Market
+Precondition --contains--> Account
+Precondition --contains--> TimeCondition
+Precondition --contains--> SpecialConstraint
+Precondition --contains--> Constraint
+
+Operation --contains--> TradingMethod
+Operation --contains--> TradingDirection
+Operation --contains--> Action
+Operation --contains--> OrderStatus
+Operation --contains--> Price
+Operation --contains--> Quantity
+Operation --contains--> Settlement
+Operation --contains--> Constraint
+
+ExpectedResult --contains--> ExecutionResult
+ExpectedResult --contains--> ResultStatus
+ExpectedResult --contains--> Constraint
+
+Action --dependsOn--> Actor
+Action --triggers--> ExecutionResult
+Price --constrains--> ExecutionResult
+Quantity --constrains--> ExecutionResult
+TimeCondition --constrains--> Action
+SpecialConstraint --constrains--> Action
+@enduml

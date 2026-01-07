@@ -1,0 +1,30 @@
+{
+    "ours": 1,
+    "grok": {
+        "metamodel": 18,
+        "metamodel_total": 21,
+        "dsl": 28,
+        "dsl_total": 34,
+        "cons": 2.5,
+        "cons_total": 5,
+        "coverage": 0.727
+    },
+    "deepseek": {
+        "metamodel": 18,
+        "metamodel_total": 21,
+        "dsl": 29,
+        "dsl_total": 34,
+        "cons": 3,
+        "cons_total": 5,
+        "coverage": 0.77
+    },
+    "gpt": {
+        "metamodel": 16,
+        "metamodel_total": 21,
+        "dsl": 27,
+        "dsl_total": 34,
+        "cons": 4,
+        "cons_total": 5,
+        "coverage": 0.785
+    }
+}

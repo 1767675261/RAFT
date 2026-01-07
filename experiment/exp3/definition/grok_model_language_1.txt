@@ -1,0 +1,189 @@
+@startuml
+!define RECTANGLE class
+
+Rule ||--o{ Precondition : contains
+Rule ||--o{ Operation : contains
+Rule ||--o{ ExpectedResult : contains
+
+Precondition ||--o{ Subject : contains
+Precondition ||--o{ VehicleType : contains
+Precondition ||--o{ DriverStatus : contains
+Precondition ||--o{ Condition : contains
+Precondition ||--o{ Location : contains
+Precondition ||--o{ Credential : contains
+
+Operation ||--o{ Operation : contains
+Operation ||--o{ Object : contains
+Operation ||--o{ Speed : contains
+Operation ||--o{ Direction : contains
+Operation ||--o{ Distance : contains
+Operation ||--o{ Event : contains
+Operation ||--o{ Amount : contains
+Operation ||--o{ Time : contains
+
+ExpectedResult ||--o{ Restriction : contains
+ExpectedResult ||--o{ Outcome : triggers
+
+Condition ..> Operation : dependsOn
+Restriction ..> Outcome : constrains
+@enduml
+
+
+### 符号系统 (Symbols)
+
+TRL的符号系统基于元模型中的要素（如Actor、VehicleType、Condition、Location等），将它们映射为领域特定符号。符号分为三类，确保语言简洁且领域相关。所有符号的值均为字符串（e.g., "机动车"）或数字（e.g., 80），禁止使用枚举类型。
+
+1. **逻辑符号 (Logical Symbols)**：
+   - `AND`：用于连接多个条件或动作的并逻辑（位置：Condition或Action内部的连接符；语义：所有子要素必须同时满足）。
+   - `OR`：用于连接多个条件或动作的或逻辑（位置：同上；语义：至少一个子要素满足）。
+   - `NOT`：用于否定前缀（位置：Condition或Action的子要素前；语义：反转子要素的真值）。
+   - 作用范围：仅限于Condition和Action的内部组合，支持嵌套（如`(A AND B) OR NOT C`）。
+
+2. **比较符号 (Comparison Symbols)**：
+   - `=`：相等比较（位置：Condition或ExpectedOutcome中要素与值的连接；语义：精确匹配字符串或数字）。
+   - `>`、`<`、`>=`、`<=`：数值比较（位置：同上，仅适用于数字值如Speed、Distance；语义：标准算术比较，返回布尔值）。
+   - `IN`：成员检查（位置：Condition中；语义：检查值是否在指定集合中，如`Location IN ("高速公路", "城市道路")`）。
+   - 作用范围：Condition和ExpectedOutcome的谓词表达中，用于约束或断言。
+
+3. **领域符号 (Domain Symbols)**：
+   - 基于元模型的核心类：`Actor`（主体，如"机动车"）、`VehicleType`（车辆类型，如"货运机动车"）、`Condition`（状态，如"饮酒后"）、`Location`（位置，如"高速公路"）、`Credential`（凭证，如"行驶证"）、`Event`（事件，如"交通事故"）、`Time`（时间，如30）、`Action`（操作，如"行驶"）、`Speed`（速度，如80）、`Distance`（距离，如150）、`Target`（对象，如"行人"）、`Direction`（方向，如"右侧"）、`Outcome`（结果，如"成功"）、`Amount`（金额，如200）。
+   - 位置：作为Condition、Action或ExpectedOutcome的键（e.g., `Actor = "机动车"`）；语义：映射到元模型属性，代表交通领域的实体或属性。
+   - 作用范围：整个规则表达式，支持复合（如`Actor = "机动车" AND Condition = "故障"`）。
+
+这些符号确保语言领域特定，同时保持通用性：逻辑/比较符号处理组合，领域符号绑定交通规则。
+
+### 语法 (Syntax)
+
+TRL的语法基于元模型的层次结构：Rule包含Precondition（映射到Condition）、Operation（映射到Action）和ExpectedResult（映射到ExpectedOutcome）。核心单元为键-值对（e.g., `Key = Value`），支持嵌套通过括号。Condition、Action和ExpectedOutcome采用一致的谓词列表风格：以`Element = Value`形式表达，支持逻辑连接符组合复杂规则。值限于字符串（引号包围）或数字。
+
+形式化BNF定义如下（顶层固定，扩展支持嵌套与/或/非）：
+
+```
+<Rule> ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+
+<Condition> ::= <Predicate> | "(" <Predicate> "AND" <Predicate> ")" | "(" <Predicate> "OR" <Predicate> ")" | "NOT" "(" <Condition> ")"
+                | <Predicate> "AND" <Condition> | <Predicate> "OR" <Condition>
+
+<Action> ::= <Predicate> | "(" <Predicate> "AND" <Predicate> ")" | "(" <Predicate> "OR" <Predicate> ")" | "NOT" "(" <Action> ")"
+             | <Predicate> "AND" <Action> | <Predicate> "OR" <Action>
+
+<ExpectedOutcome> ::= <Predicate> | "(" <Predicate> "AND" <Predicate> ")" | "(" <Predicate> "OR" <Predicate> ")" | "NOT" "(" <ExpectedOutcome> ")"
+
+<Predicate> ::= <DomainElement> <Comparator> <Value>
+                | <DomainElement> "IN" "(" <ValueList> ")"
+
+<DomainElement> ::= "Actor" | "VehicleType" | "Condition" | "Location" | "Credential" | "Event" | "Time" | "Action" | "Speed" | "Distance" | "Target" | "Direction" | "Outcome" | "Amount"
+
+<Comparator> ::= "=" | ">" | "<" | ">=" | "<="
+
+<Value> ::= <String> | <Number>
+
+<String> ::= '"' <characters> '"'
+
+<Number> ::= <digits>
+
+<ValueList> ::= <Value> | <Value> "," <ValueList>
+
+<digits> ::= [0-9]+
+<characters> ::= [a-zA-Z\u4e00-\u9fff0-9 ]+  // 支持中英文和数字
+```
+
+层次结构：Predicate为原子单元（元模型叶子如Actor=Value），Condition/Action/ExpectedOutcome通过逻辑符组合成树状（支持嵌套）。这保持简单性，同时覆盖JSON测试用例的复合（如条件+位置+速度）。
+
+### 语义 (Semantics)
+
+TRL采用**操作语义 (Operational Semantics)** 表示：每个规则表达式通过逐步求值映射到可执行行为。语义定义为一个函数`[[Rule]] : Environment → Behavior`，其中Environment是状态映射（e.g., {Actor: "机动车"}），Behavior是三元组(Constraints, Operations, Assertions)。求值从左到右进行，Condition/Action评估为布尔，ExpectedOutcome为断言。
+
+- **[[Condition]] : Environment → Boolean**  
+  映射Precondition到输入约束：  
+  - `[[A = V]] env = true if env[A] = V else false`（字符串/数字匹配）。  
+  - `[[A > V]] env = true if env[A] > V else false`（仅数字）。  
+  - `[[A IN (V1, V2)]] env = true if env[A] in {V1, V2}`。  
+  - `[[C1 AND C2]] env = [[C1]] env ∧ [[C2]] env`。  
+  - `[[NOT C]] env = ¬ [[C]] env`。  
+  - `[[OR]]` 类似（∨）。  
+  整体：Condition真值约束输入（e.g., PDF第4页：机动车登记需身份证明 → Actor="机动车" AND Credential="身份证明" = true）。
+
+- **[[Action]] : Environment → Sequence<Operation>**  
+  映射Operation到操作序列：每个Predicate求值为动作步骤（e.g., [[Action = "行驶"]] → execute("drive")）。  
+  - 复合：序列化连接（AND → 顺序执行；OR → 非确定分支；NOT → 禁止执行）。  
+  - 示例：[[Action = "行驶" AND Speed = 80]] env → [drive(), set_speed(80)] if env满足。  
+  从元模型：Action包含Target/Speed等，生成测试脚本序列。
+
+- **[[ExpectedOutcome]] : Environment → Assertion**  
+  映射ExpectedResult到断言：[[O = "成功"]] → assert_success()；[[Amount = 200]] → assert_fine(200)。  
+  - 复合：多断言列表（AND → all true；OR → any true）。  
+  - 整体规则：IF [[Condition]] then execute([[Action]]) and check([[ExpectedOutcome]])。
+
+从TRL推导行为：解析为测试用例生成器（e.g., JSON样例：Condition真 → Action执行 → Outcome断言），确保自动验证（如PDF第11条：悬挂号牌 → Assertion: 清晰完整）。
+
+### 可测试性约束 (Testability Constraints)
+
+为确保规则可测试，定义OCL约束集，应用于Rule模型（基于元模型）。约束覆盖：可观测性（条件/结果可测量）、可控性（动作可模拟）、完整性（覆盖正/负例，如JSON成功/失败）。OCL上下文为Rule类。
+
+```
+context Rule inv:
+  -- C1: 条件必须包含至少一个可观测领域要素（Actor/VehicleType/Location等），确保输入可控
+  Precondition->select(e | e.oclIsTypeOf(Actor) or e.oclIsTypeOf(VehicleType) or e.oclIsTypeOf(Location) or e.oclIsTypeOf(Condition))->size() >= 1
+
+context Rule inv:
+  -- C2: 动作必须有明确操作（Action），禁止纯约束规则
+  Operation.Action->size() >= 1
+
+context Rule inv:
+  -- C3: 预期结果必须有Outcome（成功/失败），支持断言；Amount/Time可选但若现则为数字
+  ExpectedResult.Outcome->notEmpty() and
+  ExpectedResult.Amount->forAll(a | a.oclIsTypeOf(Number)) and
+  ExpectedResult.Time->forAll(t | t.oclIsTypeOf(Number))
+
+context Rule inv:
+  -- C4: 支持正负测试：Outcome包含"成功"或"失败"，覆盖JSON样例
+  ExpectedResult.Outcome->includes("成功") or ExpectedResult.Outcome->includes("失败")
+
+context Rule inv:
+  -- C5: 无循环嵌套（深度<=3），确保解析高效
+  let depth : Integer = self.Precondition.allInstances()->collect(c | c.nestedDepth())->max() in
+  depth <= 3
+
+context Rule inv:
+  -- C6: 值类型一致：字符串用引号，数字无引号；基于输入文档
+  self.Precondition.allElements()->forAll(e | if e.isString() then e.value.matches('".*"') else e.isNumber() endif)
+
+context Condition inv:
+  -- C7: 逻辑组合平衡：AND/OR子节点数相等，避免偏斜
+  self.children->select(c | c.oclIsKindOf(AND))->size() = self.children->select(c | c.oclIsKindOf(OR))->size() or
+  self.children->size() <= 2  -- 简单规则免检
+```
+
+这些约束确保规则生成可执行测试（e.g., JSON第1例满足C1-C4；若缺Outcome则无效）。
+
+### TRL 的完整定义
+
+**Testable Rule Language (TRL)** 是一种形式化语言，用于将交通安全规则（如PDF文档）形式化为可测试模型，支持从自然语言/JSON测试用例自动生成验证脚本。TRL桥接元模型与测试：符号绑定领域，语法启用结构化表达，语义映射执行，约束保证可测试。
+
+- **核心特性**：支持嵌套逻辑、一致谓词风格、领域特定键；解析为(约束, 操作, 断言)三元组。
+- **适用域**：道路交通规则，扩展自元模型。
+- **工具集成**：可解析为JSON测试生成器或代码（e.g., Python assert）。
+- **版本**：1.0（基于2025-10-18输入）。
+
+完整BNF、符号、语义、OCL如上所述。
+
+### 一个示例
+
+**自然语言规则转化**：从PDF第11条（“驾驶机动车上道路行驶，应当悬挂机动车号牌”）和JSON第10例（机动车行驶需行驶证，但示例预期失败，推断缺号牌为失败），转化为TRL：
+
+```
+IF (Actor = "机动车" AND Condition = "上道路行驶") AND (Action = "行驶" AND NOT Credential = "号牌") THEN (Outcome = "失败")
+```
+
+**转化解释**：自然语言映射：Precondition (Actor/Condition) → 输入约束；Operation (Action/Credential) → 动作（行驶但缺凭证）；ExpectedResult (Outcome) → 断言失败（符合法条禁止无号牌行驶）。
+
+**可测试性判断**：应用OCL约束：
+- C1: 满足（有Actor/Condition）。
+- C2: 满足（有Action）。
+- C3: 满足（有Outcome="失败"）。
+- C4: 满足（包含"失败"）。
+- C5: 满足（深度=1）。
+- C6: 满足（值类型正确）。
+- C7: 满足（简单AND，无OR偏斜）。
+整体可测试：是。可生成测试：输入{Actor:"机动车", Condition:"上道路行驶"}，执行drive()无号牌，断言失败（e.g., 模拟脚本抛异常）。

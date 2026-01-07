@@ -1,0 +1,272 @@
+```plantuml
+@startuml
+skinparam nodesep 10
+skinparam ranksep 50
+
+class Rule {
+}
+
+class Actor {
+}
+
+class Action {
+}
+
+class Product {
+}
+
+class TradeMethod {
+}
+
+class Time {
+}
+
+class State {
+}
+
+class Result {
+}
+
+class Quantity {
+}
+
+class Price {
+}
+
+class Direction {
+}
+
+class Market {
+}
+
+class OperationPart {
+}
+
+class Constraint {
+}
+
+Rule --|> Actor : 包含
+Rule --|> Action : 包含
+Rule --|> Product : 包含
+Rule --|> TradeMethod : 包含
+Rule --|> Time : 包含
+Rule --|> State : 包含
+Rule --|> Result : 包含
+Rule --|> Quantity : 包含
+Rule --|> Price : 包含
+Rule --|> Direction : 包含
+Rule --|> Market : 包含
+Rule --|> OperationPart : 包含
+Rule --|> Constraint : 包含
+
+Action --|> OperationPart : 作用对象
+Action --|> State : 改变状态
+Action --|> Result : 产生结果
+Action --|> Time : 时间约束
+Action --|> Constraint : 条件约束
+
+Product --|> TradeMethod : 支持方式
+Product --|> Direction : 交易方向
+Product --|> Market : 交易场所
+
+TradeMethod --|> Quantity : 数量限制
+TradeMethod --|> Price : 价格限制
+TradeMethod --|> Time : 时间要求
+
+Time --|> Action : 触发行为
+Time --|> State : 状态转换
+
+State --|> Result : 导致结果
+State --|> Action : 允许操作
+
+Constraint --|> Action : 限制行为
+Constraint --|> Product : 适用品种
+Constraint --|> TradeMethod : 适用方式
+@enduml
+```
+
+基于您提供的《深圳证券交易所债券交易规则》文档和测试用例，我将为您定义一种**可测试规则语言(TRL)**，使其能够将自然语言规则形式化，便于自动解析、验证和生成测试用例。
+
+## 1. 符号系统 (Symbols)
+
+### 逻辑符号
+- `AND`, `OR`, `NOT` - 逻辑运算
+- `=>` - 蕴含
+- `∀`, `∃` - 量词
+
+### 比较符号
+- `=`, `≠`, `<`, `>`, `≤`, `≥` - 比较运算
+- `∈`, `∉` - 集合运算
+
+### 领域符号
+```
+Actor ::= "主做市商" | "一般做市商" | "债券交易参与人" | "经纪客户" | "会员" | "投资者"
+TradingInstrument ::= "基准做市品种" | "债券" | "债券现券" | "债券通用质押式回购"
+TradingMarket ::= "深圳证券交易所"
+TradingDirection ::= "买入" | "卖出"
+TradingMethod ::= "匹配成交" | "点击成交" | "询价成交" | "竞买成交" | "协商成交"
+Time ::= TimeExpression
+Status ::= "未申报" | "未成交" | "部分成交" | "全部成交" | "委托已撤销"
+ResultStatus ::= Status | "部分撤销" | "全部撤销"
+Result ::= "成功" | "不成功"
+```
+
+## 2. 语法 (Syntax)
+
+```bnf
+Rule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+
+Condition ::= AtomicCondition | CompoundCondition
+AtomicCondition ::= Element ComparisonOperator Value
+CompoundCondition ::= "(" Condition ")" | Condition LogicalOperator Condition
+
+Action ::= Actor ":" Operation
+Operation ::= OperationType "(" OperationParameters ")"
+OperationParameters ::= Parameter ("," Parameter)*
+Parameter ::= ParameterName "=" ParameterValue
+
+ExpectedOutcome ::= OutcomeElement ComparisonOperator OutcomeValue
+
+Element ::= Actor | TradingInstrument | TradingMarket | Time | Status | Event
+Value ::= StringLiteral | Number | TimeExpression | EnumValue
+
+LogicalOperator ::= "AND" | "OR"
+ComparisonOperator ::= "=" | "≠" | "<" | ">" | "≤" | "≥" | "∈" | "∉"
+```
+
+## 3. 语义 (Semantics)
+
+### 操作语义定义
+
+```
+⟨Condition⟩ → Boolean
+⟨Action⟩ → SystemState → SystemState
+⟨ExpectedOutcome⟩ → SystemState → Boolean
+
+RuleExecution:
+    ⟨Condition⟩(currentState) = true ∧
+    newState = ⟨Action⟩(currentState) ∧
+    ⟨ExpectedOutcome⟩(newState) = true
+    ⇒ RuleSatisfied
+```
+
+### 语义映射
+- **条件部分** → 输入约束和前置条件验证
+- **动作部分** → 系统操作序列执行
+- **预期结果** → 后置条件断言验证
+
+## 4. 可测试性约束 (Testability Constraints)
+
+```ocl
+-- 规则必须明确定义所有参与方
+context Rule
+inv ActorDefined: 
+    self.precondition.actor->notEmpty() and 
+    self.operation.actor->notEmpty()
+
+-- 操作必须可执行且结果可观测
+context Operation
+inv ExecutableOperation:
+    self.action->notEmpty() and
+    self.tradingMethod->notEmpty() and
+    self.expectedResult.resultStatus->notEmpty()
+
+-- 时间约束必须明确
+context Precondition
+inv TimeConstraintDefined:
+    self.time->notEmpty() or 
+    self.constraint->select(c | c.oclIsTypeOf(TimeConstraint))->notEmpty()
+
+-- 数量约束必须满足最小交易单位
+context Operation
+inv ValidQuantity:
+    self.quantity >= self.getMinTradingUnit() and
+    self.quantity mod self.getMinTradingUnit() = 0
+
+-- 预期结果必须可验证
+context ExpectedResult
+inv VerifiableOutcome:
+    self.resultStatus->notEmpty() and
+    self.result->notEmpty()
+
+-- 交易方式与结算方式必须兼容
+context Operation
+inv ValidTradingMethod:
+    self.tradingMethod.isValidForSettlement(self.settlementMethod)
+```
+
+## 5. TRL 完整定义
+
+### 核心语法扩展
+```bnf
+TradingRule ::= "RULE" RuleID ":" Rule
+
+RuleID ::= String
+TimeExpression ::= AbsoluteTime | RelativeTime | TimeRange
+AbsoluteTime ::= HH:MM:SS
+RelativeTime ::= "交易当日" | "申报当日" | "确认后"
+TimeRange ::= "[" AbsoluteTime "," AbsoluteTime "]"
+
+Quantity ::= Number "面额"
+Price ::= Number ("元" | "每百元面额债券的价格")
+```
+
+## 6. 示例：自然语言规则转化为TRL
+
+### 原始规则 (3.1.8)
+"债券现券交易实行当日回转交易，投资者当日买入的债券可以在当日卖出。"
+
+### TRL形式化表示
+```
+RULE "3.1.8.1.1.3.1_1":
+IF 
+    Actor = "投资者" AND
+    TradingInstrument = "债券现券" AND 
+    Time = "当日" AND
+    Status = "已买入"
+AND
+    投资者: 申报(
+        tradingDirection = "卖出",
+        tradingMethod = "询价成交",
+        operationPart = "当日买入的债券"
+    )
+THEN
+    ResultStatus = "未成交" AND
+    Result = "成功"
+
+RULE "3.1.8.1.1.3.1_2":
+IF 
+    Actor = "投资者" AND
+    TradingInstrument = "债券现券" AND 
+    Time = "非当日" AND
+    Status = "已买入"
+AND
+    投资者: 申报(
+        tradingDirection = "卖出", 
+        tradingMethod = "询价成交",
+        operationPart = "当日买入的债券"
+    )
+THEN
+    ResultStatus = "未申报" AND
+    Result = "不成功"
+```
+
+### 可测试性验证
+```ocl
+-- 验证规则满足可测试性约束
+Rule::allInstances()->forAll(r |
+    r.precondition.actor->notEmpty() and
+    r.operation.actor->notEmpty() and
+    r.expectedResult.resultStatus->notEmpty() and
+    r.expectedResult.result->notEmpty() and
+    r.operation.tradingMethod->notEmpty()
+)
+-- 返回: true (所有规则都满足可测试性约束)
+```
+
+这个TRL语言设计具有以下特点：
+1. **形式化** - 将自然语言规则转化为机器可解析的结构
+2. **可测试性** - 每个规则都明确包含可验证的前置条件、操作和预期结果
+3. **领域特定** - 针对债券交易领域的专业术语和概念
+4. **可扩展** - 支持复杂条件组合和嵌套规则
+5. **自动化友好** - 可直接用于测试用例生成和验证

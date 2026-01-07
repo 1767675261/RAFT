@@ -1,0 +1,198 @@
+### **可测试规则语言（Testable Rule Language, TRL）定义**
+
+---
+
+## **1. 符号系统 (Symbols)**
+
+### **1.1 逻辑符号**
+- **`AND`** / **`OR`** / **`NOT`**：用于组合条件、动作或结果。
+- **`IF`** / **`THEN`**：定义规则的条件与结果关系。
+- **`FORALL`** / **`EXISTS`**：用于量化约束（如“所有做市商必须满足X条件”）。
+
+### **1.2 比较符号**
+- **`=`** / **`!=`** / **`>`** / **`>=`** / **`<`** / **`<=`**：用于数值或状态比较。
+- **`IN`** / **`NOT IN`**：用于集合成员检查（如“交易方式 IN [匹配成交, 询价成交]”）。
+
+### **1.3 领域符号**
+- **实体类型**：
+  - `MarketParticipant`（市场参与者，如做市商、经纪客户）
+  - `BondType`（债券类型，如国债、公司债）
+  - `TradingMethod`（交易方式，如匹配成交、询价成交）
+  - `OrderDirection`（买卖方向，如买入、卖出）
+  - `AccountStatus`（账户状态，如正常、冻结）
+- **操作符号**：
+  - `Apply`（申请，如申请做市商资格）
+  - `Submit`（提交，如提交委托）
+  - `Cancel`（撤销，如撤销委托）
+  - `Confirm`（确认，如确认成交）
+- **状态符号**：
+  - `Pending` / `Approved` / `Rejected`（申请状态）
+  - `Active` / `Suspended`（交易状态）
+
+---
+
+## **2. 语法 (Syntax)**
+
+### **2.1 核心结构（BNF表示）**
+```bnf
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+
+Condition ::= <AtomicCondition> | <CompositeCondition>
+AtomicCondition ::= <Entity> "." <Attribute> <ComparisonOp> <Value>
+CompositeCondition ::= "(" <Condition> <LogicOp> <Condition> ")" | <LogicOp> <Condition>
+
+Action ::= <AtomicAction> | <CompositeAction>
+AtomicAction ::= <Entity> "." <Operation> "(" <Parameters> ")"
+CompositeAction ::= "(" <Action> <LogicOp> <Action> ")"
+
+ExpectedOutcome ::= <AtomicOutcome> | <CompositeOutcome>
+AtomicOutcome ::= <Entity> "." <Attribute> <ComparisonOp> <Value>
+CompositeOutcome ::= "(" <ExpectedOutcome> <LogicOp> <ExpectedOutcome> ")"
+
+Entity ::= "MarketParticipant" | "BondType" | "TradingMethod" | ...
+Attribute ::= "status" | "type" | "direction" | "price" | ...
+Operation ::= "submit" | "cancel" | "confirm" | ...
+Parameters ::= <Parameter> ("," <Parameter>)*
+Parameter ::= <Entity> | <Value>
+Value ::= <String> | <Number> | <Boolean>
+LogicOp ::= "AND" | "OR" | "NOT"
+ComparisonOp ::= "=" | "!=" | ">" | ">=" | "<" | "<=" | "IN" | "NOT IN"
+```
+
+### **2.2 示例语法**
+```trl
+IF
+  (MarketParticipant.type = "主做市商" AND BondType IN ["国债", "政策性金融债"])
+  AND
+  TradingMethod = "询价成交"
+AND
+  MarketParticipant.submit(Order(direction="买入", price=100.5))
+THEN
+  Order.status = "成交" AND Order.price <= 101.0
+```
+
+---
+
+## **3. 语义 (Semantics)**
+
+### **3.1 条件部分（Condition）**
+- **映射为输入约束**：
+  - 例如，`MarketParticipant.type = "主做市商"` 表示只有主做市商才能触发该规则。
+  - 支持复合条件（如`AND`/`OR`）以覆盖多维约束。
+
+### **3.2 动作部分（Action）**
+- **映射为操作序列**：
+  - `submit(Order(...))` 表示提交一个订单，参数包括方向、价格等。
+  - 可嵌套多个动作（如先提交再撤销）。
+
+### **3.3 预期结果（ExpectedOutcome）**
+- **映射为断言**：
+  - `Order.status = "成交"` 表示预期订单状态为“成交”。
+  - 可包含数值范围（如`price <= 101.0`）。
+
+### **3.4 操作语义**
+- **执行流程**：
+  1. 解析 `Condition`，检查是否满足触发条件。
+  2. 执行 `Action`，模拟操作（如提交订单）。
+  3. 验证 `ExpectedOutcome`，判断结果是否符合预期。
+
+---
+
+## **4. 可测试性约束 (Testability Constraints)**
+
+### **4.1 形式化约束（OCL表示）**
+```ocl
+-- 约束1：每个规则必须有明确的触发条件
+context Rule
+inv: self.condition->notEmpty()
+
+-- 约束2：动作必须可执行（即操作和参数合法）
+context Action
+inv: self.operation.oclIsKindOf(Operation) and
+     self.parameters->forAll(p | p.oclIsKindOf(Entity) or p.oclIsKindOf(Value))
+
+-- 约束3：预期结果必须可验证（即属性可观测）
+context ExpectedOutcome
+inv: self.attribute.oclIsKindOf(Attribute) and
+     self.value.oclIsKindOf(Value)
+
+-- 约束4：规则必须覆盖所有关键路径（如成功/失败场景）
+context Rule
+inv: TestCase.allInstances()->exists(tc |
+     tc.condition = self.condition and
+     tc.action = self.action and
+     tc.outcome = self.expectedOutcome)
+```
+
+### **4.2 可测试性条件**
+1. **可观测性**：所有 `ExpectedOutcome` 中的属性必须可通过系统日志或API获取。
+2. **可控性**：`Action` 必须能被测试框架模拟执行（如模拟提交订单）。
+3. **完备性**：规则必须覆盖所有边界情况（如价格上下限、时间窗口）。
+4. **一致性**：`Condition`、`Action` 和 `ExpectedOutcome` 的符号必须一致（如使用相同的 `BondType`）。
+
+---
+
+## **5. TRL 完整定义总结**
+- **符号**：逻辑符号、比较符号、领域实体/操作/状态。
+- **语法**：基于BNF的规则结构，支持嵌套条件和复合动作。
+- **语义**：条件→输入约束，动作→操作序列，结果→断言。
+- **可测试性**：通过OCL约束确保规则可解析、可执行、可验证。
+
+---
+
+## **6. 示例：自然语言规则转化为TRL**
+
+### **自然语言规则**
+> “主做市商在开展基准做市业务时，必须持续提供双边买卖报价，且报价价差不得超过1个基点。”
+
+### **TRL表示**
+```trl
+IF
+  (MarketParticipant.type = "主做市商" AND
+   BondType IN ["基准做市品种"])
+AND
+  MarketParticipant.submit(
+    Quote(direction="买入", price=P_buy) AND
+    Quote(direction="卖出", price=P_sell)
+  )
+THEN
+  (P_sell - P_buy) <= 0.01 AND
+  Quote.status = "有效"
+```
+
+### **可测试性验证**
+1. **符号一致性**：`MarketParticipant`、`BondType` 在元模型中定义。
+2. **操作可执行**：`submit(Quote(...))` 可被测试框架模拟。
+3. **结果可验证**：价差 `(P_sell - P_buy)` 和 `Quote.status` 可通过系统查询。
+4. **覆盖边界**：测试用例需包含价差=0.01（边界）和价差>0.01（违规）场景。
+
+### **测试用例对应**
+- **成功场景**：
+  ```json
+  {
+    "rule": "2.2.1.1.1.3.1",
+    "操作人": "主做市商",
+    "交易品种": "基准做市品种",
+    "操作": "申报",
+    "交易方向": "买入/卖出",
+    "价差": 0.005,
+    "结果": "成功"
+  }
+  ```
+- **失败场景**：
+  ```json
+  {
+    "rule": "2.2.1.1.1.3.1",
+    "操作人": "主做市商",
+    "交易品种": "基准做市品种",
+    "操作": "申报",
+    "交易方向": "买入/卖出",
+    "价差": 0.015,
+    "结果": "不成功"
+  }
+  ```
+
+---
+
+### **结论**
+TRL 通过形式化语法和约束，将复杂的债券交易规则转化为可自动解析、验证和测试的结构，确保规则的可测试性和一致性。

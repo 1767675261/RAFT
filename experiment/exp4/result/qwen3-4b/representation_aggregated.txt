@@ -1,0 +1,84 @@
+### **Testable Rule Language (TRL) Definition**  
+**1. Symbols (符号系统)**  
+- **逻辑符号**：`AND`, `OR`, `NOT`, `IF`, `THEN`  
+- **比较符号**：`=`, `>`, `<`, `>=`, `<=`, `!=`  
+- **领域符号**：`TradingMarket`, `TradingInstrument`, `TradingMethod`, `TradingPrice`, `TradingVolume`, `SettlementMethod`, `TradingVenue`, `OrderCancellation`, `TransactionDirection`  
+- **操作符号**：`SubmitOrder`, `CancelOrder`, `Execute`, `Confirm`  
+- **结果符号**：`Success`, `Failure`, `Pending`  
+
+**2. Syntax (语法)**  
+```
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>  
+<Condition> ::= <Constraint> ( "AND" <Constraint> )* | ( "NOT" <Constraint> )  
+<Constraint> ::= <TransactionDirection> "=" <Value> | <TradingMarket> "=" <Value> | <TradingInstrument> "=" <Value> | <TradingMethod> "=" <Value> | <TradingPrice> "=" <Value> | <TradingVolume> "=" <Value> | <SettlementMethod> "=" <Value> | <TradingVenue> "=" <Value> | <OrderCancellation> "=" <Value>  
+<Action> ::= <Operation> ( "AND" <Operation> )* | ( "NOT" <Operation> )  
+<Operation> ::= "SubmitOrder" "(" <TradingInstrument> "," <TransactionDirection> "," <TradingMethod> "," <TradingPrice> "," <TradingVolume> "," <SettlementMethod> "," <TradingVenue> ")" | "CancelOrder" "(" <OrderCancellation> "," <TradingInstrument> "," <TransactionDirection> "," <TradingMethod> "," <TradingPrice> "," <TradingVolume> "," <SettlementMethod> "," <TradingVenue> ")"  
+<ExpectedOutcome> ::= <Result> ( "AND" <Result> )* | ( "NOT" <Result> )  
+<Result> ::= "Success" | "Failure" | "Pending"  
+```  
+- **规则结构**：`IF [条件] AND [操作] THEN [结果]`  
+- **条件**：由交易属性（`TransactionDirection`, `TradingMarket`等）和值的比较组成。  
+- **操作**：提交/取消订单，需指定交易品种、方向、方法等。  
+- **结果**：成功/失败/待定。  
+
+**3. Semantics (语义)**  
+- **条件部分**：  
+  - `TradingMarket = "深圳证券交易所"`：表示交易市场为深圳证券交易所。  
+  - `TransactionDirection = "买入"`：表示交易方向为买入。  
+- **操作部分**：  
+  - `SubmitOrder("债券A", "买入", "询价成交", 100, 1000, "T+1")`：提交买入债券A的询价成交订单，数量100，价格1000，结算周期T+1。  
+- **结果部分**：  
+  - `Success`：表示订单成功成交。  
+  - `Failure`：表示订单未成交或被拒绝。  
+- **操作语义**：  
+  - `SubmitOrder`：将订单提交至交易系统，系统验证是否符合规则（如数量、价格范围）。  
+  - `CancelOrder`：取消未成交的订单。  
+  - `ExpectedOutcome`：系统验证订单是否按规则执行。  
+
+**4. Testability Constraints (可测试性约束)**  
+- **OCL (Object Constraint Language)**：  
+  ```ocl
+  // 条件可验证性
+  self.condition.oclIsTypeOf(Constraint) and self.condition.oclIsTypeOf(TransactionDirection) and self.condition.oclIsTypeOf(TradingMarket) and self.condition.oclIsTypeOf(TradingInstrument) and self.condition.oclIsTypeOf(TradingMethod) and self.condition.oclIsTypeOf(TradingPrice) and self.condition.oclIsTypeOf(TradingVolume) and self.condition.oclIsTypeOf(SettlementMethod) and self.condition.oclIsTypeOf(TradingVenue) and self.condition.oclIsTypeOf(OrderCancellation)  
+  // 操作可执行性
+  self.action.oclIsTypeOf(SubmitOrder) or self.action.oclIsTypeOf(CancelOrder) and self.action.parameters.oclIsTypeOf(TradingInstrument) and self.action.parameters.oclIsTypeOf(TransactionDirection) and self.action.parameters.oclIsTypeOf(TradingMethod) and self.action.parameters.oclIsTypeOf(TradingPrice) and self.action.parameters.oclIsTypeOf(TradingVolume) and self.action.parameters.oclIsTypeOf(SettlementMethod) and self.action.parameters.oclIsTypeOf(TradingVenue)  
+  // 结果可断言性
+  self.expectedOutcome.oclIsTypeOf(Success) or self.expectedOutcome.oclIsTypeOf(Failure) or self.expectedOutcome.oclIsTypeOf(Pending)  
+  ```  
+- **约束说明**：  
+  1. **条件**：所有交易属性（如`TradingMarket`、`TransactionDirection`）必须为可验证的值。  
+  2. **操作**：操作参数必须符合交易系统要求（如数量、价格范围）。  
+  3. **结果**：结果必须为`Success`、`Failure`或`Pending`。  
+
+---
+
+### **TRL 示例**  
+**自然语言规则**：  
+> "深圳证券交易所的债券交易必须在交易日9:15-9:25进行集合匹配，且交易价格不得低于前收盘价的90%。"  
+
+**TRL 转换**：  
+```
+IF (TradingMarket = "深圳证券交易所") AND (TransactionDirection = "买入") AND (TradingTime = "9:15-9:25") THEN (TradingPrice >= 0.9 * PreviousClosePrice)
+```  
+- **条件**：  
+  - `TradingMarket = "深圳证券交易所"`：交易市场为深圳证券交易所。  
+  - `TransactionDirection = "买入"`：交易方向为买入。  
+  - `TradingTime = "9:15-9:25"`：交易时间在集合匹配阶段。  
+- **操作**：无操作（隐式由系统执行）。  
+- **结果**：`TradingPrice >= 0.9 * PreviousClosePrice`：价格不得低于前收盘价的90%。  
+
+**可测试性验证**：  
+- **条件**：所有属性（`TradingMarket`、`TransactionDirection`、`TradingTime`）均被验证。  
+- **操作**：无操作，但系统需确保时间范围和价格范围符合规则。  
+- **结果**：`TradingPrice`的值需通过系统验证是否满足`>= 0.9 * PreviousClosePrice`。  
+
+**测试用例**：  
+- **Test Case 1**：  
+  - **Input**：`TradingMarket = "深圳证券交易所"`, `TransactionDirection = "买入"`, `TradingTime = "9:15-9:25"`, `TradingPrice = 950` (前收盘价940)  
+  - **Output**：`Success`（950 >= 0.9*940=846）  
+- **Test Case 2**：  
+  - **Input**：`TradingPrice = 800` (前收盘价940)  
+  - **Output**：`Failure`（800 < 0.9*940=846）  
+
+**约束满足**：  
+- 所有条件和操作均符合OCL定义，可被系统验证和测试。

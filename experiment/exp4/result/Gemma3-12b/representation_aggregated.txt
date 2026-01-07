@@ -1,0 +1,132 @@
+## 可测试规则语言 (TRL) 定义
+
+以下是可测试规则语言 (TRL) 的定义，基于提供的元模型和示例规则。
+
+**1. 符号系统 (Symbols)**
+
+*   **逻辑符号:**
+    *   `IF`: 条件语句的起始标志。
+    *   `AND`: 逻辑与运算符。
+    *   `THEN`: 动作语句的起始标志。
+    *   `ELSE`: 可选的否则语句的起始标志。
+    *   `NOT`: 逻辑非运算符 (用于条件表达式中)。
+*   **比较符号:**
+    *   `=`: 等于。
+    *   `>`: 大于。
+    *   `<`: 小于。
+    *   `>=`: 大于等于。
+    *   `<=`: 小于等于。
+    *   `!=`: 不等于。
+*   **领域符号 (基于元模型):**
+    *   `BondType`: 债券类型 (例如：国债、公司债)。
+    *   `TradingParticipant`: 交易参与者 (例如：会员、做市商)。
+    *   `OrderDirection`: 订单方向 (例如：买入、卖出)。
+    *   `TradingTime`: 交易时间。
+    *   `TransactionPrice`: 交易价格。
+    *   `Quantity`: 交易数量。
+    *   `TradingMethod`: 交易方式 (例如：匹配成交、询价成交)。
+    *   `TradingStatus`: 交易状态 (例如：已成交、已撤销)。
+    *   `SettlementMethod`: 结算方式。
+    *   `SettlementCycle`: 结算周期。
+    *   `Cancellation`: 取消操作。
+    *   `RiskControl`: 风险控制。
+    *   `TechnicalFault`: 技术故障。
+    *   `MarketCondition`: 市场状况。
+    *   `ComplianceStatus`: 合规状态。
+    *   `TradeResult`: 交易结果。
+
+**2. 语法 (Syntax)**
+
+使用 BNF 表示：
+
+```
+Rule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+Condition ::= Field Operator Value | "(" Condition Operator Condition ")" | Condition "AND" Condition | Condition "OR" Condition | "NOT" Condition
+Action ::= "Execute" Operation
+ExpectedOutcome ::= "Result" ResultValue
+Field ::= BondType | TradingParticipant | OrderDirection | TradingTime | TransactionPrice | Quantity | TradingMethod | TradingStatus | SettlementMethod | SettlementCycle | Cancellation | RiskControl | TechnicalFault | MarketCondition | ComplianceStatus | TradeResult
+Operator ::= "=" | ">" | "<" | ">=" | "<=" | "!="
+Value ::= String | Number
+ResultValue ::= String | Number
+Operation ::= Field
+```
+
+**3. 语义 (Semantics)**
+
+*   **Rule:** 定义一个规则，包含条件、动作和预期结果。
+*   **Condition:**  一个布尔表达式，用于评估规则是否应该执行。
+*   **Action:**  定义执行的操作，通常是一个领域符号。
+*   **ExpectedOutcome:**  定义规则执行后预期的结果。
+*   **Field:**  表示规则中涉及的领域实体。
+*   **Operator:**  定义比较关系。
+*   **Value:**  表示字段的值，可以是字符串或数字。
+*   **Operation:** 定义要执行的操作，与Field对应。
+
+**操作语义:**
+
+1.  **评估 Condition:** 评估 Condition 的布尔值。
+2.  **执行 Action:** 如果 Condition 的值为 True，则执行 Action 中定义的 Operation。
+3.  **验证 ExpectedOutcome:**  验证执行 Action 后，系统状态是否符合 ExpectedOutcome 中定义的条件。
+
+**4. 可测试性约束 (Testability Constraints) — OCL**
+
+以下是一些 OCL 约束，以确保规则的可测试性。
+
+*   **Condition 必须可观测:**  Condition 中使用的所有 Field 必须是可观测的系统状态。
+    ```ocl
+    context Rule
+    inv: self.condition.fields->forAll(field | field.isObservable())
+    ```
+*   **Action 必须可执行:** Action 中定义的 Operation 必须是可执行的操作。
+    ```ocl
+    context Rule
+    inv: self.action.operation.isExecutable()
+    ```
+*   **ExpectedOutcome 必须可验证:** ExpectedOutcome 中定义的条件必须是可验证的。
+    ```ocl
+    context Rule
+    inv: self.expectedOutcome.condition.isVerifiable()
+    ```
+*   **字段类型一致性:** 比较操作的字段和值必须类型一致。
+    ```ocl
+    context Rule
+    inv: self.condition.field.type = self.condition.value.type
+    ```
+*   **避免循环依赖:**  规则的 Action 不能导致 Condition 的值发生循环变化，从而导致无法终止的评估。
+    ```ocl
+    context Rule
+    inv: not self.action.operation.causesCircularDependency(self.condition)
+    ```
+*   **可预测性:** 规则的执行结果应该是可预测的，避免随机性或不可控因素影响测试结果。
+    ```ocl
+    context Rule
+    inv: self.expectedOutcome.condition.isDeterministic()
+    ```
+
+**TRL 的完整定义总结:**
+
+TRL 是一种基于元模型，以 `IF Condition AND Action THEN ExpectedOutcome` 格式描述规则的语言。  它使用逻辑符号、比较符号和领域符号来定义条件、动作和预期结果。  TRL 强调可测试性，通过 OCL 约束确保规则的可观测性、可执行性、可验证性和可预测性。
+
+**示例:**
+
+将自然语言规则 "如果交易时间是上午 9:30，则执行买入操作，预期交易状态为已成交" 转化为 TRL 实例：
+
+```
+Rule ::= "IF" TradingTime "=" "9:30" "AND" "Execute" OrderDirection "THEN" "Result" TradingStatus "=" "已成交"
+```
+
+**判断是否满足可测试性:**
+
+1.  `TradingTime` 是可观测的系统状态。
+2.  `OrderDirection` 是可执行的操作。
+3.  `TradingStatus` 是可验证的系统状态。
+4.  类型一致性：`TradingTime` (时间) 和 `"9:30"` (字符串) 需要进行类型转换，否则不满足。
+5.  该规则没有循环依赖。
+6.  规则的执行结果是可预测的。
+
+因此，该 TRL 实例在类型转换满足后，满足可测试性约束。  该规则可以被自动解析、验证，并生成测试用例，例如：
+
+*   **测试用例 1:**  设置 `TradingTime` 为 "9:30"，执行 `OrderDirection` 为 "买入"，验证 `TradingStatus` 是否为 "已成交"。
+*   **测试用例 2:** 设置 `TradingTime` 为其他时间，执行 `OrderDirection` 为 "买入"，验证 `TradingStatus` 是否不为 "已成交"。
+
+这个示例展示了 TRL 如何将自然语言规则形式化，并提供了可测试性的保证，方便自动化测试用例的生成和执行。

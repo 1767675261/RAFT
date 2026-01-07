@@ -1,0 +1,86 @@
+根据提供的元模型和规则文本内容示例，下面定义一种用于描述可测试规则的形式化语言（Testable Rule Language, TRL）。
+
+### 号系统 (Symbols)
+
+TRL 中的符号系统包括以下几类：
+
+* 辑符号：`AND`、`OR`、`NOT`
+* 比较符号：`=`、`!=`、`>`、`<`、`>=`、`<=`
+* 域符号：`Bond`、`Actor`、`Market`、`Constraint`、`TimeCondition`、`Account` 等
+
+每类符号的语法位置与语义角色如下：
+
+* 辑符号：用于连接条件和操作
+* 比较符号：用于比较值
+* 域符号：用于表示具体的领域概念
+
+### 语法 (Syntax)
+
+TRL 的语法定义如下：
+
+```
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+Condition ::= <LogicalExpression>
+LogicalExpression ::= <ComparisonExpression> (("AND" | "OR") <ComparisonExpression>)*
+ComparisonExpression ::= <Value> <ComparisonOperator> <Value>
+Value ::= <DomainSymbol> | <Constant>
+DomainSymbol ::= "Bond" | "Actor" | "Market" | "Constraint" | "TimeCondition" | "Account" |...
+Constant ::= <String> | <Number>
+Action ::= <Operation> (<Value>)*
+Operation ::= "Buy" | "Sell" | "Cancel" |...
+ExpectedOutcome ::= <Outcome> (<Value>)*
+Outcome ::= "Success" | "Failure" |...
+```
+
+### 语义 (Semantics)
+
+TRL 的语义定义如下：
+
+* 条件部分映射为输入约束
+* 动作部分映射为操作序列
+* 预期结果映射为断言
+
+例如，规则 `IF Bond.price > 100 AND Actor.balance >= 1000 THEN Buy Bond` 可以映射为以下语义：
+
+* 输入约束：`Bond.price > 100` 且 `Actor.balance >= 1000`
+* 作序列：`Buy Bond`
+* 言：`Bond` 被成功购买
+
+### 可测试性约束 (Testability Constraints)
+
+TRL 的可测试性约束定义如下：
+
+* 每个规则必须有一个唯一的标识符
+* 每个条件必须有一个明确的比较操作符
+* 每个动作必须有一个明确的操作
+* 每个预期结果必须有一个明确的断言
+
+这些约束可以使用 OCL (Object Constraint Language) 表示如下：
+
+```
+context Rule
+inv uniqueIdentifier: self.identifier->size() = 1
+
+context Condition
+inv comparisonOperator: self.comparisonOperator->size() = 1
+
+context Action
+inv operation: self.operation->size() = 1
+
+context ExpectedOutcome
+inv assertion: self.assertion->size() = 1
+```
+
+### 示例
+
+假设我们有以下自然语言规则：
+
+"如果债券价格大于 100 且投资者余额大于等于 1000，则购买债券"
+
+我们可以将其转化为 TRL 实例如下：
+
+```
+IF Bond.price > 100 AND Actor.balance >= 1000 THEN Buy Bond
+```
+
+这个规则满足可测试性约束，因此可以被自动解析、验证和生成测试用例。

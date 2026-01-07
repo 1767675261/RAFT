@@ -1,0 +1,83 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+'========================
+' 顶层
+'========================
+class Rule {
+}
+
+'========================
+' 中层
+'========================
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+Rule -- Precondition : contains
+Rule -- Operation : contains
+Rule -- ExpectedResult : contains
+
+Precondition -- Operation : dependsOn
+Operation -- ExpectedResult : triggers
+
+'========================
+' 底层（合并后的规则要素）
+'========================
+class Constraint {
+}
+
+class TransactionDirection {
+}
+
+class TradingMarket {
+}
+
+class TradingInstrument {
+}
+
+class TradingMethod {
+}
+
+class TradingPrice {
+}
+
+class TradingVolume {
+}
+
+class OrderCancellation {
+}
+
+class SettlementMethod {
+}
+
+class TradingVenue {
+}
+
+'========================
+' 约束 / 包含关系
+'========================
+Precondition -- Constraint : constrains
+Operation -- Constraint : constrains
+ExpectedResult -- Constraint : constrains
+
+Precondition -- TransactionDirection : constrains
+Precondition -- TradingMarket : constrains
+Precondition -- TradingInstrument : constrains
+Precondition -- SettlementMethod : constrains
+
+Operation -- TradingMethod : constrains
+Operation -- TradingPrice : constrains
+Operation -- TradingVolume : constrains
+Operation -- OrderCancellation : constrains
+
+ExpectedResult -- SettlementMethod : constrains
+ExpectedResult -- TradingVenue : constrains
+
+@enduml

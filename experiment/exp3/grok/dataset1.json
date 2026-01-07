@@ -1,0 +1,4474 @@
+[
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSection Contents\n62 Speed Control\n64 Passing\n65 Keeping to the Right\n65 Yielding the Right-of-Way\n66 Pedestrians in a Crosswalk\n67 Intersections\n68 Entering Highways, Parkways, and Turnpikes\n69 Leaving Highways, Parkways, and Turnpikes\n70 Special Highway, Parkway, and Turnpike Conditions\n72 Curves\n72 Interchanges\n72 Turning Regulations\n74 Stopping Regulations\n82 Using Headlights\n83 Parking Regulations\n84 Cellular Telephones\n86 Littering",
+        "testcase": []
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSpeed Control\nExceeding the speed limit is a common contributing factor of fatal and other types of crashes. A motorist must always obey the speed limit. Speed affects almost everything that can happen when driving. A good rule is to keep up with the flow of traffic at any legal speed. To make safe emergency stops when necessary, it is important to keep enough distance from surrounding traffic. New Jersey law sets top speed limits for any given road, street, highway, or freeway.\nSPEED LIMIT 25 mph: School zones, business, or residential districts\nSPEED LIMIT 35 mph: Suburban business and residential districts\nSPEED LIMIT 50 mph: Non-posted rural roadways\nSPEED LIMIT 55 mph: Certain state highways (as posted) and interstates\nSPEED LIMIT 65 mph: Certain interstate highways (as posted)\nMotorists pay double fines for exceeding the 65 mph limit by 10 miles per hour or more. Double fines also apply to most other moving violations committed in a 65 mph zone. (N.J.S.A. 39:4-98.6)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "学校区域",
+                "限速标志": "25 mph",
+                "实际速度": "25 mph",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "学校区域",
+                "限速标志": "25 mph",
+                "实际速度": "26 mph",
+                "结果": "失败（超速违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "郊区商业和住宅区",
+                "限速标志": "35 mph",
+                "实际速度": "35 mph",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "郊区商业和住宅区",
+                "限速标志": "35 mph",
+                "实际速度": "40 mph",
+                "结果": "失败（超速违章）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "无标志乡村道路",
+                "限速标志": "无（默认50 mph）",
+                "实际速度": "50 mph",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "无标志乡村道路",
+                "限速标志": "无（默认50 mph）",
+                "实际速度": "51 mph",
+                "结果": "失败（超速违章）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "州际高速公路",
+                "限速标志": "65 mph",
+                "实际速度": "74 mph",
+                "结果": "失败（超速10 mph以内，普通罚款）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "州际高速公路",
+                "限速标志": "65 mph",
+                "实际速度": "75 mph",
+                "结果": "失败（超速10 mph及以上，加倍罚款）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "州际高速公路",
+                "限速标志": "65 mph",
+                "实际速度": "80 mph",
+                "结果": "失败（超速15 mph，加倍罚款）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "标明55 mph的州公路",
+                "限速标志": "55 mph",
+                "实际速度": "55 mph",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "65 mph限速区内同时闯红灯",
+                "限速标志": "65 mph",
+                "实际速度": "72 mph",
+                "其他违章": "闯红灯",
+                "结果": "失败（超速+闯红灯，两项违章均加倍罚款）"
+            },
+            {
+                "id": 12,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "商业区",
+                "限速标志": "25 mph",
+                "实际速度": "24 mph",
+                "结果": "成功（合法）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nNEW JERSEY LIMITS (UNLESS OTHERWISE POSTED) (N.J.S.A. 39:4-98)\nNever drive faster than weather, road, or other conditions safely allow, regardless of the posted speed limit. A motorist should judge his/her speed control by existing conditions. A motorist should slow down enough to be able to see clearly and stop quickly in traffic. Failure to do so can result in a moving violation.\nAlways slow down:\n• On narrow or winding roads.\n• At intersections or railroad crossings.\n• On hills.\n• At sharp or blind curves.\n• Where there are pedestrians or driving hazards.\n• When the road is wet or slippery.\nIf vehicle problems prevent a motorist from keeping up with the normal flow of traffic, he/she should pull off the road and activate hazard lights.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路限速": "50 mph（无标志乡村道路）",
+                "天气状况": "晴朗干燥",
+                "道路状况": "笔直宽阔、无行人、无弯道",
+                "实际速度": "50 mph",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路限速": "50 mph（无标志乡村道路）",
+                "天气状况": "大雨、路面湿滑",
+                "道路状况": "笔直但积水",
+                "实际速度": "50 mph",
+                "结果": "失败（未根据天气道路条件减速，构成移动违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路限速": "65 mph（州际高速）",
+                "天气状况": "大雾、能见度低于100米",
+                "道路状况": "平直",
+                "实际速度": "65 mph",
+                "结果": "失败（未根据能见度大幅减速，构成移动违章）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路限速": "35 mph（郊区住宅区）",
+                "天气状况": "冰雪覆盖、极滑",
+                "道路状况": "有行人和儿童玩耍",
+                "实际速度": "20 mph",
+                "结果": "成功（合法且安全）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路限速": "25 mph（学校区）",
+                "天气状况": "晴朗",
+                "道路状况": "狭窄弯道+盲弯+人行横道",
+                "实际速度": "25 mph",
+                "结果": "失败（未在弯道、盲弯、行人区域减速，构成移动违章）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路限速": "55 mph（州公路）",
+                "天气状况": "正常",
+                "道路状况": "上坡+铁路平交道口",
+                "实际速度": "55 mph",
+                "结果": "失败（未在铁路道口和上坡减速，构成移动违章）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路限速": "65 mph",
+                "天气状况": "正常",
+                "道路状况": "连续急弯+陡下坡",
+                "实际速度": "45 mph",
+                "结果": "成功（主动根据道路条件减速，安全合规）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "老旧面包车",
+                "道路限速": "50 mph",
+                "天气状况": "正常",
+                "车辆状况": "刹车失灵、无法正常保持车流速度（仅能开30 mph）",
+                "实际行为": "继续在行车道行驶，未靠边停车并开启双闪",
+                "结果": "失败（构成移动违章，妨碍交通）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "老旧货车",
+                "道路限速": "65 mph（高速）",
+                "天气状况": "正常",
+                "车辆状况": "爆胎、只能缓慢行驶",
+                "实际行为": "立即靠边停车并开启危险报警闪光灯",
+                "结果": "成功（正确处理，合规）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路限速": "25 mph（商业区）",
+                "天气状况": "雨天路滑",
+                "道路状况": "有行人横穿+路口无信号灯",
+                "实际速度": "15 mph",
+                "结果": "成功（充分减速，确保能清晰看到并急停）"
+            }
+        ]
+    },
+    {
+        "rule": "DRIVING TOO SLOWLY\nA motorist should always try to keep up with the normal flow of traffic, while not exceeding the posted speed limit. Some crashes are caused by driving too slowly and backing up traffic. When road surfaces and traffic are normal, New Jersey law prohibits blocking traffic through slow driving. (N.J.S.A. 39:4-56)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "州际高速公路",
+                "限速标志": "65 mph",
+                "实际速度": "62 mph",
+                "交通流平均速度": "63 mph",
+                "道路状况": "正常",
+                "交通状况": "正常顺畅",
+                "结果": "成功（合法，未阻碍交通）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "州际高速公路",
+                "限速标志": "65 mph",
+                "实际速度": "40 mph",
+                "交通流平均速度": "60 mph",
+                "道路状况": "正常",
+                "交通状况": "正常顺畅",
+                "结果": "失败（过于缓慢阻碍交通，违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "双车道普通公路",
+                "限速标志": "50 mph",
+                "实际速度": "45 mph",
+                "交通流平均速度": "48 mph",
+                "道路状况": "正常",
+                "交通状况": "正常",
+                "结果": "成功（合法，未明显阻碍交通）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "老旧小型车",
+                "道路类型": "双车道普通公路",
+                "限速标志": "50 mph",
+                "实际速度": "25 mph",
+                "交通流平均速度": "48 mph",
+                "道路状况": "正常",
+                "交通状况": "造成后方多辆车排队无法超车",
+                "结果": "失败（过于缓慢阻碍交通，违章）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "城市主干道",
+                "限速标志": "35 mph",
+                "实际速度": "15 mph",
+                "交通流平均速度": "33 mph",
+                "道路状况": "正常",
+                "交通状况": "造成后方严重拥堵",
+                "结果": "失败（过于缓慢阻碍交通，违章）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "上坡路段",
+                "限速标志": "50 mph",
+                "实际速度": "30 mph",
+                "交通流平均速度": "32 mph",
+                "道路状况": "陡峭上坡",
+                "交通状况": "正常",
+                "结果": "成功（合法，因客观路况导致速度慢，不算阻碍交通）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "拖挂车",
+                "道路类型": "多车道高速公路",
+                "限速标志": "65 mph",
+                "实际速度": "55 mph",
+                "交通流平均速度": "65 mph",
+                "道路状况": "正常",
+                "交通状况": "保持在最右侧车道，未阻碍其他车道",
+                "结果": "成功（合法，慢速车辆靠右行驶不违章）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "单车道乡村公路",
+                "限速标志": "50 mph",
+                "实际速度": "20 mph",
+                "交通流平均速度": "45 mph",
+                "道路状况": "正常",
+                "交通状况": "后方车辆无法超车形成长队",
+                "结果": "失败（过于缓慢阻碍交通，违章）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE CORRIDORS (N.J.S.A. 39:4-203.5)\nTo improve highway safety, New Jersey initiated the Safe Corridors Program, which was signed into law in July 2003. The Safe Corridors law doubles fines on various state highways for a variety of driving offenses, including speeding and aggressive driving. Highways are designated as safe corridors based on statistics showing crash rates 50 percent over the state rate and 1,000 or more crashes reported over a three-year period. The Commissioner of Transportation has the authority to designate safe corridors as necessary, as well as to remove those that show improved safety levels. A current list of Safe Corridor highways is available on the New Jersey Department of Transportation website at www.nj.gov/transportation.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "指定安全走廊州公路",
+                "限速标志": "65 mph",
+                "实际速度": "65 mph",
+                "违章行为": "无",
+                "结果": "成功（合法，无加倍罚款）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "指定安全走廊州公路",
+                "限速标志": "65 mph",
+                "实际速度": "70 mph",
+                "违章行为": "超速",
+                "结果": "失败（超速违章，加倍罚款）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "指定安全走廊州公路",
+                "操作": "尾随前车过近",
+                "违章行为": "危险驾驶",
+                "结果": "失败（危险驾驶违章，加倍罚款）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "指定安全走廊州公路",
+                "操作": "不当变道",
+                "违章行为": "危险驾驶",
+                "结果": "失败（危险驾驶违章，加倍罚款）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "非安全走廊普通州公路",
+                "限速标志": "65 mph",
+                "实际速度": "70 mph",
+                "违章行为": "超速",
+                "结果": "失败（超速违章，普通罚款）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "指定安全走廊州公路",
+                "操作": "超速并急刹",
+                "违章行为": "超速+危险驾驶",
+                "结果": "失败（多项违章，均加倍罚款）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "指定安全走廊州公路（已移除）",
+                "限速标志": "65 mph",
+                "实际速度": "70 mph",
+                "违章行为": "超速",
+                "结果": "失败（超速违章，普通罚款）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "指定安全走廊州公路",
+                "限速标志": "55 mph",
+                "实际速度": "55 mph",
+                "违章行为": "无",
+                "结果": "成功（合法，无加倍罚款）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nPassing\nA motorist must know the proper lane for normal driving and how to change lanes safely. The rules for passing depend on the type of road. Stay to the right of the roadway’s center lines. Passing is only safe when there is no oncoming traffic.\nWatch for the following lane markings: (N.J.S.A. 39:4-86)\n• Both center lines are solid: No passing allowed.\n• One center line is broken: Passing is allowed only on the side with the broken line.\n• Both center lines are broken: Passing is allowed on both sides.\nNote: All passing must be completed before the center lines are solid again.\nPASS ONLY WHEN SAFE: When line is broken PASS; DO NOT PASS When line is solid; NO PASSING With double solid lines",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道",
+                "中央标线": "两侧均为虚线",
+                "对向是否有来车": "无",
+                "超车位置": "虚线段内完成超车",
+                "结果": "成功（允许超车）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道",
+                "中央标线": "两侧均为虚线",
+                "对向是否有来车": "有来车且距离较近",
+                "超车位置": "虚线段内",
+                "结果": "失败（不安全超车，违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "双向两车道",
+                "中央标线": "本侧虚线，对向实线",
+                "对向是否有来车": "无",
+                "超车位置": "虚线段内完成超车",
+                "结果": "成功（允许本侧超车）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道",
+                "中央标线": "本侧实线，对向虚线",
+                "超车行为": "压实线超车",
+                "结果": "失败（禁止超车，违章）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "双向两车道",
+                "中央标线": "双黄实线",
+                "超车行为": "任何超车动作",
+                "结果": "失败（双实线禁止超车，违章）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道",
+                "中央标线": "两侧均为虚线进入双实线区域",
+                "超车位置": "超车动作跨入实线段未完成",
+                "结果": "失败（必须在实线前完成超车，违章）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "双向两车道",
+                "中央标线": "两侧均为虚线",
+                "对向是否有来车": "无",
+                "超车位置": "虚线段内安全完成并返回原车道",
+                "结果": "成功（合法安全超车）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道",
+                "中央标线": "本侧实线",
+                "超车行为": "仅轮胎压实线超车",
+                "结果": "失败（压实线即违章）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道",
+                "中央标线": "双黄实线（no passing zone）",
+                "特殊情况": "前方慢行拖拉机",
+                "超车行为": "强行超车",
+                "结果": "失败（双实线绝对禁止超车，违章）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道",
+                "中央标线": "本侧虚线",
+                "对向是否有来车": "无",
+                "超车位置": "确认安全后在虚线段完成",
+                "结果": "成功（符合所有超车条件）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nMost passing should be on the left. Passing on the right is allowed only on roads with more than one lane going in the same direction, if vehicles on the roadway are moving in two or more substantially continuous lines or when the motorist ahead is making a left turn and there is room to pass. Never pass on the right shoulder of the road. This is against the law. (N.J.S.A. 39:4-85)\nA motorist should not pass:\n• On a hill or curve or at any time he/she cannot see far enough ahead.\n• At a street crossing or intersection.\n• At a railroad crossing.\n• On narrow bridges or in underpasses or tunnels.\n• When a sign prohibits passing or center lines restrict passing.\n• When behind a vehicle that has stopped to let a pedestrian cross.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道",
+                "车道数同方向": "1条",
+                "超车方式": "左侧超车",
+                "前方情况": "前方车辆直行",
+                "其他条件": "视距良好、无禁超标志",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道",
+                "车道数同方向": "1条",
+                "超车方式": "右侧超车",
+                "前方情况": "前方车辆直行",
+                "结果": "失败（禁止右侧超车）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "单向三车道",
+                "车道数同方向": "3条",
+                "超车方式": "右侧超车",
+                "前方情况": "左、中车道车辆形成两股连续车流",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "单向两车道",
+                "超车方式": "右侧超车",
+                "前方情况": "左侧车道车辆准备左转、有足够空间",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路",
+                "超车方式": "右侧路肩超车",
+                "前方情况": "任意",
+                "结果": "失败（严禁在路肩超车）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "上坡弯道",
+                "超车方式": "左侧超车",
+                "前方情况": "视距不足200米",
+                "结果": "失败（坡道弯道禁止超车）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "平面交叉口内",
+                "超车方式": "左侧超车",
+                "前方情况": "前方车辆减速",
+                "结果": "失败（交叉口禁止超车）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "平交铁路道口",
+                "超车方式": "任意侧超车",
+                "结果": "失败（铁路道口禁止超车）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "狭窄桥梁",
+                "超车方式": "左侧超车",
+                "结果": "失败（狭窄桥梁禁止超车）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "隧道内",
+                "超车方式": "右侧超车",
+                "结果": "失败（隧道内禁止超车）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "有“禁止超车”标志路段",
+                "超车方式": "左侧超车",
+                "结果": "失败（标志明确禁止）"
+            },
+            {
+                "id": 12,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双实线标线路段",
+                "超车方式": "跨线超车",
+                "结果": "失败（双实线禁止超车）"
+            },
+            {
+                "id": 13,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "前方情况": "前方车辆在人行横道前停车礼让行人",
+                "超车方式": "右侧超车",
+                "结果": "失败（禁止超越停车礼让行人的车辆）"
+            },
+            {
+                "id": 14,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "单向四车道、无禁超标志",
+                "车道数同方向": "4条",
+                "超车方式": "右侧超车",
+                "前方情况": "正常行驶、无左转意图",
+                "结果": "成功（合法）"
+            }
+        ]
+    },
+    {
+        "rule": "Keeping to the Right\nNew Jersey law requires motorists to keep to the right, except when passing. Motorists must drive on the right half of the roadway unless driving on a one-way street. Motorists must drive a vehicle as close as possible to the right-hand edge or curb of the roadway, except when overtaking and passing another vehicle. (N.J.S.A. 39:4-82)\nOn a multi-lane roadway, motorists must drive in the lane nearest to the right-hand edge or curb of the roadway when the lane is available for travel, except when overtaking another vehicle or in preparation for a left turn. (N.J.S.A. 39:4-88)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道道路",
+                "车道情况": "右侧车道空闲",
+                "当前行为": "持续在右侧车道行驶，未超车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向两车道道路",
+                "车道情况": "右侧车道空闲",
+                "当前行为": "长时间占用左侧车道行驶，未超车也未准备左转",
+                "结果": "失败（违反靠右行驶规定）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "单向三车道道路",
+                "当前行为": "在最右侧车道正常行驶",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向四车道道路（双车道每方向）",
+                "车道情况": "右侧车道可用",
+                "当前行为": "正在最左侧车道超车，超车后立即回到右侧车道",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向四车道道路",
+                "车道情况": "右侧车道可用",
+                "当前行为": "正在左侧车道超车，超车后仍长时间占用左侧车道",
+                "结果": "失败（超车后未及时回到右侧）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "双向两车道道路",
+                "当前行为": "在距离路口100米内，进入左侧车道准备左转",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "单向单车道道路",
+                "当前行为": "正常行驶",
+                "结果": "成功（单向道路不受靠右限制）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "双向三车道道路（中间超车道）",
+                "当前行为": "在最右侧车道行驶，无超车需求",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向四车道道路",
+                "车道情况": "右侧车道被停车占用，但可安全通行",
+                "当前行为": "临时使用左侧车道绕过后立即返回右侧",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "双向两车道道路",
+                "当前行为": "在无分隔线的道路上压中心线或占用对向车道行驶",
+                "结果": "失败（严重违反靠右行驶）"
+            }
+        ]
+    },
+    {
+        "rule": "Yielding the Right-of-Way\nAlthough laws govern the right-of-way, a motorist should always be prepared to yield. These basic rules always apply:\n• Emergency vehicles: When police cars, fire engines, and ambulances are giving warning signs (sirens, flashing lights).\n• Trains: When a train is approaching a railroad crossing.\n• Buses: When re-entering the flow of traffic.\n• Postal vehicles: When the vehicle re-enters the flow of traffic.\n• Motorized or mobility-assistance devices: When in a crosswalk or seeking to cross a road.\n• Other vehicles: That are already in the intersection.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "正常路口无其他特殊车辆",
+                "优先权车辆": "无",
+                "己方状态": "先进入路口",
+                "操作": "正常通过路口",
+                "结果": "成功（拥有优先通行权）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "正常路口",
+                "优先权车辆": "其他车辆已先进入路口",
+                "己方状态": "后到达路口",
+                "操作": "继续行驶不让行",
+                "结果": "失败（违反让行规则）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "scenario": "救护车开启警灯警笛靠近",
+                "优先权车辆": "救护车（警灯+警笛）",
+                "己方状态": "正常行驶",
+                "操作": "立即靠边停车让行",
+                "结果": "成功（正确让行）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "消防车正在出警鸣笛闪灯",
+                "优先权车辆": "消防车（警灯+警笛）",
+                "己方状态": "在消防车前方行驶",
+                "操作": "不让行继续行驶",
+                "结果": "失败（严重违反紧急车辆让行规定）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "铁路道口栏杆放下、灯光闪烁、火车接近",
+                "优先权车辆": "火车",
+                "己方状态": "接近道口",
+                "操作": "停车等候",
+                "结果": "成功（正确让行）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "铁路道口有火车接近",
+                "优先权车辆": "火车",
+                "己方状态": "接近道口",
+                "操作": "强行抢越铁路道口",
+                "结果": "失败（严重违法且危险）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "公共汽车从站台起步并线进入车流",
+                "优先权车辆": "公共汽车",
+                "己方状态": "在公共汽车后方同车道",
+                "操作": "减速或变换车道让行",
+                "结果": "成功（正确让行）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "场景": "邮政车辆从路边起步并线",
+                "优先权车辆": "邮政车辆",
+                "己方状态": "紧跟邮政车辆后方",
+                "操作": "不减速强行阻挡",
+                "结果": "失败（违反让行规定）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "人行横道上电动轮椅正在通过",
+                "优先权车辆": "机动/助力残疾车",
+                "己方状态": "即将驶入人行横道",
+                "操作": "停车让行",
+                "结果": "成功（正确让行）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "路口老人在使用电动代步车准备横穿马路",
+                "优先权车辆": "机动/助力残疾车",
+                "己方状态": "右转弯",
+                "操作": "不停车直接右转",
+                "结果": "失败（未让行残疾人代步车）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "多股车流交汇处",
+                "优先权车辆": "已进入环岛的车辆",
+                "己方状态": "准备进入环岛",
+                "操作": "让行后进入",
+                "结果": "成功（正确让行）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nPedestrians in a Crosswalk\nNew Jersey has experienced many pedestrian injury crashes and fatalities, as compared to the nation as a whole. The most important pedestrian safety message for New Jersey residents is: Pedestrian safety is a shared responsibility. There is no single cause of crashes involving pedestrians. Pedestrians and motorists must all do their part to keep pedestrians safe.\nA motorist must:\n• Stop for pedestrians in crosswalks. Failure to stop carries a fine of up to $500, up to 25 days in jail, community service, a driving privilege suspension of up to 6 months, and 2 points. (N.J.S.A. 39:4-36)\n• Watch for pedestrians when turning on red.\n• Obey speed limits.\n• Be sure not to block or park in crosswalks.\n• Keep the vehicle’s windshield clean for maximum visibility.\n• Always be alert for pedestrians.\n• Be aware of areas where pedestrians are most likely to appear (near schools, town centers, residential neighborhoods, parks).\n• Never pass another vehicle that has stopped for a pedestrian.\n• Stop for all pedestrians in a crosswalk even if they began crossing with a proper signal and they are still in the crosswalk when the signal changes.\n• Remember that pedestrians are the most vulnerable roadway users.\nMotorists will be held responsible for maintaining pedestrian safety.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "有标记人行横道",
+                "行人位置": "已进入人行横道",
+                "驾驶人行为": "停车让行",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "有标记人行横道",
+                "行人位置": "已进入人行横道",
+                "驾驶人行为": "未停车直接通过",
+                "结果": "失败（不停车让行违章，罚款+2分+可能吊销驾照）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "场景": "无标记人行横道（路口）",
+                "行人位置": "正在横穿马路",
+                "驾驶人行为": "停车让行",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "右转红灯",
+                "行人位置": "在目标人行横道内",
+                "驾驶人行为": "先停车观察，确认行人通过后右转",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "右转红灯",
+                "行人位置": "在目标人行横道内",
+                "驾驶人行为": "未停车直接右转",
+                "结果": "失败（右转未让行人违章）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "场景": "前方车辆已在人行横道前停车",
+                "行人位置": "正在横过马路",
+                "驾驶人行为": "超越前方停车车辆继续行驶",
+                "结果": "失败（禁止超越已停让行人的车辆）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "信号灯由绿变红",
+                "行人位置": "绿灯时已开始过马路，红灯时仍在人行横道内",
+                "驾驶人行为": "停车等待行人完全通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "信号灯由绿变红",
+                "行人位置": "绿灯时已开始过马路，红灯时仍在人行横道内",
+                "驾驶人行为": "鸣笛催促或直接驶入",
+                "结果": "失败（必须继续让行违章）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "停车状态",
+                "停车位置": "停在人行横道上",
+                "结果": "失败（禁止在人行横道上停车或堵塞）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "场景": "学校附近有标记人行横道",
+                "行人位置": "多名学生正在横过",
+                "驾驶人行为": "提前减速停车让行",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "人行横道一侧有行人，另一侧无行人",
+                "行人位置": "仅在机动车行驶方向的同侧半幅道路内",
+                "驾驶人行为": "停车让行该侧行人",
+                "结果": "成功（合法，至少需让行所在半幅的行人）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nIntersections\nAn intersection is where two or more roads cross or merge at angles. As most crashes occur at intersections, a motorist should be aware of the four types of intersections and know how to safely navigate through them. A single solid white line across a road at an intersection means that a motorist must stop behind the line for a traffic signal or sign.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "交叉口类型": "有交通信号灯控制的十字路口",
+                "地面标线": "单条实白线",
+                "信号灯状态": "红灯",
+                "车辆停止位置": "停在单条实白线后方",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "交叉口类型": "有交通信号灯控制的十字路口",
+                "地面标线": "单条实白线",
+                "信号灯状态": "红灯",
+                "车辆停止位置": "前轮压在或越过单条实白线",
+                "结果": "失败（违章停车/闯红灯）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "交叉口类型": "有停止标志（STOP）控制的T型路口",
+                "地面标线": "单条实白线",
+                "停止标志": "有",
+                "车辆停止位置": "完全停在单条实白线后方",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "交叉口类型": "有停止标志控制的T型路口",
+                "地面标线": "单条实白线",
+                "停止标志": "有",
+                "车辆停止位置": "未停在单条实白线后方即通过",
+                "结果": "失败（未按停止标志停车）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "交叉口类型": "无信号灯无标志的普通十字路口",
+                "地面标线": "单条实白线",
+                "其他情况": "无交通信号或标志，仅有单条实白线",
+                "车辆行为": "直接越过单条实白线通过",
+                "结果": "失败（未在单条实白线后停车观察）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "交叉口类型": "有让行标志（YIELD）的路口",
+                "地面标线": "单条实白线",
+                "车辆行为": "在单条实白线后减速观察后安全通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "交叉口类型": "有交通信号灯控制的十字路口",
+                "地面标线": "单条实白线",
+                "信号灯状态": "绿灯",
+                "车辆停止位置": "在单条实白线后方短暂停车后安全通过",
+                "结果": "成功（合法，绿灯可继续前行）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "交叉口类型": "有停止标志的十字路口",
+                "地面标线": "无单条实白线",
+                "车辆行为": "在停止线位置完全停车后通过",
+                "结果": "成功（合法，无单条实白线时按停止标志执行即可）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "交叉口类型": "有交通信号灯控制的十字路口",
+                "地面标线": "单条实白线",
+                "信号灯状态": "黄灯闪烁",
+                "车辆停止位置": "已越过单条实白线进入路口",
+                "结果": "成功（合法，黄灯时已进入路口可继续通过）"
+            }
+        ]
+    },
+    {
+        "rule": "CONTROLLED\nAn intersection is controlled if there are traffic signals or signs in any direction or controlled by a police officer. A motorist must obey the signals and signs. At a controlled intersection, a motorist must yield for certain conditions. At a multi-way stop or stop intersection, a motorist must yield to the motorist on the right if both motorists get there at the same time. A motorist should also yield to another motorist already stopped at the intersection. At an intersection controlled by a yield sign, a motorist must slow down and yield to traffic on the intersecting roadway, even if he/she must stop. When making a left turn at an intersection, a motorist must yield to oncoming traffic and stop for pedestrians within the crosswalk.\nA motorist is prohibited from entering or crossing an intersecting street marked with a stop sign unless he or she first brings the vehicle to a complete stop at a point within five feet of the nearest crosswalk or stop line marked upon the pavement at the near side of the intersection street. The motorist may only proceed after yielding the right-of-way to all traffic on the intersection street, which is so close as to constitute an immediate hazard.\nNote: Driving on private property to avoid a traffic signal or sign is a motor vehicle violation. (N.J.S.A. 39:4-66.2)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "路口类型": "有红绿灯控制",
+                "信号灯状态": "绿灯",
+                "操作": "直行通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "路口类型": "有红绿灯控制",
+                "信号灯状态": "红灯",
+                "操作": "直接通过",
+                "结果": "失败（闯红灯违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "路口类型": "四向停车标志（All-way Stop）",
+                "到达顺序": "与对向车辆同时到达",
+                "操作": "先行通过",
+                "结果": "失败（未让右侧车辆先行）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "路口类型": "四向停车标志",
+                "到达顺序": "右侧车辆已先到并停稳",
+                "操作": "等待右侧车辆先走后通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "路口类型": "让行标志（Yield）",
+                "主路交通情况": "主路有车接近构成立即危险",
+                "操作": "减速后完全停车让行后再通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "路口类型": "让行标志（Yield）",
+                "主路交通情况": "主路无车",
+                "操作": "减速观察后直接通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "路口类型": "无信号灯无标志",
+                "操作意图": "左转",
+                "对向交通情况": "对向有直行车接近",
+                "人行横道情况": "有行人正在通过",
+                "操作": "直接左转",
+                "结果": "失败（未让对向直行车及行人）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "路口类型": "停车标志（Stop）",
+                "停车位置": "距离停止线8英尺处停车",
+                "操作": "停车后直接前行",
+                "结果": "失败（未在停止线5英尺内停车）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "路口类型": "停车标志（Stop）",
+                "停车位置": "距离停止线3英尺处完全停车",
+                "交叉道路交通情况": "有车辆非常接近构成立即危险",
+                "操作": "停车后强行进入",
+                "结果": "失败（未让行构成立即危险的车辆）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "路口类型": "停车标志（Stop）",
+                "停车位置": "距离停止线4英尺处完全停车",
+                "交叉道路交通情况": "无车辆接近",
+                "操作": "确认安全后通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "行为": "为避让前方红灯驶入私人停车场绕行后再回到道路",
+                "结果": "失败（利用私人财产逃避交通信号，违章）"
+            },
+            {
+                "id": 12,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "路口类型": "警察现场指挥",
+                "警察手势": "举手示意停止",
+                "操作": "继续行驶通过",
+                "结果": "失败（不服从警察指挥）"
+            }
+        ]
+    },
+    {
+        "rule": "UNCONTROLLED\nAn intersection is uncontrolled when two or more roads join and there is no traffic signal or regulatory device. A motorist must be careful when approaching these types of intersections. Most of the time there will be a warning sign prior to reaching the intersection. As a motorist nears a crossroad that is not controlled, he/she must reduce speed and be ready to stop if any traffic is coming from the right or left. A motorist coming from a private road or driveway must yield to all traffic on the main road. As a rule, the vehicle on the left should yield to the vehicle on the right. When a traffic signal is not illuminated because of a power failure or other malfunction; the traffic signal is observed as a 4-way stop signal. (N.J.S.A. 39:4-81)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人A",
+                "来车方向": "主路（从左侧进入无控制路口）",
+                "对方车辆": "主路（从右侧进入同一无控制路口）",
+                "实际行为": "减速让行给右侧车辆",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人A",
+                "来车方向": "主路（从左侧进入无控制路口）",
+                "对方车辆": "主路（从右侧进入同一无控制路口）",
+                "实际行为": "不减速，直接通过",
+                "结果": "失败（未让右侧来车，违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人B",
+                "来车方向": "支路/私人车道驶出",
+                "对方车辆": "主路有车正常通过",
+                "实际行为": "停车或减速让行主路车辆",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人B",
+                "来车方向": "私人车道直接驶入",
+                "对方车辆": "主路有车正常通过",
+                "实际行为": "强行驶入主路",
+                "结果": "失败（未让主路车辆，违章）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人A和B同时到达",
+                "来车方向A": "主路从左侧",
+                "来车方向B": "主路从右侧",
+                "实际行为A": "停车让行",
+                "实际行为B": "先通过",
+                "结果": "成功（合法，左右让行规则正确执行）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "来车方向": "任意方向",
+                "路口状态": "交通信号灯因故障熄灭（黑灯）",
+                "实际行为": "视作四向停车路口，先停车后按到达顺序通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "来车方向": "任意方向",
+                "路口状态": "交通信号灯因停电熄灭",
+                "实际行为": "按原信号灯规则直接通过",
+                "结果": "失败（未视作四向停车，违章）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人A",
+                "来车方向": "主路直行",
+                "对方车辆": "无其他车辆",
+                "前方标志": "有“十字路口”警告标志",
+                "实际行为": "提前减速观察后安全通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人A",
+                "来车方向": "主路直行",
+                "对方车辆": "左侧支路车辆同时驶入",
+                "实际行为": "不减速，继续直行",
+                "结果": "成功（合法，主路优先）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人A和B同时到达",
+                "来车方向A": "从南侧进入",
+                "来车方向B": "从东侧进入",
+                "实际行为A": "南侧车辆先停车让行东侧车辆",
+                "结果": "成功（合法，正确执行右侧优先规则）"
+            }
+        ]
+    },
+    {
+        "rule": "BLIND LINE OF SIGHT\nBuildings, parked vehicles, or bushes may obstruct a motorist’s line of sight. On rural roadways, trees or crops may obstruct a motorist’s line of sight. A motorist should always slow down or stop completely to make sure there is no cross traffic before proceeding.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "城市道路",
+                "视线遮挡物": "路边停放的货车",
+                "交叉路口类型": "无交通信号灯的十字路口",
+                "驾驶行为": "完全停车观察后缓慢通过",
+                "结果": "成功（安全合规）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "城市道路",
+                "视线遮挡物": "路边停放的货车",
+                "交叉路口类型": "无交通信号灯的十字路口",
+                "驾驶行为": "减速但未停车，直接缓慢通过",
+                "结果": "失败（存在安全隐患，违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "乡村道路",
+                "视线遮挡物": "路边高大玉米作物",
+                "交叉路口类型": "无信号灯T型路口",
+                "驾驶行为": "完全停车，确认无横向来车后通过",
+                "结果": "成功（安全合规）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "乡村道路",
+                "视线遮挡物": "路边茂密灌木丛",
+                "交叉路口类型": "无信号灯十字路口",
+                "驾驶行为": "不减速也不停车，直接驶入路口",
+                "结果": "失败（严重违章，极高危险）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "住宅区小路",
+                "视线遮挡物": "转角处楼房死角",
+                "交叉路口类型": "无信号灯转弯路口",
+                "驾驶行为": "减速至5 mph，探头观察后通过",
+                "结果": "成功（安全合规）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "乡村道路",
+                "视线遮挡物": "路边树木+停放拖拉机",
+                "交叉路口类型": "无信号灯且有儿童横穿风险",
+                "驾驶行为": "仅轻点刹车减速，未停车观察",
+                "结果": "失败（不安全，违章）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "城市道路",
+                "视线遮挡物": "路边连续停放多辆大巴车",
+                "交叉路口类型": "无信号灯且有行人过街",
+                "驾驶行为": "停车等待对向车辆先通过，确认行人安全后再通过",
+                "结果": "成功（安全合规）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "乡村道路",
+                "视线遮挡物": "无遮挡（视野开阔）",
+                "交叉路口类型": "无信号灯十字路口",
+                "驾驶行为": "正常速度通过",
+                "结果": "成功（规则不适用，无需减速停车）"
+            }
+        ]
+    },
+    {
+        "rule": "TRAFFIC CIRCLE\nThere are no set rules for driving into, around and out of a traffic circle in New Jersey. Common sense and caution must always prevail. In most cases, the circle’s historically established traffic flow pattern dictates who has the right-of-way. If a major highway flows into and through the circle, it usually dominates the traffic flow pattern and commands the right-of-way. Traffic control signs, such as stop or yield signs, at the entrances to the circle also govern which motorist has the right-of-way. Never enter a traffic circle without checking all signs and determining the intentions of the motorists already moving within the circle.\nWhenever a motorist is in doubt concerning who has the right-of-way in a circle, he/she should exercise extreme caution and remember the basic rule governing any uncontrolled intersection: The vehicle to the left yields the right-of-way to the vehicle approaching from the right.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人A",
+                "车辆类型": "小型轿车",
+                "位置": "环岛入口（无任何标志）",
+                "环岛内已有车辆": "有车辆从A的右侧进入环岛",
+                "操作": "A直接进入环岛",
+                "结果": "失败（未让行右侧来车，违章）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人A",
+                "车辆类型": "小型轿车",
+                "位置": "环岛入口（无任何标志）",
+                "环岛内已有车辆": "有车辆从A的右侧进入环岛",
+                "操作": "A停车让行右侧来车后进入",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人B",
+                "车辆类型": "重型货车",
+                "位置": "环岛入口设有停止标志（STOP）",
+                "环岛内已有车辆": "环岛内有车持续通行",
+                "操作": "B到达停止线后完全停稳，确认安全后进入",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人B",
+                "车辆类型": "小型轿车",
+                "位置": "环岛入口设有停止标志（STOP）",
+                "环岛内已有车辆": "环岛内有车持续通行",
+                "操作": "B减速但未完全停车直接进入",
+                "结果": "失败（未按停止标志完全停车，违章）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人C",
+                "车辆类型": "小型轿车",
+                "位置": "环岛入口设有让行标志（YIELD）",
+                "环岛内已有车辆": "环岛内有车持续通行",
+                "操作": "C减速观察，确认无车后进入",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人C",
+                "车辆类型": "小型轿车",
+                "位置": "环岛入口设有让行标志（YIELD）",
+                "环岛内已有车辆": "环岛内有车持续通行",
+                "操作": "C未减速直接强行进入",
+                "结果": "失败（未让行环岛内车辆，违章）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人D",
+                "车辆类型": "大型客车",
+                "位置": "主干公路直接流入环岛（历史流量主导）",
+                "环岛内已有车辆": "次要道路车辆已在环岛内",
+                "操作": "D沿主干公路正常速度进入环岛，次要路车辆让行",
+                "结果": "成功（主路主导流量享有优先权，合法）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人E",
+                "车辆类型": "小型轿车",
+                "位置": "次要道路进入同一环岛",
+                "环岛内已有车辆": "主干公路车辆正高速流入",
+                "操作": "E强行抢行不让主干公路车辆",
+                "结果": "失败（未让行主路主导流量车辆，违章）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人F",
+                "车辆类型": "摩托车",
+                "位置": "环岛入口（无任何交通标志）",
+                "环岛内已有车辆": "无车辆",
+                "操作": "F观察确认环岛内无车后直接进入",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人对向两车",
+                "车辆类型": "小型轿车",
+                "位置": "环岛入口（无任何标志且无历史主导流量）",
+                "环岛内已有车辆": "无车辆",
+                "操作": "左侧车辆让行右侧车辆，右侧车辆先行",
+                "结果": "成功（遵守左侧让右侧基本规则，合法）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nEntering Highways, Parkways, and Turnpikes\nHighways, parkways, and turnpikes are high-speed (up to 65 mph) divided roadways and generally have multiple lanes. Traffic on each side of the divide will travel in only one direction. There are no direct intersections. Motorists enter these roadways by way of acceleration lanes, which are extra lanes at highway entrances used by motorists to speed up to join the flow of traffic. A motorist must yield to traffic already traveling on the main road before moving into the proper lane.\nKeep the following points in mind when entering a highway, parkway, or turnpike:\n• Obey posted advisory speed limits (if any) at the entrance ramp.\n• Speed up to the flow of traffic when leaving the acceleration lane.\n• Avoid coming to a complete stop in the acceleration lane.\n• Yield to traffic and enter the right-hand lane when safe.\n• Use turn signal.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路入口匝道",
+                "匝道建议限速": "35 mph",
+                "实际进入加速车道速度": "35 mph",
+                "是否在加速车道完全停车": "否",
+                "加速后速度": "65 mph（与主路车流一致）",
+                "是否让行主路车辆": "是",
+                "是否开启转向灯": "是",
+                "最终并入车道": "最右侧车道",
+                "结果": "成功（合法安全并入）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路入口匝道",
+                "匝道建议限速": "35 mph",
+                "实际进入加速车道速度": "50 mph（超建议限速）",
+                "是否在加速车道完全停车": "否",
+                "加速后速度": "65 mph",
+                "是否让行主路车辆": "是",
+                "是否开启转向灯": "是",
+                "最终并入车道": "最右侧车道",
+                "结果": "失败（在匝道超建议限速，违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "高速公路入口匝道",
+                "匝道建议限速": "无",
+                "实际进入加速车道速度": "30 mph",
+                "是否在加速车道完全停车": "是",
+                "加速后速度": "未加速",
+                "是否让行主路车辆": "无意义（已停车阻挡后车）",
+                "是否开启转向灯": "否",
+                "结果": "失败（在加速车道完全停车+未打转向灯，严重违章）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路入口匝道",
+                "匝道建议限速": "40 mph",
+                "实际进入加速车道速度": "40 mph",
+                "是否在加速车道完全停车": "否",
+                "加速后速度": "45 mph（明显低于主路65 mph车流）",
+                "是否让行主路车辆": "否（强行并入）",
+                "是否开启转向灯": "是",
+                "最终并入车道": "最右侧车道",
+                "结果": "失败（未加速到安全速度+未让行，危险并入）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "高速公路入口匝道",
+                "匝道建议限速": "无",
+                "实际进入加速车道速度": "40 mph",
+                "是否在加速车道完全停车": "否",
+                "加速后速度": "65 mph（与车流一致）",
+                "是否让行主路车辆": "是",
+                "是否开启转向灯": "否",
+                "最终并入车道": "最右侧车道",
+                "结果": "失败（未使用转向灯，违章）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路入口匝道",
+                "匝道建议限速": "30 mph",
+                "实际进入加速车道速度": "25 mph",
+                "是否在加速车道完全停车": "否",
+                "加速后速度": "65 mph",
+                "是否让行主路车辆": "是",
+                "是否开启转向灯": "是",
+                "最终并入车道": "中间车道（直接越过最右侧车道）",
+                "结果": "失败（直接并入非最右侧车道，违章）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路入口匝道",
+                "匝道建议限速": "35 mph",
+                "实际进入加速车道速度": "35 mph",
+                "是否在加速车道完全停车": "否",
+                "加速后速度": "62 mph（基本匹配车流）",
+                "是否让行主路车辆": "是",
+                "是否开启转向灯": "是",
+                "最终并入车道": "最右侧车道",
+                "结果": "成功（合法安全并入）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nLeaving Highways, Parkways, and Turnpikes\nIn most cases, exit ramps or deceleration lanes, which are extra lanes at a highway exit, are located on the right-hand side of the roadway. A motorist should always watch for signs that direct where to exit the roadway. If a motorist misses an exit ramp on a highway, parkway, or turnpike, he/she should go to the next exit.\nKeep the following points in mind when leaving a highway, parkway, or turnpike:\n• Start slowing down when entering a deceleration lane.\n• Obey the posted advisory speed limit of the deceleration lane.\n• Use turn signal.\n• Avoid stopping in the exit lane.\n• Slow to the speed of entry and exit lanes.\n• When the exit is located on the left of a roadway, look for signs that will direct traffic to the proper lane for exiting.\n• If you miss an exit, go on to the next one.\n• Never back up on an exit ramp or deceleration lane.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路",
+                "出口位置": "右侧",
+                "操作": "提前进入减速车道，速度降至建议速度，使用转向灯，顺利驶出",
+                "结果": "成功（合法安全）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路",
+                "出口位置": "右侧",
+                "操作": "错过出口后继续前行至下一出口",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "高速公路",
+                "出口位置": "右侧",
+                "操作": "错过出口后在出口匝道倒车",
+                "结果": "失败（严重违章，禁止倒车）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路",
+                "出口位置": "右侧",
+                "减速车道建议限速": "30 mph",
+                "实际行为": "进入减速车道后保持70 mph高速通过",
+                "结果": "失败（不遵守减速车道建议限速）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路",
+                "出口位置": "右侧",
+                "操作": "进入减速车道后突然在车道内停车",
+                "结果": "失败（禁止在出口车道停车）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "高速公路",
+                "出口位置": "左侧",
+                "操作": "提前关注标志，正确变道至左侧出口车道，减速并使用转向灯驶出",
+                "结果": "成功（合法安全）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路",
+                "出口位置": "左侧",
+                "操作": "未注意左侧出口标志，停留在最右侧车道，错过出口后在减速车道倒车",
+                "结果": "失败（多项违章：未按标志行驶 + 禁止倒车）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "快速路",
+                "出口位置": "右侧",
+                "操作": "进入减速车道后逐渐减速至匝道限速，使用转向灯，安全驶出",
+                "结果": "成功（合法安全）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路",
+                "出口位置": "右侧",
+                "操作": "全程未使用转向灯，直接从行车道切入减速车道后驶出",
+                "结果": "失败（未使用转向灯）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "收费公路（Turnpike）",
+                "出口位置": "右侧",
+                "操作": "错过出口后继续行驶至下一出口下高速",
+                "结果": "成功（合法，必须这样做）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSpecial Highway, Parkway, and Turnpike Conditions\nWEAVE LANE\nA weave lane is both an entrance and an exit for an expressway. Traffic may come onto and leave the expressway at the same location. This traffic weave causes conflicts, both for motorists using a weave lane and those on the expressway and entrance ramp (in terms of speed and space adjustments). The motorist entering from the entrance ramp must yield the right-of-way to the motorist leaving the expressway.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "进入高速的驾驶人",
+                "车辆类型": "小型轿车",
+                "位置": "交织区（Weave Lane）入口匝道",
+                "操作": "准备进入主线",
+                "主线交织区内是否有出口车辆": "无",
+                "实际行为": "正常加速汇入",
+                "结果": "成功（安全汇入）"
+            },
+            {
+                "id": 2,
+                "主体": "进入高速的驾驶人",
+                "车辆类型": "小型轿车",
+                "位置": "交织区入口匝道",
+                "操作": "准备进入主线",
+                "主线交织区内是否有出口车辆": "有（正准备从交织区驶出）",
+                "实际行为": "减速让行，等待出口车辆先离开交织区后再汇入",
+                "结果": "成功（遵守让行规则，安全汇入）"
+            },
+            {
+                "id": 3,
+                "主体": "进入高速的驾驶人",
+                "车辆类型": "重型货车",
+                "位置": "交织区入口匝道",
+                "操作": "准备进入主线",
+                "主线交织区内是否有出口车辆": "有（小型轿车正从交织区驶出）",
+                "实际行为": "强行加速汇入，不让行出口车辆",
+                "结果": "失败（违反让行规定，属于违章且易引发事故）"
+            },
+            {
+                "id": 4,
+                "主体": "离开高速的驾驶人",
+                "车辆类型": "小型轿车",
+                "位置": "主线准备进入交织区出口",
+                "操作": "驶入交织区准备离开高速",
+                "入口匝道是否有车辆正在汇入": "有",
+                "实际行为": "保持主线速度正常驶出，不受汇入车辆影响",
+                "结果": "成功（享有优先路权，正常离开）"
+            },
+            {
+                "id": 5,
+                "主体": "离开高速的驾驶人",
+                "车辆类型": "大型客车",
+                "位置": "主线进入交织区",
+                "操作": "驶入交织区准备出口",
+                "入口匝道是否有车辆正在汇入": "有（但已完成让行）",
+                "实际行为": "正常驶出",
+                "结果": "成功（正常离开）"
+            },
+            {
+                "id": 6,
+                "主体": "进入高速的驾驶人",
+                "车辆类型": "摩托车",
+                "位置": "交织区入口匝道末端",
+                "操作": "准备汇入",
+                "主线交织区内是否有出口车辆": "有（多辆连续出口）",
+                "实际行为": "在加速车道末端停车等待",
+                "结果": "失败（虽礼让但在加速车道停车属于违章，且影响后车）"
+            },
+            {
+                "id": 7,
+                "主体": "进入高速的驾驶人",
+                "车辆类型": "小型轿车",
+                "位置": "交织区入口匝道",
+                "操作": "汇入主线",
+                "主线交织区内是否有出口车辆": "有",
+                "实际行为": "提前观察，调整速度在出口车辆通过后安全汇入",
+                "结果": "成功（正确让行，安全汇入）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nHIGHWAYS THROUGH CITIES\nThe volume of traffic may increase dramatically. Speeds may slow to a crawl. The motorist should drive in the left or center lane to avoid merge conflicts during rush hour. A motorist should search for exits early and adjust position for exit.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路场景": "城市内高速公路",
+                "交通状况": "早晚高峰拥堵",
+                "所在车道": "中间车道",
+                "操作": "正常行驶",
+                "结果": "成功（推荐车道，避免合流冲突）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路场景": "城市内高速公路",
+                "交通状况": "早晚高峰拥堵",
+                "所在车道": "最右侧车道",
+                "操作": "持续占用最右侧车道行驶",
+                "结果": "失败（易受入口合流车辆影响，不安全）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路场景": "城市内高速公路",
+                "交通状况": "高峰期车流缓慢",
+                "所在车道": "最左侧车道（超车道）",
+                "操作": "长时间占用最左侧车道",
+                "结果": "失败（大型车不应长时间占用最左侧车道，影响交通流）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路场景": "城市内高速公路",
+                "交通状况": "高峰期",
+                "目标": "提前500米需从右侧出口离开",
+                "操作": "提前1.5公里开始向右变道并进入最右侧车道",
+                "结果": "成功（提前寻找出口并调整位置，安全离开）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路场景": "城市内高速公路",
+                "交通状况": "高峰期车流密集",
+                "目标": "提前300米需从右侧出口离开",
+                "操作": "仍行驶在最左侧车道，直到出口前突然连续变3条车道",
+                "结果": "失败（未提前寻找出口与调整位置，危险变道）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路场景": "城市内高速公路",
+                "交通状况": "非高峰期，交通流畅",
+                "所在车道": "最左侧车道",
+                "操作": "正常巡航行驶，无需频繁超车",
+                "结果": "成功（非高峰期左侧车道可用）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "出租车",
+                "道路场景": "城市内高速公路",
+                "交通状况": "高峰期",
+                "目标": "需在下一个出口立即下高速",
+                "操作": "提前2公里开始逐步向右变道，最终安全进入出口匝道",
+                "结果": "成功（及早搜索出口并调整位置）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路场景": "城市内高速公路",
+                "交通状况": "高峰期车速极慢",
+                "所在车道": "左侧车道",
+                "操作": "保持左侧车道行驶，仅在必要时超车后返回中间车道",
+                "结果": "成功（合理使用左侧车道）"
+            }
+        ]
+    },
+    {
+        "rule": "DISABLED VEHICLES\nWhen seeing a disabled vehicle ahead, a motorist should reduce speed and increase the space between his/her vehicle and the disabled vehicle. This may involve changing lanes. Be alert for pedestrians, tow trucks, and/or police vehicles. (See New Jersey’s “Move Over” law later in this chapter.)\nIf a motorist’s vehicle becomes disabled, he/she must:\n• Pull off as far as possible onto the shoulder or median.\n• Turn on emergency flashers.\n• Raise the hood to signal for assistance.\n• Stay in the vehicle, keep your seatbelt on and lock the doors.\n• If available, use a cell phone to call for help.\n• Ask anyone who stops to go to a phone and call for assistance.\n• Do not get into a stranger’s vehicle.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "正常行驶的机动车驾驶人",
+                "场景": "前方道路同车道有故障车辆",
+                "操作": "减速并增大与故障车辆的车间距，同时安全变道",
+                "结果": "成功（符合规定）"
+            },
+            {
+                "id": 2,
+                "主体": "正常行驶的机动车驾驶人",
+                "场景": "前方道路同车道有故障车辆",
+                "操作": "不减速、不增加跟车距离、直接靠近通过",
+                "结果": "失败（违反安全规定）"
+            },
+            {
+                "id": 3,
+                "主体": "正常行驶的机动车驾驶人",
+                "场景": "前方路肩停有故障车并有拖车正在作业",
+                "操作": "提前减速并安全变更到远离故障车的车道",
+                "结果": "成功（符合规定且符合Move Over法）"
+            },
+            {
+                "id": 4,
+                "主体": "自身车辆故障的驾驶人",
+                "场景": "车辆在高速公路上抛锚",
+                "操作": "尽可能靠右停到应急车道、开启双闪、抬起引擎盖、留在车内系好安全带并锁门、用手机呼救",
+                "结果": "成功（完全符合规定）"
+            },
+            {
+                "id": 5,
+                "主体": "自身车辆故障的驾驶人",
+                "场景": "车辆在高速公路上抛锚",
+                "操作": "仅开启双闪但继续停在行车道上",
+                "结果": "失败（严重违反规定）"
+            },
+            {
+                "id": 6,
+                "主体": "自身车辆故障的驾驶人",
+                "场景": "车辆在普通城市道路抛锚",
+                "操作": "停在路边开启双闪、抬起引擎盖、下车站在车旁等救援",
+                "结果": "失败（未留在车内，存在安全隐患）"
+            },
+            {
+                "id": 7,
+                "主体": "自身车辆故障的驾驶人",
+                "场景": "夜间在无路灯的高速公路抛锚",
+                "操作": "停在应急车道、开启双闪、抬起引擎盖、留在车内锁门并拨打救援电话",
+                "结果": "成功（符合规定）"
+            },
+            {
+                "id": 8,
+                "主体": "自身车辆故障的驾驶人",
+                "场景": "车辆抛锚，有好心人停车询问",
+                "操作": "隔着车窗请对方帮忙打电话报警或呼叫拖车，拒绝上陌生人的车",
+                "结果": "成功（符合人身安全规定）"
+            },
+            {
+                "id": 9,
+                "主体": "自身车辆故障的驾驶人",
+                "场景": "车辆抛锚，有陌生车辆停车",
+                "操作": "直接上陌生人的车离开现场",
+                "结果": "失败（严重违反人身安全规定）"
+            },
+            {
+                "id": 10,
+                "主体": "自身车辆故障的驾驶人",
+                "场景": "车辆在有中央隔离带的高速公路左侧抛锚",
+                "操作": "尽可能靠左停到左侧应急带、开启双闪、抬起引擎盖、留在车内等待救援",
+                "结果": "成功（符合规定）"
+            }
+        ]
+    },
+    {
+        "rule": "CONSTRUCTION AREAS\nA motorist should always stay alert for construction-area warning signs. When coming across these areas, a motorist should adjust speed and adjust position to maintain space around his/her vehicle.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路施工区",
+                "施工区警告标志": "有（限速45 mph，左侧车道封闭）",
+                "实际速度": "45 mph",
+                "车道位置调整": "提前并入右侧开放车道，保持安全间距",
+                "结果": "成功（合规安全通过）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路施工区",
+                "施工区警告标志": "有（限速45 mph，左侧车道封闭）",
+                "实际速度": "65 mph",
+                "车道位置调整": "未减速，继续原车道行驶",
+                "结果": "失败（超速+未及时避让施工区，违章且危险）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "城市主干道维修路段",
+                "施工区警告标志": "有（前方500米限速25 mph，右侧车道封闭）",
+                "实际速度": "25 mph",
+                "车道位置调整": "提前500米并入左侧车道，与前后车保持大于50米间距",
+                "结果": "成功（合规安全通过）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "乡村公路临时维修",
+                "施工区警告标志": "无（突然出现施工人员和锥桶，未设提前警告）",
+                "实际速度": "60 mph",
+                "车道位置调整": "发现时急刹车并紧急避让",
+                "结果": "失败（虽无提前标志，但仍应保持警惕，急刹属于危险驾驶）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "桥梁维修施工区",
+                "施工区警告标志": "有（限速35 mph，双向变单向通行）",
+                "实际速度": "35 mph",
+                "车道位置调整": "降低速度，排队等候放行信号，保持与前车10米以上间距",
+                "结果": "成功（合规安全通过）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "夜间高速公路施工区",
+                "施工区警告标志": "有（闪烁黄灯+限速50 mph+工人正在作业）",
+                "实际速度": "70 mph",
+                "车道位置调整": "未减速，未移动到最左侧开放车道，紧跟前车",
+                "结果": "失败（严重违章，施工区超速+危及工人安全）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "隧道内施工维护",
+                "施工区警告标志": "有（限速40 mph，右侧封闭，左侧双向通行）",
+                "实际速度": "38 mph",
+                "车道位置调整": "提前开启示廓灯，平稳并入左侧通行车道，保持与前后车大于100米间距",
+                "结果": "成功（合规且体现高度警惕）"
+            }
+        ]
+    },
+    {
+        "rule": "TOLL BOOTHS\nA motorist should stay alert for toll booth signs and begin reducing speed early, as traffic may be backed up at the booth. Green lights or signals highlight open booths. A motorist should be aware of EZ Pass booths and lanes, including high speed EZ Pass lanes. When exiting toll booths, a motorist should search traffic to both sides for merging potential, accelerate smoothly and adjust speed.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "收费站类型": "普通现金通道",
+                "前方距离": "500米发现收费站标志",
+                "操作": "提前减速，选择绿灯开放通道，平稳停车缴费",
+                "结果": "成功（安全通过）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "收费站类型": "普通现金通道",
+                "前方距离": "仅剩50米才猛烈减速",
+                "操作": "紧急制动，强行插入排队车流",
+                "结果": "失败（危险行为，易引发追尾）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "是否有ETC": "有有效ETC设备",
+                "收费站类型": "高速ETC专用通道（限速30mph）",
+                "实际速度": "25 mph",
+                "操作": "不减速直接通过",
+                "结果": "成功（安全快速通过）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "是否有ETC": "无ETC",
+                "收费站类型": "高速ETC专用通道",
+                "操作": "强行闯入高速ETC通道",
+                "结果": "失败（触发报警，罚款+可能撞杆）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "是否有ETC": "有有效ETC设备",
+                "收费站类型": "普通ETC通道（限速5mph）",
+                "实际速度": "15 mph",
+                "操作": "高速冲ETC通道",
+                "结果": "失败（读卡失败+可能撞击龙门架）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "是否有ETC": "有有效ETC设备",
+                "收费站类型": "开放式高速ETC通道（限速60mph）",
+                "实际速度": "55 mph",
+                "操作": "保持车道、匀速通过",
+                "结果": "成功（最佳通过方式）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "收费站类型": "现金通道",
+                "操作": "缴费后猛加速冲出，同时未观察两侧来车",
+                "结果": "失败（易与并道车辆发生侧撞）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "收费站类型": "现金通道",
+                "操作": "缴费后开启转向灯，观察左右后视镜，平稳加速并入主线车流",
+                "结果": "成功（安全汇入）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "是否有ETC": "有ETC",
+                "收费站类型": "标有“ETC/现金混合通道”",
+                "操作": "选择该通道，减速至5mph缓慢通过",
+                "结果": "成功（允许，但非最优）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "收费站类型": "所有通道红灯、排队严重",
+                "操作": "在距离收费站200米开始逐步减速，跟随前车排队",
+                "结果": "成功（正确应对拥堵）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nCurves\nIt is important for a motorist to adjust steering and speed when approaching a curve in the road. The best way to enter a curve is to slow down before entering and avoid drifting into another lane. A motorist should always watch for vehicles that may drift into his/her lane as well. Check for Curve Ahead warning signs and recommended speeds.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路情况": "前方有弯道警示标志，建议速度35 mph",
+                "进入弯道前操作": "提前减速至35 mph，保持在本人车道内",
+                "结果": "成功（安全通过）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路情况": "前方有弯道警示标志，建议速度35 mph",
+                "进入弯道前操作": "未提前减速，进入弯道时速度仍60 mph",
+                "结果": "失败（车辆失控或冲出路面）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路情况": "急弯，建议速度30 mph",
+                "进入弯道前操作": "提前减速至28 mph，方向盘平稳转动，保持车道",
+                "结果": "成功（安全通过）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路情况": "弯道无警示标志，但路面可见明显弯曲",
+                "进入弯道前操作": "进入弯道时才刹车并大幅转动方向盘，车辆漂移到对向车道",
+                "结果": "失败（侵入对向车道，存在事故风险）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路情况": "连续S弯，建议速度40 mph",
+                "进入弯道前操作": "提前减速至38 mph，身体适度倾斜，视线看向出弯方向",
+                "结果": "成功（安全通过）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路情况": "夜间下雨，弯道湿滑，有警示标志建议30 mph",
+                "进入弯道前操作": "未减速，进入弯道速度55 mph",
+                "结果": "失败（侧滑失控）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路情况": "下坡急弯，建议速度25 mph",
+                "进入弯道前操作": "提前降至三档辅助制动，速度控制在25 mph以内，保持外侧车道",
+                "结果": "成功（安全通过）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路情况": "对向来车在弯道内侵占本方车道",
+                "自身操作": "提前减速至建议速度，靠右侧行驶并鸣笛示警",
+                "结果": "成功（避免碰撞）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路情况": "弯道前有“减速”及建议速度标志",
+                "进入弯道前操作": "完全忽略标志，保持原速度80 mph进入弯道",
+                "结果": "失败（严重违章且极高风险）"
+            }
+        ]
+    },
+    {
+        "rule": "Interchanges\nDivided roadways are built for express traffic. To ease traffic flow, there are usually no traffic lights or direct intersections. To enter or exit such an expressway, a cloverleaf turn is often necessary. A motorist should watch for entrance and exit signs and drive slowly in the circle, obeying the posted speed limit.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "分离式高速公路互通立交",
+                "位置": "进入匝道环岛",
+                "实际速度": "20 mph",
+                "限速标志": "25 mph",
+                "行为": "正常进入环岛并按标志驶入主路",
+                "结果": "成功（合法安全）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "分离式高速公路互通立交",
+                "位置": "进入匝道环岛",
+                "实际速度": "40 mph",
+                "限速标志": "25 mph",
+                "行为": "高速进入环岛",
+                "结果": "失败（超速，危险驾驶）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "分离式高速公路互通立交",
+                "位置": "出口匝道环岛",
+                "实际速度": "15 mph",
+                "限速标志": "20 mph",
+                "行为": "缓慢谨慎通过环岛后顺利驶出",
+                "结果": "成功（合法安全）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "分离式高速公路互通立交",
+                "位置": "出口匝道环岛",
+                "实际速度": "35 mph",
+                "限速标志": "20 mph",
+                "行为": "未减速快速通过环岛",
+                "结果": "失败（严重超速，极易引发侧翻或失控）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "分离式高速公路互通立交",
+                "位置": "进入匝道环岛",
+                "实际速度": "25 mph",
+                "限速标志": "25 mph",
+                "行为": "提前观察入口标志，正确让行后进入",
+                "结果": "成功（合法安全）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "分离式高速公路互通立交",
+                "位置": "环岛内",
+                "实际速度": "30 mph",
+                "限速标志": "25 mph",
+                "行为": "未注意出口标志，错过出口后在环岛内急刹倒车",
+                "结果": "失败（超速+环岛内倒车，双重严重违章）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "分离式高速公路互通立交",
+                "位置": "进入匝道环岛",
+                "实际速度": "18 mph",
+                "限速标志": "25 mph",
+                "行为": "提前变道、充分减速、观察入口标志后安全进入",
+                "结果": "成功（合法安全）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "分离式高速公路互通立交",
+                "位置": "出口匝道环岛",
+                "实际速度": "0 mph（停车）",
+                "限速标志": "20 mph",
+                "行为": "在环岛内停车查看导航",
+                "结果": "失败（环岛内禁止停车，严重妨碍交通）"
+            }
+        ]
+    },
+    {
+        "rule": "Turning Regulations\nRIGHT TURN ON RED\nUnless a No Turn on Red sign is posted, New Jersey law authorizes a right turn on a red light after a motorist comes to a full stop and checks for traffic. A motorist must yield to all oncoming traffic and pedestrians before turning right at a red light. Difficult-to-see vehicles, such as bicycles and mopeds, may have a green light, so it is important for a motorist to be aware of their presence. (N.J.S.A. 39:4-115) Always use a proper turn signal at least 100 feet before making any turn and cancel the signal after completing the turn. (N.J.S.A. 39:4-126)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "红灯状态": "红灯",
+                "标志": "无‘禁止红灯右转’标志",
+                "操作步骤": "完全停车 → 观察左右及对向 → 确认无来车无行人 → 打右转向灯100英尺以上 → 右转",
+                "其他交通参与者": "无",
+                "结果": "成功（合法红灯右转）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "红灯状态": "红灯",
+                "标志": "有‘禁止红灯右转’标志",
+                "操作步骤": "完全停车后直接右转",
+                "结果": "失败（违反禁止红灯右转标志）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "红灯状态": "红灯",
+                "标志": "无‘禁止红灯右转’标志",
+                "操作步骤": "未完全停车直接缓慢右转",
+                "结果": "失败（未完全停车）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "红灯状态": "红灯",
+                "标志": "无‘禁止红灯右转’标志",
+                "操作步骤": "完全停车 → 对向有机动车直行通过 → 抢先右转",
+                "其他交通参与者": "对向直行机动车",
+                "结果": "失败（未让行对向直行车）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "红灯状态": "红灯",
+                "标志": "无‘禁止红灯右转’标志",
+                "操作步骤": "完全停车 → 人行横道上有行人通过 → 仍右转",
+                "其他交通参与者": "人行横道上行人",
+                "结果": "失败（未让行行人）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "红灯状态": "红灯",
+                "标志": "无‘禁止红灯右转’标志",
+                "操作步骤": "完全停车 → 未注意左侧非机动车道有自行车绿灯直行 → 右转导致险情",
+                "其他交通参与者": "左侧自行车直行（绿灯）",
+                "结果": "失败（未让行难以发现的自行车）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "红灯状态": "红灯",
+                "标志": "无‘禁止红灯右转’标志",
+                "操作步骤": "完全停车 → 确认安全 → 右转前未打转向灯或打灯不足100英尺",
+                "结果": "失败（转向灯使用不规范）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "红灯状态": "红灯",
+                "标志": "无‘禁止红灯右转’标志",
+                "操作步骤": "完全停车 → 确认无任何车辆和行人 → 打右转向灯 → 安全右转 → 转弯后及时关闭转向灯",
+                "其他交通参与者": "无",
+                "结果": "成功（完全合规红灯右转）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "轻便摩托车",
+                "红灯状态": "红灯",
+                "标志": "无‘禁止红灯右转’标志",
+                "操作步骤": "完全停车 → 有行人正在过斑马线 → 停车等待行人完全通过后右转",
+                "其他交通参与者": "斑马线行人（已通过）",
+                "结果": "成功（礼让行人后合法右转）"
+            }
+        ]
+    },
+    {
+        "rule": "RIGHT TURNS (N.J.S.A. 39:4-123)\nTo make a safe right turn, a motorist should approach the intersection as far to the right as possible, keeping near to the curb or parked vehicles. The motorist should not swing outward or into another lane while making the right turn. He/she should drive up to the turn as far to the right as possible, keeping close to the right curb or parked vehicles at the curb. Proper vehicle positioning prior to a right turn reduces the chance of another vehicle being in the space on the right as the motorist makes the turn. He/she should not swing into the wrong lane while making the turn. Use turn signal; SLOW DOWN.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "操作": "右转弯",
+                "转弯前位置": "紧靠右侧路缘石",
+                "转弯路径": "保持紧靠右侧，不摆宽",
+                "转向灯": "提前开启右转向灯",
+                "速度控制": "减速",
+                "结果": "成功（合法正确右转）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "操作": "右转弯",
+                "转弯前位置": "在道路中间车道",
+                "转弯路径": "保持紧靠右侧，不摆宽",
+                "转向灯": "提前开启右转向灯",
+                "速度控制": "减速",
+                "结果": "失败（转弯前未靠右，违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "操作": "右转弯",
+                "转弯前位置": "紧靠右侧路缘石",
+                "转弯路径": "先向左摆头再右转（大车摆宽）",
+                "转向灯": "提前开启右转向灯",
+                "速度控制": "减速",
+                "结果": "失败（禁止向左摆宽占用对向车道，违章）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "操作": "右转弯",
+                "转弯前位置": "紧靠右侧路缘石",
+                "转弯路径": "保持紧靠右侧，不摆宽",
+                "转向灯": "未开启转向灯",
+                "速度控制": "减速",
+                "结果": "失败（未打转向灯，违章）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "操作": "右转弯",
+                "转弯前位置": "紧靠右侧路缘石",
+                "转弯路径": "转弯时摆向左侧车道",
+                "转向灯": "提前开启右转向灯",
+                "速度控制": "减速",
+                "结果": "失败（转弯时摆入错误车道，违章）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "操作": "右转弯",
+                "转弯前位置": "最右侧车道，靠近路缘石",
+                "转弯路径": "保持紧靠右侧，不摆宽",
+                "转向灯": "提前开启右转向灯",
+                "速度控制": "明显减速",
+                "结果": "成功（合法正确右转）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "操作": "右转弯",
+                "转弯前位置": "紧靠右侧路缘石",
+                "转弯路径": "保持紧靠右侧，不摆宽",
+                "转向灯": "提前开启右转向灯",
+                "速度控制": "未减速，直接高速右转",
+                "结果": "失败（右转未减速，危险驾驶违章）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "操作": "右转弯（有足够转弯半径的多车道道路）",
+                "转弯前位置": "最右侧车道，尽量靠右",
+                "转弯路径": "内轮差范围内不压对向车道",
+                "转向灯": "提前开启右转向灯",
+                "速度控制": "减速慢行",
+                "结果": "成功（合法正确右转）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nLEFT TURNS (N.J.S.A. 39:4-123)\nLeft turns, two vehicles: When two vehicles meet at an intersection and both have signaled to turn left, extra caution must be applied. When safe, each motorist should turn to the left of the center of the intersection.\nLeft turn from a one-way road on to a one-way road: Approaching the turn in the left lane, the motorist should turn into the left lane of the road he/she is entering.\nLeft turn from a two-way road onto a two-way road: Approach the turn as close as possible to the line nearest to the center of the road. When turning, the vehicle should not cross lane markings. The motorist should keep to the right of the center line of the road that the vehicle is entering.\nLeft turns, between intersections: Between intersections, solid lines show when not to pass. However, these lines may be crossed with care when entering or leaving driveways in business or residential areas.\nLeft turn from a two-way road onto a four-lane highway: Approach the turn as close to the center line to the right side of the road as possible. Make the turn before reaching the center of the intersection. It is important not to cross lane markings. The motorist should turn into the lane nearest the center line of the right side of the other road. This is the passing lane of the four-lane highway. When traffic permits, the motorist should move to the right, out of the passing lane. Use turn signal; Yield to oncoming traffic; DO NOT CROSS DIVIDING LINE; Don’t cut corners.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "两条车在无控制交叉口相遇均左转",
+                "转向意图": "双方均已打左转向灯",
+                "转弯路径": "各自从路口中心左侧绕过",
+                "结果": "成功（合法正确）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "两条车在无控制交叉口相遇均左转",
+                "转向意图": "双方均已打左转向灯",
+                "转弯路径": "右侧车辆强行切入中心点右侧",
+                "结果": "失败（路径错误，易引发碰撞）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "场景": "单向道路左转进入另一单向道路",
+                "所在车道": "最左侧车道",
+                "进入车道": "进入道路的最左侧车道",
+                "结果": "成功（合法正确）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "单向道路左转进入另一单向道路",
+                "所在车道": "最左侧车道",
+                "进入车道": "进入道路的中间或右侧车道",
+                "结果": "失败（违规占道）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "双向道路左转进入双向道路",
+                "转前位置": "紧贴道路中心线",
+                "转弯路径": "转弯后保持在进入道路中心线右侧，不越过中心线",
+                "结果": "成功（合法正确）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "双向道路左转进入双向道路",
+                "转前位置": "远离中心线（靠右侧行驶）",
+                "转弯路径": "切大弯越过进入道路中心线",
+                "结果": "失败（违规切角、占对向车道）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "场景": "双向道路左转进入四车道公路",
+                "转前位置": "紧贴中心线",
+                "转弯路径": "在路口中心前完成转弯，先进入最靠近中心线的车道（即对向的超车道），随后安全时再并入右侧车道",
+                "是否让行对向来车": "是",
+                "是否越过分隔线": "否",
+                "结果": "成功（合法正确）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "双向道路左转进入四车道公路",
+                "转前位置": "紧贴中心线",
+                "转弯路径": "直接切角进入最右侧车道",
+                "结果": "失败（违规切角）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "双向道路左转进入四车道公路",
+                "转前位置": "靠右侧行驶",
+                "转弯路径": "大转弯越过中心分隔线",
+                "是否让行对向来车": "否",
+                "结果": "失败（多重违章：未让行、越线、切角）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "路段中间（非路口）左转进入商住区车道",
+                "车道线类型": "实线禁止超车",
+                "操作": "谨慎跨实线后完成左转",
+                "结果": "成功（法规允许谨慎进出车道）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "场景": "所有左转场景通用要求",
+                "转向灯": "提前100英尺以上开启",
+                "是否让行对向直行及左转车辆": "是",
+                "结果": "成功（满足基本礼让和信号要求）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nStopping Regulations\nSigns, signals, and traffic rules indicate when a motorist must stop. A motorist must be careful when traveling through an intersection and exercise caution when proceeding from a red light after the light turns green. There may be other vehicles coming through or still in the intersection.\nMost crashes at traffic signals happen in the first few seconds after the light has changed. When a yellow light follows a green light, a motorist must stop before entering the intersection, unless yellow appears when the vehicle is too close to stop safely. If the light changes while a driver is already in the intersection, he/she should go through with caution. Be alert for a stale green light; this is a light that has been green for some time. Be prepared for it to change to yellow and then to red. Slow down and stop accordingly.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "信号灯状态": "红灯",
+                "车辆位置": "停止线前5米",
+                "操作": "立即停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "信号灯状态": "红灯",
+                "车辆位置": "停止线前5米",
+                "操作": "闯红灯直接通过",
+                "结果": "失败（闯红灯违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "信号灯状态": "绿灯变黄灯",
+                "车辆位置": "距离停止线30米（能安全停车）",
+                "操作": "及时在停止线前停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "信号灯状态": "绿灯变黄灯",
+                "车辆位置": "距离停止线30米（能安全停车）",
+                "操作": "强行加速闯黄灯",
+                "结果": "失败（闯黄灯违章）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "信号灯状态": "绿灯变黄灯",
+                "车辆位置": "距离停止线3米（已非常接近，无法安全停车）",
+                "操作": "正常通过路口",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "信号灯状态": "黄灯",
+                "车辆位置": "车身前部已越过停止线进入路口",
+                "操作": "继续谨慎通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "信号灯状态": "长时间绿灯（已显陈旧）",
+                "车辆位置": "接近路口50米",
+                "操作": "提前减速准备停车",
+                "结果": "成功（合法且安全）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "信号灯状态": "长时间绿灯后突然变黄灯",
+                "车辆位置": "接近路口50米",
+                "操作": "全速冲过路口",
+                "结果": "失败（闯黄灯违章，可能引发事故）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "信号灯状态": "红灯刚变绿灯",
+                "车辆位置": "停止线前",
+                "操作": "观察左右确认安全后缓慢启动",
+                "结果": "成功（合法且安全）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "信号灯状态": "红灯刚变绿灯",
+                "车辆位置": "停止线前",
+                "操作": "未观察直接猛加速冲出",
+                "其他情况": "对向仍有直行车未完全通过",
+                "结果": "失败（危险驾驶，可能造成碰撞）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "信号灯状态": "黄灯",
+                "车辆位置": "距离停止线8米（刹车距离足够）",
+                "操作": "紧急制动停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 12,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "信号灯状态": "绿灯",
+                "车辆位置": "已进入路口中央",
+                "信号灯变化": "突然变为红灯",
+                "操作": "继续完成通过路口",
+                "结果": "成功（合法）"
+            }
+        ]
+    },
+    {
+        "rule": "A motorist must stop:\n• At an intersection with a stop sign.\n• At an intersection with a red light either flashing or illuminated.\n• At an intersection with a yellow light after a green light, unless too close to stop safely.\n• When a traffic officer orders the vehicle to stop.\n• When there is a yield sign and traffic does not permit a safe merge.\n• When a school bus is picking up or letting off children and/or the red lights are flashing.\n• When coming from an alley, private driveway, or building.\n• At a bridge span that is about to open for boat traffic.\n• For a blind pedestrian using a white or metallic walking cane, or a trained guide dog, or a guide dog instructor engaged in instructing a guide dog.\n• For a pedestrian in a crosswalk or at an intersection.\n• For a motorized wheelchair or mobility-assistance device in a crosswalk or at an intersection.\nSingle white lines show motorists where to stop at stop signs or traffic signals.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "场景": "交叉口有停止标志（STOP标牌）",
+                "车辆行为": "完全停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "场景": "交叉口有停止标志（STOP标牌）",
+                "车辆行为": "减速通过未完全停车",
+                "结果": "失败（违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "场景": "红灯常亮",
+                "车辆行为": "完全停车等候",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "场景": "闪烁红灯",
+                "车辆行为": "直接通过未停车",
+                "结果": "失败（违章）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "场景": "绿灯变黄灯，距离停止线较远可安全停车",
+                "车辆行为": "继续通过",
+                "结果": "失败（违章）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "场景": "绿灯变黄灯，已非常接近停止线无法安全停车",
+                "车辆行为": "小心通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "场景": "交警举手示意停车",
+                "车辆行为": "立即停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "场景": "让行标志（YIELD），对向车流密集无法安全汇入",
+                "车辆行为": "完全停车让行",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "场景": "校车停靠、红灯闪烁、停止牌伸出",
+                "车辆行为": "完全停车等候",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "场景": "校车红灯闪烁但停止牌未伸出",
+                "车辆行为": "减速慢行通过",
+                "结果": "失败（违章）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "场景": "从私人车道驶出进入道路",
+                "车辆行为": "完全停车观察后驶出",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 12,
+                "主体": "机动车驾驶人",
+                "场景": "升降桥即将开启通行船只",
+                "车辆行为": "在桥前完全停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 13,
+                "主体": "机动车驾驶人",
+                "场景": "盲人持白色盲杖过马线",
+                "车辆行为": "提前完全停车让行",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 14,
+                "主体": "机动车驾驶人",
+                "场景": "行人在有人行横道内行走",
+                "车辆行为": "完全停车让行",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 15,
+                "主体": "机动车驾驶人",
+                "场景": "电动轮椅在人行横道内",
+                "车辆行为": "抢行通过",
+                "结果": "失败（违章）"
+            },
+            {
+                "id": 16,
+                "主体": "机动车驾驶人",
+                "场景": "交叉口有单白停止线和停止标志",
+                "车辆行为": "车头停在停止线前完全停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 17,
+                "主体": "机动车驾驶人",
+                "场景": "交叉口有单白停止线和停止标志",
+                "车辆行为": "车头越过停止线才停车",
+                "结果": "失败（违章）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSTOP AT RAILROAD CROSSINGS\nTo ensure public safety, the New Jersey Department of Transportation (NJDOT) and railroads mark public highway rail-grade crossings, also known as railroad crossings with one or more warning devices. Warning devices include advance-warning signs, pavement markings in front of a railroad crossing’s flashing red lights (usually on railroad crossing signs), gates or gates with flashing red lights, ringing bells, and flag signals.\nA motorist must stop at least 15 feet from a railroad crossing when there are flashing red lights, ringing bells, descending or lowered gates, or flag signals. Flashing red lights, ringing bells, descending gates or gates that have already been lowered indicate that a train is coming, and a motorist must stop. A motorist should never cross until the gates have been raised, the bells have stopped ringing and the red lights have stopped flashing. (N.J.S.A. 39:4-127.1) Never race a train. A motorist can underestimate the speed and distance of trains. Most trains need more than a mile to stop if traveling at 60 mph or more.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "公路铁路平交道口",
+                "警示装置状态": "无任何警示（无闪灯、无铃声、无降闸、无旗手）",
+                "列车情况": "无列车接近",
+                "操作": "正常通过道口",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "公路铁路平交道口",
+                "警示装置状态": "红灯闪烁+铃声响起",
+                "列车情况": "列车正在接近",
+                "停车距离": "20英尺",
+                "操作": "立即停车等待",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "公路铁路平交道口",
+                "警示装置状态": "红灯闪烁+铃声响起",
+                "列车情况": "列车正在接近",
+                "停车距离": "10英尺（不足15英尺）",
+                "操作": "停车但距离不足",
+                "结果": "失败（违反停车距离要求）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "公路铁路平交道口",
+                "警示装置状态": "闸门正在下降",
+                "列车情况": "列车正在接近",
+                "操作": "冲闸强行通过",
+                "结果": "失败（严重违章）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "公路铁路平交道口",
+                "警示装置状态": "闸门已完全降下+红灯闪烁+铃声持续",
+                "列车情况": "列车已通过，闸门开始升起，红灯仍闪烁，铃声未停",
+                "操作": "等待至闸门完全升起、红灯熄灭、铃声停止后通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "公路铁路平交道口",
+                "警示装置状态": "闸门已降下+红灯闪烁+铃声响起",
+                "列车情况": "列车已通过，但红灯仍在闪烁",
+                "操作": "红灯未熄灭即驶入道口",
+                "结果": "失败（违反必须等红灯熄灭规定）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "公路铁路平交道口",
+                "警示装置状态": "旗手挥动红旗示意停车",
+                "列车情况": "列车正在接近",
+                "操作": "立即在15英尺外停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "公路铁路平交道口",
+                "警示装置状态": "红灯闪烁+铃声响起+闸门降下",
+                "列车情况": "列车正在接近",
+                "操作": "试图与列车赛跑抢通过",
+                "结果": "失败（极端危险违章）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "公路铁路平交道口",
+                "警示装置状态": "仅提前警示圆形标志，无其他主动警示装置激活",
+                "列车情况": "无列车",
+                "操作": "减速观察后安全通过",
+                "结果": "成功（合法）"
+            }
+        ]
+    },
+    {
+        "rule": "Special Circumstances:\nSome vehicles, such as school buses, buses, or vehicles carrying hazardous materials must always stop at railroad crossings. When driving behind one of these vehicles, a motorist must be prepared to stop, even if the signals do not indicate a train is coming. (N.J.S.A. 39:4-128)\nA motorist should never stop his/her vehicle on railroad tracks. When crossings railroad tracks, a motorist should make sure there is room on the other side to get completely across. If warning devices activate while a motorist is crossing railroad tracks, he/she should immediately proceed to the other side.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "校车驾驶人",
+                "车辆类型": "校车",
+                "场景": "铁路道口",
+                "道口信号": "无列车信号",
+                "操作": "完全停车后通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "校车驾驶人",
+                "车辆类型": "校车",
+                "场景": "铁路道口",
+                "道口信号": "无列车信号",
+                "操作": "未停车直接通过",
+                "结果": "失败（违章）"
+            },
+            {
+                "id": 3,
+                "主体": "普通小型轿车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "铁路道口（跟随校车后方）",
+                "前方车辆": "校车正在停车",
+                "操作": "及时减速并完全停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "普通小型轿车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "铁路道口（跟随校车后方）",
+                "前方车辆": "校车正在停车",
+                "操作": "未停车，继续前行",
+                "结果": "失败（违章）"
+            },
+            {
+                "id": 5,
+                "主体": "危险品运输车驾驶人",
+                "车辆类型": "载有危险品的货车",
+                "场景": "铁路道口",
+                "道口信号": "红灯闪烁+栏杆下降",
+                "操作": "完全停车等待",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 6,
+                "主体": "公共汽车驾驶人",
+                "车辆类型": "大型客车（公交车）",
+                "场景": "铁路道口",
+                "道口信号": "无任何信号",
+                "操作": "完全停车后安全通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 7,
+                "主体": "小型轿车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "铁路道口",
+                "对面空间": "足够完全通过",
+                "操作": "一次性完全通过铁路轨道",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 8,
+                "主体": "小型轿车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "铁路道口",
+                "对面空间": "因前方拥堵无法完全通过",
+                "操作": "仍进入轨道后停在轨道上",
+                "结果": "失败（严重违章）"
+            },
+            {
+                "id": 9,
+                "主体": "小型轿车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "正在穿越铁路道口",
+                "道口信号": "过程中突然红灯闪烁+警铃响起",
+                "操作": "立即加速通过到对面安全区域",
+                "结果": "成功（合法且必要）"
+            },
+            {
+                "id": 10,
+                "主体": "小型轿车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "正在穿越铁路道口",
+                "道口信号": "过程中突然栏杆下降",
+                "操作": "停车在轨道中间等待",
+                "结果": "失败（严重违章，极度危险）"
+            },
+            {
+                "id": 11,
+                "主体": "普通货车驾驶人（非危险品）",
+                "车辆类型": "普通货车",
+                "场景": "铁路道口",
+                "道口信号": "无列车信号",
+                "操作": "观察无列车后直接通过",
+                "结果": "成功（合法，不强制停车）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSTOP FOR SCHOOL BUSES (N.J.S.A. 39:4-128.1)\nA motorist must stop for a school bus with flashing red lights. State law requires a motorist to stop at least 25 feet away if he/she is traveling on a two-lane road or on a multi-lane highway where lanes are only separated by lines, or on a privately maintained road. When traveling on a dual-lane highway, a motorist should slow to 10 mph if on the other side of a safety island or raised median. School buses are equipped with yellow (or amber) and red flashing lights. The yellow (or amber) lights go on before the bus stops and the red lights go on when the bus has stopped. However, a motorist should not depend on these lights, if driving behind a school bus. They could be malfunctioning.\nWhen a school bus stops, all motorists traveling behind or approaching the bus must stop their vehicles at least 25 feet away. A motorist should only proceed after the bus signals have been turned off and even then, he/she must watch for children or persons who have developmental disabilities.\nIf a school bus has stopped directly in front of a school to pick up or let off children or persons with developmental disabilities, a motorist may pass from either direction at a speed of no more than 10 mph. Cars must stop 25 feet from school buses.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双车道公路",
+                "校车状态": "闪红灯+停止",
+                "行驶方向": "校车后方",
+                "与校车距离": "30英尺",
+                "实际行为": "完全停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双车道公路",
+                "校车状态": "闪红灯+停止",
+                "行驶方向": "校车后方",
+                "与校车距离": "20英尺",
+                "实际行为": "未停车继续行驶",
+                "结果": "失败（违章，未在25英尺外停车）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "多车道公路（仅划线分隔，无物理隔离）",
+                "校车状态": "闪红灯+停止",
+                "行驶方向": "对向车道",
+                "实际行为": "完全停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "多车道公路（仅划线分隔，无物理隔离）",
+                "校车状态": "闪红灯+停止",
+                "行驶方向": "对向车道",
+                "实际行为": "未停车，直接通过",
+                "结果": "失败（违章，对向也必须停车）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向四车道（中间有安全岛/物理隔离带）",
+                "校车状态": "闪红灯+停止",
+                "行驶方向": "对向车道",
+                "实际速度": "10 mph",
+                "实际行为": "减速至10 mph通过",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双向四车道（中间有安全岛）",
+                "校车状态": "闪红灯+停止",
+                "行驶方向": "对向车道",
+                "实际速度": "25 mph",
+                "实际行为": "未减速，直接通过",
+                "结果": "失败（违章，必须减速至10 mph）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "学校正门前道路",
+                "校车状态": "停在学校正门前上下学生，闪红灯",
+                "行驶方向": "任意方向",
+                "实际速度": "10 mph",
+                "实际行为": "减速至10 mph小心通过",
+                "结果": "成功（合法，学校门前特例）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "学校正门前道路",
+                "校车状态": "停在学校正门前上下学生，闪红灯",
+                "行驶方向": "任意方向",
+                "实际速度": "20 mph",
+                "实际行为": "未减速，直接通过",
+                "结果": "失败（违章，学校门前通过不得超过10 mph）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "私人维护道路",
+                "校车状态": "闪红灯+停止",
+                "行驶方向": "校车后方",
+                "实际行为": "在25英尺外停车，红灯熄灭后继续行驶",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双车道公路",
+                "校车状态": "闪黄灯（尚未完全停稳）",
+                "行驶方向": "校车后方",
+                "实际行为": "提前减速准备停车",
+                "结果": "成功（合法，建议行为）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双车道公路",
+                "校车状态": "红灯故障未亮，但已伸出停车指示牌并完全停止",
+                "行驶方向": "校车后方",
+                "实际行为": "未停车，继续行驶",
+                "结果": "失败（违章，不能完全依赖灯光，必须观察停车指示牌及实际情况）"
+            },
+            {
+                "id": 12,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "双车道公路",
+                "校车状态": "红灯已熄灭，学生已全部安全离开马路",
+                "行驶方向": "校车后方",
+                "实际行为": "确认安全后继续行驶",
+                "结果": "成功（合法）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nSTOP FOR FROZEN DESSERT TRUCKS (N.J.S.A. 39:4-128.4)\nWhen approaching or overtaking an ice cream or frozen dessert truck from either direction, and the truck is flashing red lights and posting a stop signal arm, a motorist must:\n• Yield the right-of-way to any person who is crossing the roadway to or from the truck.\n• Watch out for children and be prepared to stop.\n• Stop, and then drive past the truck at a speed of no more than 15 mph.\n• A motorist needs not stop on a dual highway if he/she is on the other side of a safety island or raised median.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "普通双向道路",
+                "冰淇淋车状态": "闪烁红灯且伸出停止信号臂，有儿童正在横穿马路去车前",
+                "驾驶人所在车道": "与冰淇淋车同方向后方",
+                "操作": "完全停车，等待儿童安全通过后以不超过15 mph通过",
+                "结果": "成功（遵守规则）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "普通双向道路",
+                "冰淇淋车状态": "闪烁红灯且伸出停止信号臂，有儿童正在横穿马路去车前",
+                "驾驶人所在车道": "与冰淇淋车同方向后方",
+                "操作": "未停车，直接以30 mph超过冰淇淋车",
+                "结果": "失败（严重违章）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "普通双向道路",
+                "冰淇淋车状态": "闪烁红灯且伸出停止信号臂，无人横穿马路",
+                "驾驶人所在车道": "与冰淇淋车对向",
+                "操作": "减速至15 mph小心通过",
+                "结果": "成功（遵守规则）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "有中央隔离岛或高架分隔带的双车道公路",
+                "冰淇淋车状态": "闪烁红灯且伸出停止信号臂，有儿童正在横穿马路去车前",
+                "驾驶人所在车道": "与冰淇淋车相反方向，有安全岛或高架隔离带完全分隔",
+                "操作": "正常速度继续行驶，未停车",
+                "结果": "成功（法律允许不停车）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "仅画线分隔的双车道公路（无实体隔离）",
+                "冰淇淋车状态": "闪烁红灯且伸出停止信号臂",
+                "驾驶人所在车道": "与冰淇淋车相反方向",
+                "操作": "未停车，直接以40 mph对向通过",
+                "结果": "失败（仍需停车，即使是对向车道）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "普通双向道路",
+                "冰淇淋车状态": "闪烁红灯且伸出停止信号臂，有儿童正在横穿",
+                "驾驶人所在车道": "与冰淇淋车同方向前方（迎面超车情况）",
+                "操作": "完全停车，等待儿童安全后以10 mph缓慢通过",
+                "结果": "成功（遵守规则）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "普通双向道路",
+                "冰淇淋车状态": "闪烁红灯且伸出停止信号臂，无儿童但信号仍在",
+                "驾驶人所在车道": "与冰淇淋车同方向后方",
+                "操作": "停车后以20 mph通过",
+                "结果": "失败（通过时速度超过15 mph）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "有高架中央分隔带的公路",
+                "冰淇淋车状态": "闪烁红灯且伸出停止信号臂",
+                "驾驶人所在车道": "与冰淇淋车相反方向，有高架分隔带",
+                "操作": "保持原速60 mph通过",
+                "结果": "成功（法律允许不停车）"
+            }
+        ]
+    },
+    {
+        "rule": "PULL OVER AND STOP FOR EMERGENCY VEHICLES\nNew Jersey law requires all motorists to yield to emergency vehicles when emergency vehicles sound sirens and/or flashing red and/or blue emergency lights. A motorist should steer to the extreme right of the roadway, stop, and wait for the emergency vehicle to pass. Afterward, the motorist should keep at least 300 feet behind a signaling emergency vehicle. (N.J.S.A. 39:4-92)\nPolice cars, fire trucks, ambulances or other emergency vehicles have sirens and red lights. Private vehicles operated by volunteer fire and rescue squad members (with emergency vehicle identification) responding to an emergency call use blue lights. A motorist should never park within 200 feet of a fire department vehicle in service or drive over a fire hose unless directed to do so by a fire, emergency rescue or police official.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "正常行驶中前方有鸣笛并闪红蓝灯的救护车",
+                "操作": "立即靠道路最右侧停车让行，等待救护车通过后保持300英尺以上跟随",
+                "结果": "成功（合法合规）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "正常行驶中后方有鸣笛并闪红蓝灯的警车",
+                "操作": "不靠边停车，继续正常行驶",
+                "结果": "失败（违反让行规定）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "场景": "多车道公路，左侧车道有鸣笛闪红灯的消防车从后方接近",
+                "操作": "向右变更车道并靠最右侧停车，直至消防车完全通过",
+                "结果": "成功（合法合规）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "单车道道路，前方有闪蓝灯的志愿消防车（有应急标识）鸣笛接近",
+                "操作": "靠右停车让行",
+                "结果": "成功（合法合规）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "单车道道路，前方有闪蓝灯的志愿消防车（有应急标识）鸣笛接近",
+                "操作": "不停车，继续行驶或试图超车",
+                "结果": "失败（违反让行规定）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "应急车辆已通过，继续行驶时距离其后方仅150英尺",
+                "操作": "紧跟应急车辆",
+                "结果": "失败（未保持300英尺安全距离）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "场景": "道路右侧停有正在执行任务的消防车（闪红灯）",
+                "操作": "停车位置距离消防车180英尺",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "道路右侧停有正在执行任务的消防车（闪红灯）",
+                "操作": "停车位置距离消防车50英尺",
+                "结果": "失败（禁止停在200英尺以内）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "场景": "前方地面铺有消防水带，无消防人员或警察指挥",
+                "操作": "直接碾压驶过消防水带",
+                "结果": "失败（违法）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "前方地面铺有消防水带，消防员明确手势指挥可以通过",
+                "操作": "按照指挥小心驶过消防水带",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "场景": "后方救护车鸣笛闪灯，但驾驶人未听到也未看到灯（主观无察觉）",
+                "操作": "继续正常行驶，未靠边停车",
+                "结果": "失败（客观构成不让行，仍属违章）"
+            }
+        ]
+    },
+    {
+        "rule": "MOVE OVER LAW\nNew Jersey’s “Move Over” law requires all motorists approaching a stationary, authorized emergency vehicle, tow truck, highway maintenance, other emergency service vehicle that is displaying a flashing, blinking or alternating red, blue, amber or yellow light, or a configuration of lights containing one of these colors, or a disabled vehicle that is flashing hazard warning signal lights or utilizing road flares or reflective triangles, to change lanes, safety and traffic conditions permitting, into a lane not adjacent to the stationary emergency or disabled vehicle. If a lane change is impossible, prohibited by law or unsafe, the motorist must reduce the speed of his/her vehicle to a reasonable and proper speed that is lower than the posted speed limit and be prepared to stop, if necessary. Motorists who violate this law face a fine of not less than $100 and not more than $500. (N.J.S.A. 39:4-92.2) Additionally, motorists convicted of three or more offenses may be subject to motor vehicle penalty points. (N.J.S.A. 39:5-30.5)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路车道数": "双向4车道",
+                "当前车道": "最内侧车道（距应急车最近）",
+                "前方情况": "路边停放警车，开蓝色爆闪灯",
+                "交通状况": "安全、可变道",
+                "操作": "提前变道至左侧车道，远离警车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路车道数": "双向4车道",
+                "当前车道": "最内侧车道（距应急车最近）",
+                "前方情况": "路边停放拖车，开黄色爆闪灯",
+                "交通状况": "安全、可变道",
+                "操作": "未变道，继续同车道行驶",
+                "结果": "失败（违反Move Over法，罚款100-500美元）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路车道数": "双向2车道（仅有一条同向车道）",
+                "当前车道": "唯一同向车道",
+                "前方情况": "路边停放救护车，开红色爆闪灯",
+                "交通状况": "无法变道",
+                "操作": "减速至限速以下，做好随时停车准备",
+                "实际速度": "比限速低15 mph",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路车道数": "双向2车道",
+                "当前车道": "唯一同向车道",
+                "前方情况": "路边故障车，开双闪并放置三角警示牌",
+                "交通状况": "无法变道",
+                "操作": "未减速，继续以限速行驶",
+                "实际速度": "等于限速",
+                "结果": "失败（违反Move Over法，罚款100-500美元）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路车道数": "双向6车道",
+                "当前车道": "中间车道（非最内侧）",
+                "前方情况": "最内侧路边停放养护车，开黄色爆闪灯",
+                "交通状况": "安全、可再向左变道",
+                "操作": "提前再向左变一道，远离养护车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路车道数": "双向4车道",
+                "当前车道": "最外侧车道（距应急车最远）",
+                "前方情况": "最内侧路边停放消防车，开红蓝爆闪灯",
+                "交通状况": "安全",
+                "操作": "保持原车道正常行驶",
+                "结果": "成功（合法，已不在相邻车道）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路车道数": "双向4车道",
+                "当前车道": "次内侧车道（与应急车相邻）",
+                "前方情况": "最内侧路边停放垃圾清运车（非授权应急车辆，无爆闪灯）",
+                "交通状况": "任意",
+                "操作": "未变道，继续原车道行驶",
+                "结果": "成功（合法，不适用Move Over法）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路车道数": "双向2车道",
+                "当前车道": "唯一同向车道",
+                "前方情况": "路边故障私家车，仅开双闪，未放置三角牌",
+                "交通状况": "无法变道",
+                "操作": "未减速，继续正常行驶",
+                "结果": "失败（违反Move Over法，故障车开双闪适用该法）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路车道数": "双向4车道",
+                "当前车道": "最内侧车道",
+                "前方情况": "路边停放警车，开红蓝爆闪灯",
+                "交通状况": "左侧车道被施工占用，无法变道",
+                "操作": "明显减速至限速以下，做好停车准备",
+                "实际速度": "比限速低20 mph",
+                "结果": "成功（合法）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nMESSAGE FROM THE ATTORNEY GENERAL\nFor many people, being pulled over by a Police Officer while driving a vehicle can be a stressful event. In order to make the traffic stop as safe and pleasant as possible for all involved, here are some important tips:\n• Pull over in a safe place as soon as possible.\n• Be courteous, mutual respect between the officer and the driver is expected and encouraged.\n• Have your license, insurance card and registration in a place you can easily access.\n• Turn down your music.\n• If you are stopped at night, turn on your dome and/or interior lights. This will increase the visibility inside your vehicle so the Officer will be less concerned about what he or she cannot see.\n• Roll down your window.\n• Keep your hands visible, preferably on the steering wheel.\n• Do not make sudden movements, particularly if the movements involve reaching into areas not visible to the Officer. If you must reach for something, wait for the Officer to come to your vehicle and tell the Officer what you are planning to do before you do it.\n• Stay calm and communicate with the Officer.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "场景": "夜间被警察示意停车",
+                "实际操作": "立即靠边安全停车、开室内灯、摇下车窗、双手放在方向盘、等待警察指示后取证件",
+                "结果": "成功（符合安全停车规范，警察安全感高）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "场景": "白天被警察示意停车",
+                "实际操作": "继续开出500米才停车",
+                "结果": "失败（未尽快在安全地点停车）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "场景": "被警察示意停车",
+                "实际操作": "停车后立即下车走向警车",
+                "结果": "失败（严重违规，可能引发警察高度紧张）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "场景": "夜间被警察示意停车",
+                "实际操作": "停车后不开室内灯、车窗只摇下2厘米、双手放在腿下",
+                "结果": "失败（未提高车内可见度、未保持双手可见）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "场景": "被警察示意停车",
+                "实际操作": "停车后主动大声播放音乐",
+                "结果": "失败（未调低音乐，影响交流）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "场景": "被警察示意停车，需要取驾驶证",
+                "实际操作": "先告知警察“我现在去副驾驶手套箱拿驾驶证和保险单”，待警察点头后再缓慢取出",
+                "结果": "成功（规范操作）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "场景": "被警察示意停车",
+                "实际操作": "停车后突然伸手到后座拿东西，未提前说明",
+                "结果": "失败（突发动作，易引发警察警觉）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "场景": "被警察示意停车",
+                "实际操作": "靠边停车、关掉发动机、摇下车窗、双手十点钟方向放在方向盘、礼貌问候警察",
+                "结果": "成功（最佳配合行为）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "场景": "被警察示意停车",
+                "实际操作": "态度恶劣、大声争吵、拒绝出示证件",
+                "结果": "失败（严重不礼貌且不配合，可能升级事态）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "场景": "高速路上被警察示意停车",
+                "实际操作": "打开双闪、逐步减速、靠最右侧应急车道停车",
+                "结果": "成功（高速路正确停车方式）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nUsing Headlights\nProper use of headlights is critical to safe driving. Headlights must be used between one-half hour after sunset and one-half hour before sunrise. Headlights must also be used when visibility is 500 feet or less, when using windshield wipers (during rain, snow, and ice) or when encountering fog, mist, smoke, or other factors that reduce visibility. (N.J.S.A. 39:3-46)\nBeing able to see clearly while driving is especially important. A vehicle’s lights should always be in good working order and clean. Headlights help other motorists see approaching vehicles. Parking or auxiliary lights cannot legally be used in place of headlights when headlights are required.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "日落前45分钟",
+                "天气": "晴朗，能见度大于500英尺",
+                "是否使用雨刷": "否",
+                "前大灯状态": "关闭",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "日落后31分钟",
+                "天气": "晴朗，能见度大于500英尺",
+                "是否使用雨刷": "否",
+                "前大灯状态": "关闭",
+                "结果": "失败（必须开启前大灯）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "时间": "日出前40分钟",
+                "天气": "晴朗",
+                "是否使用雨刷": "否",
+                "前大灯状态": "开启近光灯",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "白天",
+                "天气": "大雾，能见度400英尺",
+                "是否使用雨刷": "否",
+                "前大灯状态": "关闭",
+                "结果": "失败（能见度≤500英尺必须开灯）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "白天",
+                "天气": "中雨，能见度800英尺",
+                "是否使用雨刷": "是",
+                "前大灯状态": "开启近光灯",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "白天",
+                "天气": "暴雨，能见度600英尺",
+                "是否使用雨刷": "是",
+                "前大灯状态": "关闭",
+                "结果": "失败（使用雨刷时必须开灯）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "时间": "日落后20分钟",
+                "天气": "浓雾，能见度300英尺",
+                "是否使用雨刷": "否",
+                "前大灯状态": "仅开启示宽灯和辅助灯，未开前大灯",
+                "结果": "失败（禁止用停车灯或辅助灯替代前大灯）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "凌晨4:30（日出前35分钟）",
+                "天气": "下雪，能见度450英尺",
+                "是否使用雨刷": "是",
+                "前大灯状态": "开启远光灯",
+                "结果": "成功（合法，远光灯也符合要求）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "时间": "晚上8:00（日落后2小时）",
+                "天气": "晴朗，能见度大于500英尺",
+                "是否使用雨刷": "否",
+                "前大灯状态": "仅开启停车灯",
+                "结果": "失败（夜间必须使用前大灯）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "白天",
+                "天气": "烟雾，能见度500英尺",
+                "是否使用雨刷": "否",
+                "前大灯状态": "开启近光灯",
+                "结果": "成功（合法，能见度正好500英尺时建议开灯，规则要求≤500英尺必须开灯，此处合规）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "白天",
+                "天气": "晴朗，能见度501英尺",
+                "是否使用雨刷": "否",
+                "前大灯状态": "关闭",
+                "结果": "成功（合法）"
+            }
+        ]
+    },
+    {
+        "rule": "BRIGHT AND DIM\nHeadlights have two sets of beams: bright (high) and dim (low), which are controlled by a switch or button on or near the dashboard. The bright beam is for open country driving when there is no traffic in sight. The bright beam helps a motorist see farther ahead and peripherally or at a wider angle. At night, a motorist’s pupils are dilated, allowing more light to aid in the ability to see. Bright beams can momentarily blind other motorists by constricting the pupils and should not be used if other vehicles are approaching or when driving behind another vehicle. It can take three to five seconds for a motorist to recover from the glare of approaching high-beam headlights. At a speed of 50 mph, a motorist will have traveled the length of a football field while being unable to see. If a vehicle is approaching with high beams, a motorist should look to the right of the road until the vehicle passes. Never flash high beams at an approaching motorist.\nThe dim beams are used for city driving and driving in traffic on roadways. Dim beams are focused down on the road. Dim beams are used when traveling behind other vehicles or when another vehicle is approaching.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "夜间",
+                "道路环境": "无对向来车、无前车、无路灯的乡村道路",
+                "灯光状态": "远光灯（亮）",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "夜间",
+                "道路环境": "有对向来车，距离约200米",
+                "灯光状态": "远光灯（亮）",
+                "结果": "失败（违法使用远光灯）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "时间": "夜间",
+                "道路环境": "紧跟前车，车间距约30米",
+                "灯光状态": "远光灯（亮）",
+                "结果": "失败（违法使用远光灯）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "夜间",
+                "道路环境": "城市主干道，有路灯，有对向车流和前车",
+                "灯光状态": "近光灯（暗）",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "夜间",
+                "道路环境": "对向来车使用远光灯使人眩目",
+                "灯光状态": "用远光灯闪对方",
+                "结果": "失败（禁止用远光灯闪烁对向车辆）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "时间": "夜间",
+                "道路环境": "对向来车使用远光灯使人眩目",
+                "灯光状态": "视线移向道路右侧白线，保持近光灯",
+                "结果": "成功（正确应对）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "夜间",
+                "道路环境": "会车时距离不足150米仍继续使用远光灯",
+                "灯光状态": "远光灯（亮）",
+                "结果": "失败（会车时未及时切换近光灯）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "时间": "夜间",
+                "道路环境": "在无对向来车、无前车的开阔高速公路",
+                "灯光状态": "远光灯（亮）",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "白天晴天",
+                "道路环境": "城市道路",
+                "灯光状态": "远光灯（亮）",
+                "结果": "失败（白天禁止使用远光灯，仅夜间或特定情况例外）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "时间": "夜间",
+                "道路环境": "进入有路灯的城市区域后仍持续使用远光灯",
+                "灯光状态": "远光灯（亮）",
+                "结果": "失败（进入照明良好区域应使用近光灯）"
+            }
+        ]
+    },
+    {
+        "rule": "OTHER TYPES OF LIGHTS\n• Parking lights: Parking lights are to be used for a short period of time, such as when a vehicle is left in a permitted zone, to show other motorists where a vehicle is parked. Parking lights are required on vehicles parked in areas other than business or residential zones.\n• Taillights: Taillights turn on at the same time as a vehicle’s headlights and parking lights. They become brighter when a motorist applies the brakes to show that he/she is slowing or stopping. During the day, without headlights, the taillights also turn on as a motorist applies the brakes.\n• Brake lights: Brake lights become brighter when a motorist applies the brakes, showing that the vehicle is slowing or stopping.\n• Interim (overhead) lights: Found inside the vehicle, these types of lights should be used only briefly (when necessary) when driving or to comply with a police officer’s request to illuminate the motorist’s compartment of the vehicle when stopped.\n• Dashboard lights: If dashboard lights are too bright, they may create a glare for the motorist and impede vision. The lights should be kept dim but still light enough for a motorist to read the dials.\n• Spotlights: Spotlights should be used only in emergencies. This also applies to emergency flashers (hazard lights). Spotlights may not be used for driving purposes.\n• Fog lights: These auxiliary driving lights may be used with low-beam headlights to provide general lighting ahead of a motor vehicle, specifically during foggy weather conditions. (N.J.A.C. 13:20-32.25)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "灯光类型": "停车灯",
+                "使用场景": "夜间在允许停车的非商业/住宅区路边停车",
+                "使用时长": "整夜开启",
+                "结果": "成功（符合要求）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "灯光类型": "停车灯",
+                "使用场景": "夜间在商业区路边合法停车",
+                "使用时长": "整夜开启",
+                "结果": "失败（商业区可不开启停车灯）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "灯光类型": "尾灯+刹车灯",
+                "使用场景": "白天行驶中踩刹车",
+                "实际状态": "尾灯和刹车灯均正常点亮并变亮",
+                "结果": "成功（符合要求）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "灯光类型": "尾灯+刹车灯",
+                "使用场景": "夜间开启近光灯正常行驶时踩刹车",
+                "实际状态": "仅刹车灯变亮，尾灯未亮",
+                "结果": "失败（尾灯故障）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "灯光类型": "车内顶灯（Interim lights）",
+                "使用场景": "夜间正常行驶中长时间开启阅读地图",
+                "结果": "失败（禁止长时间使用）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "灯光类型": "车内顶灯",
+                "使用场景": "夜间被警察拦停后按要求短暂开启车内照明",
+                "结果": "成功（符合要求）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "灯光类型": "仪表盘灯光",
+                "使用场景": "夜间行驶",
+                "亮度状态": "调至最亮产生明显眩光",
+                "结果": "失败（影响驾驶人视线）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "灯光类型": "仪表盘灯光",
+                "使用场景": "夜间行驶",
+                "亮度状态": "调至适中，能清楚看清仪表又不刺眼",
+                "结果": "成功（符合要求）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "越野车",
+                "灯光类型": "探照灯（Spotlights）",
+                "使用场景": "正常夜间公路行驶时持续开启",
+                "结果": "失败（禁止用于行驶照明）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "灯光类型": "危险报警闪光灯",
+                "使用场景": "车辆在高速公路应急车道因故障停车，开启双闪",
+                "结果": "成功（符合应急使用规定）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "灯光类型": "雾灯",
+                "使用场景": "大雾天气，开启近光灯+雾灯行驶",
+                "结果": "成功（符合规定）"
+            },
+            {
+                "id": 12,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "灯光类型": "雾灯",
+                "使用场景": "晴朗无雾夜晚，只开雾灯不开近光灯行驶",
+                "结果": "失败（雾灯仅为辅助灯，禁止替代近光灯）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nParking Regulations\nA motorist should always check for traffic when leaving a vehicle after parking. He/she should also check for bicycles or mopeds, which are sometimes difficult to see, before opening the driver-side door and exiting the vehicle. A motorist opening a door into traffic may be liable for any crash with a moving vehicle. It is safer for passengers to exit a parked vehicle from the curbside. A motorist should read parking signs before parking on a city street to be aware of restrictions or time limits. It is illegal for a vehicle to be parked more than six inches from the curb. (N.J.S.A. 39:4-135) Never park where a vehicle will block traffic.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "操作": "停车后开车门下车",
+                "检查动作": "已检查后视镜和侧后方来车及自行车",
+                "开门位置": "路边侧（右侧）",
+                "结果": "成功（合法安全）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "操作": "停车后直接开车门下车",
+                "检查动作": "未检查后方来车",
+                "开门位置": "交通侧（左侧）",
+                "后果": "车门撞到正常行驶的自行车",
+                "结果": "失败（承担事故责任）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "停车位置": "距路缘石4英寸",
+                "操作": "平行停车",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "停车位置": "距路缘石8英寸",
+                "操作": "平行停车",
+                "结果": "失败（违章停车，违反N.J.S.A. 39:4-135）"
+            },
+            {
+                "id": 5,
+                "主体": "乘客",
+                "下车位置": "路边侧（右侧乘客门）",
+                "结果": "成功（安全合规）"
+            },
+            {
+                "id": 6,
+                "主体": "乘客",
+                "下车位置": "交通侧（左侧乘客门）",
+                "结果": "失败（危险行为，可能被处罚或承担责任）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "停车前动作": "已阅读停车标志，确认允许停车且无时间限制",
+                "停车位置": "距路缘石3英寸，不阻挡交通",
+                "结果": "成功（完全合规）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "停车位置": "停在消防栓前",
+                "是否阻挡交通": "否",
+                "结果": "失败（违章停车，属禁止停车区域）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "停车位置": "双排停车，完全阻挡正常车道通行",
+                "结果": "失败（严重违章，阻挡交通）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "停车位置": "单排停在道路右侧，距路缘石5英寸，不影响其他车辆通行",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "操作": "路边临时停车让乘客下车",
+                "乘客下车位置": "路边侧",
+                "检查动作": "驾驶人已确认后方无自行车和机动车",
+                "结果": "成功（安全合规）"
+            }
+        ]
+    },
+    {
+        "rule": "DO NOT PARK (N.J.S.A. 39:4-138)\nUnless directed to do so by a police officer or to avoid a crash, a motorist should never stop or park at any of the following places:\n• In a crosswalk.\n• Between a safety zone for pedestrians and the adjacent curb or within 20 feet of the end of the safety zone.\n• Near properly marked street construction.\n• In a space on public or private property marked for vehicle parking for persons with a disability (unless legally authorized).\n• On an interstate highway.\n• In a sidewalk.\n• In a bus stop zone.\n• In front of a public or private driveway.\n• Within an intersection.\n• Within 10 feet of a fire hydrant.\n• Within 25 feet of a crosswalk at an intersection or sideline of a street or intersection highway, except at alleys.\n• Within 50 feet of a railroad crossing.\n• Within 50 feet of a stop sign.\n• Within 20 feet of the driveway entrance to any fire station and within 75 feet on the street opposite a fire station entrance.\n• On any bridge or elevated roadway or in any tunnel.\n• Next to another vehicle parked at the curb (double parking).\n• In an area where parking is prohibited by municipal ordinance.\nIn case of mechanical trouble or other emergency, a motorist should stop on the right highway shoulder and turn on emergency flashers.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "人行横道内",
+                "是否有警察指挥": "无",
+                "是否有紧急避险": "无",
+                "结果": "失败（违章停车）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "残疾人专用停车位",
+                "是否持有残疾人停车证": "否",
+                "结果": "失败（违章停车）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "残疾人专用停车位",
+                "是否持有残疾人停车证": "是",
+                "结果": "成功（合法停车）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "停车位置": "州际高速公路行车道",
+                "是否有警察指挥": "无",
+                "是否有紧急避险": "无",
+                "结果": "失败（违章停车）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "州际高速公路右侧路肩",
+                "是否有警察指挥": "无",
+                "是否有紧急避险": "是（车辆故障）",
+                "是否开启双闪": "是",
+                "结果": "成功（允许临时停车）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "距离消防栓8英尺",
+                "结果": "失败（违章停车，距消防栓小于10英尺）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "距离消防栓12英尺",
+                "结果": "成功（合法停车）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "消防站车道入口正前方",
+                "结果": "失败（违章停车）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "消防站对面街道距离入口70英尺处",
+                "结果": "失败（违章停车，距消防站入口小于75英尺）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "停车位置": "公共汽车停靠站区域内",
+                "结果": "失败（违章停车）"
+            },
+            {
+                "id": 11,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "路边已停一辆车旁边（并排双停车）",
+                "结果": "失败（违章双停车）"
+            },
+            {
+                "id": 12,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "距离路口人行横道23英尺",
+                "结果": "失败（违章停车，距人行横道小于25英尺）"
+            },
+            {
+                "id": 13,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "距离停止标志45英尺",
+                "结果": "失败（违章停车，距停止标志小于50英尺）"
+            },
+            {
+                "id": 14,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "桥梁上方行车道",
+                "结果": "失败（违章停车）"
+            },
+            {
+                "id": 15,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "市政条例明确禁止停车区域（有禁止停车标志）",
+                "结果": "失败（违章停车）"
+            },
+            {
+                "id": 16,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "停车位置": "私家车道入口正前方挡住出入口",
+                "结果": "失败（违章停车）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nCellular Telephones\nState law prohibits the use of handheld electronic devices (such as cellular telephone) while driving a motor vehicle on any public road or highway. Using a handheld cellular telephone or texting device is a primary offense. Law enforcement may stop and cite a motorist specifically for these actions. Motorists are permitted to use a hands-free cellular telephone if it does not interfere with any federally required safety equipment or with the safe operation of the vehicle. Although the use of a hands-free cellular telephone is legal, it is strongly discouraged.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "城市主干道",
+                "使用设备": "手持手机通话",
+                "是否免提": "否",
+                "结果": "失败（违章，可被直接拦停处罚）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路",
+                "使用设备": "手持手机发短信",
+                "是否免提": "否",
+                "结果": "失败（违章，可被直接拦停处罚）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "重型货车",
+                "道路类型": "普通公路",
+                "使用设备": "蓝牙耳机免提通话",
+                "是否免提": "是",
+                "是否干扰安全设备或安全驾驶": "否",
+                "结果": "成功（合法，但不推荐）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "城市道路",
+                "使用设备": "车载中控屏免提电话（原厂系统）",
+                "是否免提": "是",
+                "是否干扰安全设备或安全驾驶": "否",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "住宅区道路",
+                "使用设备": "手持手机查看地图",
+                "是否免提": "否",
+                "结果": "失败（违章，手持使用属于禁止行为）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "出租车",
+                "道路类型": "市区道路",
+                "使用设备": "将手机放在耳边通话（单手驾驶）",
+                "是否免提": "否",
+                "结果": "失败（违章）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "高速公路",
+                "使用设备": "使用手机支架+外放免提通话",
+                "是否免提": "是",
+                "是否干扰安全设备或安全驾驶": "否",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "道路类型": "普通公路",
+                "使用设备": "停车在路边（未驶入行车道）手持通话",
+                "车辆状态": "完全停车、非行车状态",
+                "结果": "成功（合法，不属于驾驶中使用）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型客车",
+                "道路类型": "国道",
+                "使用设备": "使用有线耳机免提但长时间低头查看手机屏幕",
+                "是否免提": "是",
+                "是否干扰安全设备或安全驾驶": "是（分心驾驶）",
+                "结果": "成功（免提本身合法，但可能因分心被另行处罚）"
+            },
+            {
+                "id": 10,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "道路类型": "城市道路",
+                "使用设备": "头盔内置蓝牙免提通话",
+                "是否免提": "是",
+                "是否干扰安全设备或安全驾驶": "否",
+                "结果": "成功（合法）"
+            }
+        ]
+    },
+    {
+        "rule": "A handheld cellular telephone may be used only in certain emergency situations, which include:\n• Fire\n• Traffic crash\n• Serious road hazard\n• Medical emergency\n• Hazardous material emergency\nMotorists in the above-mentioned circumstances must keep one hand on the steering wheel while using a handheld telephone. To prove legal use of a handheld telephone while operating a motor vehicle, a motorist may be asked to produce testimony or written statements from appropriate authorities, or telephone records. The fine for breaking this law is $200-$400 for a first offense, $400-$600 for a second offense within 10 years of the first offense, $600-$800 for a third offense within 10 years of the second offense and for all subsequent offenses. A person convicted of a third or subsequent violation shall also be assessed three motor vehicle penalty points. (N.J.S.A. 39:4-97.3) There may be a 90-day license suspension as well.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "场景": "正常行驶，无任何紧急情况",
+                "使用手持电话": "是",
+                "紧急情况类型": "无",
+                "单手握方向盘": "否（双手离开方向盘）",
+                "结果": "失败（违法，首次违章，罚款200-400美元）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "场景": "前方发生火灾",
+                "使用手持电话": "是",
+                "紧急情况类型": "火灾",
+                "单手握方向盘": "是",
+                "能否提供证明材料": "能（消防部门证明+通话记录）",
+                "结果": "成功（合法使用手持电话）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "场景": "本人突发心脏病",
+                "使用手持电话": "是",
+                "紧急情况类型": "医疗紧急情况",
+                "单手握方向盘": "是",
+                "能否提供证明材料": "能（医院急诊记录+通话记录）",
+                "结果": "成功（合法使用手持电话）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "场景": "前方发生交通事故",
+                "使用手持电话": "是",
+                "紧急情况类型": "交通事故",
+                "单手握方向盘": "否（双手持手机）",
+                "能否提供证明材料": "能",
+                "结果": "失败（违法，因未保持单手握方向盘，首次违章，罚款200-400美元）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "场景": "发现前方有危险品泄漏",
+                "使用手持电话": "是",
+                "紧急情况类型": "危险品紧急情况",
+                "单手握方向盘": "是",
+                "能否提供证明材料": "不能（无任何记录或证人）",
+                "结果": "失败（违法，无法证明属紧急情况，罚款200-400美元）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "违章历史": "过去10年内已有两次手持电话违章",
+                "场景": "正常行驶",
+                "使用手持电话": "是",
+                "紧急情况类型": "无",
+                "单手握方向盘": "是",
+                "结果": "失败（第三次违章，罚款600-800美元+记3分+可能吊销驾照90天）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "违章历史": "过去10年内已有一次手持电话违章",
+                "场景": "前方道路有严重塌方",
+                "使用手持电话": "是",
+                "紧急情况类型": "严重道路危害",
+                "单手握方向盘": "是",
+                "能否提供证明材料": "能（警方现场记录+通话记录）",
+                "结果": "成功（合法使用手持电话）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "场景": "仅用于导航看地图",
+                "使用手持电话": "是（手持查看）",
+                "紧急情况类型": "无",
+                "单手握方向盘": "是",
+                "结果": "失败（违法，非紧急情况手持使用，首次违章，罚款200-400美元）"
+            },
+            {
+                "id": 9,
+                "主体": "机动车驾驶人",
+                "场景": "拨打911报告前方车辆起火",
+                "使用手持电话": "是",
+                "紧急情况类型": "火灾",
+                "单手握方向盘": "是",
+                "能否提供证明材料": "能（911通话记录）",
+                "结果": "成功（合法使用手持电话）"
+            }
+        ]
+    },
+    {
+        "rule": "“Kulesh’s, Kuberts’ and Bolis’ Law,” enacted in 2012, establishes illegal use of a cellular telephone while driving as recklessness under the vehicular homicide (N.J.S.A. 2C:11-5) and assault by auto (N.J.S.A. 2C-12-1) statutes. The intent and effect of this law is to make it easier for prosecutors to obtain convictions for vehicular homicide or assault by auto against a person who illegally uses a cell phone while driving and, as result, kills or injures someone.",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "行为": "驾驶时使用手机发短信",
+                "违规": "是（非法使用手机）",
+                "事故结果": "造成一人死亡",
+                "法律适用": "车辆凶杀罪（N.J.S.A. 2C:11-5）",
+                "结果": "成功（检察官更容易获得定罪，认定为鲁莽行为）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "大型货车",
+                "行为": "驾驶时接听免提手机",
+                "违规": "否（使用免提不违法）",
+                "事故结果": "造成一人重伤",
+                "法律适用": "汽车袭击罪（N.J.S.A. 2C:12-1）",
+                "结果": "失败（无法认定为鲁莽行为，检察官需证明其他鲁莽因素）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "摩托车",
+                "行为": "驾驶时手持手机通话",
+                "违规": "是（非法使用手机）",
+                "事故结果": "造成两人受伤",
+                "法律适用": "汽车袭击罪（N.J.S.A. 2C:12-1）",
+                "结果": "成功（检察官更容易获得定罪，认定为鲁莽行为）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "行为": "驾驶时查看手机地图（非免提）",
+                "违规": "是（非法使用手机）",
+                "事故结果": "无事故发生",
+                "法律适用": "车辆凶杀罪或汽车袭击罪",
+                "结果": "失败（无死亡或伤害，无罪名适用）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "公交车",
+                "行为": "驾驶时使用手机导航（手持）",
+                "违规": "是（非法使用手机）",
+                "事故结果": "造成一人死亡，一人受伤",
+                "法律适用": "车辆凶杀罪和汽车袭击罪（N.J.S.A. 2C:11-5 和 2C:12-1）",
+                "结果": "成功（检察官更容易获得双重定罪，认定为鲁莽行为）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "行为": "停车时使用手机",
+                "违规": "否（非驾驶状态）",
+                "事故结果": "无事故发生",
+                "法律适用": "车辆凶杀罪或汽车袭击罪",
+                "结果": "失败（不适用鲁莽认定）"
+            },
+            {
+                "id": 7,
+                "主体": "机动车驾驶人",
+                "车辆类型": "SUV",
+                "行为": "驾驶时使用蓝牙耳机通话",
+                "违规": "否（免提使用合法）",
+                "事故结果": "造成一人死亡",
+                "法律适用": "车辆凶杀罪（N.J.S.A. 2C:11-5）",
+                "结果": "失败（无法直接适用该法认定鲁莽）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "行为": "驾驶时手持手机拍照",
+                "违规": "是（非法使用手机）",
+                "事故结果": "造成一人严重受伤",
+                "法律适用": "汽车袭击罪（N.J.S.A. 2C:12-1）",
+                "结果": "成功（检察官更容易获得定罪，认定为鲁莽行为）"
+            }
+        ]
+    },
+    {
+        "rule": "A graduated driver license (GDL) holder may not use a handheld or hands-free cellular telephone, or any other handheld electronic device, when behind the wheel. Doing so is a violation of GDL restrictions. (N.J.S.A. 39:3-13, 39:3-13.2a, 39:3-13.4)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "渐进式驾驶执照（GDL）持有者",
+                "执照阶段": "考察期（Examination Permit）",
+                "驾驶状态": "正在驾驶中",
+                "设备类型": "手持手机",
+                "使用方式": "手持通话",
+                "结果": "失败（违反GDL限制）"
+            },
+            {
+                "id": 2,
+                "主体": "渐进式驾驶执照（GDL）持有者",
+                "执照阶段": "初次驾照（Probationary License）",
+                "驾驶状态": "正在驾驶中",
+                "设备类型": "手机",
+                "使用方式": "蓝牙免提通话",
+                "结果": "失败（违反GDL限制，禁止任何免提手机使用）"
+            },
+            {
+                "id": 3,
+                "主体": "渐进式驾驶执照（GDL）持有者",
+                "执照阶段": "初次驾照（Probationary License）",
+                "驾驶状态": "正在驾驶中",
+                "设备类型": "手持游戏机",
+                "使用方式": "手持玩游戏",
+                "结果": "失败（违反GDL限制，禁止使用任何手持电子设备）"
+            },
+            {
+                "id": 4,
+                "主体": "渐进式驾驶执照（GDL）持有者",
+                "执照阶段": "考察期（Examination Permit）",
+                "驾驶状态": "车辆静止，红灯停车",
+                "设备类型": "手机",
+                "使用方式": "手持发短信",
+                "结果": "失败（GDL限制适用于任何“在方向盘后”情况，包括临时停车）"
+            },
+            {
+                "id": 5,
+                "主体": "渐进式驾驶执照（GDL）持有者",
+                "执照阶段": "初次驾照（Probationary License）",
+                "驾驶状态": "车辆完全停稳并拉手刹，熄火",
+                "设备类型": "手机",
+                "使用方式": "手持通话",
+                "结果": "成功（不属于“在方向盘后”驾驶状态）"
+            },
+            {
+                "id": 6,
+                "主体": "渐进式驾驶执照（GDL）持有者",
+                "执照阶段": "考察期（Examination Permit）",
+                "驾驶状态": "正在驾驶中",
+                "设备类型": "车载内置导航",
+                "使用方式": "触摸屏幕输入目的地",
+                "结果": "成功（车载固定设备不属于手持电子设备）"
+            },
+            {
+                "id": 7,
+                "主体": "渐进式驾驶执照（GDL）持有者",
+                "执照阶段": "初次驾照（Probationary License）",
+                "驾驶状态": "正在驾驶中",
+                "设备类型": "平板电脑",
+                "使用方式": "固定在支架上使用导航（仅语音控制）",
+                "结果": "成功（已固定且非手持即可）"
+            },
+            {
+                "id": 8,
+                "主体": "渐进式驾驶执照（GDL）持有者",
+                "执照阶段": "初次驾照（Probationary License）",
+                "驾驶状态": "正在驾驶中",
+                "设备类型": "智能手表",
+                "使用方式": "抬手腕查看消息通知",
+                "结果": "失败（智能手表属于手持电子设备）"
+            },
+            {
+                "id": 9,
+                "主体": "满龄普通驾照持有者（非GDL）",
+                "执照阶段": "满龄驾照",
+                "驾驶状态": "正在驾驶中",
+                "设备类型": "手机",
+                "使用方式": "蓝牙免提通话",
+                "结果": "成功（GDL限制不适用于满龄驾照持有者）"
+            }
+        ]
+    },
+    {
+        "rule": "A school bus driver may not use a handheld or hands-free cellular telephone while operating a school bus, except in an emergency or when the school bus is parked in a safe area off a highway. (N.J.S.A. 39:3B-25)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "校车驾驶人",
+                "车辆类型": "校车",
+                "车辆状态": "正常行驶中",
+                "手机使用方式": "手持通话",
+                "是否紧急情况": "否",
+                "校车位置": "公路上",
+                "结果": "失败（违法）"
+            },
+            {
+                "id": 2,
+                "主体": "校车驾驶人",
+                "车辆类型": "校车",
+                "车辆状态": "正常行驶中",
+                "手机使用方式": "免提通话",
+                "是否紧急情况": "否",
+                "校车位置": "公路上",
+                "结果": "失败（违法）"
+            },
+            {
+                "id": 3,
+                "主体": "校车驾驶人",
+                "车辆类型": "校车",
+                "车辆状态": "正常行驶中",
+                "手机使用方式": "手持拨打112报警",
+                "是否紧急情况": "是（突发疾病）",
+                "校车位置": "公路上",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 4,
+                "主体": "校车驾驶人",
+                "车辆类型": "校车",
+                "车辆状态": "完全停稳",
+                "手机使用方式": "手持通话",
+                "是否紧急情况": "否",
+                "校车位置": "安全路边区域（非公路）",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 5,
+                "主体": "校车驾驶人",
+                "车辆类型": "校车",
+                "车辆状态": "完全停稳",
+                "手机使用方式": "免提导航",
+                "是否紧急情况": "否",
+                "校车位置": "学校停车场",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 6,
+                "主体": "校车驾驶人",
+                "车辆类型": "校车",
+                "车辆状态": "临时停车但未熄火",
+                "手机使用方式": "手持发短信",
+                "是否紧急情况": "否",
+                "校车位置": "公路紧急停车带",
+                "结果": "失败（违法，未脱离公路）"
+            },
+            {
+                "id": 7,
+                "主体": "校车驾驶人",
+                "车辆类型": "校车",
+                "车辆状态": "正常行驶中",
+                "手机使用方式": "仅查看来电不接听",
+                "是否紧急情况": "否",
+                "校车位置": "高速公路",
+                "结果": "失败（违法，仍属使用手机）"
+            },
+            {
+                "id": 8,
+                "主体": "校车驾驶人",
+                "车辆类型": "校车",
+                "车辆状态": "完全停稳",
+                "手机使用方式": "手持接听家长电话",
+                "是否紧急情况": "否",
+                "校车位置": "安全停车场",
+                "结果": "成功（合法）"
+            }
+        ]
+    },
+    {
+        "rule": "SAFE DRIVING RULES AND REGULATIONS\nLittering\nThrowing trash, debris or rubbish from a moving or parked vehicle is illegal. Litter is a safety hazard and an eyesore. Fines of up to $1,000 may be imposed on motorists found throwing “dangerous objects” from a vehicle onto a roadway. If the vehicle is moving when litter is thrown, the motorist may lose his/her license. All trash, debris or rubbish carried in a vehicle must be covered to keep it from littering the roadway. (N.J.S.A. 39:4-63, 39:4-64)",
+        "testcase": [
+            {
+                "id": 1,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "车辆状态": "静止（停车状态）",
+                "抛出物品": "普通纸屑",
+                "物品性质": "非危险物品",
+                "结果": "失败（构成乱扔垃圾违章，可处以罚款）"
+            },
+            {
+                "id": 2,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "车辆状态": "行驶中",
+                "抛出物品": "饮料罐",
+                "物品性质": "非危险物品",
+                "结果": "失败（行驶中抛物，构成乱扔垃圾违章，可吊销驾驶证）"
+            },
+            {
+                "id": 3,
+                "主体": "机动车驾驶人",
+                "车辆类型": "轻型货车",
+                "车辆状态": "行驶中",
+                "抛出物品": "玻璃瓶",
+                "物品性质": "危险物品",
+                "结果": "失败（行驶中抛危险物品，最高罚款1000美元并可吊销驾驶证）"
+            },
+            {
+                "id": 4,
+                "主体": "机动车驾驶人",
+                "车辆类型": "敞篷皮卡",
+                "车辆状态": "行驶中",
+                "抛出物品": "无（沙土因未覆盖自然飞散）",
+                "物品性质": "沙土",
+                "载货覆盖情况": "未覆盖",
+                "结果": "失败（载运物品未覆盖导致散落，属于乱扔垃圾违章）"
+            },
+            {
+                "id": 5,
+                "主体": "机动车驾驶人",
+                "车辆类型": "敞篷皮卡",
+                "车辆状态": "行驶中",
+                "抛出物品": "无",
+                "物品性质": "建筑垃圾",
+                "载货覆盖情况": "已用篷布完全覆盖固定",
+                "结果": "成功（合法，无散落）"
+            },
+            {
+                "id": 6,
+                "主体": "机动车驾驶人",
+                "车辆类型": "小型轿车",
+                "车辆状态": "静止（路边停车）",
+                "抛出物品": "未抛出（放进车外垃圾桶）",
+                "物品性质": "烟蒂",
+                "结果": "成功（合法）"
+            },
+            {
+                "id": 7,
+                "主体": "乘客（非驾驶人）",
+                "车辆类型": "小型轿车",
+                "车辆状态": "行驶中",
+                "抛出物品": "香烟蒂（由乘客从车窗抛出）",
+                "物品性质": "有潜在危险的燃烧物",
+                "责任主体": "驾驶人",
+                "结果": "失败（驾驶人承担责任，行驶中抛危险物品，可吊销驾驶证）"
+            },
+            {
+                "id": 8,
+                "主体": "机动车驾驶人",
+                "车辆类型": "厢式货车",
+                "车辆状态": "行驶中",
+                "抛出物品": "无（货物全部封闭在厢内）",
+                "物品性质": "废纸",
+                "载货覆盖情况": "封闭厢体",
+                "结果": "成功（合法）"
+            }
+        ]
+    }
+]

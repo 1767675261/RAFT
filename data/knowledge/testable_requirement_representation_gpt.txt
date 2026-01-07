@@ -1,0 +1,117 @@
+## Symbols
+
+Logical Symbols (Grammatical Position: Within Condition/Action/ExpectedOutcome)
+- **AND, OR, NOT** — Binary/unary logical connectors, used to combine sub-expressions or negate.
+- Parentheses **( )** — Control precedence.
+
+Comparison Symbols (Grammatical Position: Atomic Predicate)
+- `=` : Equal to
+- `!=` : Not equal to
+- `<, <=, >, >=` — Numeric comparison (only semantically valid when the field value is numeric)
+- **IN** — Membership test (the right side is a string list or numeric list; list elements must still be strings/numeric values)
+- **BETWEEN** — Interval (format: `<Field> BETWEEN <low> AND <high>`)
+
+Grammar Note: Comparison symbols can only be used to form **atomic predicates** — the smallest unit of Condition/Action/ExpectedOutcome.
+
+
+Domain Symbols (Field names; Grammatical Position: Left side of atomic predicate)
+These identifiers are not language reserved words (i.e., not literal keywords), but **field names** corresponding to metamodel leaf attributes:
+- Precondition-related: Actor, TradingInstrument, TradingMarket, Time, Constraint, Event
+- Operation-related: OperationPart, TradingDirection, TradingMethod, Quantity, Price, Status
+- ExpectedResult-related: ResultStatus, Result
+- Other available domains (if metamodel is extended): OrderID, Account, SettlementMode, etc.
+
+Semantic Role: Field names are used to bind specific string or numeric constants (leaf values must be strings or numbers).
+
+## Syntax
+<Rule> ::= "IF" <Expression> "AND" <Expression> "THEN" <Expression>
+
+<!-- Expression 表示 Condition/Action/ExpectedOutcome 的通用形式 -->
+<Expression> ::= <OrExpr>
+
+<OrExpr> ::= <AndExpr> | <OrExpr> "OR" <AndExpr>
+<AndExpr> ::= <NotExpr> | <AndExpr> "AND" <NotExpr>
+<NotExpr> ::= "NOT" <Primary> | <Primary>
+<Primary> ::= <Atomic> | "(" <Expression> ")"
+
+<!-- 原子谓词 -->
+<Atomic> ::= <Field> <Comparator> <Literal>
+            | <Field> "BETWEEN" <NumericLiteral> "AND" <NumericLiteral>
+            | <Field> "IN" <ListLiteral>
+
+<Field> ::= /* one of domain fields, e.g. */ "Actor" | "TradingInstrument" | "TradingMarket"
+            | "Time" | "Constraint" | "Event"
+            | "OperationPart" | "TradingDirection" | "TradingMethod" | "Quantity" | "Price" | "Status"
+            | "ResultStatus" | "Result"
+            /* 扩展字段按元模型增加 */
+
+<Comparator> ::= "=" | "!=" | "<" | "<=" | ">" | ">="
+
+<ListLiteral> ::= "(" <Literal> { "," <Literal> } ")"
+
+<Literal> ::= <StringLiteral> | <NumericLiteral>
+<StringLiteral> ::= '"' <any-non-quote-chars> '"'
+<NumericLiteral> ::= <integer> | <float>
+
+## Testability Constraints
+-- 1) 结构完备性：每条规则必须包含前置条件、操作、预期结果
+context Rule
+inv StructuralCompleteness:
+    not self.Precondition.oclIsUndefined() and
+    not self.Operation.oclIsUndefined() and
+    not self.ExpectedResult.oclIsUndefined()
+
+-- 2) 元素类型约束：所有叶子字段必须为字符串或数值（不能为枚举型标识）
+context Precondition
+inv PreconditionLeafTypesAreLiteral:
+    (self.Actor.oclIsUndefined() or self.Actor.oclIsTypeOf(String)) and
+    (self.TradingInstrument.oclIsUndefined() or self.TradingInstrument.oclIsTypeOf(String)) and
+    (self.TradingMarket.oclIsUndefined() or self.TradingMarket.oclIsTypeOf(String)) and
+    (self.Time.oclIsUndefined() or self.Time.oclIsTypeOf(String)) and
+    (self.Constraint.oclIsUndefined() or self.Constraint.oclIsTypeOf(String)) and
+    (self.Event.oclIsUndefined() or self.Event.oclIsTypeOf(String))
+
+context Operation
+inv OperationLeafTypesAreLiteral:
+    (self.OperationPart.oclIsUndefined() or self.OperationPart.oclIsTypeOf(String)) and
+    (self.TradingDirection.oclIsUndefined() or self.TradingDirection.oclIsTypeOf(String)) and
+    (self.TradingMethod.oclIsUndefined() or self.TradingMethod.oclIsTypeOf(String)) and
+    (self.Quantity.oclIsUndefined() or self.Quantity.oclIsTypeOf(Integer) or self.Quantity.oclIsTypeOf(Real)) and
+    (self.Price.oclIsUndefined() or self.Price.oclIsTypeOf(Integer) or self.Price.oclIsTypeOf(Real)) and
+    (self.Status.oclIsUndefined() or self.Status.oclIsTypeOf(String))
+
+context ExpectedResult
+inv ExpectedResultLeafTypesAreLiteral:
+    (self.ResultStatus.oclIsUndefined() or self.ResultStatus.oclIsTypeOf(String)) and
+    (self.Result.oclIsUndefined() or self.Result.oclIsTypeOf(String) or self.Result.oclIsTypeOf(Integer) or self.Result.oclIsTypeOf(Real))
+
+-- 3) 可观察性：预期结果必须至少声明一个可观测属性（ResultStatus 或 Result）
+context Rule
+inv ExpectedResultObservable:
+    not self.ExpectedResult.ResultStatus.oclIsUndefined() or not self.ExpectedResult.Result.oclIsUndefined()
+
+-- 4) 可执行性：操作中必须能映射到至少一个操作触发标识（OperationPart或TradingMethod或TradingDirection）
+context Rule
+inv OperationExecutable:
+    not self.Operation.OperationPart.oclIsUndefined() or
+    not self.Operation.TradingMethod.oclIsUndefined() or
+    not self.Operation.TradingDirection.oclIsUndefined()
+
+-- 5) 非二义性/确定性（同一前置条件+操作不应给出相互矛盾的预期结果）
+context Rule
+inv DeterministicOutcome:
+    Rule.allInstances()->forAll(r2 |
+        if r2 <> self and r2.Precondition = self.Precondition and r2.Operation = self.Operation
+        then r2.ExpectedResult.ResultStatus = self.ExpectedResult.ResultStatus
+        else true
+        endif)
+
+-- 6) 可测覆盖性（至少一个测试向量能设置满足 Precondition 的所有字段）
+context Rule
+inv PreconditionGroundable:
+    -- 这里要求 Precondition 中的每个非空字段都可以被测试输入设定为具体值（即为字符串/数值）
+    -- 在结构层面用类型判断保证“可被设置”为具体字面量
+    Precondition.allInstances()->forAll(p |
+        (p.Actor.oclIsUndefined() or p.Actor.oclIsTypeOf(String)) and
+        (p.Time.oclIsUndefined() or p.Time.oclIsTypeOf(String))
+    )

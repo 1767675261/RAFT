@@ -1,0 +1,34 @@
+@startuml
+!theme plain
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+
+class Rule
+
+class Precondition
+class Operation
+class ExpectedResult
+
+Rule -u- Precondition : contains
+Rule -u- Operation : contains
+Rule -u- ExpectedResult : contains
+
+Precondition -u- Actor : contains
+Precondition -u- BondType : contains
+Precondition -u- OperationType : contains
+Precondition -u- TradeDirection : contains
+Precondition -u- TradeMethod : contains
+Precondition -u- TimeCondition : contains
+Precondition -u- Market : contains
+Precondition -u- Constraint : contains
+Precondition -u- SettlementMethod : contains
+Precondition -u- PriceRange : contains
+Precondition -u- Quantity : contains
+Precondition -u- Event : contains
+
+Operation -u- Action : contains
+
+ExpectedResult -u- Status : contains
+ExpectedResult -u- Outcome : contains
+
+@enduml

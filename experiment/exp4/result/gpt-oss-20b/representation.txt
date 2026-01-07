@@ -1,0 +1,237 @@
+## 1.  TRL 语言定义  
+
+> **TRL**（Testable Rule Language）是一种轻量级、面向规则的形式化语言，用来把自然语言规则或需求文档转化为可被 **自动化解析、验证与测试用例生成** 的表达式。  
+> 其核心语法由 **Rule** 这一顶层结构构成，随后是 **Condition**、**Action** 与 **ExpectedOutcome** 三个子结构。  
+> 语法、符号与语义均严格基于所给的元模型（Rule → Precondition/Operation/ExpectedResult 及其叶子），并且所有值均为字符串或数字（不使用枚举），保证可直接映射到数据库、状态机或测试脚本。
+
+---
+
+## 2.  符号系统 (Symbols)
+
+| 符号类型 | 说明 | 语法位置 | 语义作用 |
+|----------|------|----------|----------|
+| **逻辑符号** | `AND`, `OR`, `NOT` | Condition  | 组合子条件，控制布尔运算 |
+| **比较符号** | `=`, `!=`, `>`, `<`, `>=`, `<=` | Condition / ExpectedOutcome | 对字段值进行比较 |
+| **领域符号** | `ParticipantRole`, `TransactionType`, `TradingVenue`, `TransactionDirection`, `OrderStatus`, `TradeResult`, `TradeTime`, `SettlementMethod`, `AnonymityOption`, `OrderType`, `OperationAction`, `ComplianceStatus`, `RiskControlMeasure`, `MarketCondition`, `TradingHours`, `TradeException` | 任何字段位置 | 业务实体或属性的名称（字符串） |
+| **赋值符号** | `:=` | Action | 对字段进行赋值或触发操作 |
+
+> **注意**：所有字段名均为字符串（如 `"ParticipantRole"`、`"OrderStatus"`），不使用枚举，方便后续文本替换与数据驱动测试。
+
+---
+
+## 3.  语法 (Syntax)
+
+> 采用 **BNF**（Backus–Naur Form）表示，顶层结构已给定：
+
+```
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+```
+
+### 3.1 条件 (Condition)
+
+```
+Condition ::= Expr
+            | Condition "AND" Condition
+            | Condition "OR" Condition
+            | "NOT" Condition
+
+Expr ::= <Field> <Comparison> <Value>
+
+Field ::= Identifier            // 领域符号
+Comparison ::= "=" | "!=" | ">" | "<" | ">=" | "<="
+Value ::= String | Number
+```
+
+### 3.2 动作 (Action)
+
+```
+Action ::= Assignment
+         | Operation
+
+Assignment ::= <Field> ":=" <Value>
+
+Operation ::= <OperationAction> "(" [ParamList] ")"
+
+ParamList ::= Param ("," Param)*
+
+Param ::= <Field> "=" <Value>
+```
+
+- `OperationAction` 是叶子层 `OperationAction`（如 `SubmitOrder`, `CancelOrder`, `ModifyOrder` 等）  
+- `Param` 用来描述操作所需的参数，例如 `OrderID=12345`。
+
+### 3.3 预期结果 (ExpectedOutcome)
+
+与 `Condition` 结构相同（但语义为断言）：
+
+```
+ExpectedOutcome ::= Expr
+                  | ExpectedOutcome "AND" ExpectedOutcome
+                  | ExpectedOutcome "OR" ExpectedOutcome
+                  | "NOT" ExpectedOutcome
+```
+
+---
+
+## 4. 语义 (Semantics)
+
+### 4.1 语义模型
+
+- **Condition** → **输入约束**  
+  对系统状态进行布尔约束；在执行动作前，系统必须满足所有 `Expr` 约束。
+
+- **Action** → **操作序列**  
+  1. **Assignment**：直接修改系统状态（如 `OrderStatus := "Accepted"`）。  
+  2. **Operation**：触发系统内部流程（如 `SubmitOrder(OrderID=12345, Direction="Buy")`）。  
+  所有操作均假设是 **确定性** 的，即相同输入产生相同输出。
+
+- **ExpectedOutcome** → **断言**  
+  在动作执行后，系统状态应满足所有 `Expr` 断言；若不满足，则规则执行失败。
+
+### 4.2 形式化语义（操作语义）
+
+> 设 `S` 为系统状态，`C` 为条件表达式，`A` 为动作，`E` 为期望结果。  
+> 语义定义如下：
+
+```
+eval(C, S)  →  Boolean   // 评估条件
+exec(A, S)  →  S'        // 执行动作，返回新状态
+assert(E, S') →  Boolean // 断言期望
+```
+
+- `Rule` 成功执行当且仅当  
+  ```
+  eval(C, S) = true  ∧  assert(E, exec(A, S)) = true
+  ```
+
+---
+
+## 5. 可测试性约束 (Testability Constraints)
+
+> 通过 **OCL（Object Constraint Language）** 表达，确保每条规则在自动化测试环境下可执行、可验证且无隐藏依赖。
+
+### 5.1 OCL 约束
+
+```
+context Rule
+inv: self.condition.isTestable() 
+    and self.action.isTestable()
+    and self.expectedOutcome.isTestable()
+
+context Condition
+inv: self.allFields().forAll(f | f.isObservable())
+    and self.allExpressions().forAll(e | e.isDeterministic())
+
+context Action
+inv: self.isDeterministic()
+    and self.allFields().forAll(f | f.isObservable())
+
+context ExpectedOutcome
+inv: self.allFields().forAll(f | f.isObservable())
+```
+
+**解释**：
+
+- `isObservable()`：字段必须是系统可读/可写的状态（例如数据库列、API 可返回的属性）。  
+- `isDeterministic()`：表达式或操作不含随机性或外部不可控变量。  
+- `allFields()`：递归提取 Condition/Action/ExpectedOutcome 中出现的所有字段。  
+- `allExpressions()`：递归提取 Condition 中的所有 `Expr`。
+
+### 5.2 约束细化
+
+| 约束 | 目的 |
+|------|------|
+| `Condition` 中不包含 `NOT` 与 `OR` 的组合 | 避免产生“否定与或”导致的不可直接验证的布尔逻辑 |
+| `Action` 必须包含至少一个可观察字段的修改 | 防止“无操作”规则 |
+| `ExpectedOutcome` 必须与 `Action` 中至少一个字段相关 | 防止“空断言” |
+| 所有 `Value` 必须是常量（字符串/数字） | 避免运行时输入依赖 |
+| 规则不允许递归引用自身 | 防止死循环 |
+
+---
+
+## 6. TRL 完整定义
+
+```
+/* ------------------ 符号 ------------------ */
+Identifier ::= ParticipantRole | TransactionType | TradingVenue | TransactionDirection
+            | OrderStatus | TradeResult | TradeTime | SettlementMethod | AnonymityOption
+            | OrderType | OperationAction | ComplianceStatus | RiskControlMeasure
+            | MarketCondition | TradingHours | TradeException
+
+/* ------------------ 语法 ------------------ */
+Rule ::= "IF" Condition "AND" Action "THEN" ExpectedOutcome
+
+Condition ::= Expr
+            | Condition "AND" Condition
+            | Condition "OR" Condition
+            | "NOT" Condition
+
+Expr ::= Identifier Comparison Value
+
+Comparison ::= "=" | "!=" | ">" | "<" | ">=" | "<="
+
+Value ::= String | Number
+
+Action ::= Assignment
+         | Operation
+
+Assignment ::= Identifier ":=" Value
+
+Operation ::= OperationAction "(" [ParamList] ")"
+
+ParamList ::= Param ("," Param)*
+
+Param ::= Identifier "=" Value
+
+ExpectedOutcome ::= Expr
+                  | ExpectedOutcome "AND" ExpectedOutcome
+                  | ExpectedOutcome "OR" ExpectedOutcome
+                  | "NOT" ExpectedOutcome
+```
+
+> 所有 `String` 与 `Number` 均为 **原始文本**，不使用枚举，保证可直接映射到数据驱动测试。
+
+---
+
+## 7. 例子
+
+### 7.1 自然语言规则
+
+> “**如果** 交易参与人是会员 **且** 交易类型为债券交易 **且** 交易方向为买入 **则** 订单状态必须为已接受。”
+
+### 7.2 TRL 表达式
+
+```
+IF ParticipantRole = "Member" AND TransactionType = "BondTrade" AND TransactionDirection = "Buy"
+AND Action SubmitOrder(OrderID=12345, Direction="Buy")
+THEN OrderStatus = "Accepted"
+```
+
+**说明**：
+
+- **Condition**：三条 `Expr` 通过 `AND` 组合。  
+- **Action**：`SubmitOrder` 操作，参数 `OrderID` 与 `Direction`。  
+- **ExpectedOutcome**：单条断言 `OrderStatus = "Accepted"`。
+
+### 7.3 可测试性检查
+
+| 检查项 | 结果 | 说明 |
+|--------|------|------|
+| `Condition` 所有字段可观察 | ✔ | `ParticipantRole`, `TransactionType`, `TransactionDirection` 均为系统可读属性 |
+| `Action` 为确定性操作 | ✔ | `SubmitOrder` 仅依据给定参数产生单一订单 |
+| `ExpectedOutcome` 与 `Action` 关联 | ✔ | `OrderStatus` 是 `SubmitOrder` 的结果 |
+| `Value` 为常量 | ✔ | 所有 `Value` 均为字符串/数字 |
+| 规则无递归或循环 | ✔ | 结构简单 |
+
+> **结论**：该规则满足 **TRL** 的可测试性约束，可被自动化测试框架解析、执行并验证。
+
+---
+
+## 8. 结语
+
+TRL 通过 **统一的符号集**、**简洁的 BNF 语法**、**明确的语义映射**以及 **OCL 可测试性约束**，实现了从自然语言规则到可执行测试用例的无缝转换。  
+在实际项目中，只需将业务规则按上述语法书写，即可：
+
+1. 自动生成 **测试用例**（基于 Action 的输入与 ExpectedOutcome 的断言）。  
+2. 自动化 **规则验证**（在测试环境中执行 Condition → Action → ExpectedOutcome 的完整流程）。  
+3. 通过 **OCL 约束**保证规则的 **可测试性**，避免出现不可验证或不可执行的规则。

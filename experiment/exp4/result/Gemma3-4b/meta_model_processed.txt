@@ -1,0 +1,128 @@
+@startuml
+' 定义顶层节点
+class Rule {
+}
+
+' 定义中间层节点
+class Precondition {
+    contains Constraint
+}
+
+class Operation {
+    contains Constraint
+}
+
+class ExpectedResult {
+    contains Constraint
+}
+
+' 定义底层节点 (规则要素)
+class BondTradingParticipant {
+}
+
+class BondTrading {
+}
+
+class Inquiry {
+}
+
+class Declaration {
+}
+
+class Completion {
+}
+
+class Buy {
+}
+
+class Sell {
+}
+
+class Price {
+}
+
+class Quantity {
+}
+
+class Cancellation {
+}
+
+class Repurchase {
+}
+
+class Pledge {
+}
+
+class Auction {
+}
+
+class Negotiation {
+}
+
+class InvestorSuitabilityManagement {
+}
+
+class TradingSystem {
+}
+
+class TradingInformation {
+}
+
+' 关系
+Rule -- Precondition : contains
+Rule -- Operation : contains
+Rule -- ExpectedResult : contains
+
+Precondition -- BondTradingParticipant : constrains
+Precondition -- BondTrading : constrains
+Precondition -- Inquiry : constrains
+Precondition -- Declaration : constrains
+Precondition -- Completion : constrains
+Precondition -- Buy : constrains
+Precondition -- Sell : constrains
+Precondition -- Price : constrains
+Precondition -- Quantity : constrains
+Precondition -- Cancellation : constrains
+Precondition -- Repurchase : constrains
+Precondition -- Pledge : constrains
+Precondition -- Auction : constrains
+Precondition -- Negotiation : constrains
+Precondition -- InvestorSuitabilityManagement : constrains
+Precondition -- TradingSystem : constrains
+Precondition -- TradingInformation : constrains
+
+Operation -- BondTrading : constrains
+Operation -- Inquiry : constrains
+Operation -- Declaration : constrains
+Operation -- Completion : constrains
+Operation -- Buy : constrains
+Operation -- Sell : constrains
+Operation -- Price : constrains
+Operation -- Quantity : constrains
+Operation -- Cancellation : constrains
+Operation -- Repurchase : constrains
+Operation -- Pledge : constrains
+Operation -- Auction : constrains
+Operation -- Negotiation : constrains
+Operation -- TradingSystem : constrains
+Operation -- TradingInformation : constrains
+
+ExpectedResult -- BondTradingParticipant : constrains
+ExpectedResult -- BondTrading : constrains
+ExpectedResult -- Inquiry : constrains
+ExpectedResult -- Declaration : constrains
+ExpectedResult -- Completion : constrains
+ExpectedResult -- Buy : constrains
+ExpectedResult -- Sell : constrains
+ExpectedResult -- Price : constrains
+ExpectedResult -- Quantity : constrains
+ExpectedResult -- Cancellation : constrains
+ExpectedResult -- Repurchase : constrains
+ExpectedResult -- Pledge : constrains
+ExpectedResult -- Auction : constrains
+ExpectedResult -- Negotiation : constrains
+ExpectedResult -- InvestorSuitabilityManagement : constrains
+ExpectedResult -- TradingSystem : constrains
+ExpectedResult -- TradingInformation : constrains
+
+@enduml

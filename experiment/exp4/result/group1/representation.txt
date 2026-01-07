@@ -1,0 +1,327 @@
+# 统一可测试规则语言
+
+## **Unified Testable Rule Language (U-TRL)**
+
+---
+
+## 1. 设计目标（统一抽象）
+
+Unified TRL（U-TRL）是一种**面向规则建模、自动验证和测试生成的形式化语言**，用于：
+
+* 将自然语言规则 → 形式化规则
+* 表达 **条件–动作–结果（CAR / IF–ACTION–THEN）**
+* 支持 **通用逻辑 + 领域建模 + 操作语义 + OCL 级可测试性约束**
+* 同时适配：
+
+  * 业务规则
+  * 金融交易规则
+  * 订单/撮合/结算规则
+
+---
+
+## 2. 符号系统（Symbols）
+
+### 2.1 逻辑符号（统一）
+
+```
+AND | OR | NOT | IF | THEN | ELSE
+```
+
+* 用于条件组合、规则控制流
+* 作用范围：Condition / Action / ExpectedOutcome
+
+---
+
+### 2.2 比较符号（统一）
+
+| 抽象名  | 表达                             |
+| ---- | ------------------------------ |
+| 等于   | `=` , `EQUALS`                 |
+| 不等于  | `!=` , `NOT_EQUALS`            |
+| 大于   | `>` , `GREATER_THAN`           |
+| 小于   | `<` , `LESS_THAN`              |
+| 大于等于 | `>=` , `GREATER_THAN_OR_EQUAL` |
+| 小于等于 | `<=` , `LESS_THAN_OR_EQUAL`    |
+
+---
+
+### 2.3 基础数据类型符号（来自语言1 & 2）
+
+```
+VALUE | STRING | BOOLEAN | NUMBER | DATE | TIME
+IDENTIFIER | VARIABLE | DOMAIN_VARIABLE
+```
+
+---
+
+### 2.4 抽象领域符号（统一建模层）
+
+#### 2.4.1 通用领域符号（语言1）
+
+```
+DomainVariable
+DataField
+Identifier
+```
+
+#### 2.4.2 金融/债券领域符号（语言2）
+
+```
+债券 | 交易 | 参与人 | 价格 | 数量 | 市场 | 结算
+```
+
+#### 2.4.3 交易系统领域符号（语言3）
+
+```
+TradingMarket
+TradingInstrument
+TradingMethod
+TradingPrice
+TradingVolume
+SettlementMethod
+TradingVenue
+TransactionDirection
+TradingTime
+OrderCancellation
+PreviousClosePrice
+```
+
+> ✅ 所有领域符号本质上都是 `DomainVariable` 的具体化
+
+---
+
+### 2.5 操作 / 动作符号（合并）
+
+#### 2.5.1 抽象动作（语言1）
+
+```
+委托 | 返还 | 匹配成交 | 点击成交 | 撤销
+```
+
+#### 2.5.2 系统操作（语言3）
+
+```
+SubmitOrder
+CancelOrder
+Execute
+Confirm
+```
+
+---
+
+### 2.6 结果 / 断言符号（统一）
+
+```
+Success | Failure | Pending
+Assertion
+```
+
+---
+
+## 3. 统一语法（Unified Syntax, BNF）
+
+```bnf
+Rule ::= "IF" <Condition> ["AND" <Action>] "THEN" <ExpectedOutcome>
+
+Condition ::= <Expression>
+            | <Expression> ( "AND" | "OR" ) <Expression>
+            | "NOT" <Expression>
+
+Expression ::= <Comparison>
+             | <DomainVariable>
+             | "(" <Expression> ")"
+
+Comparison ::= <Identifier> <ComparisonOperator> <Value>
+
+ComparisonOperator ::= "=" | "!=" | ">" | "<" | ">=" | "<="
+
+Value ::= <Number> | <String> | <Boolean> | <Date> | <Time> | <DomainVariable>
+
+Action ::= <Operation>
+         | <Operation> ( "AND" <Operation> )*
+         | "NOT" <Operation>
+
+Operation ::= <Verb>
+            | <DataManipulation>
+            | <SystemOperation>
+
+Verb ::= "委托" | "返还" | "匹配成交" | "点击成交" | "撤销"
+
+SystemOperation ::=
+      SubmitOrder "(" <ParameterList> ")"
+    | CancelOrder "(" <ParameterList> ")"
+    | Execute "(" <ParameterList> ")"
+    | Confirm "(" <ParameterList> ")"
+
+ParameterList ::= <DomainVariable> ( "," <DomainVariable> )*
+
+DataManipulation ::= <Identifier> <Value>
+
+ExpectedOutcome ::= <Assertion>
+                  | <Assertion> ( "AND" <Assertion> )*
+                  | "NOT" <Assertion>
+
+Assertion ::= <DomainVariable>
+            | <Value>
+            | "Success"
+            | "Failure"
+            | "Pending"
+```
+
+---
+
+## 4. 统一语义（Semantics）
+
+### 4.1 条件语义（Condition Semantics）
+
+* 条件映射为 **输入约束（Input Constraints）**
+* 所有表达式必须：
+
+  * 可求值
+  * 类型一致
+  * 可被系统或测试引擎验证
+* 示例：
+
+  ```
+  TradingPrice >= 0.9 * PreviousClosePrice
+  ```
+
+---
+
+### 4.2 动作语义（Action Semantics）
+
+* 动作映射为 **可执行操作序列**
+* 支持：
+
+  * 业务动作（返还、撤销）
+  * 系统操作（SubmitOrder / CancelOrder）
+* 参数必须满足领域与系统约束
+
+---
+
+### 4.3 结果语义（Expected Outcome Semantics）
+
+* 结果是 **断言（Assertion）**
+* 用于：
+
+  * 系统状态验证
+  * 交易成功性判断
+  * 测试用例断言
+
+---
+
+### 4.4 操作语义（Operational Semantics）
+
+执行流程：
+
+1. **Evaluate Condition**
+2. **Execute Action (optional)**
+3. **Verify ExpectedOutcome**
+
+---
+
+### 4.5 模型语义（Denotational Semantics）
+
+规则映射为函数：
+
+```
+Rule : InputState → (OutputState, AssertionResult)
+```
+
+---
+
+## 5. 可测试性约束（Testability Constraints）
+
+### 5.1 结构约束
+
+```ocl
+context Rule
+inv: contains("IF") and contains("THEN")
+```
+
+---
+
+### 5.2 条件可验证性
+
+```ocl
+context Condition
+inv: allExpressionsAreEvaluable and allTypesAreConsistent
+```
+
+---
+
+### 5.3 操作可执行性
+
+```ocl
+context Action
+inv: allOperationsAreExecutable and parametersAreValid
+```
+
+---
+
+### 5.4 结果可断言性
+
+```ocl
+context ExpectedOutcome
+inv: allAssertionsAreVerifiable
+```
+
+---
+
+### 5.5 一致性约束
+
+```ocl
+context Rule
+inv:
+  conditionAndExpectedOutcomeAreConsistent and
+  actionIsRelatedToCondition
+```
+
+---
+
+### 5.6 边界与异常测试约束
+
+* 边界值测试（价格、数量、时间）
+* 异常输入测试（格式错误、非法取值）
+* 负路径测试（Failure / Pending）
+
+---
+
+## 6. 统一示例
+
+### 自然语言规则
+
+> 深圳证券交易所的债券买入订单，在 9:15–9:25 集合竞价期间，价格不得低于前收盘价的 90%。
+
+### U-TRL 表达
+
+```trl
+IF TradingMarket = "深圳证券交易所"
+AND TransactionDirection = "买入"
+AND TradingTime = "9:15-9:25"
+THEN TradingPrice >= 0.9 * PreviousClosePrice
+```
+
+---
+
+## 7. 最终总结
+
+✅ 该 **Unified TRL**：
+
+* 完整覆盖 **语言1 / 语言2 / 语言3**
+* 同时支持：
+
+  * 抽象规则
+  * 金融业务规则
+  * 交易系统级规则
+* 具备：
+
+  * 形式语法
+  * 操作语义
+  * 模型语义
+  * OCL 级可测试性约束
+* 可直接用于：
+
+  * 规则引擎
+  * 自动测试生成
+  * 合规与风控规则建模

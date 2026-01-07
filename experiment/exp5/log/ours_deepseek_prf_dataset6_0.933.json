@@ -1,0 +1,9 @@
+{
+    "dataset6": {
+        "0.933": {
+            "precision_testcase": 0.9006514657980456,
+            "recall_testcase": 0.7696078431372549,
+            "f1_testcase": 0.829989006261651
+        }
+    }
+}

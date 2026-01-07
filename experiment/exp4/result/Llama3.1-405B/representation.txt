@@ -1,0 +1,95 @@
+TRL（Testable Rule Language）是一种用于描述可测试规则的形式化语言。TRL在将自然语言规则或需求文档形式化，使其能够被自动解析、验证和生成测试用例。
+
+### 号系统（Symbols）
+
+TRL中使用的符号类型与作用范围包括：
+
+*   辑符号：`AND`、`OR`、`NOT`、`IF`、`THEN`
+*   比较符号：`=`、`!=`、`>`、`<`、`>=`、`<=`
+*   域符号：`AccountType`、`Actor`、`BondType`、`Constraint`、`Market`
+
+每类符号的语法位置与语义角色如下：
+
+*   辑符号：用于表示辑关系
+*   比较符号：用于表示比较关系
+*   域符号：用于表示特定领域的概念
+
+### 语法（Syntax）
+
+TRL的核心组成单元包括：
+
+*   `Rule`：表示一条规则
+*   `Precondition`：表示规则的前置条件
+*   `Operation`：表示规则的操作
+*   `ExpectedResult`：表示规则的预期结果
+
+这些单元的层次结构与组合规则如下：
+
+*   `Rule`包含`Precondition`、`Operation`和`ExpectedResult`
+*   `Precondition`包含`AccountType`、`Actor`、`BondType`、`Constraint`和`Market`
+*   `Operation`包含`BusinessOperation`、`Direction`、`OrderType`、`Price`、`Quantity`、`Time`和`TransactionMethod`
+*   `ExpectedResult`包含`OrderStatus`、`Result`、`ResultStatus`和`Constraint`
+
+BNF表示的语言结构如下：
+
+```
+Rule ::= "IF" <Precondition> "AND" <Operation> "THEN" <ExpectedResult>
+Precondition ::= <AccountType> | <Actor> | <BondType> | <Constraint> | <Market>
+Operation ::= <BusinessOperation> | <Direction> | <OrderType> | <Price> | <Quantity> | <Time> | <TransactionMethod>
+ExpectedResult ::= <OrderStatus> | <Result> | <ResultStatus> | <Constraint>
+```
+
+### 语义（Semantics）
+
+每个语法要素和符号的语义解释如下：
+
+*   `Rule`：表示一条规则
+*   `Precondition`：表示规则的前置条件
+*   `Operation`：表示规则的操作
+*   `ExpectedResult`：表示规则的预期结果
+*   `AccountType`：表示账户类型
+*   `Actor`：表示参与者
+*   `BondType`：表示债券类型
+*   `Constraint`：表示约束
+*   `Market`：表示市场
+*   `BusinessOperation`：表示业务操作
+*   `Direction`：表示方向
+*   `OrderType`：表示订单类型
+*   `Price`：表示价格
+*   `Quantity`：表示数量
+*   `Time`：表示时间
+*   `TransactionMethod`：表示交易方式
+*   `OrderStatus`：表示订单状态
+*   `Result`：表示结果
+*   `ResultStatus`：表示结果状态
+
+### 可测试性约束（Testability Constraints）
+
+TRL中定义了一组形式化约束，确保规则模型满足可测试性条件。这些约束包括：
+
+*   则必须有一个唯一的标识符
+*   则必须有一个明确的前置条件
+*   则必须有一个明确的操作
+*   则必须有一个明确的预期结果
+*   则必须满足辑一致性
+
+这些约束使用OCL（Object Constraint Language）表示如下：
+
+```
+context Rule
+inv: self.id -> notEmpty()
+inv: self.precondition -> notEmpty()
+inv: self.operation -> notEmpty()
+inv: self.expectedResult -> notEmpty()
+inv: self.precondition.oclIsKindOf(Precondition)
+inv: self.operation.oclIsKindOf(Operation)
+inv: self.expectedResult.oclIsKindOf(ExpectedResult)
+```
+
+### 示例
+
+以下是一个TRL示例：
+
+```
+Rule IF Precondition: AccountType = "机构" AND Actor = "债券交易参与人" AND BondType = "国债" AND Constraint = "价格>100" AND Market = "深圳证券交易所"
+AND Operation: BusinessOperation = "买入" AND Direction = "多头" AND OrderType = "限价订单" AND Price = 120 AND Quantity = 100 AND Time

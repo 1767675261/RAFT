@@ -1,0 +1,103 @@
+## 步骤一：规则要素清单
+
+1.  **AccountStatus** - 账户状态（如正常、冻结）
+2.  **BondType** - 债券类型（如国债、公司债）
+3.  **TradingDirection** - 交易方向 (买入/卖出)
+4.  **OrderQuantity** - 订单数量
+5.  **OrderPrice** - 订单价格
+6.  **TransactionTime** - 交易时间
+7.  **MarketStatus** - 市场状态（如正常交易、临时停牌）
+8.  **SettlementType** - 结算类型（如多边净额、逐笔全额）
+9.  **SettlementCycle** - 结算周期
+10. **EntrustmentStatus** - 委托状态（如已申报、已成交、已撤销）
+11. **TransactionStatus** - 交易状态（如未成交、部分成交、完全成交）
+12. **TradingMode** - 交易模式（如匹配成交、点击成交、询价成交、竞买成交、协商成交）
+13. **Counterparty** - 交易对手（如主做市商、一般做市商、投资者）
+14. **RiskControl** - 风险控制（如价格限制、数量限制）
+15. **RegulatoryCompliance** - 监管合规（如内幕交易、操纵市场）
+16. **Constraint** - 通用约束条件（如资金充足性、权限验证）
+17. **OrderCancellation** - 订单撤销
+18. **TransactionConfirmation** - 交易确认
+
+## 步骤二：元模型
+
+```plantuml
+@startuml
+class Rule {
+}
+
+class Precondition {
+}
+
+class Operation {
+}
+
+class ExpectedResult {
+}
+
+Rule "1" -- "1..*" Precondition : contains
+Rule "1" -- "1..*" Operation : contains
+Rule "1" -- "1..*" ExpectedResult : contains
+
+class AccountStatus
+class BondType
+class TradingDirection
+class OrderQuantity
+class OrderPrice
+class TransactionTime
+class MarketStatus
+class SettlementType
+class SettlementCycle
+class EntrustmentStatus
+class TransactionStatus
+class TradingMode
+class Counterparty
+class RiskControl
+class RegulatoryCompliance
+class Constraint
+class OrderCancellation
+class TransactionConfirmation
+
+Precondition "1" -- "1" AccountStatus : contains
+Precondition "1" -- "1" BondType : contains
+Precondition "1" -- "1" RiskControl : contains
+Precondition "1" -- "1" Constraint : contains
+
+Operation "1" -- "1" TradingDirection : contains
+Operation "1" -- "1" OrderQuantity : contains
+Operation "1" -- "1" OrderPrice : contains
+Operation "1" -- "1" TransactionTime : contains
+Operation "1" -- "1" TradingMode : contains
+Operation "1" -- "1" OrderCancellation : contains
+Operation "1" -- "1" Constraint : contains
+
+ExpectedResult "1" -- "1" TransactionStatus : contains
+ExpectedResult "1" -- "1" SettlementType : contains
+ExpectedResult "1" -- "1" SettlementCycle : contains
+ExpectedResult "1" -- "1" EntrustmentStatus : contains
+ExpectedResult "1" -- "1" MarketStatus : contains
+ExpectedResult "1" -- "1" Counterparty : contains
+ExpectedResult "1" -- "1" RegulatoryCompliance : contains
+ExpectedResult "1" -- "1" TransactionConfirmation : contains
+ExpectedResult "1" -- "1" Constraint : contains
+
+@enduml
+```
+**说明：**
+
+*   该元模型遵循三层结构：`Rule` (顶层) -> `Precondition`, `Operation`, `ExpectedResult` (中间层) -> 18个叶子节点 (底层)。
+*   关系类型主要为`contains`，表示中间层节点包含底层要素。
+*   `Constraint`要素被包含在所有三个中间层节点中，表示规则要素在不同阶段都可能受到约束。
+*   所有叶子节点都直接与中间层节点关联，没有进一步的层级划分。
+*   关系方向清晰，从上层到下层，符合规则的逻辑流程。
+*   叶子节点名称与Step1中的名称完全一致。
+*   元模型尽可能覆盖了规则文档和测试用例中涉及的要素，并进行了适当的抽象和归纳。
+*   元模型的设计考虑了领域的可复用性，可以应用于其他类似的债券交易规则建模。
+*   元模型没有包含具体的数值或示例，只保留了要素的名称。
+*   元模型中没有属性或方法，只关注类之间的关系。
+*   元模型严格遵守了输出格式要求。
+*   要素数量为18个，符合要求。
+*   关系名均为小写动词。
+*   类名均为UpperCamelCase。
+*   类体保持空白。
+*   PlantUML代码可直接运行，生成清晰的类图。

@@ -1,0 +1,244 @@
+### 元模型（PlantUML表示） @startuml class Rule class Precondition class Operation class ExpectedResult Rule --> Precondition : contains Rule --> Operation : contains Rule --> ExpectedResult : contains Precondition --> Voltage : contains Precondition --> Frequency : contains Precondition --> Operator : contains Precondition --> Target : contains Operation --> Action : contains Operation --> Fault : contains Operation --> Duration : contains ExpectedResult --> Protection : contains ExpectedResult --> Harmonic : contains ExpectedResult --> Flicker : contains ExpectedResult --> Status : contains ExpectedResult --> PredictionAccuracy : contains ExpectedResult --> PowerResponse : contains @enduml
+
+
+# TRL（Testable Rule Language）完整定义 — 简洁、可直接映射为可测断言
+
+> 设计原则：保持极简的 “key op value” 形式，满足你要的样式：
+> `if key1 op1 value1 and key2 op2 value2 then key3 op3 value3 ...`
+> 同时满足题目要求的顶层格式：
+>
+> ```
+> Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+> ```
+
+---
+
+# 1. 符号系统（Symbols）
+
+（基于给定元模型：Rule → Precondition, Operation, ExpectedResult；Precondition 包含 Voltage, Frequency, Operator, Target；Operation 包含 Action, Fault, Duration；ExpectedResult 包含 Protection, Harmonic, Flicker, Status, PredictionAccuracy, PowerResponse）
+
+**原子符号（标识符 / Keys）**
+允许作为左项（key）的域名（字符串）：
+`Voltage, Frequency, Operator, Target, Action, Fault, Duration, Protection, Harmonic, Flicker, Status, PredictionAccuracy, PowerResponse`
+
+> 解释：左项必须是上面这些字符串之一（区分大小写或按约定的小写/大写规范）。新域可扩展，但必须在元模型中声明。
+
+**比较符号（operators）**
+`=, !=, >, <, >=, <=`
+（语义：常规比较；右项为字符串或数字字面量）
+
+**逻辑符号（connectives）**
+`AND, OR, NOT`（二元/一元连接，短路或非短路语义在语义节定义）
+
+**字面量（Literals）**
+
+* 字符串文字：用单引号或双引号包围，例如 `'Connected'` 或 `"Connected"`
+* 数字文字：十进制数（整数或浮点），例如 `0.9`, `625`, `30`
+  **限制**：禁止 enum 类型——所有右项必须是字符串或数字字面量。
+
+**作用域 / 语法位置**
+
+* 左项（key）只出现在 Comparison 的左边（Condition / Action / ExpectedOutcome 内）
+* operator 只在 Comparison 中出现
+* 字面量只出现在 Comparison 的右边
+* Condition / Action / ExpectedOutcome 皆由 Comparison 通过逻辑符号组合而成（结构一致）
+
+---
+
+# 2. 语法（Syntax — BNF）
+
+顶层格式（不可修改）：
+
+```
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+```
+
+在此基础上，定义 Condition / Action / ExpectedOutcome 的一致结构（简洁统一）：
+
+```
+<Rule> ::= "IF" <Expr> "AND" <Expr> "THEN" <Expr>
+
+<Expr> ::= <Term> ( ("AND" | "OR") <Term> )* 
+<Term> ::= "NOT" <Comparison> | <Comparison>
+
+<Comparison> ::= <Key> <Operator> <Literal>
+
+<Key> ::= "Voltage" | "Frequency" | "Operator" | "Target" | "Action" | "Fault" | "Duration" | "Protection" | "Harmonic" | "Flicker" | "Status" | "PredictionAccuracy" | "PowerResponse"
+
+<Operator> ::= "=" | "!=" | ">" | "<" | ">=" | "<="
+
+<Literal> ::= <Number> | <String>
+
+<Number> ::= digit+ ( "." digit+ )?
+<String> ::= "'" char* "'" | '"' char* '"'
+```
+
+说明：
+
+* Condition、Action、ExpectedOutcome 都使用同一 `<Expr>` 结构（满足“结构风格一致”的要求）。
+* `<Action>` 在语义上表示 **系统行为/操作指令**，但语法上仍允许用 `<Comparison>`（例如 `Action = 'trip'` 或 `Duration >= 0.625`），以保持简洁且可测。
+* 支持嵌套逻辑组合（AND/OR/NOT），但每个比较都是原子 `key op literal`。
+
+---
+
+# 3. 语义（Semantics）
+
+采用**操作语义（Operational Semantics）**，把语句直接映射为可执行判定（输入约束、操作指令序列、断言）。
+
+## 基本语义映射
+
+* `Comparison (Key op Literal)`：
+
+  * 如果 `Key` 属于 **感知/测量** 集（`Voltage, Frequency, PredictionAccuracy, Harmonic, Flicker, PowerResponse` 等），则把它映射为**输入观测量约束**（observable predicate）。
+  * 如果 `Key` 属于 **操作/命令** 集（`Action, Fault, Duration, Operator, Target`），则把它映射为**操作或上下文参数**（执行指令或操作持续时间等）。
+  * 如果 `Key` 属于 **预期输出** 集（`Protection, Status, PredictionAccuracy, PowerResponse` 等），则把它映射为**断言**（post-condition）。
+
+* `<Expr>`（由 Comparison 用 AND/OR/NOT 组合）：
+
+  * 在执行时，Condition 部分被当作前置约束（preconditions）：必须在执行操作前被满足（或由系统输入测量判断为真）。
+  * Action 部分被当作**动作触发或动作参数**：如果 Action 中包含比较（如 `Duration >= 0.625`），则解释为动作的时间约束；如果包含 `Action = 'trip'`，则解释为要执行的操作命令。
+  * ExpectedOutcome 部分被当作**断言**：在执行 Action（或在动作完成/有合理等待期后）检查 ExpectedOutcome 是否成立。
+
+## 小步执行规则（简要）
+
+定义状态 `S` 含系统测量与可执行指令队列。对 Rule `R`：
+
+1. 评估 `Condition` 在当前状态 `S`：若为真（依据测量或上下文），继续；否则，不触发该规则。
+2. 解析 `Action`：
+
+   * 若 Action 为赋值/命令比较（`Action = 'X'`），则把命令加入执行队列；若为持续性约束（`Duration >= 0.625`），则作为动作参数或执行前置条件。
+3. 执行 Action（即时或按参数），推进系统状态 `S -> S'`。
+4. 在动作执行完成或规定的检查时刻，评估 `ExpectedOutcome` 在 `S'` 上是否为真（断言通过/失败）。
+5. 记录结果（可用于生成测试用例的断言与判定准则）。
+
+## 语义注意事项
+
+* 时间单位必须在 right-side literal 中明确（或约定默认单位，在元数据中声明）。例如 `Duration >= 0.625`，默认单位为秒，或写成 `Duration >= 0.625s`（视实现约定）——但形式化语言里把数值作为数字字面量，单位应在外部测试框架或元信息中说明。
+* `Operator`（左侧为 `Operator` key）通常为执行角色/操作者标识——语义上是上下文，不作为枚举值（仍用字符串字面量表示）。
+* 所有断言（ExpectedOutcome）应可测量/可观测（见可测试性约束）。
+
+---
+
+# 4. 可测试性约束（Testability Constraints，用 OCL 形式化）
+
+我们在此把 TRL 的元模型类名假设为：`Rule`, `Expr`, `Comparison`, `Key`, `Literal`，并用 OCL 表达保证可测试性的关键约束。
+
+> 说明：下面 OCL 采用标准 OCL 风格（context ... inv: ...），针对每条规则做静态验证，确保能被测试框架执行。
+
+```
+-- 1) Rule 必须包含 Condition, Action, ExpectedOutcome 三个部分（非空）
+context Rule
+inv: self.Condition->notEmpty() and self.Action->notEmpty() and self.ExpectedOutcome->notEmpty()
+
+-- 2) 每个 Comparison 的 operator 必须是受限集合中的一个
+context Comparison
+inv: self.operator = '=' or self.operator = '!=' or self.operator = '>' or self.operator = '<' or self.operator = '>=' or self.operator = '<='
+
+-- 3) Comparison 的 left 必须是已声明的 Key（与元模型一致）
+context Comparison
+inv: Set{'Voltage','Frequency','Operator','Target','Action','Fault','Duration','Protection','Harmonic','Flicker','Status','PredictionAccuracy','PowerResponse'}->includes(self.left)
+
+-- 4) Comparison 的 right 必须是 字符串 或 数字（禁止 enum）
+context Comparison
+inv: self.right.oclIsTypeOf(String) or self.right.oclIsTypeOf(Real) or self.right.oclIsTypeOf(Integer)
+
+-- 5) ExpectedOutcome 中的 Comparisons 只能引用可观测/输出类 Key（保证可测）
+context Rule
+inv: self.ExpectedOutcome.comparisons->forAll(c |
+      Set{'Protection','Harmonic','Flicker','Status','PredictionAccuracy','PowerResponse'}->includes(c.left)
+)
+
+-- 6) Condition 和 Action 中的 Comparisons 至少包含一个属于输入/操作类（保证触发条件可判定）
+context Rule
+inv: (self.Condition.comparisons->exists(c | Set{'Voltage','Frequency','PredictionAccuracy','Harmonic','Flicker','PowerResponse'}->includes(c.left))) or
+     (self.Action.comparisons->exists(c | Set{'Action','Fault','Duration','Operator','Target'}->includes(c.left)))
+
+-- 7) 所有数值比较的右侧必须带可解析的数量（非 NaN/空）
+context Comparison
+inv: (self.right.oclIsTypeOf(Integer) or self.right.oclIsTypeOf(Real) or (self.right.oclIsTypeOf(String) and self.right.size() > 0))
+
+-- 8) 禁止使用枚举类型作为 right（语义上重复，但再次强调）
+context Comparison
+inv: not(self.right.oclIsTypeOf(Enumeration))
+
+-- 9) 规则必须是可判定的（Condition 在有限测点内可判定）：即 Condition 中每个 Comparison 的 left 对应一个明确的测量/信号标识（此约束依赖实现的信号表）
+-- 表达为：Condition 比较的 left 都在系统信号字典中
+context Rule
+inv: self.Condition.comparisons->forAll(c | SystemSignalDictionary->includes(c.left))
+```
+
+**解释 / 目的**
+
+* 这些约束确保：规则结构完整、比较符与字面量合法、ExpectedOutcome 可被观测并断言、Condition/Action 可判定或可下发为操作指令，从而保证规则可以被自动转换为测试用例与可执行断言。
+* 第9条是可测试性的核心：前置条件必须映射到已知可测信号或参数（这里用抽象的 `SystemSignalDictionary` 表示项目实现中的信号映射表）。
+
+---
+
+# 5. TRL 的完整定义（汇总）
+
+1. 符号表：见第1节（Keys, Operators, Literals, Logical connectors）。
+2. 语法：顶层格式固定，Condition/Action/ExpectedOutcome 皆为 `<Expr>`（由 `Comparison` 用 `AND|OR|NOT` 组合）。BNF 如第2节。
+3. 语义：操作语义，把 Condition→输入约束，Action→操作序列/参数，ExpectedOutcome→断言（见第3节）。
+4. 可测试性约束：用 OCL 明确（见第4节），保证规则可映射为可执行测试（测点、可观测断言、无枚举等）。
+
+---
+
+# 6. 示例（把自然语言规则直接转为 TRL 实例，简单明了）
+
+**自然语言（原文）**：
+“当并网点电压跌低于标称电压的20%且持续不小于0.625秒时，维持低电压穿越；预期并网点状态为运行（未脱网）。”
+
+**TRL（严格遵守顶层格式）**：
+
+```
+IF Voltage < 0.20 AND Duration >= 0.625 THEN Status = 'Connected'
+```
+
+这里把 `Duration >= 0.625` 放在中间的位置作为 <Action>（按我们的语法允许 Action 为 Comparison），完整解析为：
+
+* Condition = `Voltage < 0.20`
+* Action    = `Duration >= 0.625`
+* ExpectedOutcome = `Status = 'Connected'`
+
+**逐条 OCL 可测性检查（对本示例）**：
+
+* Rule 有 Condition、Action、ExpectedOutcome → ✅ 满足第1条约束。
+* 比较符合法（`<`、`>=` 在允许集合中）→ ✅ 第2条。
+* 左项 `Voltage`、`Duration`、`Status` 都在允许 Key 集合中 → ✅ 第3条 & 第5条。
+* 右项 `0.20`, `0.625` 是数字， `'Connected'` 是字符串 → ✅ 第4条 & 第7条。
+* ExpectedOutcome 左项 `Status` 属于输出/可观测集合 → ✅ 第5条。
+* Condition 中的 `Voltage` 明确为观测信号；Action 的 `Duration` 是操作参数 → ✅ 第6条。
+* 假设 `SystemSignalDictionary` 中包含 `Voltage`, `Duration`, `Status` → ✅ 第9条（可判定性/可测点存在）。
+
+因此该规则 **满足 TRL 的可测试性约束**，可以被自动转换为一条测试用例：
+
+* **前置（测量）**：采样并网点电压为 `V`，检查 `V < 0.20`；记录持续时间 `t`。
+* **动作（执行/等待）**：当条件达到后，保持测量 ≥ 0.625s（或把该时长作为触发条件）。
+* **断言**：在动作结束或恢复时刻，断言 `Status == 'Connected'`（由监控或继电保护状态量读取）。
+
+---
+
+# 7. 从 TRL 到测试用例 / 自动化执行（实现提示）
+
+* 为每个 `Key` 在系统中建立**信号字典**（`SystemSignalDictionary`），映射到具体测点/接口（例如 `Voltage -> SCADA.voltage_poc`，`Status -> SCADA.poc_status`）。这是实现 OCL 第9条的必要条件。
+* 解析器步骤：
+
+  1. 语法解析（BNF）→ 抽象语法树（AST）
+  2. 语义检查（OCL 约束）→ 合法/不合法标记与错误信息
+  3. 生成执行脚本：将 Condition 映射为采样断言，将 Action 映射为命令或等待参数，将 ExpectedOutcome 映射为最终断言。
+* 时间单位与量纲：在工程实现中必须有全局约定或每个 Comparison 附带元信息（例如 `Duration >= 0.625 [s]`）。语言层面要求 **数值字面量 + 外部元数据** 明确单位。
+
+---
+
+# 8. 小结（一句话）
+
+TRL 设计为**极简的“key op value”原子比较 + 逻辑组合**，顶层强制 `IF <Condition> AND <Action> THEN <ExpectedOutcome>`，同时通过 OCL 约束保证规则**可判定、可观测、可执行**——正好符合你希望的简单形式：
+`if key1 op1 value1 and key2 op2 value2 then key3 op3 value3`。
+
+---
+
+如果你愿意，我可以：
+
+* 把上面的 BNF 转成正则/解析器骨架（用于实现解析器）；
+* 或把 OCL 约束翻译成具体的静态校验代码（Python/TypeScript）；
+* 或把示例扩展为一组针对 GB/T19964 中常见条目的 TRL 模板（例如低电压穿越、高电压穿越、功率预测准确度等）。选择一个，我马上给出具体实现片段。

@@ -1,0 +1,114 @@
+## Symbol
+
+Logical Symbols
+text
+Copy Download
+$\neg, \land, \lor, \rightarrow, \leftrightarrow$ // Negation, Conjunction, Disjunction, Implication, Equivalence
+$\forall, \exists$ // Universal Quantifier, Existential Quantifier
+
+
+Comparison Symbols
+text
+Copy Download
+$=, \neq, >, <, \geq, \leq, \in, \notin, \subseteq, \supseteq$ // Comparison Operators
+
+
+Domain Symbols (Based on Metamodel)
+text
+Copy Download
+Actor, TradingInstrument, TradingMarket, Time, Constraint, Event
+Action, TradingDirection, TradingMethod, Quantity, Price, OperationPart, Status
+ResultStatus, Result
+
+## Syntax
+
+Rule ::= "IF" <Condition> "AND" <Action> "THEN" <ExpectedOutcome>
+
+Condition ::= <AtomicCondition> | <CompoundCondition>
+AtomicCondition ::= <DomainElement> <Comparator> <Value>
+CompoundCondition ::= "(" <Condition> ")" 
+                    | <Condition> "AND" <Condition>
+                    | <Condition> "OR" <Condition>
+                    | "NOT" <Condition>
+
+Action ::= <AtomicAction> | <CompoundAction>
+AtomicAction ::= <OperationElement> <Comparator> <Value>
+CompoundAction ::= "(" <Action> ")" 
+                 | <Action> "AND" <Action>
+                 | <Action> "OR" <Action>
+
+ExpectedOutcome ::= <AtomicOutcome> | <CompoundOutcome>
+AtomicOutcome ::= <ResultElement> <Comparator> <Value>
+CompoundOutcome ::= "(" <ExpectedOutcome> ")" 
+                  | <ExpectedOutcome> "AND" <ExpectedOutcome>
+
+DomainElement ::= "Actor" | "TradingInstrument" | "TradingMarket" 
+                | "Time" | "Constraint" | "Event"
+                
+OperationElement ::= "Action" | "TradingDirection" | "TradingMethod" 
+                   | "Quantity" | "Price" | "OperationPart" | "Status"
+                   
+ResultElement ::= "ResultStatus" | "Result"
+
+Comparator ::= "=" | "!=" | ">" | "<" | ">=" | "<=" | "in" | "not in"
+
+Value ::= <StringLiteral> | <NumberLiteral> | <BooleanLiteral>
+StringLiteral ::= "'" [^']* "'"
+NumberLiteral ::= [0-9]+ ("." [0-9]+)?
+BooleanLiteral ::= "true" | "false"
+
+## Testability Constraints
+
+-- 可观测性约束
+context Rule
+inv ObservablePrecondition: 
+  self.precondition->forAll(p | 
+    p.actor.isDefined or p.tradingInstrument.isDefined or 
+    p.tradingMarket.isDefined or p.time.isDefined or 
+    p.constraint.isDefined or p.event.isDefined)
+    
+inv ObservableOperation:
+  self.operation->forAll(op | 
+    op.action.isDefined or op.tradingDirection.isDefined or 
+    op.tradingMethod.isDefined or op.quantity.isDefined or 
+    op.price.isDefined or op.operationPart.isDefined or 
+    op.status.isDefined)
+    
+inv ObservableResult:
+  self.expectedResult->forAll(er | 
+    er.resultStatus.isDefined or er.result.isDefined)
+
+-- 可执行性约束
+context Rule
+inv ExecutableAction:
+  self.operation.action->notEmpty() and
+  self.operation.action->forAll(a | 
+    a in Set{'申报', '撤销', '成交', '交付', '返还', '设置', '修改', '取消'})
+
+-- 确定性约束
+context Rule  
+inv DeterministicOutcome:
+  self.expectedResult.result->size() = 1 and
+  self.expectedResult.resultStatus->size() = 1
+
+-- 完整性约束
+context Rule
+inv CompleteScenario:
+  self.precondition->size() >= 1 and
+  self.operation->size() >= 1 and
+  self.expectedResult->size() >= 1
+
+-- 可测量约束
+context Operation
+inv MeasurableQuantity:
+  self.quantity.isDefined implies self.quantity.isNumeric()
+  
+inv MeasurablePrice:
+  self.price.isDefined implies self.price.isNumeric()
+
+-- 时间约束有效性
+context Precondition
+inv ValidTimeConstraint:
+  self.time.isDefined implies 
+    self.time.matches('([0-1]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]') or
+    self.time.matches('.*-.*')
