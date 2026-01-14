@@ -196,7 +196,7 @@ def draw_figure_2_merged():
     metrics = ["precision", "recall", "f1", "rc"]
     llms = ["grok", "deepseek", "gpt"]
     methods = ["ours", "only"]
-    labels = ["K2P-Test (M)", "K2P-Test (I)"]
+    labels = ["RAFT (M)", "RAFT (I)"]
 
     num_datasets = len(datasets)
     gap = 0.5
@@ -210,8 +210,8 @@ def draw_figure_2_merged():
 
     know_data = json.load(open("log/knowledge_coverage.json", "r", encoding="utf-8"))
     know_data = {
-        "K2P-Test (M)": know_data["ours"] * 100,
-        "K2P-Test (I)": (know_data["grok"]["coverage"] + know_data["deepseek"]["coverage"] + know_data["gpt"]["coverage"]) / 3 * 100
+        "RAFT (M)": know_data["ours"] * 100,
+        "RAFT (I)": (know_data["grok"]["coverage"] + know_data["deepseek"]["coverage"] + know_data["gpt"]["coverage"]) / 3 * 100
     }
 
     # 画知识覆盖率柱子

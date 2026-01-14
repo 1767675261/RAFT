@@ -90,7 +90,7 @@ def draw_figure():
     ax2.set_ylabel('Time (m)', fontsize=22)
     ax2.spines['top'].set_visible(False)  # 隐藏上边框
     ax2.set_xticks(x)
-    ax2.set_xticklabels(["Expert", "LLM4Fin", "E2E LLM", "K2P-Test"], fontsize=22)
+    ax2.set_xticklabels(["Expert", "LLM4Fin", "E2E LLM", "RAFT"], fontsize=22)
     # ax1.set_ylim(1, 10**7)
     # ax1.set_yticks([1, 10, 100, 1000, 10000, 100000, 1000000, 10000000])
     ax2.set_yticks([0, 100, 200, 300, 400])
